@@ -13,6 +13,7 @@
 \usepackage{blindtext}
 \usepackage{syntax}
 \usepackage[all,defaultlines=4]{nowidow}
+\usepackage{hyperref}
 
 \makeatletter
 \def\l@lstlisting#1#2{\@dottedtocline{1}{0em}{1em}{\hspace{1,5em} Lst. #1}{#2}}
@@ -22,6 +23,14 @@
 
 \renewcommand{\sfdefault}{ppl}
 \renewcommand{\baselinestretch}{1.5}
+
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
 
 \title{Bachelorarbeit Proposal v1}
 \author{Clemens Damke}
@@ -42,21 +51,27 @@ Eine Relation kann z.~B. die Freundschaft zwischen zwei Personen oder die Anwese
 
 Gefundene Entitäten und Relationen, die die selben realen Entitäten bzw. Relationen repräsentieren, sollten, so gut wie möglich, als Duplikate erkannt und unifiziert werden.
 
-Abhängig vom Kommunikationspartner kann z.~B. die Person "`Edward F."' sowohl durch das Wort "`Eddi"' als auch duch das Wort "`Papa"' referenziert werden.
 
 \section{Anforderungen}
 
 Gegeben ist ein Stream von Nachrichten, denen ein Absender, ein textueller Inhalt, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendeort, Absendezeit oder benutztes Endgerät, zugeordnet sind.
 
-Ziel ist es aus diesem Nachrichtenstrom einen probabilistischen Wissensgraphen zu konstruieren, der alle Nachrichten und die darin enthaltenen Entitäten als Knoten enthält. Das Verfahren muss inkrementelle Updates es Graphen unterstützen, da laufend neue Nachrichten hinzukommen.
+Ziel ist es aus diesem Nachrichtenstrom einen probabilistischen Wissensgraphen zu konstruieren, der alle Nachrichten und die darin enthaltenen Entitäten als Knoten enthält. Kanten repräsentieren Relationen zwischen Knoten. Der resultierende Graph soll ungewisse Informationen repräsentieren, indem Knoten und/oder Kanten Kofidenzwerte zugeordnet werden. Wie genau dies geschieht, muss erarbeitet werden.
 
-Bei jeder eintreffenden Nachricht muss also ein NLP (natural language processing), insbesondere eine NER (named entity recognition), der Nachricht erfolgen. Relationen zwischen Entitäten innerhalb der Nachricht können ebenfalls bereits erkannt werden. Hierfür kann und soll eine bestehende Lösung NLP verwendet werden.
+Das Verfahren soll zudem inkrementelle Updates des Graphen unterstützen, da laufend neue Nachrichten hinzukommen. Bei jeder eintreffenden Nachricht muss also ein NLP (natural language processing), insbesondere eine NER (named entity recognition), der Nachricht erfolgen. Relationen zwischen Entitäten innerhalb der Nachricht können ebenfalls bereits erkannt werden. Hierfür kann und soll eine bestehende Lösung NLP verwendet werden.
 
-Die so gefundenen lokalen Entitäten und Relationen müssen anschließend in den bestehenden Wissensgraphen eingefügt und mit im Graph bestehenden Entitäten in Relation gebracht werden. Den so gefundenen Relationen, soll dabei ein Konfidenzwert zugeordnet werden. Ein Verfahren hierfür soll gefunden werden. Zu prüfen ist konkret, ob Distanzen und Richtungen zwischen Wortvektoren in einem mittels word embedding (z.~B. word2vec) konsturierten Vektorraums geeignet sind.
+Die so gefundenen lokalen Entitäten und Relationen müssen anschließend in den bestehenden Wissensgraphen eingefügt und mit im Graph bestehenden Entitäten in Relation gebracht werden. Zu prüfen ist konkret, ob Distanzen und Richtungen zwischen Wortvektoren in einem mittels word embedding (z.~B. word2vec) konsturierten Vektorraums für das Finden von Relationen geeignet sind.
 
 Das gefundene Verfahren soll implementiert und mit realen Datensamples getestet werden. Idealerweise wird die Lösung zudem auch im Hinblick auf ihre Skalierbarkeit entworfen.
 
 \section{Verwandte Arbeiten}
-
+{\setstretch{1.0}\begin{enumerate}
+	\item \href{http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf}{word2vec} Tomas Mikolov et al.
+	\item \href{https://arxiv.org/pdf/1103.0398.pdf}{NLP mit word embeddings} Ronan Collobert et al.
+	\item \href{http://stanfordnlp.github.io/CoreNLP/}{Standford CoreNLP} Quelloffene NLP Bibliothek
+	\item \href{https://opennlp.apache.org/}{Apache OpenNLP} Quelloffene NLP Bibliothek
+	\item \href{https://uima.apache.org/uimafit.html}{Apache uimaFIT\textsuperscript{\texttrademark}} Quelloffenes Data Mining Framework (u.~a.) für NLP
+	\item \href{http://www.ong-home.my/papers/kim16knowledge-graph-long.pdf}{Probabilistic Knowledge Graph Construction} Dongwoo Kim et al.
+\end{enumerate}}
 
 \end{document}
