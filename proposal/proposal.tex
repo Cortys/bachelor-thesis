@@ -1,0 +1,68 @@
+\documentclass[11pt, a4paper]{scrreprt}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[light]{roboto}
+\usepackage[all]{nowidow}
+\usepackage{graphicx,curves,float,rotating}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{mathtools}
+
+% Colors:
+\definecolor{blau}{HTML}{355FB3}
+\definecolor{rot}{HTML}{B33535}
+\definecolor{gruen}{HTML}{3BB335}
+
+%Fonts:
+\renewcommand{\rmdefault}{ppl}
+\addtokomafont{subject}{\sffamily\mdseries}
+\addtokomafont{title}{\usekomafont{subject}\color{blau}}
+\addtokomafont{author}{\usekomafont{subject}}
+\addtokomafont{date}{\usekomafont{subject}\normalsize}
+\addtokomafont{publishers}{\usekomafont{subject}}
+
+\addtokomafont{pagenumber}{\sffamily\mdseries}
+
+\addtokomafont{section}{\usekomafont{title}}
+
+% Remove chapter numbers from section numbering:
+\renewcommand*\thesection{\arabic{section}}
+
+\begin{document}
+
+\frontmatter
+\subject{Bachelorarbeit Proposal}
+\title{Online Wissensgraphkonstruktion aus natürlicher Sprache}
+\author{Clemens Damke\\[1ex]
+Matrikelnr. 7011488}
+\publishers{
+{\normalsize betreut von}\\[2ex]
+Prof.\ Dr.\ Eyke Hüllermeier\\
+Intelligente Systeme\\
+Institut für Informatik\\
+Universität Paderborn
+}
+\maketitle
+
+\section{Motivation}
+
+In den letzten Jahren hat die Repräsentation von Wissensbasen durch Graphen immer mehr an Bedeutung gewonnen.
+Google benutzt solche Wissensgraphen z.~B. zum Beantworten von komplexen Suchanfragen.\\
+
+Die Grundidee dabei ist Entitäten durch Knoten und Relationen durch Kanten abzubilden.
+Entitäten können konkrete Dinge, wie z.~B. Personen, aber auch abstrakte Konzepte, wie z.~B. historische Epochen, sein.
+Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. $Person(\text{Da Vinci}) \xrightarrow{\text{lebte in}} Epoche(\text{Renaissance})$.\\
+
+Zur Konstruktion dieser Graphen existieren verschiedene Verfahren.
+Viele davon erfordern allerdings entweder eine einheitlich strukturierte Eingabe oder menschliches Feedback zur Klassifikation und Verifikation von Entitäten und Relationen.
+
+\section{Ziele}
+
+\section{Verwandte Arbeiten}
+
+\section{Inhalte}
+
+\section{Zeitplan}
+
+\end{document}
