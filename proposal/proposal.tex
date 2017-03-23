@@ -5,22 +5,31 @@
 \usepackage[T1]{fontenc}
 \usepackage[light]{roboto}
 \usepackage[all]{nowidow}
-\usepackage{graphicx,curves,float,rotating}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{graphicx, curves, float, rotating}
+\usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
 \usepackage{mathtools}
+
+% Page margins:
+\usepackage[
+	top=25mm,
+	bottom=30mm,
+	left=25mm,
+	right=25mm
+]{geometry}
 
 % Colors:
 \definecolor{blau}{HTML}{355FB3}
 \definecolor{rot}{HTML}{B33535}
 \definecolor{gruen}{HTML}{3BB335}
 
-%Fonts:
+% Fonts:
 \renewcommand{\rmdefault}{ppl}
 \addtokomafont{subject}{\sffamily\mdseries}
 \addtokomafont{title}{\usekomafont{subject}\color{blau}}
 \addtokomafont{author}{\usekomafont{subject}}
 \addtokomafont{date}{\usekomafont{subject}\normalsize}
 \addtokomafont{publishers}{\usekomafont{subject}}
+\addtokomafont{titlehead}{\raggedleft\sffamily\mdseries\small\textit}
 
 \addtokomafont{pagenumber}{\sffamily\mdseries}
 
@@ -32,25 +41,26 @@
 \begin{document}
 
 \frontmatter
+\titlehead{Entwurf 1}
 \subject{Bachelorarbeit Proposal}
 \title{
 	Online Wissensgraphkonstruktion\\
 	aus natürlicher Sprache
-	}
+}
 \author{
 	Clemens Damke\\[1ex]
 	Matrikelnr. 7011488
 }
 \publishers{
 	{\normalsize betreut von}\\[2ex]
-	Prof.\ Dr.\ Eyke Hüllermeier\\
+	Prof.~Dr.~Eyke Hüllermeier\\
 	Intelligente Systeme\\
 	Institut für Informatik\\
 	Universität Paderborn
 }
 \maketitle
 
-\section{Motivation}
+\section{Motivation und Hintergrund}
 
 In den letzten Jahren hat die Repräsentation von Wissensbasen durch Graphen immer mehr an Bedeutung gewonnen.
 Google benutzt solche Wissensgraphen z.~B. zum Beantworten von komplexen Suchanfragen.\\
