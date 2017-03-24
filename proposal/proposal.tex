@@ -103,9 +103,38 @@ Das Ergebnis ist ein sog.\ probabilistischer Wissensgraph.
 
 \section{Ziele der Arbeit}
 
+Das beschriebene Problem der online Wissensgraphkonstruktion aus natürlicher Sprache soll im Kontext von textueller Kommunikation zwischen Menschen näher untersucht werden.
+Gegeben sei ein Stream von Textnachrichten, denen jeweils ein Inhalt, ein Absender, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendezeit, Absendeort oder IP-Adresse, zugeordnet ist.
+Ziel ist es ein skalierbares Verfahren zu entwickeln, welches aus diesem Nachrichtenstrom einen Wissensgraph konstruiert.
+Insbesondere folgende Informationen sollen im resultierenden Graphen abgebildet werden:
+\begin{enumerate}
+	\item Jede Nachricht ist eine Entität und soll mit allen zugehörigen Attributen als Knoten eingefügt werden.
+	\item Jede Person, die eine Nachricht sendet, empfängt oder darin vorkommt, soll als Entität erkannt werden.
+		Personen-Entitäten, die durch eine Entity Resolution mit einer gewissen Konfidenz als identisch erkannt werden, sollen durch eine entsprechend konfidente Äquivalenzkante in Relation gesetzt werden.
+	\item Neben Personen sollen auch Orte, die in Nachrichten vorkommen, erkannt werden.
+		Idealerweise werden erkannten Orten zudem Geokoordinaten zugeordnet.
+	\item Jeder Kante soll, sofern sinnvoll und möglich, ein Zeitpunkt oder Zeitraum zugeordnet werden.
+		So kann z.~B. die Anwesenheit einer Person an einem Ort temporal einsortiert werden.
+\end{enumerate}
+
+Das gesuchte Verfahren soll zudem erweiterbar sein.
+Es sollen Schnittstellen eingeplant werden, um neben dem Textextraktor auch andere Extraktoren, z.~B. für Bilder und Audioaufnahmen, hinzufügen zu können.
+Außerdem sollen die Entity Resolution und Link Prediction Verfahren um domänenspezifische Expertensysteme erweiterbar sein.
+Ein Beispiel hierfür ist die Geokoordinatenzuordnung zu extrahierten Ortsnamen.
+Durch das Erweitern der Link Prediction, kann diese Zuordnung mithilfe eines entsprechenden Expertensystems erfolgen.\\
+
+Wie zuvor erwähnt, soll das gesuchte Verfahren skalierbar sein.
+Das bedeutet konkret, dass die Laufzeit für das Verarbeiten einer Nachricht idealerweise ausschließlich von der Größe der Nachricht und nicht von der bisherigen Größe des Wissensgraphen abhängt.
+Sofern dies nicht möglich ist, soll der Einfluss der Graphgröße auf die Laufzeit soweit wie möglich reduziert werden.
+Die Skalierbarkeit des Verfahrens umfasst zudem auch die Eignung für ein massivparalleles Ausführen im Cluster.\\
+
+Im Rahmen der Arbeit soll ein derartiges Verfahren zuerst entworfen und anschließend implementiert werden.
+Die Skalierbarkeitsanforderungen sollen hierbei primär im Entwurf des Verfahrens berücksichtigt werden.
+Die Parallelisierbarkeit der Implementation ist für diese Arbeit nachrangig.
+
 \section{Verwandte Arbeiten}
 
-\section{Inhalte}
+\section{Vorläufiges Inhaltsverzeichnis}
 
 \section{Zeitplan}
 
