@@ -24,6 +24,8 @@
 
 % Fonts:
 \renewcommand{\rmdefault}{ppl}
+\renewcommand{\baselinestretch}{1.2}
+
 \addtokomafont{subject}{\sffamily\mdseries}
 \addtokomafont{title}{\usekomafont{subject}\color{blau}}
 \addtokomafont{author}{\usekomafont{subject}}
@@ -43,7 +45,6 @@
 
 \begin{document}
 
-\frontmatter
 \titlehead{Entwurf 1}
 \subject{Bachelorarbeit Proposal}
 \title{
@@ -124,7 +125,7 @@ Ein Beispiel hierfür ist die Geokoordinatenzuordnung zu extrahierten Ortsnamen.
 Durch das Erweitern der Link Prediction, kann diese Zuordnung mithilfe eines entsprechenden Expertensystems erfolgen.\\
 
 Wie zuvor erwähnt, soll das gesuchte Verfahren skalierbar sein.
-Das bedeutet konkret, dass die Laufzeit für das Verarbeiten einer Nachricht idealerweise ausschließlich von der Größe der Nachricht und nicht von der bisherigen Größe des Wissensgraphen abhängt.
+Dies bedeutet konkret, dass die Laufzeit für das Verarbeiten einer Nachricht idealerweise ausschließlich von der Größe der Nachricht und nicht von der bisherigen Größe des Wissensgraphs abhängt.
 Sofern dies nicht möglich ist, soll der Einfluss der Graphgröße auf die Laufzeit soweit wie möglich reduziert werden.
 Die Skalierbarkeit des Verfahrens umfasst zudem auch die Eignung für ein massivparalleles Ausführen im Cluster.\\
 
