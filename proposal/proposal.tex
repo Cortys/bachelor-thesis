@@ -7,7 +7,7 @@
 \usepackage[all]{nowidow}
 \usepackage{graphicx, curves, float, rotating}
 \usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
-\usepackage{mathtools}
+\usepackage{mathtools, amssymb}
 
 % Page margins:
 \usepackage[
@@ -72,7 +72,8 @@ Google benutzt solche sog.\ Wissensgraphen z.~B. zum Beantworten von komplexen S
 
 Die Grundidee dabei ist, Entitäten durch Knoten und Relationen durch Kanten abzubilden.
 Entitäten können konkrete Dinge, wie z.~B. Personen, aber auch abstrakte Konzepte, wie z.~B. historische Epochen, sein.
-Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. $Person(\text{Da~Vinci}) \xrightarrow{\text{lebte~in}} Epoche(\text{Renaissance})$.\\
+Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. $Person(\text{Da~Vinci}) \xrightarrow{\text{lebte~in}} Epoche(\text{Renaissance})$.
+Die Entität, von der eine solche Relation ausgeht, wird als Subjekt und die Zielentität als Objekt der Relation bezeichnet.\\
 
 Da solche Graphen in zahlreichen Domänen einsetzbar sind, wird deren automatisierte Konstruktion bereits seit Jahren erforscht.
 Manuelles Konstruieren und vor allem anschließendes Warten und Aktualisieren von Wissensgraphen ist aufgrund der abzubildenden Datenmengen nicht praktikabel.
@@ -134,6 +135,30 @@ Die Skalierbarkeitsanforderungen sollen hierbei primär im Entwurf des Verfahren
 Die Parallelisierbarkeit der Implementation ist für diese Arbeit nachrangig.
 
 \section{Verwandte Arbeiten}
+
+Das soeben beschriebene Problem der Wissensgraphkonstruktion lässt sich als Teilgebiet des Statistical Relational Learnings (SRL) beschreiben. In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren, die auf verschiedenen Annahmen über die Korrelation der zu verarbeitenden Informationen basieren:
+\begin{enumerate}
+	\item \textbf{Latent Feature Models:}
+		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften über Subjekte und Objekte der Relationen gegeben sind.
+	\item \textbf{Graph Feature Models:}
+		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften der Struktur des Graphen im Allgemeinen gegeben sind.
+	\item \textbf{Markov Random Fields:}
+		Es wird angenommen, dass alle Relationen lokale Abhängigkeiten voneinander haben.
+\end{enumerate}
+
+Ein Beispiel für ein Latent Feature Modell ist das RESCAL-Verfahren, welches auf Tensorfaktorisierung basiert.
+Die Grundidee dabei ist es allen Entitäten $i$ einen Feature-Vektor $e_i \in \mathbb{R}^H$ zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
+Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^T\ W_k\ e_j$ beschrieben.
+Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
+RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.
+Lokal stark zusammenhängende Teilgraphen werden allerdings schlecht erkannt, da nur der Feature-Vektor und nicht die Nachbarschaft einer Entität berücksichtigt wird;
+ein Beispiel hierfür sind symmetrische Relationen.
+$$A \xrightarrow{\text{verheiratet mit}} B \implies B \xrightarrow{\text{verheiratet mit}} A$$
+
+Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
+Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
+Ein Beispiel hierfür ist der Path Ranking Algorithmus (PRA). PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
+Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das Additive Relational Effects (ARE) Verfahren, welches die Konfidenzen von RESCAL und PRA addiert, entwickelt.
 
 \section{Vorläufiges Inhaltsverzeichnis}
 
