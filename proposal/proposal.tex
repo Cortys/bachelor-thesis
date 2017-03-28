@@ -43,6 +43,12 @@
 % Disable paragraph indent:
 \setlength{\parindent}{0pt}
 
+% Forbidden hyphenation:
+\hyphenation{MRF}
+\hyphenation{PSL}
+\hyphenation{ADMM}
+\hyphenation{BOCI}
+
 \begin{document}
 
 \titlehead{Entwurf 1}
@@ -158,7 +164,32 @@ $$A \xrightarrow{\text{verheiratet mit}} B \implies B \xrightarrow{\text{verheir
 Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
 Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
 Ein Beispiel hierfür ist der Path Ranking Algorithmus (PRA). PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
-Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das Additive Relational Effects (ARE) Verfahren, welches die Konfidenzen von RESCAL und PRA addiert, entwickelt.
+Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das Additive Relational Effects (ARE) Verfahren, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.\\
+
+Fundamental verschieden von diesen beiden Verfahren sind Markov Random Fields (MRFs).
+Hier sind prinzipiell Abhängigkeiten zwischen allen Relationen möglich, was MRFs sehr flexibel macht.
+Da dies hinsichtlich der Laufzeit schnell impraktikabel wird, wird das Modell um einen Abhängigkeitsgraphen erweitert, der die Anzahl von betrachteten Abhängigkeiten zu reduzieren.
+Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werden:
+Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
+Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
+Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
+Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{0, 1\}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen enthalten, erhält man ein sog.\ Hinge-Loss-MRF\@.
+Ein konkretes Kalkül zur Spezifikation von HL-MRFs ist die Probabilistic Soft Logic (PSL).
+MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren lösen.
+In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
+der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
+Um dieses Problem zu lösen, wurde das Budgeted Online Collective Inference (BOCI) Verfahren entwickelt.
+BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
+Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
+Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den $m$ höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
+Je höher das Budget $m$, desto höher ist die Qualität in Relation zu einer Neukonstruktion des Graphen.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten offline Inferenz.\\
+
+Mittels ADMM und BOCI lässt sich PSL daher für die online Wissensgraphkonstruktion einsetzen.
+Der Vorteil dieses Ansatzes gegenüber eines Latent Feature oder Graph Feature Modells ist, dass sich andere domänenspezifische Expertensysteme leicht in eine PSL Inferenz integrieren lassen.
+PSL erlaubt nämlich die Definition von Funktionen und Prädikaten.
+Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten mit in die Entity Resolution einfließen zu lassen.
+Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese Arbeit gewählt.
 
 \section{Vorläufiges Inhaltsverzeichnis}
 
