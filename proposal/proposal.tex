@@ -36,6 +36,7 @@
 \addtokomafont{pagenumber}{\sffamily\mdseries}
 
 \addtokomafont{section}{\usekomafont{title}}
+\addtokomafont{subsection}{\sffamily\mdseries}
 
 % Remove chapter numbers from section numbering:
 \renewcommand*\thesection{\arabic{section}}
@@ -145,7 +146,19 @@ Die Parallelisierbarkeit der Implementation ist für diese Arbeit nachrangig.
 
 \section{Verwandte Arbeiten}
 
-Das soeben beschriebene Problem der Wissensgraphkonstruktion lässt sich als Teilgebiet des Statistical Relational Learnings (SRL) beschreiben. In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren, die auf verschiedenen Annahmen über die Korrelation der zu verarbeitenden Informationen basieren:
+\subsection{Natural Language Processing}
+
+Bevor der natürlichsprachliche Inhalt einer Nachricht in den zu konstruierenden Wissensgraphen eingefügt werden kann, muss dieser zuerst zerlegt werden.
+Diese Zerlegung, genannt Information Extraction (IE), ist ein Teilgebiet des Natural Language Processings (NLP).
+IE liefert eine Menge von Extraktionstripeln, die zusammen einen Extraktionsgraphen bilden.\\
+
+Zwei konkrete IE Verfahren, die gute Ergebnisse liefern, sind Stanfords OpenIE Verfahren und das OpenIE Verfahren der University of Washington.
+Stanfords Verfahren ist Teil des CoreNLP Projektes, welches neben der Tripelextraktion zudem Module zum Kategorisieren von Entitäten (Person, Ort, Zeitpunkt, etc.) und zum Erkennen von Koreferenzen beinhaltet.
+Im Rahmen der Arbeit ist zu evaluieren, welche Kombination von Verfahren sich gut als Ausgangspunkt für die Wissensgraphkonstruktion eignet.
+
+\subsection{Wissensgraphkonstruktion}
+
+Das zuvor beschriebene Problem der Wissensgraphkonstruktion lässt sich als Teilgebiet des Statistical Relational Learnings (SRL) beschreiben. In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren, die auf verschiedenen Annahmen über die Korrelation der zu verarbeitenden Informationen basieren:
 \begin{enumerate}
 	\item \textbf{Latent Feature Models:}
 		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften über Subjekte und Objekte der Relationen gegeben sind.
@@ -194,7 +207,7 @@ PSL erlaubt nämlich die Definition von Funktionen und Prädikaten.
 Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten mit in die Entity Resolution einfließen zu lassen.
 Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese Arbeit gewählt.
 
-\section{Vorläufiges Inhaltsverzeichnis}
+\section{Vorläufige Struktur}
 
 \section{Zeitplan}
 
