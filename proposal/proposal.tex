@@ -51,6 +51,9 @@
 % Disable paragraph indent:
 \setlength{\parindent}{0pt}
 
+% Change itemize item to square:
+\renewcommand{\labelitemi}{\raisebox{0.45ex}{\rule{.6ex}{.6ex}}}
+
 % Forbidden hyphenation:
 \hyphenation{RESCAL}
 \hyphenation{PRA}
@@ -99,7 +102,7 @@ Bei einer maschinellen automatisierten Konstruktion sind insbesondere zwei Anfor
 	\item Das Verarbeiten von unstrukturierten Eingaben, wie z.~B. natürlichsprachlichen Texten.
 	\item Effizientes Eingliedern neuer Informationen in einen bestehenden Wissensgraphen.
 		Dieses Eingliedern von Informationen umfasst im Speziellen:
-		\begin{enumerate}
+		\begin{itemize}
 			\item \textbf{Entity Resolution:}
 				Hinzukommende Entitäten, die bereits im Graphen enthalten sind, müssen als Duplikate erkannt werden.
 				Dies ist i.~d.~R. nicht trivial, da die selbe Entität durch viele verschiedene, oftmals vom Kontext abhängige, Token repräsentiert werden kann;
@@ -108,7 +111,7 @@ Bei einer maschinellen automatisierten Konstruktion sind insbesondere zwei Anfor
 				Hinzukommende Entitäten müssen mit bereits bestehenden Entitäten in Relation gesetzt werden.
 				Hinzukommende Relationen können zudem benutzt werden um andere Relationen zu inferieren;
 				z.~B. $$Weiblich(A) \land B \xrightarrow{\text{Sohn~von}} A \implies A \xrightarrow{\text{Mutter~von}} B$$
-		\end{enumerate}
+		\end{itemize}
 \end{enumerate}
 
 Die Kombination dieser beiden Anforderungen ist interessant, da das meiste verfügbare Wissen in natürlichsprachlicher Textform vorliegt und zudem permanent neues Wissen entsteht.
@@ -225,6 +228,41 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 \end{figure}
 
 \subsection{Inhaltsverzeichnis}
+
+\begin{enumerate}
+	\item Einleitung
+		\begin{itemize}
+			\item Hintergrund
+			\item Problemstellung
+			\item Ziele
+		\end{itemize}
+	\item Literaturüberblick
+		\begin{itemize}
+			\item Generelle Konstruktionsansätze für Wissensbasen
+			\item Information Extraction im Kontext des Natural Language Processings
+			\item Ansätze zur automatisierten Wissensgraphkonstruktion
+		\end{itemize}
+	\item Theoretische Grundlagen
+		\begin{itemize}
+			\item Open Information Extraction
+			\item Markov Random Fields
+			\item Modellierung von Hinge-Loss-MRFs mit PSL
+			\item Online Optimierung von HL-MRFs mit BOCI
+		\end{itemize}
+	\item Vorgeschlagenes Wissensgraphkonstruktionsverfahren
+		\begin{itemize}
+			\item Grundidee
+			\item Graph-Persistenzschicht
+			\item NLP-Phase
+			\item Graphkonstruktionsphase
+		\end{itemize}
+	\item Ergebnisanalyse
+		\begin{itemize}
+			\item Testmethode
+			\item Ergebnisse
+			\item Zusammenfassung und Ausblick
+		\end{itemize}
+\end{enumerate}
 
 \subsection{Zeitplan}
 
