@@ -8,6 +8,7 @@
 \usepackage{graphicx, curves, float, rotating}
 \usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
 \usepackage{mathtools, amssymb}
+\usepackage[position=bottom, labelfont=sf]{caption}
 
 % Page margins:
 \usepackage[
@@ -40,6 +41,7 @@
 
 % Remove chapter numbers from section numbering:
 \renewcommand*\thesection{\arabic{section}}
+\renewcommand*\thefigure{\arabic{figure}}
 
 % Disable paragraph indent:
 \setlength{\parindent}{0pt}
@@ -209,6 +211,16 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 
 \section{Vorläufige Struktur}
 
-\section{Zeitplan}
+\subsection{Struktur des Verfahrens}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{assets/overview}
+	\caption{Vorläufiges grobes Strukturdiagramm des Verfahrens}\label{fig:overview}
+\end{figure}
+
+\subsection{Inhaltsverzeichnis}
+
+\subsection{Zeitplan}
 
 \end{document}
