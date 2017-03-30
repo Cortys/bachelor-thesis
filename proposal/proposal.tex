@@ -11,6 +11,7 @@
 \usepackage[sort, numbers]{natbib}
 \usepackage[position=bottom, labelfont=sf]{caption}
 \usepackage{hyperref}
+\usepackage{pgfgantt}
 
 % Page margins:
 \usepackage[
@@ -265,6 +266,43 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 \end{enumerate}
 
 \subsection{Zeitplan}
+
+\begin{figure}[h]
+	\centering
+	\begin{ganttchart}[
+		x unit = 0.9cm,
+		y unit title = 0.6cm,
+		vgrid,
+		canvas/.style = {
+			draw = none
+		},
+		title label font = \sffamily,
+		title height = 1,
+		title/.style = {
+			draw = none,
+			fill = none
+		},
+		bar label font = \sffamily,
+		bar label node/.append style = {
+			left = 0.2cm
+		},
+		bar/.append style = {
+			fill = blau,
+			draw = none
+		}
+	]{1}{12}
+		\gantttitle{Woche}{12} \\
+		\gantttitlelist{1,...,12}{1} \\ % ignore triple dots: chktex 11
+
+		\ganttbar{Literaturrecherche}{1}{2} \\
+		\ganttbar{Prototyp}{2}{2} \\
+		\ganttbar{Implementation}{3}{6} \\
+		\ganttbar{Auswertung}{7}{8} \\
+		\ganttbar{Schreiben}{6}{11} \\
+		\ganttbar{Präsentation}{11}{12}
+	\end{ganttchart}
+	\caption{Vorläufiger Zeitplan}\label{fig:timeSchedule}
+\end{figure}
 
 \bibliographystyle{unsrtnat}
 \bibliography{proposal}
