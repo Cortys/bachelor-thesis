@@ -66,7 +66,7 @@
 
 \begin{document}
 
-\titlehead{Entwurf 1}
+\titlehead{Entwurf 2}
 \subject{Bachelorarbeit Proposal}
 \title{
 	Probabilistische online\\
@@ -156,6 +156,17 @@ Die Skalierbarkeitsanforderungen sollen hierbei primär im Entwurf des Verfahren
 Die Parallelisierbarkeit der Implementation ist für diese Arbeit nachrangig.
 
 \section{Verwandte Arbeiten}
+
+\subsection{Ontologie}
+
+Um einen Wissensgraphen konstruieren zu können, muss zuerst definiert werden, wie genau Konzepte und ihre Beziehungen im Graphen repräsentiert werden.
+Die formale Definition dieses Repräsentationsschemas ist eine sog.\ Ontologie.
+Da das zu konstruierende System keine klar definierte Domäne hat, ist es notwendig ein Gleichgewicht zwischen einer allgemeingültigen und einer praktisch verwendbaren Ontologie zu finden.
+Eine potentiell geeignete Grundlage für Konstruktion einer solchen Ontologie sind sog.\ Konzeptgraphen~\cite[S. 213~ff.]{vanHarmelen:2007}.
+Konzeptgraphen sind ein graphbasiertes Logikkalkül mit der Mächtigkeit einer Prädikatenlogik erster Ordnung.
+Sie lassen sich daher zur Beschreibung diverser Domänen einsetzen.
+Zudem existieren Transformationsregeln um die logischen Implikationen eines gegebenen Konzeptgraphen zu bestimmen.
+Eine Ontologie, die diese Ideen benutzt, ist daher potentiell gut als Wissensgraphschema geeignet.
 
 \subsection{Natural Language Processing}
 
