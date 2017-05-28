@@ -165,22 +165,29 @@ Da das zu konstruierende System keine klar definierte Domäne hat, ist es notwen
 Eine potentiell geeignete Grundlage für Konstruktion einer solchen Ontologie sind sog.\ Konzeptgraphen~\cite[S. 213~ff.]{vanHarmelen:2007}.
 Konzeptgraphen sind ein graphbasiertes Logikkalkül mit der Mächtigkeit einer Prädikatenlogik erster Ordnung.
 Sie lassen sich daher zur Beschreibung diverser Domänen einsetzen.
-Zudem existieren Transformationsregeln um die logischen Implikationen eines gegebenen Konzeptgraphen zu bestimmen.
-Eine Ontologie, die diese Ideen benutzt, ist daher potentiell gut als Wissensgraphschema geeignet.
+Zudem existieren Ersetzungsaxiome um logische Inferenzen über Konzeptgraphen durchzuführen.\\
+
+Um mit Konzeptgraphen neben formalen Systemen auch natürlichsprachlich kodiertes Wissen zu beschreiben, wurden sie durch das Interoperable Knowledge Representation for Intelligence Support (IKRIS) Projekt um das modallogische Konzept der Proposition erweitert.
+Die IKRIS Knowledge Language (IKL)~\cite{ikl:online} spezifiziert diese Erweiterung formal.
+Eine Ontologie, die auf Konzeptgraphen und IKL aufbaut, ist daher potentiell gut als Wissensgraphschema geeignet.
+Die Details der zu verwendenden Ontologie müssen im Rahmen dieser Arbeit allerdings noch spezifiziert werden.
 
 \subsection{Natural Language Processing}
 
-Bevor der natürlichsprachliche Inhalt einer Nachricht in den zu konstruierenden Wissensgraphen eingefügt werden kann, muss dieser zuerst zerlegt werden.
-Diese Zerlegung, genannt Information Extraction (IE), ist ein Teilgebiet des Natural Language Processings (NLP).
-IE liefert eine Menge von Extraktionstripeln, die zusammen einen Extraktionsgraphen bilden.\\
+Um den natürlichsprachlichen Inhalt einer Nachricht in den zu konstruierenden Wissensgraphen einfügen zu können, muss dieser zuerst zerlegt und in das Schema der angestrebten Ontologie übersetzt werden.
+Diese Zerlegung ist ein Teilgebiet des Natural Language Processings (NLP), insbesondere ist hiermit das Dependency Parsing (DP) und die Coreference Resolution (CR) gemeint.
+Ersteres ermittelt einen sog. Abhängigkeitsgraphen, der die grammatikalische Struktur der Eingabe beschreibt, letztere bestimmt Äquivalenzklassen von Worten, die auf das selbe Konzept verweisen (insbesondere z.~B. von Pronomina und ihrem Antezedens).
+Da Abhängigkeitsgraphen nur indirekt über die grammatikalische Struktur die semantische Struktur beschreiben, ist neben dem DP und der CR noch eine Transformation in eine zur Ontologie kompatiblen Struktur erforderlich.
+Die Funktionsweise einer solchen Transformation hängt von der angestrebten Ontologie ab und muss daher im Rahmen dieser Arbeit spezifiziert werden.\\
 
-Zwei konkrete IE Verfahren, die gute Ergebnisse liefern, sind Stanfords OpenIE Verfahren~\cite{angeli:2015} und das OpenIE Verfahren der University of Washington~\cite{uw:online}.
-Stanfords Verfahren ist Teil des CoreNLP Projektes~\cite{manning:2014}, welches neben der Tripelextraktion zudem Module zum Kategorisieren von Entitäten (Person, Ort, Zeitpunkt, etc.) und zum Erkennen von Koreferenzen beinhaltet.
+Gute geeignete NLP Systeme existieren allerdings bereits.
+Populär ist z.~B. Stanfords CoreNLP Projekt~\cite{manning:2014}, welches Module zum Dependency Parsing, zum Erkennen von Koreferenzen und zum Kategorisieren von Entitäten (Person, Ort, Zeitpunkt, etc.) beinhaltet.
 Im Rahmen der Arbeit ist zu evaluieren, welche Kombination von Verfahren sich gut als Ausgangspunkt für die Wissensgraphkonstruktion eignet.
 
 \subsection{Wissensgraphkonstruktion}
 
-Das zuvor beschriebene Problem der Wissensgraphkonstruktion lässt sich als Teilgebiet des Statistical Relational Learnings (SRL) beschreiben. In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren~\cite{nickel:2016}, die auf verschiedenen Annahmen über die Korrelation der zu verarbeitenden Informationen basieren:
+Das Einfügen von Nachrichten, die zuvor via NLP in lokale kleine Wissensgraphen übersetzt wurden, in einen bestehenden großen Wissensgraphen und das Schlussfolgern über diesem lässt sich als Teilgebiet des Statistical Relational Learnings (SRL) beschreiben.
+In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren~\cite{nickel:2016}, die auf verschiedenen Annahmen über die Korrelation der zu verarbeitenden Informationen basieren:
 \begin{enumerate}
 	\item \textbf{Latent Feature Models:}
 		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften über Subjekte und Objekte der Relationen gegeben sind.
@@ -211,7 +218,7 @@ Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werd
 Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{0, 1\}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}.
+Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{0, 1\}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{brocheler:2010}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{boyd:2011} lösen.
 In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
@@ -239,6 +246,8 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 	\caption{Vorläufiges grobes Strukturdiagramm des Verfahrens}\label{fig:overview}
 \end{figure}
 
+\pagebreak
+
 \subsection{Inhaltsverzeichnis}
 
 \begin{enumerate}
@@ -250,20 +259,22 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 		\end{itemize}
 	\item Literaturüberblick
 		\begin{itemize}
+			\item Ansätze zur Wissensrepräsentation
 			\item Generelle Konstruktionsansätze für Wissensbasen
-			\item Information Extraction im Kontext des Natural Language Processings
+			\item NLP Verfahren
 			\item Ansätze zur automatisierten Wissensgraphkonstruktion
 		\end{itemize}
 	\item Theoretische Grundlagen
 		\begin{itemize}
-			\item Open Information Extraction
-			\item Markov Random Fields
+			\item Modellierung von Wissen mittels Konzeptgraphen
+			\item Dependency Parsing und Coreference Resolution
 			\item Modellierung von Hinge-Loss-MRFs mit PSL
 			\item Online Optimierung von HL-MRFs mit BOCI
 		\end{itemize}
 	\item Vorgeschlagenes Wissensgraphkonstruktionsverfahren
 		\begin{itemize}
 			\item Grundidee
+			\item Wissensgraphontologie
 			\item Graph-Persistenzschicht
 			\item NLP-Phase
 			\item Graphkonstruktionsphase
@@ -278,7 +289,7 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 
 \subsection{Zeitplan}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{ganttchart}[
 		x unit = 0.9cm,
@@ -292,6 +303,14 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 		title/.style = {
 			draw = none,
 			fill = none
+		},
+		group label font = \sffamily,
+		group label node/.append style = {
+			left = 0.2cm
+		},
+		group/.append style = {
+			fill = rot,
+			draw = none
 		},
 		bar label font = \sffamily,
 		bar label node/.append style = {
@@ -307,9 +326,18 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 
 		\ganttbar{Literaturrecherche}{1}{2} \\
 		\ganttbar{Prototyp}{2}{2} \\
-		\ganttbar{Implementation}{3}{6} \\
+
+		\ganttgroup{Implementation}{3}{6} \\
+		\ganttbar{NLP Modell}{3}{4} \\
+		\ganttbar{PSL Modell}{5}{6} \\
+
 		\ganttbar{Auswertung}{7}{8} \\
-		\ganttbar{Schreiben}{6}{11} \\
+
+		\ganttgroup{Schreiben}{6}{11} \\
+		\ganttbar{Konstruktionsverfahren}{6}{8} \\
+		\ganttbar{Auswertung}{9}{9} \\
+		\ganttbar{Überblick, Grundlagen}{10}{11} \\
+
 		\ganttbar{Präsentation}{11}{12}
 	\end{ganttchart}
 	\caption{Vorläufiger Zeitplan}\label{fig:timeSchedule}
