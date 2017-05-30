@@ -3,7 +3,7 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[light]{roboto}
+\usepackage[sfdefault, light]{roboto}
 \usepackage[all]{nowidow}
 \usepackage{graphicx, curves, float, rotating}
 \usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
@@ -25,10 +25,12 @@
 \definecolor{blau}{HTML}{355FB3}
 \definecolor{rot}{HTML}{B33535}
 \definecolor{gruen}{HTML}{3BB335}
+\definecolor{hellblau}{HTML}{8ea7d7}
 
 % Fonts:
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\baselinestretch}{1.2}
+\renewcommand{\familydefault}{\rmdefault}
 
 \addtokomafont{subject}{\sffamily\mdseries}
 \addtokomafont{title}{\usekomafont{subject}\color{blau}}
@@ -177,11 +179,11 @@ Die Details der zu verwendenden Ontologie müssen im Rahmen dieser Arbeit allerd
 Um den natürlichsprachlichen Inhalt einer Nachricht in den zu konstruierenden Wissensgraphen einfügen zu können, muss dieser zuerst zerlegt und in das Schema der angestrebten Ontologie übersetzt werden.
 Diese Zerlegung ist ein Teilgebiet des Natural Language Processings (NLP), insbesondere ist hiermit das Dependency Parsing (DP) und die Coreference Resolution (CR) gemeint.
 Ersteres ermittelt einen sog. Abhängigkeitsgraphen, der die grammatikalische Struktur der Eingabe beschreibt, letztere bestimmt Äquivalenzklassen von Worten, die auf das selbe Konzept verweisen (insbesondere z.~B. von Pronomina und ihrem Antezedens).
-Da Abhängigkeitsgraphen nur indirekt über die grammatikalische Struktur die semantische Struktur beschreiben, ist neben dem DP und der CR noch eine Transformation in eine zur Ontologie kompatiblen Struktur erforderlich.
+Da Abhängigkeitsgraphen die semantische Struktur eines Textes nur indirekt mittels seiner grammatikalischen Struktur beschreiben, ist neben dem DP und der CR noch eine Transformation in eine zur Ontologie kompatiblen Struktur erforderlich.
 Die Funktionsweise einer solchen Transformation hängt von der angestrebten Ontologie ab und muss daher im Rahmen dieser Arbeit spezifiziert werden.\\
 
-Gute geeignete NLP Systeme existieren allerdings bereits.
-Populär ist z.~B. Stanfords CoreNLP Projekt~\cite{manning:2014}, welches Module zum Dependency Parsing, zum Erkennen von Koreferenzen und zum Kategorisieren von Entitäten (Person, Ort, Zeitpunkt, etc.) beinhaltet.
+Gute geeignete NLP Systeme für den DP und CR Schritt existieren bereits.
+Populär ist z.~B. Stanfords CoreNLP Projekt~\cite{manning:2014}, welches u.~a. Module zum Dependency Parsing, zum Erkennen von Koreferenzen und zum Kategorisieren von Entitäten (Person, Ort, Zeitpunkt, etc.) beinhaltet.
 Im Rahmen der Arbeit ist zu evaluieren, welche Kombination von Verfahren sich gut als Ausgangspunkt für die Wissensgraphkonstruktion eignet.
 
 \subsection{Wissensgraphkonstruktion}
@@ -292,8 +294,9 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 \begin{figure}[H]
 	\centering
 	\begin{ganttchart}[
-		x unit = 0.9cm,
+		x unit = 0.92cm,
 		y unit title = 0.6cm,
+		y unit chart = 0.9cm,
 		vgrid,
 		canvas/.style = {
 			draw = none
@@ -304,15 +307,16 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 			draw = none,
 			fill = none
 		},
-		group label font = \sffamily,
+		group label font = \sffamily\bfseries,
 		group label node/.append style = {
 			left = 0.2cm
 		},
 		group/.append style = {
-			fill = rot,
+			fill = blau,
 			draw = none
 		},
-		bar label font = \sffamily,
+		group peaks tip position = 0,
+		bar label font = \sffamily\bfseries,
 		bar label node/.append style = {
 			left = 0.2cm
 		},
@@ -328,15 +332,20 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 		\ganttbar{Prototyp}{2}{2} \\
 
 		\ganttgroup{Implementation}{3}{6} \\
-		\ganttbar{NLP Modell}{3}{4} \\
-		\ganttbar{PSL Modell}{5}{6} \\
+		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
+			{NLP Modell}{3}{4} \\
+		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
+			{PSL Modell}{5}{6} \\
 
-		\ganttbar{Auswertung}{7}{8} \\
+		\ganttbar{Auswertung}{7}{7} \\
 
 		\ganttgroup{Schreiben}{6}{11} \\
-		\ganttbar{Konstruktionsverfahren}{6}{8} \\
-		\ganttbar{Auswertung}{9}{9} \\
-		\ganttbar{Überblick, Grundlagen}{10}{11} \\
+		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
+			{Überblick, Grundlagen}{6}{7} \\
+		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
+			{Auswertung}{8}{8} \\
+		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
+			{Konstruktionsverfahren\hspace{2mm}}{9}{11} \\
 
 		\ganttbar{Präsentation}{11}{12}
 	\end{ganttchart}
