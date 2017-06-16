@@ -68,7 +68,7 @@
 
 \begin{document}
 
-\titlehead{Entwurf 2}
+\titlehead{Entwurf 3}
 \subject{Bachelorarbeit Proposal}
 \title{
 	Probabilistische online\\
@@ -247,6 +247,40 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 	\includegraphics[width=\linewidth]{assets/overview}
 	\caption{Vorläufiges grobes Strukturdiagramm des Verfahrens}\label{fig:overview}
 \end{figure}
+
+Der vorgestellte Ansatz zur Wissensgraphkonstruktion lässt sich in zwei Hauptschritte unterteilen.
+Diese beiden Schritte werden beim Eintreffen einer Nachricht sequentiell ausgeführt.
+Im ersten Schritt wird mittels eines NLP-Systems ein lokaler Konzeptgraph extrahiert, der strukturiert den Inhalt der eingetroffenen Nachricht repräsentiert.
+Im zweiten Schritt wird dieser lokale Konzeptgraph dann in den bereits existierenden Wissensgraphen eingefügt.
+Mittels eines PSL-Systems werden dann Beziehungen zwischen dem eingefügten Graphen und dem bestehenden Graphen ermittelt.\\
+
+Zur Veranschaulichung dieses Verfahrens folgt ein Beispiel.
+Gegeben sei folgende Nachricht, die am 12.06.2017 von Alice an Bob gesendet wurde:
+\emph{I don't think I saw you yesterday.}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{assets/exampleExtractionGraph}
+	\caption{Lokaler Konzeptgraph der obigen Nachricht}\label{fig:exampleExtractionGraph}
+\end{figure}
+
+Da Konzeptgraphen ein formales Kalkül von der Mächtigkeit einer Prädikatenlogik erster Ordnung sind, lässt sich dieser Graph auch durch folgenden äquivalenten Ausdruck beschreiben:
+\begin{align*}
+	\exists\,& person, date, alice, bob, msg, send, receive, d_1, d_2, c_1:\\
+	& label(person, 'person') \land label(date, 'date') \land label(alice, 'Alice') \land label(bob, 'Bob')\\
+	& \land label(msg, 'message') \land label(send, 'send') \land label(receive, 'receive')\\
+	& \land label(d_1, 12.06.2017) \land label(d_2, 11.06.2017) \land obj(person, alice) \land obj(person, bob)\\
+	& \land obj(date, d_1) \land obj(date, d_2) \land obj(d_1, send) \land obj(send, msg) \land obj(receive, msg)\\
+	& \land subj(send, alice) \land subj(receive, bob) \land obj(msg, c_1)\\
+	& \begin{aligned}
+		\land\, (\exists\,& c_2, c_3, i: nest(c_1, i) \land label(i, 'I') \land i = alice\\
+		& \land (\lnot \exists\, think: nest(c_2, think) \land label(think, 'think') \land subj(think, i) \land obj(think, c_3))\\
+		& \begin{aligned}
+			\land\, (\exists\,& see, you: nest(c_3, see) \land nest(c_3, you) \land label(see, 'see') \land label(you, 'you')\\
+			& \land you = bob \land obj(see, you) \land obj(d_2, see) \land subj(see, i))
+		\end{aligned}
+	\end{aligned}
+\end{align*}
 
 \pagebreak
 
