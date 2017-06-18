@@ -267,7 +267,7 @@ Gegeben sei folgende Nachricht, die am 12.06.2017 von Alice an Bob gesendet wurd
 Da Konzeptgraphen ein formales Kalkül von der Mächtigkeit einer Prädikatenlogik erster Ordnung sind, lässt sich dieser Graph auch durch folgenden äquivalenten Ausdruck beschreiben:
 \begin{align*}
 	(\forall\,& p: poss(p) \rightarrow (conf(p) \leftrightarrow \exists\, x: obj(x, p) \land conf(x)))\\
-	\land (\exists\,& person, date, alice, bob, msg, send, receive, d_1, d_2, c_1:\\
+	\land\, (\exists\,& person, date, alice, bob, msg, send, receive, d_1, d_2, c_1:\\
 	& label(person, \text{`person'}) \land label(date, \text{`date'}) \land label(alice, \text{`Alice'}) \land label(bob, \text{`Bob'})\\
 	& \land label(msg, \text{`message'}) \land label(send, \text{`send'}) \land label(receive, \text{`receive'})\\
 	& \land label(d_1, 12.06.2017) \land label(d_2, 11.06.2017) \land obj(person, alice) \land obj(person, bob)\\
