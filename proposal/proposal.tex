@@ -266,24 +266,31 @@ Gegeben sei folgende Nachricht, die am 12.06.2017 von Alice an Bob gesendet wurd
 
 Da Konzeptgraphen ein formales Kalkül von der Mächtigkeit einer Prädikatenlogik erster Ordnung sind, lässt sich dieser Graph auch durch folgenden äquivalenten Ausdruck beschreiben:
 \begin{align*}
-	\exists\,& person, date, alice, bob, msg, send, receive, d_1, d_2, c_1:\\
+	(\forall\,& p: poss(p) \rightarrow (conf(p) \leftrightarrow \exists\, x: obj(x, p) \land conf(x)))\\
+	\land (\exists\,& person, date, alice, bob, msg, send, receive, d_1, d_2, c_1:\\
 	& label(person, \text{`person'}) \land label(date, \text{`date'}) \land label(alice, \text{`Alice'}) \land label(bob, \text{`Bob'})\\
 	& \land label(msg, \text{`message'}) \land label(send, \text{`send'}) \land label(receive, \text{`receive'})\\
 	& \land label(d_1, 12.06.2017) \land label(d_2, 11.06.2017) \land obj(person, alice) \land obj(person, bob)\\
 	& \land obj(date, d_1) \land obj(date, d_2) \land obj(d_1, send) \land obj(send, msg) \land obj(receive, msg)\\
-	& \land subj(send, alice) \land subj(receive, bob) \land obj(msg, c_1)\\
+	& \land subj(send, alice) \land subj(receive, bob) \land obj(msg, c_1) \land poss(c_1)\\
 	& \begin{aligned}
-		\land\, (&true(c_1) \leftrightarrow \exists\, c_2, c_3, i: nest(c_1, i) \land label(i, \text{`I'}) \land i = alice\\
+		\land\, (&conf(c_1) \rightarrow \exists\, c_2, c_3, i: nest(c_1, i) \land label(i, \text{`I'}) \land i = alice \land poss(c_3)\\
 		& \land (\lnot\exists\, think: nest(c_2, think) \land label(think, \text{`think'}) \land subj(think, i) \land obj(think, c_3))\\
 		& \begin{aligned}
-			\land\, (&true(c_3) \leftrightarrow \exists\, see, you: nest(c_3, see) \land nest(c_3, you) \land label(see, \text{`see'})\\
-			& \land label(you, \text{`you'}) \land you = bob \land obj(see, you) \land obj(d_2, see) \land subj(see, i)))
+			\land\, (&conf(c_3) \rightarrow \exists\, see, you: nest(c_3, see) \land nest(c_3, you) \land label(see, \text{`see'})\\
+			& \land label(you, \text{`you'}) \land you = bob \land obj(see, you) \land obj(d_2, see) \land subj(see, i))))
 		\end{aligned}
 	\end{aligned}
 \end{align*}
 
 Da Sprache, nicht notwendigerweise Wahrheiten beschreibt, wird allen aus einer Nachricht extrahierten Konzepten eine Existenz- bzw. Nonexistenz-Aussage, sowie eine modale Notwendigkeit bzw. Möglichkeit zugeordnet.
-Mögliche, nicht notwendige, Konzepte hängen dabei immer von der Existenz eines Elternkonzeptes ab.
+Die Konfidenz ($conf$) in mögliche Konzepte ($poss$) hängt dabei immer von der Existenz und der Konfidenz in die Aussagekraft eines Elternkonzeptes ab.
+Im obigen Beispiel hängt die Konfidenz in die positive Möglichkeit $c_3$ des Sehens von Bob von der Existenz und der Konfidenz in die Aussagekraft des Denkens der Alice ($think$) ab.
+Da dieses Denken sich im Beispiel in einem negativen Kontext $c_2$ befindet, existiert es nicht, was wiederum bedeutet, dass keine Konfidenz in $c_3$ besteht.
+Die fehlende Konfidenz in $c_3$ bedeutet nicht, dass $c_3$ für falsch gehalten wird, sondern lediglich, dass keine Aussage über die Korrektheit getroffen werden kann.
+Als Mensch weiß man, dass das Nicht-Denken von $A$ für gewöhnlich das Denken von Nicht-$A$ impliziert.
+Dieses domänenspezifische Wissen ist allerdings während der NLP-Phase noch nicht verfügbar.
+Die korrekte Interpretation des Beispiels, d.~h.\ die Konfidenz in das Gegenteil von $c_3$, kann erst in der PSL-Phase erfolgen, wenn der gesamte Wissensgraph zur Verfügung steht.
 
 \pagebreak
 
