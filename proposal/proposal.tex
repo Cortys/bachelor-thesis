@@ -95,7 +95,7 @@ Google, Bing und IBM Watson benutzen solche Wissensgraphen z.~B. zum Beantworten
 
 Die Grundidee dabei ist es, Entitäten durch Knoten und Relationen durch Kanten abzubilden.
 Entitäten können konkrete Dinge, wie z.~B. Personen, aber auch abstrakte Konzepte, wie z.~B. historische Epochen, sein.
-Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. $Person(\text{Da~Vinci}) \xrightarrow{\text{lebte~in}} Epoche(\text{Renaissance})$.
+Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. \(Person(\text{Da~Vinci}) \xrightarrow{\text{lebte~in}} Epoche(\text{Renaissance})\).
 Die Entität, von der eine solche Relation ausgeht, wird als Subjekt und die Zielentität als Objekt der Relation bezeichnet.\\
 
 Da solche Graphen in zahlreichen Domänen einsetzbar sind, wird deren automatisierte Konstruktion bereits seit Jahren erforscht.
@@ -113,7 +113,7 @@ Bei einer maschinellen automatisierten Konstruktion sind insbesondere zwei Anfor
 			\item \textbf{Link Prediction:}
 				Hinzukommende Entitäten müssen mit bereits bestehenden Entitäten in Relation gesetzt werden.
 				Hinzukommende Relationen können zudem benutzt werden um andere Relationen zu inferieren;
-				z.~B. $$Weiblich(A) \land B \xrightarrow{\text{Sohn~von}} A \implies A \xrightarrow{\text{Mutter~von}} B$$
+				z.~B. \[Weiblich(A) \land B \xrightarrow{\text{Sohn~von}} A \implies A \xrightarrow{\text{Mutter~von}} B\]
 		\end{itemize}
 \end{enumerate}
 
@@ -123,7 +123,7 @@ Ein automatisiertes Wissensgraphkonstruktionsverfahren sollte daher beide Anford
 Neben diesen Anforderungen bzgl.\ der Extraktion von Wissen ist zudem wichtig, wie genau der Graph repräsentiert wird.
 Zusätzlich zu Knoten bzw.\ Entitäten und Kanten bzw.\ Relationen sind oftmals weitere Metadaten relevant.
 Dazu zählt insbesondere die Inferernzkonfidenz des Link Predictors.
-Da natürlichsprachliche Eingabeinformationen häufig unvollständig oder fehlerhaft sind, ist es für die Interpretation und Analyse des resultierenden Graphen hilfreich jeder Relation eine Konfidenz $\in [0, 1]$ zuzuordnen.
+Da natürlichsprachliche Eingabeinformationen häufig unvollständig oder fehlerhaft sind, ist es für die Interpretation und Analyse des resultierenden Graphen hilfreich jeder Relation eine Konfidenz \(\in [0, 1]\) zuzuordnen.
 Das Ergebnis ist ein sog.\ probabilistischer Wissensgraph.
 
 \section{Ziele der Arbeit}
@@ -200,13 +200,13 @@ In der Literatur finden sich im Wesentlichen drei Klassen von Verfahren~\cite{ni
 \end{enumerate}
 
 Ein Beispiel für ein Latent Feature Modell ist das RESCAL-Verfahren~\cite{nickel:2013}, welches auf Tensorfaktorisierung basiert.
-Die Grundidee dabei ist es, allen Entitäten $i$ einen Feature-Vektor $e_i \in \mathbb{R}^H$ zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
-Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^T\ W_k\ e_j$ beschrieben.
+Die Grundidee dabei ist es, allen Entitäten \(i\) einen Feature-Vektor \(e_i \in \mathbb{R}^H\) zuzuordnen und für alle Relationen \(k\) eine Gewichtsmatrix \(W_k \in \mathbb{R}^{H \times H}\) zu finden.
+Die Konfidenz in die Existenz einer Relation \(i \xrightarrow{k} j\) wird durch \(e_i^T\ W_k\ e_j\) beschrieben.
 Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
 RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.
 Lokal stark zusammenhängende Teilgraphen werden allerdings schlecht erkannt, da nur der Feature-Vektor und nicht die Nachbarschaft einer Entität berücksichtigt wird;
 ein Beispiel hierfür sind symmetrische Relationen.
-$$A \xrightarrow{\text{verheiratet mit}} B \implies B \xrightarrow{\text{verheiratet mit}} A$$
+\[A \xrightarrow{\text{verheiratet mit}} B \implies B \xrightarrow{\text{verheiratet mit}} A\]
 
 Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
 Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
@@ -220,7 +220,7 @@ Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werd
 Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{0, 1\}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Wählt man ein Kalkül in dem die Atome stetig, also aus \([0, 1]\) statt aus \( \{0, 1\} \) sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{brocheler:2010}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{boyd:2011} lösen.
 In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
@@ -228,8 +228,8 @@ der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
 Um dieses Problem zu lösen, wurde das Budgeted Online Collective Inference (BOCI) Verfahren~\cite{pujara:2015} entwickelt.
 BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
 Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
-Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den $m$ höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
-Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
+Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den \(m\) höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
+Je höher das Budget \(m\), desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
 Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten offline Inferenz.\\
 
 Mittels ADMM und BOCI lässt sich PSL daher für die online Wissensgraphkonstruktion einsetzen.
@@ -285,20 +285,20 @@ Da Konzeptgraphen ein formales Kalkül von der Mächtigkeit einer Prädikatenlog
 Da Sprache nicht notwendigerweise Wahrheiten beschreibt, wird allen aus einer Nachricht extrahierten Konzepten eine Existenz- bzw.\ Nonexistenz-Aussage, sowie eine modale Notwendigkeit bzw. Möglichkeit zugeordnet.
 Diese Zuordnung erfolgt mittels der Einordnung aller Konzepte in einen Kontextbaum.
 Wurzelkonzepte, die außerhalb eines Kontextes stehen werden per Definition als notwendigerweise existent angenommen.
-Im Beispiel sind u.~a.\ $alice$, $bob$ und $msg$ Wurzelkonzepte.\\
+Im Beispiel sind u.~a.\  \(alice\), \(bob\) und \(msg\) Wurzelkonzepte.\\
 
-Die Nachricht $msg$ führt im Beispiel nun einen möglicherweise existenten Kontext $c_1$ ein.
+Die Nachricht \(msg\) führt im Beispiel nun einen möglicherweise existenten Kontext \(c_1\) ein.
 Alle Konzepte innerhalb eines möglichen Kontextes sind höchstens so real, wie dieser Kontext.
-Die Realität von $c_1$ hängt primär von der Interpretation des einleitenden Konzeptes $msg$ ab, d.~h.\ inwiefern der Inhalt von $msg$ der Realität entspricht.
+Die Realität von \(c_1\) hängt primär von der Interpretation des einleitenden Konzeptes \(msg\) ab, d.~h.\ inwiefern der Inhalt von \(msg\) der Realität entspricht.
 Um dies abschätzen zu können, ist zusätzliches domänenspezifisches Wissen erforderlich, welches aus dem kompletten Wissensgraphen stammen muss;
 da in der NLP-Phase Nachrichten isoliert betrachtet werden, kann eine Abwägung der Realität von extrahierten Möglichkeiten also erst in der PSL-Phase erfolgen.\\
 
-Im Beispiel enthält $c_1$ einen notwendigerweise nonexistenten Kontext $c_2$.
-Dies bedeutet, dass $think$ nicht existiert gdw.\ $c_1$ real ist.\\
+Im Beispiel enthält \(c_1\) einen notwendigerweise nonexistenten Kontext \(c_2\).
+Dies bedeutet, dass \(think\) nicht existiert gdw.\  \(c_1\) real ist.\\
 
-$think$ führt nun wiederum einen möglicherweise existenten Kontext $c_3$ ein.
-Um die Realität von $c_3$ abzuschätzen ist, wie schon bei $c_1$, domänenspezifisches Wissen aus dem kompletten Wissesgraphen erforderlich;
-konkrekt muss ermittelt werden, welche Implikationen die Nonexistenz des Denkens von $c_3$ auf die Realität von $c_3$ hat.
+\(think\) führt nun wiederum einen möglicherweise existenten Kontext \(c_3\) ein.
+Um die Realität von \(c_3\) abzuschätzen ist, wie schon bei \(c_1\), domänenspezifisches Wissen aus dem kompletten Wissesgraphen erforderlich;
+konkrekt muss ermittelt werden, welche Implikationen die Nonexistenz des Denkens von \(c_3\) auf die Realität von \(c_3\) hat.
 
 \begin{figure}[h]
 	\centering
