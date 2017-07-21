@@ -68,7 +68,7 @@
 
 \begin{document}
 
-\titlehead{Entwurf 4}
+\titlehead{Entwurf 5}
 \subject{Bachelorarbeit Proposal}
 \title{
 	Probabilistische online\\
@@ -95,7 +95,7 @@ Google, Bing und IBM Watson benutzen solche Wissensgraphen z.~B. zum Beantworten
 
 Die Grundidee dabei ist es, Entitäten durch Knoten und Relationen durch Kanten abzubilden.
 Entitäten können konkrete Dinge, wie z.~B. Personen, aber auch abstrakte Konzepte, wie z.~B. historische Epochen, sein.
-Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. \(Person(\text{Da~Vinci}) \xrightarrow{\text{lebte~in}} Epoche(\text{Renaissance})\).
+Relationen beschreiben beliebige Beziehungen zwischen den Entitäten, z.~B. \(person(\text{Da~Vinci}) \xrightarrow{\text{lived~in}} epoch(\text{Renaissance})\).
 Die Entität, von der eine solche Relation ausgeht, wird als Subjekt und die Zielentität als Objekt der Relation bezeichnet.\\
 
 Da solche Graphen in zahlreichen Domänen einsetzbar sind, wird deren automatisierte Konstruktion bereits seit Jahren erforscht.
@@ -113,7 +113,7 @@ Bei einer maschinellen automatisierten Konstruktion sind insbesondere zwei Anfor
 			\item \textbf{Link Prediction:}
 				Hinzukommende Entitäten müssen mit bereits bestehenden Entitäten in Relation gesetzt werden.
 				Hinzukommende Relationen können zudem benutzt werden um andere Relationen zu inferieren;
-				z.~B. \[Weiblich(A) \land B \xrightarrow{\text{Sohn~von}} A \implies A \xrightarrow{\text{Mutter~von}} B\]
+				z.~B. \[female(A) \land B \xrightarrow{\text{son~of}} A \implies A \xrightarrow{\text{mother~of}} B\]
 		\end{itemize}
 \end{enumerate}
 
@@ -206,7 +206,7 @@ Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ei
 RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.
 Lokal stark zusammenhängende Teilgraphen werden allerdings schlecht erkannt, da nur der Feature-Vektor und nicht die Nachbarschaft einer Entität berücksichtigt wird;
 ein Beispiel hierfür sind symmetrische Relationen.
-\[A \xrightarrow{\text{verheiratet mit}} B \implies B \xrightarrow{\text{verheiratet mit}} A\]
+\[A \xrightarrow{\text{married to}} B \implies B \xrightarrow{\text{married to}} A\]
 
 Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
 Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
