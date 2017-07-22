@@ -222,8 +222,8 @@ Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werd
 Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome stetig, also aus \([0, 1]\) statt aus \( \{0, 1\} \) sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
-Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{brocheler:2010}.
+Wählt man ein Kalkül in dem die Atome stetig, also aus \([0, 1]\) statt aus \( \{0, 1\} \) sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{bach:2013}\cite{bach:2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{brocheler:2010}\cite{bach:2015}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{boyd:2011} lösen.
 In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
 der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
@@ -253,8 +253,12 @@ Aufgrund des Ziels der Erweiterbarkeit wird PSL daher als Grundlage für diese A
 Der vorgestellte Ansatz zur Wissensgraphkonstruktion lässt sich in zwei Hauptschritte unterteilen.
 Diese beiden Schritte werden beim Eintreffen einer Nachricht sequentiell ausgeführt.
 Im ersten Schritt wird mittels eines NLP-Systems ein lokaler Konzeptgraph extrahiert, der strukturiert den Inhalt der eingetroffenen Nachricht repräsentiert.
+Hierfür kann z.~B. das Stanford CoreNLP Framework~\cite{corenlp:online} benutzt werden.\\
+
 Im zweiten Schritt wird dieser lokale Konzeptgraph dann in den bereits existierenden Wissensgraphen eingefügt.
-Mittels eines PSL-Systems werden dann Beziehungen zwischen dem eingefügten Graphen und dem bestehenden Graphen ermittelt.
+Mittels eines PSL-Programms werden dann Beziehungen zwischen dem eingefügten Graphen und dem bestehenden Graphen ermittelt.
+Zur Implementation dieses PSL Programms kann eine bereits existierende PSL Referenzimplementation~\cite{psl:online} benutzt werden;
+diese unterstützt zwar keine Inferenz im Cluster und ausschließlich H2 zur Persistierung, für eine prototypische Implementation ist dies allerdings ausreichend.
 
 \subsection{Inhaltsverzeichnis}
 
