@@ -275,7 +275,6 @@ Mittels eines PSL-Systems werden dann Beziehungen zwischen dem eingefügten Grap
 			\item Modellierung von Wissen mittels Konzeptgraphen
 			\item Dependency Parsing und Coreference Resolution
 			\item Modellierung von Hinge-Loss-MRFs mit PSL
-			\item Online Optimierung von HL-MRFs mit BOCI
 		\end{itemize}
 	\item Vorgeschlagenes Wissensgraphkonstruktionsverfahren
 		\begin{itemize}
@@ -285,7 +284,7 @@ Mittels eines PSL-Systems werden dann Beziehungen zwischen dem eingefügten Grap
 			\item NLP-Phase
 			\item Graphkonstruktionsphase
 		\end{itemize}
-	\item Ergebnisanalyse
+	\item Auswertung
 		\begin{itemize}
 			\item Testmethode
 			\item Ergebnisse
@@ -332,24 +331,21 @@ Mittels eines PSL-Systems werden dann Beziehungen zwischen dem eingefügten Grap
 		\gantttitle{Woche}{12} \\
 		\gantttitlelist{1,...,12}{1} \\ % ignore triple dots: chktex 11
 
-		\ganttbar{Literaturrecherche}{1}{2} \\
-		\ganttbar{Prototyp}{2}{2} \\
-
 		\ganttgroup{Implementation}{3}{6} \\
 		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
 			{NLP Modell}{3}{4} \\
 		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
 			{PSL Modell}{5}{6} \\
 
-		\ganttbar{Auswertung}{7}{7} \\
+		\ganttbar{Auswertung}{10}{11} \\
 
-		\ganttgroup{Schreiben}{6}{11} \\
+		\ganttgroup{Schreiben}{1}{11} \\
 		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
-			{Überblick, Grundlagen}{6}{7} \\
+			{Überblick, Grundlagen}{1}{2} \\
 		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
-			{Auswertung}{8}{8} \\
+			{Auswertung}{10}{11} \\
 		\ganttbar[bar label font = \sffamily, bar label node/.append style = {left = 0.5cm}, bar/.append style = {fill = hellblau}]
-			{Konstruktionsverfahren\hspace{2mm}}{9}{11} \\
+			{Konstruktionsverfahren\hspace{2mm}}{7}{9} \\
 
 		\ganttbar{Präsentation}{11}{12}
 	\end{ganttchart}
