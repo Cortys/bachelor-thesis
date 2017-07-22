@@ -129,7 +129,9 @@ Das Ergebnis ist ein sog.\ probabilistischer Wissensgraph.
 \section{Ziele der Arbeit}
 
 Das beschriebene Problem der online Wissensgraphkonstruktion aus natürlicher Sprache soll im Kontext von textueller Kommunikation zwischen Menschen näher untersucht werden.
-Gegeben sei ein Stream von Textnachrichten, denen jeweils ein Inhalt, ein Absender, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendezeit, Absendeort oder IP-Adresse, zugeordnet ist.
+Gegeben sei ein Stream von Textnachrichten (z.~B. E-Mails), denen jeweils ein Inhalt, ein Absender, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendezeit, Absendeort oder IP-Adresse, zugeordnet ist.
+Die Nachrichteninhalte werden der Einfachheit halber als ausschließlich englischsprachig angenommen.
+Außerdem wird eine, für E-Mails und andere Kurznachrichten typische, eingeschränkte Sprachkomplexität angenommen.
 Ziel ist es, ein skalierbares Verfahren zu entwickeln, welches aus diesem Nachrichtenstrom einen Wissensgraphen konstruiert.
 Insbesondere folgende Informationen sollen im resultierenden Graphen abgebildet werden:
 \begin{enumerate}
@@ -150,12 +152,12 @@ Durch das Erweitern der Link Prediction, kann diese Zuordnung mithilfe eines ent
 
 Wie zuvor erwähnt, soll das gesuchte Verfahren skalierbar sein.
 Dies bedeutet konkret, dass die Laufzeit für das Verarbeiten einer Nachricht idealerweise ausschließlich von der Größe der Nachricht und nicht von der bisherigen Größe des Wissensgraphen abhängt.
-Sofern dies nicht möglich ist, soll der Einfluss der Graphgröße auf die Laufzeit soweit wie möglich reduziert werden.
+Sofern dies nicht möglich ist, soll evaluiert werden, wie sich der Einfluss der Graphgröße auf die Laufzeit soweit wie möglich reduziert werden.
 Die Skalierbarkeit des Verfahrens umfasst zudem auch die Eignung für ein massivparalleles Ausführen im Cluster.\\
 
-Im Rahmen der Arbeit soll ein derartiges Verfahren zuerst entworfen und anschließend implementiert werden.
+Im Rahmen der Arbeit soll ein derartiges Verfahren zuerst entworfen und anschließend prototypisch implementiert werden.
 Die Skalierbarkeitsanforderungen sollen hierbei primär im Entwurf des Verfahrens berücksichtigt werden.
-Die Parallelisierbarkeit der Implementation ist für diese Arbeit nachrangig.
+Es ist ausreichend, wenn das gefundene Verfahren prinzipiell skalierbar (insb.\ auf mehrere Rechner verteilbar) implementierbar ist, eine solche Implementation muss allerdings nicht erfolgen.
 
 \section{Verwandte Arbeiten}
 
