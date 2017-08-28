@@ -16,12 +16,7 @@
     draft=false,            % value for draft version
 ]{scrreprt}%
 
-
-% **************************************************
-% Setup YOUR thesis document in this file !
-% **************************************************
 \input{config}
-
 
 % **************************************************
 % Document CONTENT
@@ -33,8 +28,6 @@
 % --------------------------
 \renewcaptionname{ngerman}{\figurename}{Abb.}
 \renewcaptionname{ngerman}{\tablename}{Tab.}
-%\renewcaptionname{english}{\figurename}{Fig.}
-%\renewcaptionname{english}{\tablename}{Tab.}
 
 % --------------------------
 % Front matter
@@ -42,18 +35,15 @@
 \pagenumbering{roman}			% roman page numbing (invisible for empty page style)
 \pagestyle{empty}				% no header or footers
 \input{content/titlepages}		% INCLUDE: all titlepages
-\cleardoublepage
+\cleardoublepage\
 
 \pagestyle{plain}				% display just page numbers
 \input{content/abstract}		% INCLUDE: the abstracts (english and german)
-\cleardoublepage
-%
-\input{content/acknowledgement} % INCLUDE: acknowledgement
-\cleardoublepage
+\cleardoublepage\
 %
 \setcounter{tocdepth}{2}		% define depth of toc
 \tableofcontents				% display table of contents
-\cleardoublepage
+\cleardoublepage\
 
 % --------------------------
 % Body matter
@@ -62,16 +52,17 @@
 \setcounter{page}{1}			% set page counter
 \pagestyle{maincontentstyle} 	% fancy header and footer
 
-\input{content/chapter-introduction}   % INCLUDE: introduction
-\input{content/chapter-related-work}   % INCLUDE: related work
-\input{content/chapter-system}         % INCLUDE: system
-\input{content/chapter-concepts}       % INCLUDE: concepts
-\input{content/chapter-conclusion}     % INCLUDE: conclusion
+\input{content/chapter-introduction}
+\input{content/chapter-related-work}
+\input{content/chapter-theory}
+\input{content/chapter-text2kg}
+\input{content/chapter-evaluation}
+\input{content/chapter-conclusion}
 
 % --------------------------
 % Back matter
 % --------------------------
-\appendix\cleardoublepage
+\appendix\cleardoublepage\
 \input{content/chapter-appendix}       % INCLUDE: appendix
 %
 {%
@@ -80,23 +71,19 @@
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
 \printbibliography[nottype=online]
-\printbibliography[heading=subbibliography,title={Webpages},type=online,prefixnumbers={@}]
+\printbibliography[heading=subbibliography,title={Webseiten},type=online,prefixnumbers={@}]
 }
-\cleardoublepage
+\cleardoublepage\
 
 \listoffigures
-\cleardoublepage
+\cleardoublepage\
 
 \listoftables
-\cleardoublepage
-
-\input{content/colophon}
-\cleardoublepage
+\cleardoublepage\
 
 \input{content/declaration}
 \clearpage
 \newpage
-\mbox{}
 
 % **************************************************
 % End of Document CONTENT
