@@ -42,10 +42,25 @@ Bei einer maschinellen automatisierten Konstruktion sind insbesondere zwei Anfor
 \end{enumerate}
 
 Die Kombination dieser beiden Anforderungen ist interessant, da das meiste verfügbare Wissen in natürlichsprachlicher Textform vorliegt und zudem permanent neues Wissen entsteht.
-Ein automatisiertes Wissensgraphkonstruktionsverfahren, welches beide Anforderungen berücksichtigt, ist daher in diversen Domänen von Nutzen. Ein Beispiel hierfür ist die Auswertung von Kommunikationsdaten aus E-Mails oder Chat-Nachrichten.
+Ein automatisiertes Wissensgraphkonstruktionsverfahren, welches beide Anforderungen berücksichtigt, ist daher in diversen Domänen von Nutzen.
+Ein Beispiel hierfür ist die Auswertung von Kommunikationsdaten aus E-Mails oder Chat-Nachrichten mit dem Ziel die sozialen Beziehungen und Intentionen der Kommunikationpartner zu ermitteln.
 
-\section{Problemstellung und Ziele der Arbeit}
+\section{Ziele der Arbeit}
 \label{sec:intro:goals}
+
+Das übergeordnete Ziel dieser Arbeit ist es, ein Verfahren zu finden, welches das soeben beschriebene Problem der automatisierten Wissensgraphkonstruktion für E-Mail-Daten löst.
+Konkret sei ein Stream von E-Mails gegeben, denen jeweils ein Inhalt, ein Absender, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendezeit, Absendeort oder IP-Adresse, zugeordnet ist.
+Die Nachrichteninhalte werden der Einfachheit halber als ausschließlich englischsprachig angenommen.
+Außerdem wird eine, für E-Mails und andere Kurznachrichten typische, eingeschränkte Sprachkomplexität angenommen.
+Die Nachrichten sollen nacheinander in das zu konstruierende System eingefügt werden, welches sukzessive einen Wissensgraphen daraus erzeugt.
+
+Für diese Erzeugung muss eine Reihe von Teilproblemen gelöst werden:
+\begin{enumerate}
+	\item Spezifikation einer Wissensgraphontologie, die mächtig genug ist, um die Diversität natürlichsprachlich beschriebener Informationen abzubilden.
+	\item Spezifikation der maschinellen Repräsentation des Wissensgraphen.
+	\item Finden eines Verfahrens, welches die natürlichsprachlichen Inhalte der Nachrichten in eine maschinell leichter zu verarbeitende Form bringt.
+	\item Finden eines Verfahrens, um eine eintreffende Nachricht in den bestehenden Wissensgraphen einzufügen.
+\end{enumerate}
 
 \section{Aufbau der Arbeit}
 \label{sec:intro:structure}
