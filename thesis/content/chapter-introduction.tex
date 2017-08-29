@@ -56,10 +56,24 @@ Die Nachrichten sollen nacheinander in das zu konstruierende System eingefügt w
 
 Für diese Erzeugung muss eine Reihe von Teilproblemen gelöst werden:
 \begin{enumerate}
-	\item Spezifikation einer Wissensgraphontologie, die mächtig genug ist, um die Diversität natürlichsprachlich beschriebener Informationen abzubilden.
-	\item Spezifikation der maschinellen Repräsentation des Wissensgraphen.
-	\item Finden eines Verfahrens, welches die natürlichsprachlichen Inhalte der Nachrichten in eine maschinell leichter zu verarbeitende Form bringt.
-	\item Finden eines Verfahrens, um eine eintreffende Nachricht in den bestehenden Wissensgraphen einzufügen.
+	\item \textbf{Onotologie:}
+		Spezifikation einer Wissensgraphontologie, die mächtig genug ist, um die Diversität natürlichsprachlich beschriebener Informationen abzubilden.
+	\item \textbf{Repräsentation:}
+		Spezifikation der maschinellen Repräsentation des Wissensgraphen.
+	\item \textbf{Sprachverarbeitung:}
+		Finden eines Verfahrens, welches die natürlichsprachlichen Inhalte der Nachrichten in eine für die Wissensgraphkonstruktion geeignete Form bringt.
+	\item \textbf{Grapherweiterung:}
+		Finden eines Verfahrens, um eine eintreffende Nachricht in den bestehenden Wissensgraphen einzufügen.
+\end{enumerate}
+
+Das aus den Teillösungen zusammengesetzte Verfahren muss, neben der offensichtlichen Anforderung einen Wissensgraphen zu konstruieren, zudem folgende technische Anforderungen erfüllen:
+\begin{enumerate}
+	\item \textbf{Erweiterbarkeit:}
+		Es sollen Schnittstellen eingeplant sein, um neben der Sprachverarbeitung auch andere Verarbeitungsverfahren, z.~B. für Bilder, hinzufügen zu können.
+		Die Graphontologie, Graphrepräsentation und das Grapherweiterungsverfahren dürfen also nicht zu sehr auf die Struktur natürlicher Sprache zugeschnitten sein.
+	\item \textbf{Parallelisierbarkeit:}
+		Das Verfahren soll in der Lage sein die Rechenleistung mehrerer Prozessorkerne zu nutzen.
+		Diese Anforderung betrifft insbesondere das Grapherweiterungsverfahren.
 \end{enumerate}
 
 \section{Aufbau der Arbeit}
