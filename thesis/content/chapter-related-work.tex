@@ -16,14 +16,39 @@ In~\ref{sec:related:nlp} wird schließlich ein Überblick über die momentan ver
 \subsection{Logische Grundlagen}
 \label{sec:related:kr:logic}
 
-\subsubsection{Begriffsschrift (1879)}
-\label{sec:related:kr:logic:begriff}
+Die Entwicklung der Wissensrepräsentation hängt eng mit der Entwicklung der Logik zusammen.
+Während in der formalen Logik und Mathematik die Prädikatenlogik das allgemein verwendete Kalkül ist und alternative Formalismen kaum verbreitet sind, finden im Bereich der Wissensrepräsentation bis heute diverse andere Kalküle Verwendung.
+Diese werden im Folgenden kurz vorgestellt.
 
-\subsubsection{Existential Graphs (1882)}
-\label{sec:related:kr:logic:eg}
+\paragraph{Begriffsschrift (1879)}
+Gottlob Freges Buch über die \textit{Begriffsschrift} gilt als eines der bedeutsamsten Werke der Logik.
+Sie ist der erste Formalismus mit der Mächtigkeit der modernen Prädikatenlogik zweiter Ordnung mit Identität.
+Frege benutzt hierfür eine zweidimensionale Notation, die sich stark von der heute gebräuchlichen, linearen, an die Algebra angelehnte Notation unterscheidet.
+\begin{equation*}
+	\vcenter{\hbox{\Fconditional[\Fanqn{a}]{\Fcontent \mathfrak{R(a)}}{\Fncontent \mathfrak{P(a)}}}}
+	\quad\Leftrightarrow\quad \exists\ a: P(a) \lor R(a)
+\end{equation*}
+Im Gegensatz zur Prädikatenlogik gibt es keine eigene Syntax für \textit{UND} und \textit{ODER};
+diese Operatoren müssen durch die Kombination von Negation und Implikation abgebildet werden.
+Zudem gibt es ausschließlich den Allquantor;
+eine existenzquantisierte Aussage muss durch Negation der negierten allquantisierten Aussage ausgedrückt werden.
 
-\subsubsection{Prädikatenlogik (1908)}
-\label{sec:related:kr:logic:pred}
+\paragraph{Existential Graphs (1882)}
+Unabhängig von Frege entwickelte der amerikanische Mathematiker Charles Sanders Peirce ebenfalls ein prädikatenlogisches Kalkül.
+Ähnlich wie die Begriffsschrift werden Peirces \textit{Existential Graphs} (zu dt.~Existenzgraphen) zweidimensional dargestellt.
+Von dieser Gemeinsamkeit abgesehen, funktionieren sie allerdings fundamental verschieden.
+Ein logischer Ausdruck wird hier durch einen ungerichteten Graphen beschrieben.
+Die konkrete räumliche Anordnung der Knoten und Kanten hat dabei keine semantische Relevanz.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3em]{gfx/related-work/existentialGraphExample1.pdf}}}
+	\quad\Leftrightarrow\quad \exists\ a: P(a) \lor R(a)
+\end{align*}
+Wie schon die Begriffsschrift, sind Existenzgraphen syntaktisch minimal.
+Direkt ausdrücken lässt sich lediglich \textit{UND}, der Existenzquantor und die Negation.
+Ein weiterer Unterschied zur heutigen Prädikatenlogik ist die Beschreibung logischer Inferenzen.
+Im Gegensatz zu den prädikatenlogischen Ersetzungsaxiomen, die auf der syntaktischen Struktur von logischen Ausdrücken operieren (z.~B. für Kommutativität), lassen sich die Ersetzungsaxiome für Existenzgraphen als Graphtransformationsregeln verstehen, die bestimmte Teilmengen der Knoten und Kanten eines Ausdrucks durch andere äquivalente Knoten- und Kantenmengen ersetzen.
+
+\paragraph{Prädikatenlogik (1908)}
 
 \subsection{Entwicklung maschineller Wissensrepräsentation}
 \label{sec:related:kr:history}
