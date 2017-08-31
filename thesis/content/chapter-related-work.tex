@@ -68,10 +68,10 @@ Ein weiterer Unterschied zur heutigen Prädikatenlogik ist die Beschreibung logi
 Im Gegensatz zu den prädikatenlogischen Ersetzungsaxiomen, die auf der syntaktischen Struktur von logischen Ausdrücken operieren (z.~B. für Kommutativität), lassen sich die Ersetzungsaxiome für Existenzgraphen als Graphtransformationsregeln verstehen, die bestimmte Teilmengen der Knoten und Kanten eines Ausdrucks durch andere äquivalente Knoten- und Kantenmengen ersetzen.
 
 \paragraph{Prädikatenlogik: Peano-Russell Notation (1910)}
-Die zweidimensionalen Notationen wurde häufig kritisiert, da sie die lineare, algebraische Notation der symbolischen Logik von Boole und De Morgan verwarf.
-Freges Begriffsschrft und Peirces Existenzgraphen konnten daher nicht durchsetzen.
+Die zweidimensionalen Notationen wurde häufig kritisiert, da sie die lineare, algebraische Notation der symbolischen Logik von Boole und De Morgan verwarfen.
+Freges Begriffsschrft und Peirces Existenzgraphen konnten sich daher nicht durchsetzen.
 Peirces algebraische prädikatenlogische Notation hingegen, stieß auf größere Akzeptanz.
-Giuseppe Peano hat auf deren Basis eine ähnliche Notation entwickelt, welche allerdings nicht die algebraischen Operatoren benutzt, so dass sich logische Ausdrücke besser mit mathematischen Ausdrücken mischen lassen.
+Giuseppe Peano hat auf deren Basis eine ähnliche Notation entwickelt, welche allerdings nicht die algebraischen Operatoren benutzt, damit sich logische Ausdrücke besser mit mathematischen Ausdrücken kombinieren lassen.
 Bertrand Russell hat Peanos Notation anschließend in leicht abgewandelter Form in den \textit{Principia Mathematica} (1910) benutzt.
 Diese sog.~Peano-Russell-Notation ist im Wesentlichen identisch mit der modernen Schreibweise.
 
@@ -87,20 +87,38 @@ wurden Methoden zur Wissensrepräsentation immer im Zusammenhang mit Problemlös
 So wie effiziente Datenstrukturen die Implementation effizienter Algorithmen ermöglichen, ermöglichen gute Wissensrepräsentationen die Implementation guter Problemlöser.
 Was genau nun als ein guter Problemlöser verstanden wird, hat sich im Laufe der Jahre allerdings immer wieder verändert.
 
-\paragraph{Logic Theorist (1955)}
-Einer der ersten maschinellen Problemlöser war der von Simon, Shaw und Newell entwickelte \textit{Logic Theorist} (LT).
+\paragraph{Universelle Problemlöser}
+Einer der ersten maschinellen Problemlöser war der von Simon, Shaw und Newell 1955 entwickelte \textit{Logic Theorist} (LT).
 LT war in der Lage logische Aussagen zu beweisen, indem er systematisch Ersetzungsaxiome auf eine gegebene Aussage angewandt hat, bis die gesuchte Lösung abgeleitet wurde.
 
-\paragraph{General Problem Solver (1959)}
-Die Grundidee des LT haben Simon, Shaw und Newell wenige Jahre später im \textit{General Problem Solver} (GPS) erweitert.
+Die Grundidee des LT haben Simon, Shaw und Newell 1959 im \textit{General Problem Solver} (GPS) erweitert.
 Es wurden Heuristiken hinzugefügt, um den Suchraum geschickter zu durchlaufen.
 GPS war ein universeller Problemlöser, konnte also jedes Problem lösen, das sich durch eine Menge von Horn-Klauseln ausdrücken lässt.
-Zwar war es so prinzipiell möglich Probleme aus diversen Domänen zu lösen, aufgrund der kombinatorischen Explosion war GPS alledings nicht zur Lösung praktischer Probleme geeignet.
+Zwar war es so theoretisch möglich Probleme aus diversen Domänen zu lösen, aufgrund der kombinatorischen Explosion war GPS alledings nicht zur Lösung komplexer praktischer Probleme geeignet.
 
-\paragraph{Expertensysteme (1970)}
+\paragraph{Expertensysteme}
 Aufgrund der Misserfolge universeller Problemlöser für praktische Probleme, hat die Forschung begonnen sich mehr auf die Entwicklung von Expertensystemen zu fokussieren.
+Expertensysteme besitzen für gewöhnlich eine Wissensbasis in der domänenspezifisches Wissen in Form von Regeln und Fakten kodiert ist.
+Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen.
+
+\paragraph{Semantic Networks (1956)}
+Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks} (zu dt.~semantische Netze) auf.
+Dieser Ansatz beschreibt Wissen als Menge von $(subject, predicate, object)$-Tripeln.
+Es gibt darüber hinaus keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
 
 \paragraph{Conceptual Graphs (1976)}
+Wie genau mit Graphen komplexes Wissen beschrieben werden kann, das über eine reine Taxonomie hinaus geht, blieb bei semantischen Netzen unklar.
+John F. Sowas \textit{Conceptual Graphs} (zu dt.~Konzeptgraphen) lösen dieses Problem.
+Statt Wissen als eine Menge von Beziehungen abzubilden, wird es als prädikatenlogischer Ausdruck verstanden.
+Hierfür baut Sowa auf Peirces Existenzgraphen auf, die bis dahin weitestgehend unbeachtet waren.
+
+Dieser Ansatz erlaubt es komplexe Wissensbasen zu konstruieren, in denen nicht nur gespeichert werden kann, ob ein Konzept existiert, sondern auch, ob es nicht oder nur möglicherweise existiert.
+
+\paragraph{Knowledge Graphs (1992)}
+Der Begriff \textit{Knowledge Graph} (zu dt.~Wissensgraph) bezeichnete ursprünglich eine Klasse semantischer Netze, deren Relationsmenge formal spezifiziert ist.
+Dies schränkt die Menge erlaubter Graphen ein und ermöglicht die Definition von Inferenzregeln, um Schlussfolgerungen aus einem gegebenen Graphen zu ziehen.
+Im Laufe der Jahre ist die Grenze zwischen semantischen Netzen und Wissensgraphen allerdings immer weiter verschwommen, sodass die Bezeichnungen heute oft synonym verwendet werden.
+Wissensgraphen und Konzeptgraphen müssen weiterhin unterschieden werden, da erstere oftmals Negation und Modalität nicht unterstützen.
 
 \subsection{Aktuelle Wissensrepräsentationsansätze}
 \label{sec:related:kr:today}
