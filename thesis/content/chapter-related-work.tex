@@ -102,7 +102,7 @@ Expertensysteme besitzen für gewöhnlich eine Wissensbasis in der domänenspezi
 Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen.
 
 \paragraph{Semantic Networks (1956)}
-Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks} (zu dt.~semantische Netze) auf.
+Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks} (zu dt.~semantische Netzwerke) auf.
 Dieser Ansatz beschreibt Wissen als Menge von $(subject, predicate, object)$-Tripeln.
 Es gibt darüber hinaus keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
 
@@ -111,28 +111,53 @@ Wie genau mit Graphen komplexes Wissen beschrieben werden kann, das über eine r
 John F. Sowas \textit{Conceptual Graphs} (zu dt.~Konzeptgraphen) lösen dieses Problem.
 Statt Wissen als eine Menge von Beziehungen abzubilden, wird es als prädikatenlogischer Ausdruck verstanden.
 Hierfür baut Sowa auf Peirces Existenzgraphen auf, die bis dahin weitestgehend unbeachtet waren.
-
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=4em]{gfx/related-work/conceptGraphExample1.pdf}}}
+	\quad\Leftrightarrow\quad
+	\exists\ a: P(a) \lor R(a)
+\end{align*}
 Dieser Ansatz erlaubt es komplexe Wissensbasen zu konstruieren, in denen nicht nur gespeichert werden kann, ob ein Konzept existiert, sondern auch, ob es nicht oder nur möglicherweise existiert.
+Da Konzeptgraphen, so wie schon die Existenzgraphen, ein vollständiges und korrektes Logikkalkül sind, lassen sich zudem Inferenzregeln für sie definieren.
+Der Vorteil hierfür einen Graphen statt eines prädikatenlogischen Ausdrucks zu verwenden ist, dass eine Graphstruktur einen deutlich effizienteren Zugriff auf gespeichertes Wissen ermöglicht.
 
-\paragraph{Knowledge Graphs (1992)}
+\paragraph{Knowledge Graphs (1987)}
 Der Begriff \textit{Knowledge Graph} (zu dt.~Wissensgraph) bezeichnete ursprünglich eine Klasse semantischer Netze, deren Relationsmenge formal spezifiziert ist.
 Dies schränkt die Menge erlaubter Graphen ein und ermöglicht die Definition von Inferenzregeln, um Schlussfolgerungen aus einem gegebenen Graphen zu ziehen.
 Im Laufe der Jahre ist die Grenze zwischen semantischen Netzen und Wissensgraphen allerdings immer weiter verschwommen, sodass die Bezeichnungen heute oft synonym verwendet werden.
 Wissensgraphen und Konzeptgraphen müssen weiterhin unterschieden werden, da erstere oftmals Negation und Modalität nicht unterstützen.
 
-\subsection{Aktuelle Wissensrepräsentationsansätze}
+\subsection{Aktuelle Wissensrepräsentationsprojekte}
 \label{sec:related:kr:today}
 
-\subsubsection{Semantic Web}
-\label{sec:related:kr:today:sw}
+\subsubsection{Manuelle Ansätze}
 
-\subsubsection{NELL}
-\label{sec:related:kr:today:nell}
+\paragraph{Semantic Web}
+Das sog.~\textit{Semantic Web} bezeichnet eine Menge von W3C-Standards, die das bestehende Web um eine formale Wissensbeschreibungssyntax erweitern.
+Zentral ist dabei das \textit{Resource Description Framework} (RDF), mit dem sich beliebige Konzepte, auch Resourcen genannt, beschreiben und verknüpfen lassen.
+Ziel ist es über die unstrukturierte Netzstruktur des bestehenden Webs, eine strukturierte, leicht maschniell verarbeitbare, Netzstruktur zu legen.
+Durch die Anfragesprache \textit{SPARQL} ist es möglich Wissen aus diesem Netz auszulesen.
+Das Web würde somit zu einem großen denzentralen Wissensgraphen.
+Tim Berners-Lee beschreibt diese Idee als das ``Web 3.0''.
+Obwohl die Technologien hierfür bereits seit Jahren existieren, sind bislang nur wenige Webseiten mit RDF-Tags annotiert.
+Häufige Kritik ist, dass das Semantic Web zu viel theoretisches Hintergrundwissen über Wissensrepräsentationsverfahren erfordert, um für die meisten Webseitenbetreiber zugänglich zu sein.
 
-\subsubsection{Google Knowledge Graph}
-\label{sec:related:kr:today:google-kg}
+\paragraph{WordNet}
+Das \textit{WordNet} der Universität Princeton ist ein frei verfügbares lexikalisch-semantisches Netz für die englische Sprache, d.~h.\ ein semantisches Netz, welches die Bedeutung von Worten in Relation zueinander setzt.
+Relationen werden dabei z.~B. für Synonyme, Hypernyme (Oberbegriffe) und Meronyme (Bestandteile) eingefügt.
+Der Datenbestand des WordNets wird manuell gepflegt und resultiert aus der Kombination der Einträge verschiedener Wörterbücher.
 
-\section{Konstruktionsansätze für Wissensgraphen}
+\subsubsection{Automatisierte Ansätze}
+Neben den manuellen Grapherzeugungsansätzen des Semantic Webs und des WordNets, gibt es diverse voll- und semiautomatische Ansätze.
+Diese bauen die Graphstruktur selbstständig aus gegebenen Datenquellen auf.
+
+\paragraph{NELL}
+Das \textit{Never-Ending Language Learning} (NELL) System traviersiert selbstständig das Internet und fügt die gefundenen textuellen Informationen in einen Wissensgraphen ein.
+Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig angepasst wird.
+Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
+
+\paragraph{Google Knowledge Graph}
+
+\section{Wissensgraphkonstruktionsverfahren}
 \label{sec:related:kbc}
 
 \section{NLP Werkzeuge}
