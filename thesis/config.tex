@@ -64,6 +64,9 @@
 
 \usepackage{mathtools}
 \usepackage[bguq]{frege}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepgfplotslibrary{dateplot, statistics}
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)
@@ -75,4 +78,8 @@
     breaklinks=true,            %   - allow line break inside links
     bookmarksnumbered=true,     %
     bookmarksopen=true          %
+}
+
+\pgfplotsset{
+    cycle list={red\\yellow\\green\\},
 }

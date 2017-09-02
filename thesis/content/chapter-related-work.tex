@@ -156,6 +156,31 @@ Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig
 Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
 
 \paragraph{Google Knowledge Graph}
+test
+
+\begin{tikzpicture}
+	\pgfplotstableread[col sep=comma] {data/related-work/knowledgeGraph.csv}\knowledgeGraphTrend%
+	\begin{axis}[
+		width=\textwidth,
+		height=6cm,
+		smooth,
+		axis x line=bottom,
+		axis y line=left,
+		axis lines=center,
+		ymin=0,
+		ymax=100,
+		ylabel={Popularität in \%\footnotemark},
+		date coordinates in=x,
+		date ZERO=2004-01-01,
+		xmin={2004-01-01},
+		xmax={2017-08-01},
+		xticklabel={\month.\year},
+		xtick={2004-01-012,2012-05-01,2017-08-01}
+	]
+		\addplot+[no markers,style=thick] table [x=month, y=popularity]{\knowledgeGraphTrend};
+	\end{axis}
+\end{tikzpicture}
+\footnotetext{Quelle: Google Trends}
 
 \section{Wissensgraphkonstruktionsverfahren}
 \label{sec:related:kbc}
