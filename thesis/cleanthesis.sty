@@ -74,8 +74,12 @@
 
 % OPTION colortheme
 % --> values = bluemagenta|bluegreen
-\define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen,upbisg}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
+\define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen,upbisg,custom}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
 \setkeys[ct]{cthesis}{colortheme=bluemagenta}
+
+% OPTION custom colors
+\define@key[ct]{cthesis}{colormain}[]{\def\cthesis@colormain{#1}}
+\define@key[ct]{cthesis}{coloraccessory}[]{\def\cthesis@coloraccessory{#1}}
 
 % OPTION bibsys
 % --> values = biber|bibtex
@@ -188,12 +192,17 @@
 	\cthesissetcolor{cmyk}{.61, .47, .03, 0}{.48, .05, .91, 0}%
 }
 
-% % % (ISG) sets university color theme 
+% % % (ISG) sets university color theme
 % sets the blue-green color theme (blue/green)
 \def\cthesissetcolorunipbbluegreen{%
 	\cthesissetcolor{cmyk}{.755, .569, 0, .6}{.48, .05, .91, 0}%
 }
 
+\def\cthesissetcolorcustom#1#2{%
+	\colorlet{ctcolormain}{#1}
+	\colorlet{ctcoloraccessory}{#2}
+	\ct@cthesis@updatecolors%
+}
 
 % defines general colors
 \definecolor{ctcolorblack}{gray}{0}
@@ -210,6 +219,9 @@
 \or
 	% case 2 (colortheme == upbisg)
 	\cthesissetcolorunipbbluegreen
+\or
+	% case 3 (colortheme == custom)
+	\expandafter\cthesissetcolorcustom{\cthesis@colormain}{\cthesis@coloraccessory}
 \else
 	% all other cases
 	\cthesissetcolorbluemagenta
@@ -233,11 +245,15 @@
 		\renewcommand*\familydefault{\sfdefault}%
 %	}{%
 \else
+		\RequirePackage[sfdefault, light]{roboto}
+
 		% Using serif fonts
 		%
 		\RequirePackage{lmodern}	% font set: Latin Modern
 		\RequirePackage{charter}	% font set: Charter
 		%\RequirePackage{fourier}	% font set: (basically improved utopia)
+
+		\renewcommand*\familydefault{\rmdefault}
 %	}
 \fi
 
@@ -259,7 +275,7 @@
 	font={small}, 					% 	- small font size
 	labelfont={bf,sf,color=ctcolorfloatlabel},% 	- label in bold, sans-serif and magenta
 	labelsep=\cthesis@figuresep,				% 	- separator: none, colon, period, space, quad, newline, endash
-	singlelinecheck=false			% 	- no centered single-lined captions
+	singlelinecheck=true			% 	- no centered single-lined captions
 ]{caption}[2008/08/24]
 %\ifthenelse{\boolean{@figurecaptionoutside}}%
 \ifct@cthesis@hangfigurecaption
@@ -510,20 +526,20 @@
 \newcommand{\tgherosfont}{\fontfamily{qhv}\selectfont}
 
 \newcommand{\thesispartlabelfont}{\color{ctcolorpartnum}\book\fontsize{60}{60}\selectfont}
-\newcommand{\thesispartfont}{\color{ctcolorparttext}\huge \tgherosfont\selectfont}
-\newcommand{\thesischapterfont}{\color{ctcolorblack}\huge \fontfamily{phv}\selectfont}
-%\newcommand{\thesissectionfont}{\color{ctcolormain}\LARGE\bfseries \tgherosfont}
-\newcommand{\thesissectionfont}{\color{ctcolorsection}\LARGE \tgherosfont}
-\newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\Large \tgherosfont}
-\newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\tgherosfont\small\bfseries}
+\newcommand{\thesispartfont}{\color{ctcolorparttext}\huge \roboto}
+\newcommand{\thesischapterfont}{\color{ctcolorblack}\huge \roboto}
+%\newcommand{\thesissectionfont}{\color{ctcolormain}\LARGE\bfseries \roboto}
+\newcommand{\thesissectionfont}{\color{ctcolorsection}\LARGE \roboto}
+\newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\Large \roboto}
+\newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\roboto\small\bfseries}
 %
 % headings
 \setkomafont{part}{\thesispartfont} % for chapter entries
 \setkomafont{chapter}{\thesischapterfont} % for chapter entries
 \setkomafont{section}{\thesissectionfont} % for section entries
 \setkomafont{subsection}{\thesissubsectionfont} % for section entries
-\addtokomafont{subsubsection}{\tgherosfont}
-%\addtokomafont{paragraph}{\tgherosfont}
+\addtokomafont{subsubsection}{\roboto}
+%\addtokomafont{paragraph}{\roboto}
 \setkomafont{paragraph}{\thesisparagraphfont}
 
 %\setkomafont{subsection}{\large} % for subsection entries
@@ -592,7 +608,7 @@
 %	{%
 		\titleformat{\section}[hang]%
 			{\usekomafont{section}}%
-			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
+			{\thesection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
@@ -600,7 +616,7 @@
 \else
 		\titleformat{\section}[block]%
 			{\usekomafont{section}}%
-			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
+			{\thesection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
@@ -614,7 +630,7 @@
 %	{%
 		\titleformat{\subsection}[hang]%
 			{\usekomafont{subsection}}%
-			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
+			{\thesubsection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
@@ -622,7 +638,7 @@
 \else
 		\titleformat{\subsection}[block]%
 			{\usekomafont{subsection}}%
-			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
+			{\thesubsection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
@@ -708,6 +724,3 @@
 %
 % Clean signs around word origins in definitions
 %\newcommand{\cthesisorigin}[1]{\textsf{\textlangle}#1\textsf{\textrangle}}
-
-
-

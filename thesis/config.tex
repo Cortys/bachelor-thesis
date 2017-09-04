@@ -47,6 +47,16 @@
 % **************************************************
 % Load and Configure Packages
 % **************************************************
+
+% Colors:
+\usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
+
+\definecolor{blau}{HTML}{355FB3}
+\definecolor{rot}{HTML}{B33535}
+\definecolor{gruen}{HTML}{3BB335}
+\definecolor{dunkelblau}{HTML}{1E3666}
+\definecolor{hellblau}{HTML}{8ea7d7}
+
 \PassOptionsToPackage{% setup clean thesis style
     figuresep=colon,%
     sansserif=false,%
@@ -54,7 +64,9 @@
     hangsection=true,%
     hangsubsection=true,%
     colorize=full,%
-    colortheme=upbisg,%
+    colortheme=custom,%
+	colormain=dunkelblau,
+	coloraccessory=blau,%
     bibsys=biber,%
     bibfile=bib-refs,%
     bibstyle=alphabetic,%
@@ -62,6 +74,7 @@
 }{cleanthesis}
 \usepackage{cleanthesis}
 
+\usepackage[sfdefault, light]{roboto}
 \usepackage{mathtools}
 \usepackage[bguq]{frege}
 \usepackage{pgfplots}
@@ -81,5 +94,5 @@
 }
 
 \pgfplotsset{
-    cycle list={red\\yellow\\green\\},
+    cycle list={blau\\rot\\gruen\\},
 }
