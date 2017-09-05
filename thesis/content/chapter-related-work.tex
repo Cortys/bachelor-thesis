@@ -171,10 +171,11 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 			height=6cm,
 			smooth,
 			axis x line=bottom,
-			axis y line=left,
-			axis lines=center,
+			axis line style={draw=none},
+			ytick style={draw=none},
 			ymin=0,
 			ymax=100,
+			ymajorgrids,
 			ylabel={Popularität in \%},
 			date coordinates in=x,
 			date ZERO=2004-01-01,
@@ -186,7 +187,7 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 			\addplot+[no markers,style=thick] table [x=month, y=popularity]{\knowledgeGraphTrend};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Relative Popularität des Suchbegriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
+	\caption{Popularität des Suchbegriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
 \end{figure}
 
 \section{Wissensgraphkonstruktionsverfahren}
