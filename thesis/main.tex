@@ -71,7 +71,8 @@
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip} % chktex 1
 \printbibliography[nottype=online]
-\printbibliography[heading=subbibliography,title={Webseiten},type=online,prefixnumbers={@}]
+\newrefcontext[labelprefix={@}]
+\printbibliography[heading=subbibliography,title={Webseiten},type=online]
 }
 \cleardoublepage\
 

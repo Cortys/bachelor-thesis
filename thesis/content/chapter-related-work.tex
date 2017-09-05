@@ -6,9 +6,9 @@
 Die in~\ref{sec:intro:goals} beschriebenen Ziele werden bereits seit langem erforscht.
 Der Begriff \textit{Wissensgraph} wurde 2012 durch Google popularisiert, die Ideen dahinter lassen sich allerdings bis ins Ende des 19. Jahrhunderts zurückverfolgen.
 Dieses Kapitel zeigt auf, wie sich die Themen dieser Arbeit in die bisherige Forschung einfügen.
-\ref{sec:related:kr} ordnet das Konzept des Wissensgraphen in die Entwicklungsgeschichte der Wissensrepräsentation ein.
-\ref{sec:related:kbc} beschreibt die aktuell verwendeten Verfahren zur Konstruktion von Wissensgraphen.
-In~\ref{sec:related:nlp} wird schließlich ein Überblick über die momentan verbreiteten NLP (\textit{natural language processing}) Werkzeuge gegeben.
+\ref{sec:related:kr} ordnet hierfür das Konzept des Wissensgraphen in die Entwicklungsgeschichte der Wissensrepräsentation ein.
+In~\ref{sec:related:nlp} wird ein Überblick über die momentan verbreiteten \textit{natural language processing} (NLP) Werkzeuge gegeben.
+Das Wissensgraphkonzept und NLP wird schließlich in~\ref{sec:related:kgc} kombiniert und es werden die aktuell verwendeten Verfahren zur Wissensgraphkonstruktion beschrieben.
 
 \section{Ansätze zur Wissensrepräsentation}
 \label{sec:related:kr}
@@ -156,7 +156,7 @@ Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig
 Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
 
 \paragraph{Google Knowledge Graph}
-Basierend auf den Ideen der in~\ref{sec:related:kr:history} vorgestellten Wissensgraphen, stellte Google 2012 eine eigene Wissensgraphtechnologie vor.
+Basierend auf den Ideen der in~\ref{sec:related:kr:history} vorgestellten Wissensgraphen, stellte Google 2012 eine eigene, ebenfalls \textit{knowledge graph} genannte, Wissensgraphtechnologie vor.
 Sie wird benutzt, um Suchanfragen semantisch, statt per String-Matching, zu beantworten.
 So können z.~B. zum Suchbegriff verwandte Ergebnisse angezeigt werden, selbst wenn es keine textuelle Ähnlichkeit zu jenem gibt.
 Laut Googles Aussagen stammen die Quelldaten u.~a.\ aus Wikipedia Infoboxen, Wikidata und dem CIA World Factbook.
@@ -187,11 +187,69 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 			\addplot+[no markers,style=thick] table [x=month, y=popularity]{\knowledgeGraphTrend};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Popularität des Suchbegriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
+	\caption{Popularität des Begriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
 \end{figure}
-
-\section{Wissensgraphkonstruktionsverfahren}
-\label{sec:related:kbc}
 
 \section{NLP Werkzeuge}
 \label{sec:related:nlp}
+
+\section{Wissensgraphkonstruktionsverfahren}
+\label{sec:related:kgc}
+
+Wie in~\ref{sec:related:kr:today} gezeigt, gibt es diverse Ansätze um Graphen aus Daten zu konstruieren.
+Da für diese Arbeit insbesondere automatisierte Verfahren relevant sind, die mit unstrukurierten Daten, wie z.~B. natürlicher Sprache, umgehen können, werden diese im Folgenden näher beschrieben.
+
+Üblicherweise arbeiten Wissensgraphkonstruktionsverfahren nicht direkt mit den unstrukturierten Eingabedaten, wie z.~B. den Inhalten von E-Mails,
+sondern mit einer Knoten- bzw.\ Konzeptmenge und ggf.\ auch einer Kanten- bzw.\ Relationsmenge, die zuvor, z.~B. mittels eines NLP-Verfahrens, aus den Rohdaten ertrahiert wurden.
+Die Wissensgraphkonstruktion ist somit äquivalent zum Problem der \textit{Link Prediction}, also dem Finden von Relationen zwischen den gegebenen Konzepten.
+Die Link Prediction wiederum lässt sich als ein Problem des \textit{Statistical Relational Learnings} (SRL) auffassen.
+In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cite{Nickel2016}, die auf verschiedenen Annahmen über die Korrelation der zu verknüpfenden Informationen basieren:
+\begin{enumerate}
+	\item \textbf{Latent Feature Models:}
+		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften über Subjekte und Objekte der Relationen gegeben sind.
+	\item \textbf{Graph Feature Models:}
+		Alle Relationen werden als bedingt unabhängig angenommen, sofern bestimmte Eigenschaften der Struktur des Graphen gegeben sind.
+	\item \textbf{Markov Random Fields:}
+		Es wird angenommen und erlaubt, dass alle Relationen lokale Abhängigkeiten voneinander haben können.
+\end{enumerate}
+
+\paragraph{Latent Feature Models}
+Ein Beispiel für ein Latent Feature Modell ist das RESCAL-Verfahren~\cite{Nickel2013}, welches auf Tensorfaktorisierung basiert.
+Die Grundidee dabei ist es, allen Entitäten $i$ einen Feature-Vektor $e_i \in \mathbb{R}^H$ zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
+Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^T\ W_k\ e_j$ beschrieben.
+Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
+RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.
+Lokal stark zusammenhängende Teilgraphen werden allerdings schlecht erkannt, da nur der Feature-Vektor und nicht die Nachbarschaft einer Entität berücksichtigt wird;
+ein Beispiel hierfür sind symmetrische Relationen.
+\[A \xrightarrow{\text{married to}} B \implies B \xrightarrow{\text{married to}} A\]
+
+\paragraph{Graph Feature Models}
+Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
+Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
+Ein Beispiel hierfür ist der Path Ranking Algorithmus (PRA)~\cite{Lao2011}. PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
+Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das Additive Relational Effects (ARE) Verfahren~\cite{Nickel2014}, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.
+
+\paragraph{Markov Random Fields}
+Fundamental verschieden von diesen beiden Verfahren sind Markov Random Fields (MRFs).
+Hier sind prinzipiell Abhängigkeiten zwischen allen Relationen möglich, was MRFs sehr flexibel macht.
+Da dies hinsichtlich der Laufzeit schnell impraktikabel wird, wird das Modell um einen Abhängigkeitsgraphen erweitert, der die Anzahl von betrachteten Abhängigkeiten reduziert.
+Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werden:
+Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
+Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
+Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
+Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{ 0, 1 \}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
+MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
+In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
+der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
+Um dieses Problem zu lösen, wurde das Budgeted Online Collective Inference (BOCI) Verfahren~\cite{Pujara2015} entwickelt.
+BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
+Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
+Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den $m$ höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
+Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten offline Inferenz.
+
+Mittels ADMM und BOCI lässt sich PSL daher für die online Wissensgraphkonstruktion einsetzen.
+Der Vorteil dieses Ansatzes gegenüber eines Latent Feature oder Graph Feature Modells ist, dass sich andere domänenspezifische Expertensysteme leicht in eine PSL Inferenz integrieren lassen.
+PSL erlaubt nämlich die Inklusion von benutzerdefinierten Funktionen und Prädikaten.
+Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten mit in die Entity Resolution einfließen zu lassen.
