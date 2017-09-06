@@ -182,7 +182,7 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 			xmin={2004-01-01},
 			xmax={2017-08-01},
 			xticklabel={\month.\year},
-			xtick={2004-01-012,2012-05-01,2017-08-01}
+			xtick={2004-01-01,2012-05-01,2017-08-01}
 		]
 			\addplot+[no markers,style=thick] table [x=month, y=popularity]{\knowledgeGraphTrend};
 		\end{axis}
@@ -190,17 +190,82 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 	\caption{Popularität des Begriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
 \end{figure}
 
-\section{NLP Werkzeuge}
+\section{NLP-Werkzeuge}
 \label{sec:related:nlp}
+
+Neben der Repräsentation von Wissen, ist auch die Verarbeitung natürlicher Sprache ein Kernbestandteil dieser Arbeit.
+Hierfür existiert bereits eine Vielzahl von \textit{natural language processing} (NLP) Werkzeugen.
+Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in den meisten Werkeugen verwendet werden.
+\begin{enumerate}
+	\item \textbf{Tokenization:}
+		Oftmals einer der ersten Verarbeitungsschritte einer NLP Bibliothek.
+		Eine Eingabezeichenkette wird dabei in eine Liste von Tokens zerlegt.
+		Token sind u.~a. Wörter, Satzzeichen und numerische Literale.
+		\[
+			\text{``Today I'm testing myself.''}
+			\Rightarrow
+			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+		\]
+	\item \textbf{Lemmatization:}
+		Abbildung von Tokens auf ihre Lemmata (Grundformen).
+		\[
+			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+			\Rightarrow
+			(\text {today}, \text{I}, \text{be}, \text{test}, \text{myself}, \text{.})
+		\]
+	\item \textbf{Part-of-speech Tagging:}
+		Abbildung von Tokens auf ihre Wortarten (POS-Tags).
+		\begin{align*}
+			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+			\Rightarrow
+			(&\text{adverb}, \\
+			 &\text{personal pronoun}, \\
+			 &\text{present tense first-person singular verb}, \\
+			 &\text{present participle verb}, \\
+			 &\text{personal pronoun}, \\
+			 &\text{sentence terminator})
+		\end{align*}
+	\item \textbf{Named Entity Recognition:}
+		Klassifizierung von Tokens in Kategorien wie z.~B. Person, Ort oder Zeitpunkt.
+		\[
+			(\underbrace{\text{Today}}_{date}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+		\]
+	\item \textbf{Coreference Resolution:}
+		Bestimmung von Token-Äquivalenzklassen, die jeweils auf das selbe Konzept verweisen (insbesondere Pronomina und ihr Antezedens).
+		\begin{align*}
+			(\text{Today}, \tikzmark{a}\text{\color{rot}I}, \text{'m},
+			 \text{testing}, \text{\color{rot}my}\tikzmark{b}\text{\color{rot}self}, \text{.})
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[-,rot,shorten >=3pt,shorten <=3pt] (a.center) to[bend right] (b.center);
+			\end{tikzpicture}
+		\end{align*}
+	\item \textbf{Dependency Parsing:}
+		Eine auf den POS-Tags aufbauende syntaktische Analyse, welche die grammatikalischen Abhängigkeiten der Token untereinander ausgibt.
+		Die Menge dieser Abhängigkeiten bildet einen Baum oder baumähnlichen Graphen, der \textit{Treebank} bzw.\ \textit{Dependency Graph} genannt wird.
+		\begin{align*}
+			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+			\Rightarrow\ %
+			& \text{testing} \xrightarrow{\text{subject}} \text{I} \\
+			& \text{testing} \xrightarrow{\text{object}} \text{myself} \\
+			& \text{testing} \xrightarrow{\text{auxiliary}} \text{'m} \\
+			& \text{testing} \xrightarrow{\text{adverbial modifier}} \text{Today}
+		\end{align*}
+\end{enumerate}
+
+Wie sich erkennen lässt, bauen die Verarbeitungsschritte sukzessive aufeinander auf und bilden eine Art Pipeline.
+Dieses Pipeline-Modell findet sich auch in vielen NLP-Werkzeugen wieder.
+Ein solches ist z.~B. das Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
+Ein weiteres ähnliches Projekt ist Apache~OpenNLP~\cite{OpenNLP};\@
+es bietet ähnliche Module, wie CoreNLP an.
 
 \section{Wissensgraphkonstruktionsverfahren}
 \label{sec:related:kgc}
 
 Wie in~\ref{sec:related:kr:today} gezeigt, gibt es diverse Ansätze um Graphen aus Daten zu konstruieren.
-Da für diese Arbeit insbesondere automatisierte Verfahren relevant sind, die mit unstrukurierten Daten, wie z.~B. natürlicher Sprache, umgehen können, werden diese im Folgenden näher beschrieben.
+Da für das Thema dieser Arbeit insbesondere automatisierte Verfahren relevant sind, die mit unstrukurierten Daten, wie z.~B. natürlicher Sprache, umgehen können, werden diese im Folgenden näher beschrieben.
 
 Üblicherweise arbeiten Wissensgraphkonstruktionsverfahren nicht direkt mit den unstrukturierten Eingabedaten, wie z.~B. den Inhalten von E-Mails,
-sondern mit einer Knoten- bzw.\ Konzeptmenge und ggf.\ auch einer Kanten- bzw.\ Relationsmenge, die zuvor, z.~B. mittels eines NLP-Verfahrens, aus den Rohdaten ertrahiert wurden.
+sondern mit einer Knoten- bzw.\ Konzeptmenge und ggf.\ auch einer Kanten- bzw.\ Relationsmenge, die zuvor, z.~B. mittels eines in~\ref{sec:related:nlp} vorgestellten NLP-Verfahrens, aus den Rohdaten extrahiert wurden.
 Die Wissensgraphkonstruktion ist somit äquivalent zum Problem der \textit{Link Prediction}, also dem Finden von Relationen zwischen den gegebenen Konzepten.
 Die Link Prediction wiederum lässt sich als ein Problem des \textit{Statistical Relational Learnings} (SRL) auffassen.
 In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cite{Nickel2016}, die auf verschiedenen Annahmen über die Korrelation der zu verknüpfenden Informationen basieren:
@@ -238,6 +303,7 @@ Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
 Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{ 0, 1 \}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
 In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
@@ -252,4 +318,4 @@ Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesent
 Mittels ADMM und BOCI lässt sich PSL daher für die online Wissensgraphkonstruktion einsetzen.
 Der Vorteil dieses Ansatzes gegenüber eines Latent Feature oder Graph Feature Modells ist, dass sich andere domänenspezifische Expertensysteme leicht in eine PSL Inferenz integrieren lassen.
 PSL erlaubt nämlich die Inklusion von benutzerdefinierten Funktionen und Prädikaten.
-Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten mit in die Entity Resolution einfließen zu lassen.
+Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten oder domänenspezifisches Hintergrundwissen, wie Distanz zwischen zwei namentlich genannten Orten, mit in die Entity Resolution einfließen zu lassen.

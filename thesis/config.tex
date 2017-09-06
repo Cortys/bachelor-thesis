@@ -70,12 +70,17 @@
     bibsys=bibtex,
     bibfile=bib-refs,
     bibstyle=alphabetic,
-    wrapfooter=true,
+    wrapfooter=false,
 }{cleanthesis}
 \usepackage{cleanthesis}
 
 \usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};} % chktex 1
+
 \usepackage[bguq]{frege}
+
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=1.14}
