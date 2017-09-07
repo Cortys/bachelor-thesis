@@ -203,32 +203,25 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 		Token sind u.~a. Wörter, Satzzeichen und numerische Literale.
 		\[
 			\text{``Today I'm testing myself.''}
-			\Rightarrow
+			\rightarrow
 			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
 		\]
 	\item \textbf{Lemmatization:}
 		Abbildung von Tokens auf ihre Lemmata (Grundformen).
 		\[
 			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
-			\Rightarrow
+			\rightarrow
 			(\text {today}, \text{I}, \text{be}, \text{test}, \text{myself}, \text{.})
 		\]
 	\item \textbf{Part-of-speech Tagging:}
 		Abbildung von Tokens auf ihre Wortarten (POS-Tags).
-		\begin{align*}
-			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
-			\Rightarrow
-			(&\text{adverb}, \\
-			 &\text{personal pronoun}, \\
-			 &\text{present tense first-person singular verb}, \\
-			 &\text{present participle verb}, \\
-			 &\text{personal pronoun}, \\
-			 &\text{sentence terminator})
-		\end{align*}
+		\begin{center}
+			\includegraphics[height=4.5em]{gfx/related-work/posTaggingExample1.pdf}
+		\end{center}
 	\item \textbf{Named Entity Recognition:}
 		Klassifizierung von Tokens in Kategorien wie z.~B. Person, Ort oder Zeitpunkt.
 		\[
-			(\underbrace{\text{Today}}_{date}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
+			({\color{gruen}\underbrace{\text{Today}}_{\text{date}}}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
 		\]
 	\item \textbf{Coreference Resolution:}
 		Bestimmung von Token-Äquivalenzklassen, die jeweils auf das selbe Konzept verweisen (insbesondere Pronomina und ihr Antezedens).
@@ -242,21 +235,16 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 	\item \textbf{Dependency Parsing:}
 		Eine auf den POS-Tags aufbauende syntaktische Analyse, welche die grammatikalischen Abhängigkeiten der Token untereinander ausgibt.
 		Die Menge dieser Abhängigkeiten bildet einen Baum oder baumähnlichen Graphen, der \textit{Treebank} bzw.\ \textit{Dependency Graph} genannt wird.
-		\begin{align*}
-			(\text{Today}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
-			\Rightarrow\ %
-			& \text{testing} \xrightarrow{\text{subject}} \text{I} \\
-			& \text{testing} \xrightarrow{\text{object}} \text{myself} \\
-			& \text{testing} \xrightarrow{\text{auxiliary}} \text{'m} \\
-			& \text{testing} \xrightarrow{\text{adverbial modifier}} \text{Today}
-		\end{align*}
+		\begin{center}
+			\includegraphics[height=5.5em]{gfx/related-work/depParseExample1.pdf}
+		\end{center}
 \end{enumerate}
 
 Wie sich erkennen lässt, bauen die Verarbeitungsschritte sukzessive aufeinander auf und bilden eine Art Pipeline.
 Dieses Pipeline-Modell findet sich auch in vielen NLP-Werkzeugen wieder.
 Ein solches ist z.~B. das Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
 Ein weiteres ähnliches Projekt ist Apache~OpenNLP~\cite{OpenNLP};\@
-es bietet ähnliche Module, wie CoreNLP an.
+es bietet ähnliche Module wie CoreNLP an.
 
 \section{Wissensgraphkonstruktionsverfahren}
 \label{sec:related:kgc}
