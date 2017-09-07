@@ -1,43 +1,43 @@
-<svg width="500" height="302" viewBox="0 0 500 302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="418" height="302" viewBox="0 0 418 302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>conceptGraphExample1</title>
 <desc>Created using Figma</desc>
 <g id="Canvas" transform="translate(-540 0)">
 <clipPath id="clip-0" clip-rule="evenodd">
-<path d="M 540 0L 1040 0L 1040 302L 540 302L 540 0Z" fill="#FFFFFF"/>
+<path d="M 540 0L 958 0L 958 302L 540 302L 540 0Z" fill="#FFFFFF"/>
 </clipPath>
 <g id="conceptGraphExample1" clip-path="url(#clip-0)">
 <g id="P">
-<use xlink:href="#path0_fill" transform="translate(652 54)"/>
+<use xlink:href="#path0_fill" transform="translate(611 54)"/>
 </g>
 <g id="R">
-<use xlink:href="#path1_fill" transform="translate(882 54)"/>
+<use xlink:href="#path1_fill" transform="translate(841 54)"/>
 </g>
 <g id="Rectangle (Stroke)">
-<use xlink:href="#path2_fill" transform="translate(605 27)"/>
+<use xlink:href="#path2_fill" transform="translate(564 27)"/>
 </g>
 <g id="Rectangle (Stroke)">
-<use xlink:href="#path3_fill" transform="translate(581 0)"/>
+<use xlink:href="#path3_fill" transform="translate(540 0)"/>
 </g>
 <g id="Rectangle (Stroke)">
-<use xlink:href="#path2_fill" transform="translate(835 27)"/>
+<use xlink:href="#path2_fill" transform="translate(794 27)"/>
 </g>
 <g id="Rectangle 2 (Stroke)">
-<use xlink:href="#path4_fill" transform="translate(632 54)"/>
+<use xlink:href="#path4_fill" transform="translate(591 54)"/>
 </g>
 <g id="a">
-<use xlink:href="#path5_fill" transform="translate(770 212)"/>
+<use xlink:href="#path5_fill" transform="translate(729 212)"/>
 </g>
 <g id="Rectangle 2 (Stroke)">
-<use xlink:href="#path6_fill" transform="translate(747 216)"/>
+<use xlink:href="#path6_fill" transform="translate(706 216)"/>
 </g>
 <g id="Rectangle 2 (Stroke)">
-<use xlink:href="#path4_fill" transform="translate(862 54)"/>
+<use xlink:href="#path4_fill" transform="translate(821 54)"/>
 </g>
 <g id="Line">
-<use xlink:href="#path7_stroke" transform="translate(833 139)"/>
+<use xlink:href="#path7_stroke" transform="translate(792 139)"/>
 </g>
 <g id="Line">
-<use xlink:href="#path7_stroke" transform="matrix(-1 0 0 1 747 139)"/>
+<use xlink:href="#path7_stroke" transform="matrix(-1 0 0 1 706 139)"/>
 </g>
 </g>
 </g>

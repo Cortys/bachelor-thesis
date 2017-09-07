@@ -7,7 +7,7 @@ Die in~\ref{sec:intro:goals} beschriebenen Ziele werden bereits seit langem erfo
 Der Begriff \textit{Wissensgraph} wurde 2012 durch Google popularisiert, die Ideen dahinter lassen sich allerdings bis ins Ende des 19. Jahrhunderts zurückverfolgen.
 Dieses Kapitel zeigt auf, wie sich die Themen dieser Arbeit in die bisherige Forschung einfügen.
 \ref{sec:related:kr} ordnet hierfür das Konzept des Wissensgraphen in die Entwicklungsgeschichte der Wissensrepräsentation ein.
-In~\ref{sec:related:nlp} wird ein Überblick über die momentan verbreiteten \textit{natural language processing} (NLP) Werkzeuge gegeben.
+In~\ref{sec:related:nlp} wird ein Überblick über die momentan verbreiteten \textit{Natural Language Processing} (NLP) Werkzeuge gegeben.
 Das Wissensgraphkonzept und NLP wird schließlich in~\ref{sec:related:kgc} kombiniert und es werden die aktuell verwendeten Verfahren zur Wissensgraphkonstruktion beschrieben.
 
 \section{Ansätze zur Wissensrepräsentation}
@@ -21,7 +21,7 @@ Während in der formalen Logik und Mathematik die Prädikatenlogik das allgemein
 Diese werden im Folgenden kurz vorgestellt.
 
 \paragraph{Begriffsschrift (1879)}
-Gottlob Freges Buch über die \textit{Begriffsschrift} gilt als eines der bedeutsamsten Werke der Logik.
+Gottlob Freges Buch über die \textit{Begriffsschrift}~\cite{Frege1879} gilt als eines der bedeutsamsten Werke der Logik.
 Sie ist der erste Formalismus mit der Mächtigkeit der modernen Prädikatenlogik zweiter Ordnung mit Identität.
 Frege benutzt hierfür eine zweidimensionale Notation, die sich stark von der heute gebräuchlichen, linearen, an die Algebra angelehnte Notation unterscheidet.
 \begin{equation*}
@@ -35,7 +35,7 @@ Zudem gibt es ausschließlich den Allquantor;
 eine existenzquantisierte Aussage muss durch Negation der negierten allquantisierten Aussage ausgedrückt werden.
 
 \paragraph{Prädikatenlogik: Peirce Notation (1885)}
-Unabhängig von Frege entwickelte der amerikanische Mathematiker Charles Sanders Peirce ebenfalls ein prädikatenlogisches Kalkül.
+Unabhängig von Frege entwickelte der amerikanische Mathematiker Charles Sanders Peirce ebenfalls ein prädikatenlogisches Kalkül~\cite{Peirce1885}.
 Peirces Notation hatte starke Ähnlichkeiten mit der heute benutzten linearen Schreibweise.
 Statt den modernen Symbolen hat Peirce allerdings die algebraischen Operatoren benutzt, um die Analogien zwischen Logik und Algebra auszudrücken.
 \begin{equation*}
@@ -45,7 +45,7 @@ Statt den modernen Symbolen hat Peirce allerdings die algebraischen Operatoren b
 \end{equation*}
 
 \paragraph{Existential Graphs (1897)}
-Neben seiner zuvor entwickelten linearen prädikatenlogischen Notation, hat Peirce zudem viele Jahre an einem alternativen graphischen Kalkül gearbeitet, welches er \textit{Existential Graphs} (zu dt.~Existenzgraphen) nannte.
+Neben seiner zuvor entwickelten linearen prädikatenlogischen Notation, hat Peirce zudem viele Jahre an einem alternativen graphischen Kalkül gearbeitet, welches er \textit{Existential Graphs} (zu dt.~Existenzgraphen)~\cite{Sowa2011} nannte.
 Ähnlich wie die Begriffsschrift werden Existenzgraphen zweidimensional dargestellt.
 Von dieser Gemeinsamkeit abgesehen, funktionieren sie allerdings fundamental verschieden.
 Ein logischer Ausdruck wird hier durch einen ungerichteten Graphen beschrieben.
@@ -68,21 +68,21 @@ Ein weiterer Unterschied zur heutigen Prädikatenlogik ist die Beschreibung logi
 Im Gegensatz zu den prädikatenlogischen Ersetzungsaxiomen, die auf der syntaktischen Struktur von logischen Ausdrücken operieren (z.~B. für Kommutativität), lassen sich die Ersetzungsaxiome für Existenzgraphen als Graphtransformationsregeln verstehen, die bestimmte Teilmengen der Knoten und Kanten eines Ausdrucks durch andere äquivalente Knoten- und Kantenmengen ersetzen.
 
 \paragraph{Prädikatenlogik: Peano-Russell Notation (1910)}
-Die zweidimensionalen Notationen wurde häufig kritisiert, da sie die lineare, algebraische Notation der symbolischen Logik von Boole und De Morgan verwarfen.
+Die zweidimensionalen Notationen wurde häufig kritisiert, da sie die lineare, algebraische Notation der symbolischen Logik von Boole und De Morgan verwarfen~\cite{Sluga1987}.
 Freges Begriffsschrft und Peirces Existenzgraphen konnten sich daher nicht durchsetzen.
 Peirces algebraische prädikatenlogische Notation hingegen, stieß auf größere Akzeptanz.
 Giuseppe Peano hat auf deren Basis eine ähnliche Notation entwickelt, welche allerdings nicht die algebraischen Operatoren benutzt, damit sich logische Ausdrücke besser mit mathematischen Ausdrücken kombinieren lassen.
-Bertrand Russell hat Peanos Notation anschließend in leicht abgewandelter Form in den \textit{Principia Mathematica} (1910) benutzt.
+Bertrand Russell hat Peanos Notation anschließend in leicht abgewandelter Form in den \textit{Principia Mathematica}~\cite{Whitehead1910} benutzt.
 Diese sog.~Peano-Russell-Notation ist im Wesentlichen identisch mit der modernen Schreibweise.
 
-Trotz des Verschwindens der zweidimensionalen Notationen, finden sich noch heute Anlehnungen daran.
+Trotz des Verschwindens der zweidimensionalen Notationen, finden sich noch heute Anlehnungen daran~\cite{WikiBegriffsschrift}.
 So ist z.~B. die Negation $\lnot A$ auf Freges negierten Inhaltsstrich $\Fncontent A$ und der Ableitungsoperator $\vdash$ auf Freges Urteilsstrich mit angefügtem Inhaltsstrich $\Facontent$ zurückzuführen.
 
 \subsection{Entwicklung maschineller Wissensrepräsentation}
 \label{sec:related:kr:history}
 
 Die Idee Computer zur Lösung beliebiger Probleme zu benutzen ist nicht neu.
-Da ein solches maschinelles Problemlösen immer die Verfügbarkeit von Hintergrundwissen über die Problemdomäne erfordert,
+Da ein solches maschinelles Problemlösen die Verfügbarkeit von Hintergrundwissen über die Problemdomäne erfordert,
 wurden Methoden zur Wissensrepräsentation immer im Zusammenhang mit Problemlösern erforscht.
 So wie effiziente Datenstrukturen die Implementation effizienter Algorithmen ermöglichen, ermöglichen gute Wissensrepräsentationen die Implementation guter Problemlöser.
 Was genau nun als ein guter Problemlöser verstanden wird, hat sich im Laufe der Jahre allerdings immer wieder verändert.
@@ -104,12 +104,13 @@ Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen
 \paragraph{Semantic Networks (1956)}
 Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks} (zu dt.~semantische Netzwerke) auf.
 Dieser Ansatz beschreibt Wissen als Menge von $(subject, predicate, object)$-Tripeln.
-Es gibt darüber hinaus keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
+Es gibt darüber hinaus allerdings keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
+Semantische Netzwerke sind daher allenfalls als ein Oberbegriff für die große Vielfalt konkreter graphbasierter Wissensbasen zu verstehen.
 
 \paragraph{Conceptual Graphs (1976)}
 Wie genau mit Graphen komplexes Wissen beschrieben werden kann, das über eine reine Taxonomie hinaus geht, blieb bei semantischen Netzen unklar.
 John F. Sowas \textit{Conceptual Graphs} (zu dt.~Konzeptgraphen) lösen dieses Problem.
-Statt Wissen als eine Menge von Beziehungen abzubilden, wird es als prädikatenlogischer Ausdruck verstanden.
+Statt Wissen lediglich als eine einfache Menge von Beziehungen abzubilden, wird es als prädikatenlogischer Ausdruck verstanden.
 Hierfür baut Sowa auf Peirces Existenzgraphen auf, die bis dahin weitestgehend unbeachtet waren.
 \begin{align*}
 	\vcenter{\hbox{\includegraphics[height=4em]{gfx/related-work/conceptGraphExample1.pdf}}}
@@ -156,7 +157,7 @@ Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig
 Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
 
 \paragraph{Google Knowledge Graph}
-Basierend auf den Ideen der in~\ref{sec:related:kr:history} vorgestellten Wissensgraphen, stellte Google 2012 eine eigene, ebenfalls \textit{knowledge graph} genannte, Wissensgraphtechnologie vor.
+Basierend auf den Ideen der in~\ref{sec:related:kr:history} vorgestellten Wissensgraphen, stellte Google 2012 eine eigene, ebenfalls \textit{Knowledge Graph} genannte, Wissensgraphtechnologie vor~\cite{Singhal2012}.
 Sie wird benutzt, um Suchanfragen semantisch, statt per String-Matching, zu beantworten.
 So können z.~B. zum Suchbegriff verwandte Ergebnisse angezeigt werden, selbst wenn es keine textuelle Ähnlichkeit zu jenem gibt.
 Laut Googles Aussagen stammen die Quelldaten u.~a.\ aus Wikipedia Infoboxen, Wikidata und dem CIA World Factbook.
@@ -187,14 +188,14 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 			\addplot+[no markers,style=thick] table [x=month, y=popularity]{\knowledgeGraphTrend};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Popularität des Begriffs ``knowledge graph'' (Quelle: Google Trends)}\label{fig:related:kgTrend}
+	\caption{Popularität des Begriffs ``knowledge graph'' (Quelle: Google Trends~\cite{Google2017})}\label{fig:related:kgTrend}
 \end{figure}
 
 \section{NLP-Werkzeuge}
 \label{sec:related:nlp}
 
 Neben der Repräsentation von Wissen, ist auch die Verarbeitung natürlicher Sprache ein Kernbestandteil dieser Arbeit.
-Hierfür existiert bereits eine Vielzahl von \textit{natural language processing} (NLP) Werkzeugen.
+Hierfür existiert bereits eine Vielzahl von \textit{Natural Language Processing} (NLP) Werkzeugen.
 Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in den meisten Werkeugen verwendet werden.
 \begin{enumerate}
 	\item \textbf{Tokenization:}
@@ -242,8 +243,8 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 
 Wie sich erkennen lässt, bauen die Verarbeitungsschritte sukzessive aufeinander auf und bilden eine Art Pipeline.
 Dieses Pipeline-Modell findet sich auch in vielen NLP-Werkzeugen wieder.
-Ein solches ist z.~B. das Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
-Ein weiteres ähnliches Projekt ist Apache~OpenNLP~\cite{OpenNLP};\@
+Ein solches ist z.~B. das quelloffene Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
+Ein alternatives NLP-Toolkit ist Apache~OpenNLP~\cite{OpenNLP};\@
 es bietet ähnliche Module wie CoreNLP an.
 
 \section{Wissensgraphkonstruktionsverfahren}
@@ -279,24 +280,24 @@ ein Beispiel hierfür sind symmetrische Relationen.
 \paragraph{Graph Feature Models}
 Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
 Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
-Ein Beispiel hierfür ist der Path Ranking Algorithmus (PRA)~\cite{Lao2011}. PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
-Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das Additive Relational Effects (ARE) Verfahren~\cite{Nickel2014}, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.
+Ein Beispiel hierfür ist der \textit{Path Ranking Algorithmus} (PRA)~\cite{Lao2011}. PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
+Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das \textit{Additive Relational Effects} (ARE) Verfahren~\cite{Nickel2014}, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.
 
 \paragraph{Markov Random Fields}
-Fundamental verschieden von diesen beiden Verfahren sind Markov Random Fields (MRFs).
+Fundamental verschieden von diesen beiden Verfahren sind \textit{Markov Random Fields} (MRFs).
 Hier sind prinzipiell Abhängigkeiten zwischen allen Relationen möglich, was MRFs sehr flexibel macht.
 Da dies hinsichtlich der Laufzeit schnell impraktikabel wird, wird das Modell um einen Abhängigkeitsgraphen erweitert, der die Anzahl von betrachteten Abhängigkeiten reduziert.
 Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werden:
 Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{ 0, 1 \}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ Hinge-Loss-MRF~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{ 0, 1 \}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
 
-Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die Probabilistic Soft Logic (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
-MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen Alternating Direction Method of Multipliers (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
+Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die \textit{Probabilistic Soft Logic} (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
+MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen \textit{Alternating Direction Method of Multipliers} (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
 In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
 der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
-Um dieses Problem zu lösen, wurde das Budgeted Online Collective Inference (BOCI) Verfahren~\cite{Pujara2015} entwickelt.
+Um dieses Problem zu lösen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren~\cite{Pujara2015} entwickelt.
 BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
 Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
 Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den $m$ höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
