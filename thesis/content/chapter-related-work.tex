@@ -83,15 +83,15 @@ So ist z.~B. die Negation $\lnot A$ auf Freges negierten Inhaltsstrich $\Fnconte
 
 Die Idee Computer zur Lösung beliebiger Probleme zu benutzen ist nicht neu.
 Da ein solches maschinelles Problemlösen die Verfügbarkeit von Hintergrundwissen über die Problemdomäne erfordert,
-wurden Methoden zur Wissensrepräsentation immer im Zusammenhang mit Problemlösern erforscht.
+wurden Methoden zur Wissensrepräsentation immer im Zusammenhang mit Problemlösern erforscht~\cite{Hayes-Roth1983}.
 So wie effiziente Datenstrukturen die Implementation effizienter Algorithmen ermöglichen, ermöglichen gute Wissensrepräsentationen die Implementation guter Problemlöser.
 Was genau nun als ein guter Problemlöser verstanden wird, hat sich im Laufe der Jahre allerdings immer wieder verändert.
 
 \paragraph{Universelle Problemlöser}
-Einer der ersten maschinellen Problemlöser war der von Simon, Shaw und Newell 1955 entwickelte \textit{Logic Theorist} (LT).
+Einer der ersten maschinellen Problemlöser war der von Newell und Simon 1955 entwickelte \textit{Logic Theorist} (LT)~\cite{Newell1956}.
 LT war in der Lage logische Aussagen zu beweisen, indem er systematisch Ersetzungsaxiome auf eine gegebene Aussage angewandt hat, bis die gesuchte Lösung abgeleitet wurde.
 
-Die Grundidee des LT haben Simon, Shaw und Newell 1959 im \textit{General Problem Solver} (GPS) erweitert.
+Die Grundidee des LT haben Newell, Simon und Shaw 1959 im \textit{General Problem Solver} (GPS)~\cite{Newell1959} erweitert.
 Es wurden Heuristiken hinzugefügt, um den Suchraum geschickter zu durchlaufen.
 GPS war ein universeller Problemlöser, konnte also jedes Problem lösen, das sich durch eine Menge von Horn-Klauseln ausdrücken lässt.
 Zwar war es so theoretisch möglich Probleme aus diversen Domänen zu lösen, aufgrund der kombinatorischen Explosion war GPS alledings nicht zur Lösung komplexer praktischer Probleme geeignet.
@@ -102,14 +102,14 @@ Expertensysteme besitzen für gewöhnlich eine Wissensbasis in der domänenspezi
 Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen.
 
 \paragraph{Semantic Networks (1956)}
-Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks} (zu dt.~semantische Netzwerke) auf.
-Dieser Ansatz beschreibt Wissen als Menge von $(subject, predicate, object)$-Tripeln.
+Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks}~\cite{Lehmann1992} (zu dt.~semantische Netzwerke) auf.
+Dieser Ansatz beschreibt Wissen als Menge von $(subject,\allowbreak predicate,\allowbreak object)$-Tripeln.
 Es gibt darüber hinaus allerdings keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
 Semantische Netzwerke sind daher allenfalls als ein Oberbegriff für die große Vielfalt konkreter graphbasierter Wissensbasen zu verstehen.
 
 \paragraph{Conceptual Graphs (1976)}
 Wie genau mit Graphen komplexes Wissen beschrieben werden kann, das über eine reine Taxonomie hinaus geht, blieb bei semantischen Netzen unklar.
-John F. Sowas \textit{Conceptual Graphs} (zu dt.~Konzeptgraphen) lösen dieses Problem.
+John F. Sowas \textit{Conceptual Graphs}~\cite{Sowa1976}\cite{Harmelen2007} (zu dt.~Konzeptgraphen) lösen dieses Problem.
 Statt Wissen lediglich als eine einfache Menge von Beziehungen abzubilden, wird es als prädikatenlogischer Ausdruck verstanden.
 Hierfür baut Sowa auf Peirces Existenzgraphen auf, die bis dahin weitestgehend unbeachtet waren.
 \begin{align*}
@@ -122,10 +122,11 @@ Da Konzeptgraphen, so wie schon die Existenzgraphen, ein vollständiges und korr
 Der Vorteil hierfür einen Graphen statt eines prädikatenlogischen Ausdrucks zu verwenden ist, dass eine Graphstruktur einen deutlich effizienteren Zugriff auf gespeichertes Wissen ermöglicht.
 
 \paragraph{Knowledge Graphs (1987)}
-Der Begriff \textit{Knowledge Graph} (zu dt.~Wissensgraph) bezeichnete ursprünglich eine Klasse semantischer Netze, deren Relationsmenge formal spezifiziert ist.
-Dies schränkt die Menge erlaubter Graphen ein und ermöglicht die Definition von Inferenzregeln, um Schlussfolgerungen aus einem gegebenen Graphen zu ziehen.
-Im Laufe der Jahre ist die Grenze zwischen semantischen Netzen und Wissensgraphen allerdings immer weiter verschwommen, sodass die Bezeichnungen heute oft synonym verwendet werden.
-Wissensgraphen und Konzeptgraphen müssen weiterhin unterschieden werden, da erstere oftmals Negation und Modalität nicht unterstützen.
+Der Begriff \textit{Knowledge Graph}~\cite{Riet1992} (zu dt.~Wissensgraph) bezeichnete ursprünglich eine Klasse semantischer Netze, deren Relationsmenge formal spezifiziert ist.
+Die Menge erlaubter Graphen wird hierdurch so eingeschränkt, dass das repräsentierte Wissen eindeutig interpretierbar und ohne Redundanz ist.
+Dies erlaubt die Definition von Inferenzregeln, um Schlussfolgerungen aus einem gegebenen Graphen zu ziehen.
+Im Laufe der Jahre ist die Grenze zwischen semantischen Netzen und Wissensgraphen allerdings so stark verschwommen, dass heute auch mehrdeutige, redundanzbehaftete semantische Netze, die lediglich wenige Relationstypen benutzen, als Wissensgraphen bezeichnet werden~\cite{McCusker2016}.
+Wissensgraphen und Konzeptgraphen müssen weiterhin streng unterschieden werden, da erstere oftmals Negation und Modalität nicht unterstützen.
 
 \subsection{Aktuelle Wissensrepräsentationsprojekte}%
 \label{sec:related:kr:today}
