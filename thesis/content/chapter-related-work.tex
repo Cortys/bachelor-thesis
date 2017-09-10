@@ -134,17 +134,17 @@ Wissensgraphen und Konzeptgraphen müssen weiterhin streng unterschieden werden,
 \subsubsection{Manuelle Ansätze}
 
 \paragraph{Semantic Web}
-Das sog.~\textit{Semantic Web} bezeichnet eine Menge von W3C-Standards, die das bestehende Web um eine formale Wissensbeschreibungssyntax erweitern.
+Das sog.~\textit{Semantic Web} bezeichnet eine Menge von W3C-Standards, die das bestehende Web um eine formale Wissensbeschreibungssyntax erweitern~\cite{SemWeb}.
 Zentral ist dabei das \textit{Resource Description Framework} (RDF), mit dem sich beliebige Konzepte, auch Resourcen genannt, beschreiben und verknüpfen lassen.
 Ziel ist es über die unstrukturierte Netzstruktur des bestehenden Webs, eine strukturierte, leicht maschniell verarbeitbare, Netzstruktur zu legen.
 Durch die Anfragesprache \textit{SPARQL} ist es möglich Wissen aus diesem Netz auszulesen.
 Das Web würde somit zu einem großen denzentralen Wissensgraphen.
-Tim Berners-Lee beschreibt diese Idee als das ``Web 3.0''.
+Tim Berners-Lee beschreibt diese Idee als das ``Web 3.0''~\cite{Shannon2006}.
 Obwohl die Technologien hierfür bereits seit Jahren existieren, sind bislang nur wenige Webseiten mit RDF-Tags annotiert.
-Häufige Kritik ist, dass das Semantic Web zu viel theoretisches Hintergrundwissen über Wissensrepräsentationsverfahren erfordert, um für die meisten Webseitenbetreiber zugänglich zu sein.
+Häufige Kritik ist, dass das Semantic Web zu viel theoretisches Hintergrundwissen über Wissensrepräsentationsverfahren erfordert, um für die meisten Webseitenbetreiber zugänglich zu sein~\cite{Marshall2003}.
 
 \paragraph{WordNet}
-Das \textit{WordNet} der Universität Princeton ist ein frei verfügbares lexikalisch-semantisches Netz für die englische Sprache, d.~h.\ ein semantisches Netz, welches die Bedeutung von Worten in Relation zueinander setzt.
+Das \textit{WordNet} der Universität Princeton~\cite{WordNet} ist ein frei verfügbares lexikalisch-semantisches Netz für die englische Sprache, d.~h.\ ein semantisches Netz, welches die Bedeutung von Worten in Relation zueinander setzt.
 Relationen werden dabei z.~B. für Synonyme, Hypernyme (Oberbegriffe) und Meronyme (Bestandteile) eingefügt.
 Der Datenbestand des WordNets wird manuell gepflegt und resultiert aus der Kombination der Einträge verschiedener Wörterbücher.
 
@@ -153,7 +153,7 @@ Neben den manuellen Grapherzeugungsansätzen des Semantic Webs und des WordNets,
 Diese bauen die Graphstruktur selbstständig aus gegebenen Datenquellen auf.
 
 \paragraph{NELL}
-Das \textit{Never-Ending Language Learning} (NELL) System traviersiert selbstständig das Internet und fügt die gefundenen textuellen Informationen in einen Wissensgraphen ein.
+Das \textit{Never-Ending Language Learning} (NELL) System~\cite{Carlson2010} traviersiert selbstständig das Internet und fügt die gefundenen textuellen Informationen in einen Wissensgraphen ein.
 Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig angepasst wird.
 Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
 
@@ -165,7 +165,7 @@ Laut Googles Aussagen stammen die Quelldaten u.~a.\ aus Wikipedia Infoboxen, Wik
 Da es sich hierbei, im Gegensatz zu NELL, primär um strukturierte Daten handelt, ist das automatisierte Einpflegen mit hoher Genauigkeit möglich.
 Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekannt.
 
-\begin{figure}
+\begin{figure}[h]
 	\begin{tikzpicture}
 		\pgfplotstableread[col sep=comma] {data/related-work/knowledgeGraph.csv}\knowledgeGraphTrend%
 		\begin{axis}[
