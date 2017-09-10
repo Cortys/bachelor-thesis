@@ -12,9 +12,25 @@ Sie werden daher in den folgenden Abschnitten näher beschrieben.
 \label{sec:theory:cg}
 
 John F. Sowas Konzeptgraphen bilden die Basis der Graphontologie dieser Arbeit.
-Wie in~\ref{sec:related:kr:history} beschrieben, sind sie ein auf Existenzgraphen basierendes prädikatenlogisches Kalkül.
-Da Sowas eigene Beschreibungen teils etwas unklar sind, werden im folgenden die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
-Sie sind eine formal spezifizierte Teilmenge der Konzeptgraphen, deren Vollständigkeit und Korrektheit bewiesen ist.
+Wie in~\ref{sec:related:kr:history} beschrieben, sind sie ein auf Existenzgraphen basierendes logisches Kalkül.
+Die vollständige Konzeptgraphsyntax geht allerdings weit über die Prädikatenlogik hinaus, da auch Modallogik und natürlichsprachliche Konzepte, wie z.~B. Fragen und Betonungen, unterstützt werden.
+Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
+Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, deren Vollständigkeit und Korrektheit bewiesen ist.
+
+In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
+\begin{enumerate}
+	\item \textbf{Konzeptknoten (\textit{concepts}):}
+		Entsprechen in etwa existenzquantisierten gebundenen Variablen.
+	\item \textbf{Relationsknoten (\textit{conceptual relations}):}
+		Entsprechen den Vorkommen von Relationen in Atomen.
+	\item \textbf{Negationskontextknoten (\textit{negative contexts} oder \textit{cuts}):}
+		Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
+		Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
+	\item \textbf{Argumentkanten (\textit{arguments}):}
+		Entsprechen den Vorkommen von Variablen in Atomen.
+	\item \textbf{Koreferenzkanten (\textit{coreference links}):}
+		Entsprechen der Äquivalenzrelation.
+\end{enumerate}
 
 \section{Stanford CoreNLP}%
 \label{sec:theory:nlp}
