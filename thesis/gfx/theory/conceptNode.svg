@@ -1,25 +1,25 @@
 <svg width="230" height="100" viewBox="0 0 230 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>conceptNode</title>
 <desc>Created using Figma</desc>
-<g id="Canvas" transform="translate(-1738 -39)">
+<g id="Canvas" transform="translate(-1609 -58)">
 <clipPath id="clip-0" clip-rule="evenodd">
-<path d="M 1448 0L 2263 0L 2263 838L 1448 838L 1448 0Z" fill="#FFFFFF"/>
+<path d="M 1609 58L 1839 58L 1839 158L 1609 158L 1609 58Z" fill="#FFFFFF"/>
 </clipPath>
-<g id="conceptGraphExplanation" clip-path="url(#clip-0)">
+<g id="conceptNode" clip-path="url(#clip-0)">
 <g id="concept">
 <g id="a">
-<use xlink:href="#path0_fill" transform="translate(1764.73 46)" fill="#B33535"/>
+<use xlink:href="#path0_fill" transform="translate(1635.73 65)" fill="#B33535"/>
 </g>
 <g id="Rectangle 2">
-<use xlink:href="#path1_stroke" transform="translate(1742 46)" fill="#B33535"/>
+<use xlink:href="#path1_stroke" transform="translate(1613 65)" fill="#B33535"/>
 </g>
 </g>
 <g id="concept">
 <g id="b">
-<use xlink:href="#path2_fill" transform="translate(1900.73 46)" fill="#B33535"/>
+<use xlink:href="#path2_fill" transform="translate(1771.73 65)" fill="#B33535"/>
 </g>
 <g id="Rectangle 2">
-<use xlink:href="#path1_stroke" transform="translate(1878 46)" fill="#B33535"/>
+<use xlink:href="#path1_stroke" transform="translate(1749 65)" fill="#B33535"/>
 </g>
 </g>
 </g>

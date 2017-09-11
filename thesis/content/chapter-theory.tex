@@ -21,16 +21,19 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 \begin{itemize}
 	\item \textbf{Konzeptknoten (\textit{concepts}):}
 		Entsprechen in etwa existenzquantisierten gebundenen Variablen.
+		Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
 		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
 			\quad\Leftrightarrow\quad
 			{\color{rot}\exists\ a, b}
 		\end{align*}
 	\item \textbf{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments}):}
-		Relationsknoten entsprechen den Relationssymbolen in Atomen.
-		Zwischen Relationsknoten und Konzeptknoten können Argumentkanten existieren;
-		sie entsprechen den Argumenten eines prädikatenlogischen Atoms.
+		Relationsknoten entsprechen prädikatenlogischen Atomen.
+		Das Symbol innerhalb eines Relationsknoten gibt die Relation des Atoms an.
+		Für die Repräsentation der Argumente werden sog.~Argumentkanten zwischen Relationsknoten und Konzeptknoten verwendet.
 		Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierung der Argumentkanten oder bei zweistelligen Relationen durch gerichtete Argumentkanten abgebildet.
+		Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
+		für die Abbildung von \textit{ODER} wird die Negation verwendet.
 		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/relationNode.pdf}}}
 			\quad\Leftrightarrow\quad
@@ -43,15 +46,40 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
 			\quad\Leftrightarrow\quad
 			\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b)
+			\quad\Leftrightarrow\quad
+			\exists\ a\ {\color{rot}\forall}\ b: {\color{rot}\lnot} P(a, b)
 		\end{align*}
-		Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen i.~d.~R. Boxen verwendet, die die Kindknoten umschließen.
+		Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
 		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
 			\quad\Leftrightarrow\quad
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode2.pdf}}}
 		\end{align*}
+		Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
+		Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
+		Kontexte dürfen sich also nicht überlappen.
+		\[
+			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode3.pdf}}}
+			\quad\Leftrightarrow\quad
+			{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b)
+			\quad\Leftrightarrow\quad
+			{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
+		\] \[
+			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/negationNode4.pdf}}}
+			\Leftrightarrow
+			\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a))
+			\Leftrightarrow
+			\exists\ a, b: P(a, b) {\color{rot}\lor} R(b, a)
+		\]
 	\item \textbf{Koreferenzkanten (\textit{coreference links}):}
-		Entsprechen der Äquivalenzrelation.
+		Entspricht der Äquivalenzrelation.
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
+			\quad\Leftrightarrow\quad
+			&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
+			\quad\Leftrightarrow\quad
+			&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b}
+		\end{align*}
 \end{itemize}
 
 \section{Stanford CoreNLP}%

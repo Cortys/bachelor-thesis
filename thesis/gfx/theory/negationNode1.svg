@@ -1,66 +1,66 @@
 <svg width="367" height="200" viewBox="0 0 367 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>negationNode1</title>
 <desc>Created using Figma</desc>
-<g id="Canvas" transform="translate(-1460 -387)">
+<g id="Canvas" transform="translate(-1473 -248)">
 <clipPath id="clip-0" clip-rule="evenodd">
-<path d="M 1448 0L 2263 0L 2263 838L 1448 838L 1448 0Z" fill="#FFFFFF"/>
+<path d="M 1473 248L 1840 248L 1840 448L 1473 448L 1473 248Z" fill="#FFFFFF"/>
 </clipPath>
-<g id="conceptGraphExplanation" clip-path="url(#clip-0)">
+<g id="negationNode1" clip-path="url(#clip-0)">
 <g id="concept">
 <g id="&#194;&#172;">
-<use xlink:href="#path0_fill" transform="translate(1691.73 498)" fill="#B33535"/>
+<use xlink:href="#path0_fill" transform="translate(1704.73 359)" fill="#B33535"/>
 </g>
 <g id="Rectangle 2">
-<use xlink:href="#path1_stroke" transform="translate(1669 498)" fill="#B33535"/>
+<use xlink:href="#path1_stroke" transform="translate(1682 359)" fill="#B33535"/>
 </g>
 </g>
 <g id="Line 2">
-<use xlink:href="#path2_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1596 434)"/>
+<use xlink:href="#path2_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1609 295)"/>
 </g>
 <g id="Line 2">
-<use xlink:href="#path3_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1733 434)"/>
+<use xlink:href="#path3_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1746 295)"/>
 </g>
 <g id="concept">
 <g id="a">
-<use xlink:href="#path4_fill" transform="translate(1486.73 391)"/>
+<use xlink:href="#path4_fill" transform="translate(1499.73 252)"/>
 </g>
 <g id="Rectangle 2">
-<use xlink:href="#path5_stroke" transform="translate(1464 391)"/>
+<use xlink:href="#path5_stroke" transform="translate(1477 252)"/>
 </g>
 </g>
 <g id="relation">
 <g id="P">
-<use xlink:href="#path6_fill" transform="translate(1619.23 391)"/>
+<use xlink:href="#path6_fill" transform="translate(1632.23 252)"/>
 </g>
 <g id="Ellipse 3">
-<use xlink:href="#path7_stroke" transform="translate(1600 391)"/>
+<use xlink:href="#path7_stroke" transform="translate(1613 252)"/>
 </g>
 </g>
 <g id="concept">
 <g id="b">
-<use xlink:href="#path8_fill" transform="translate(1759.27 391)"/>
+<use xlink:href="#path8_fill" transform="translate(1772.27 252)"/>
 </g>
 <g id="Rectangle 2">
-<use xlink:href="#path9_stroke" transform="translate(1736 391)"/>
+<use xlink:href="#path9_stroke" transform="translate(1749 252)"/>
 </g>
 </g>
 <g id="Polygon">
-<use xlink:href="#path10_fill" transform="matrix(2.63678e-16 1 -1 2.63678e-16 1599 423)"/>
+<use xlink:href="#path10_fill" transform="matrix(2.63678e-16 1 -1 2.63678e-16 1612 284)"/>
 </g>
 <g id="Line 2">
-<use xlink:href="#path11_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1778 541)" fill="#B33535"/>
+<use xlink:href="#path11_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 1791 402)" fill="#B33535"/>
 </g>
 <g id="Polygon">
-<use xlink:href="#path10_fill" transform="matrix(1 1.9599e-17 -1.9599e-17 1 1767 478)" fill="#B33535"/>
+<use xlink:href="#path10_fill" transform="matrix(1 1.9599e-17 -1.9599e-17 1 1780 339)" fill="#B33535"/>
 </g>
 <g id="Line 2">
-<use xlink:href="#path12_stroke" transform="matrix(1 1.22465e-16 1.22465e-16 -1 1644 541)" fill="#B33535"/>
+<use xlink:href="#path12_stroke" transform="matrix(1 1.22465e-16 1.22465e-16 -1 1657 402)" fill="#B33535"/>
 </g>
 <g id="Polygon">
-<use xlink:href="#path10_fill" transform="matrix(-1 1.9599e-17 1.9599e-17 1 1655 478)" fill="#B33535"/>
+<use xlink:href="#path10_fill" transform="matrix(-1 1.9599e-17 1.9599e-17 1 1668 339)" fill="#B33535"/>
 </g>
 <g id="Polygon">
-<use xlink:href="#path10_fill" transform="matrix(2.63678e-16 1 -1 2.63678e-16 1735 423)"/>
+<use xlink:href="#path10_fill" transform="matrix(2.63678e-16 1 -1 2.63678e-16 1748 284)"/>
 </g>
 </g>
 </g>
