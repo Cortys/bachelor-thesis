@@ -18,19 +18,41 @@ Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im
 Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, deren Vollständigkeit und Korrektheit bewiesen ist.
 
 In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
-\begin{enumerate}
+\begin{itemize}
 	\item \textbf{Konzeptknoten (\textit{concepts}):}
 		Entsprechen in etwa existenzquantisierten gebundenen Variablen.
-	\item \textbf{Relationsknoten (\textit{conceptual relations}):}
-		Entsprechen den Vorkommen von Relationen in Atomen.
-	\item \textbf{Negationskontextknoten (\textit{negative contexts} oder \textit{cuts}):}
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
+			\quad\Leftrightarrow\quad
+			{\color{rot}\exists\ a, b}
+		\end{align*}
+	\item \textbf{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments}):}
+		Relationsknoten entsprechen den Relationssymbolen in Atomen.
+		Zwischen Relationsknoten und Konzeptknoten können Argumentkanten existieren;
+		sie entsprechen den Argumenten eines prädikatenlogischen Atoms.
+		Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierung der Argumentkanten oder bei zweistelligen Relationen durch gerichtete Argumentkanten abgebildet.
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/relationNode.pdf}}}
+			\quad\Leftrightarrow\quad
+			\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)}
+		\end{align*}
+	\item \textbf{Negationskontexte (\textit{negation contexts} oder \textit{cuts}):}
 		Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
 		Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
-	\item \textbf{Argumentkanten (\textit{arguments}):}
-		Entsprechen den Vorkommen von Variablen in Atomen.
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+			\quad\Leftrightarrow\quad
+			\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b)
+		\end{align*}
+		Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen i.~d.~R. Boxen verwendet, die die Kindknoten umschließen.
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+			\quad\Leftrightarrow\quad
+			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode2.pdf}}}
+		\end{align*}
 	\item \textbf{Koreferenzkanten (\textit{coreference links}):}
 		Entsprechen der Äquivalenzrelation.
-\end{enumerate}
+\end{itemize}
 
 \section{Stanford CoreNLP}%
 \label{sec:theory:nlp}

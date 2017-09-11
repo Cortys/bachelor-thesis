@@ -1,22 +1,22 @@
-<svg width="500" height="302" viewBox="0 0 500 302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="418" height="235" viewBox="0 0 418 235" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>existentialGraphExample1</title>
 <desc>Created using Figma</desc>
 <g id="Canvas">
 <clipPath id="clip-0" clip-rule="evenodd">
-<path d="M 0 -5.68434e-14L 500 -5.68434e-14L 500 302L 0 302L 0 -5.68434e-14Z" fill="#FFFFFF"/>
+<path d="M 0 -5.68434e-14L 418 -5.68434e-14L 418 235L 0 235L 0 -5.68434e-14Z" fill="#FFFFFF"/>
 </clipPath>
 <g id="existentialGraphExample1" clip-path="url(#clip-0)">
 <g id="Subtract">
-<use xlink:href="#path0_fill" transform="translate(41 33)" fill="#CCCCCC"/>
+<use xlink:href="#path0_fill" fill="#CCCCCC"/>
 </g>
 <g id="P">
-<use xlink:href="#path1_fill" transform="translate(112 87)"/>
+<use xlink:href="#path1_fill" transform="translate(71 54)"/>
 </g>
 <g id="R">
-<use xlink:href="#path2_fill" transform="translate(342 87)"/>
+<use xlink:href="#path2_fill" transform="translate(301 54)"/>
 </g>
 <g id="Line">
-<use xlink:href="#path3_stroke" transform="translate(163 128)"/>
+<use xlink:href="#path3_stroke" transform="translate(122 95)"/>
 </g>
 </g>
 </g>
