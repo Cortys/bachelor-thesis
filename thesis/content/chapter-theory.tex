@@ -17,7 +17,10 @@ Die vollständige Konzeptgraphsyntax geht allerdings weit über die Prädikatenl
 Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
 Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, deren Vollständigkeit und Korrektheit bewiesen ist.
 
-In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
+\subsection{Syntax}%
+\label{sec:theory:cg:syntax}
+
+In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
 \begin{itemize}
 	\item \textbf{Konzeptknoten (\textit{concepts}):}
 		Entsprechen in etwa existenzquantisierten gebundenen Variablen.
@@ -25,7 +28,7 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
 			\quad\Leftrightarrow\quad
-			{\color{rot}\exists\ a, b}
+			{\color{rot}\exists\ a, b} \numberthis
 		\end{align*}
 	\item \textbf{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments}):}
 		Relationsknoten entsprechen prädikatenlogischen Atomen.
@@ -35,9 +38,9 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 		Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
 		für die Abbildung von \textit{ODER} wird die Negation verwendet.
 		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/relationNode.pdf}}}
+			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/relationNode.pdf}}}
 			\quad\Leftrightarrow\quad
-			\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)}
+			\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
 		\end{align*}
 	\item \textbf{Negationskontexte (\textit{negation contexts} oder \textit{cuts}):}
 		Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
@@ -45,9 +48,9 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
 			\quad\Leftrightarrow\quad
-			\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b)
+			&\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 			\quad\Leftrightarrow\quad
-			\exists\ a\ {\color{rot}\forall}\ b: {\color{rot}\lnot} P(a, b)
+			&\exists\ a\ {\color{rot}\forall}\ b: {\color{rot}\lnot} P(a, b)
 		\end{align*}
 		Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
 		\begin{align*}
@@ -57,30 +60,61 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als ungerichtete Graphen mi
 		\end{align*}
 		Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
 		Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
-		Kontexte dürfen sich also nicht überlappen.
-		\[
+		die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
+		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode3.pdf}}}
 			\quad\Leftrightarrow\quad
-			{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b)
+			&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 			\quad\Leftrightarrow\quad
-			{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
-		\] \[
+			&{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
+		\end{align*}
+		\begin{align*}
 			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/negationNode4.pdf}}}
-			\Leftrightarrow
-			\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a))
-			\Leftrightarrow
-			\exists\ a, b: P(a, b) {\color{rot}\lor} R(b, a)
-		\]
+			\quad\Leftrightarrow\quad
+			&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
+			\quad\Leftrightarrow\quad
+			&\exists\ a, b: P(a, b)\ {\color{rot}\lor}\ R(b, a)
+		\end{align*}
 	\item \textbf{Koreferenzkanten (\textit{coreference links}):}
 		Entspricht der Äquivalenzrelation.
-		\begin{align*}
+		\begin{align}
 			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
 			\quad\Leftrightarrow\quad
 			&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
 			\quad\Leftrightarrow\quad
-			&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b}
-		\end{align*}
+			&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b} \nonumber
+		\end{align}
 \end{itemize}
+
+\subsection{Dominierende Knoten}%
+\label{sec:theory:cg:domnodes}
+
+Nicht alle Graphen, die sich mit den soeben beschriebenen Syntaxelementen bilden lassen, sind gültige Konzeptgraphen.
+Die Einschränkung, dass alle Knoten und Kontexte höchstens einen Elternkontext haben dürfen, wurde bereits erwähnt.
+Eine weitere Einschränkung ist das Verbot nicht dominierender Knoten (\textit{dominating nodes}).
+Was genau dies bedeutet, wird im Folgenden erläutert. Zuerst müssen Konzeptgraphen jedoch formal spezifiziert werden.
+\begin{align*}
+	G :=\ &(V, E) \\
+	V \ni\ &\top, E \supseteq \{ (\top, v): v \in V \land \lnot\exists\ c \in V: context(c) \land (c, v) \in E \} \\
+	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
+	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
+	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
+	neg(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Negationskontext} \\
+	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
+	& \lor (context(b) \land (b, a) \in E) \\
+	& \lor (\exists\ c \in V: context(c) \land (c, a) \in E \land (c, b) \in E)
+\end{align*}
+Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt.
+$\top$ enthält alle Knoten, die keinen Elternkontext haben.
+$\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwischen Knoten ab, d.~h.\ $a \leq b$ gdw.\ $a$ nicht außerhalb der Box des Elternkontextes von $b$ liegt.
+Das größte Element gemäß $\leq$ ist also immer $\top$.
+
+Jeder gültige Konzeptgraph muss dominierende Knoten haben.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/dominatingNodeViolation1.pdf}}}
+	\quad
+	\text{\color{rot}$\lightning$ Keine dominierenden Knoten, da $b \leq P$.}
+\end{align*}
 
 \section{Stanford CoreNLP}%
 \label{sec:theory:nlp}

@@ -75,6 +75,10 @@
 \usepackage{cleanthesis}
 
 \usepackage{mathtools}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\usepackage{stmaryrd}
+
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};} % chktex 1
@@ -85,6 +89,9 @@
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=1.14}
 \usepgfplotslibrary{dateplot, statistics}
+\pgfplotsset{
+    cycle list={blau\\rot\\gruen\\},
+}
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)
@@ -96,8 +103,4 @@
     breaklinks=true,            %   - allow line break inside links
     bookmarksnumbered=true,     %
     bookmarksopen=true          %
-}
-
-\pgfplotsset{
-    cycle list={blau\\rot\\gruen\\},
 }
