@@ -157,7 +157,7 @@ Das größte Element gemäß $\leq$ ist also immer $\top$.
 				\draw[latex-latex] (c2) -- (c3);
 		\end{tikzpicture}
 	}}
-	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung ($x \rightarrow y \Leftrightarrow x \leq y$)}\label{fig:theory:kgorder}
+	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung. $x \rightarrow y \Leftrightarrow x \leq y$}\label{fig:theory:kgorder}
 \end{figure}
 
 Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren.
@@ -168,14 +168,17 @@ Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren
 Für jeden Konzeptgraphen $G$ muss $dom(G)$ gelten.
 Eine Intuition für diese Einschränkung ist, dass es nicht sinnvoll ist die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist.
 Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschreibung alternativer Ansätze, die ohne dominierende Knoten funktionieren, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
-\begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/dominatingNodeViolation1.pdf}}}
-	\quad
-	&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $arg(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
-	\vcenter{\hbox{\includegraphics[height=2.25em]{gfx/theory/dominatingNodeViolation2.pdf}}}
-	\quad
-	&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $coref(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
-\end{align*}
+\begin{figure}[h]
+	\begin{align*}
+		\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/dominatingNodeViolation1.pdf}}}
+		\quad
+		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $arg(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
+		\vcenter{\hbox{\includegraphics[height=2.25em]{gfx/theory/dominatingNodeViolation2.pdf}}}
+		\quad
+		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $coref(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
+	\end{align*}
+	\caption{Beispiele für fehlerhafte Konzeptgraphen ohne dominierende Knoten.}\label{fig:theory:invalidkg}
+\end{figure}
 
 \section{Stanford CoreNLP}%
 \label{sec:theory:nlp}
