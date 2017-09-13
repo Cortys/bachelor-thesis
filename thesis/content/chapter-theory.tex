@@ -114,13 +114,53 @@ Was genau dies bedeutet, wird im Folgenden erläutert. Zuerst müssen Konzeptgra
 	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
 	& \lor nest(b, a) \lor (\exists\ c \in V: nest(c, a) \land nest(c, b))
 \end{align*}
-Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt.
+Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{sheet of assertion} genannt wird.
 $\top$ enthält alle Knoten, die keinen explizit dargestellten Elternkontext haben.
 Die Kontextbox von $\top$ umschließt also den gesamten Konzeptgraphen.
 $\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwischen Knoten ab, d.~h.\ $a \leq b$ gdw.\ $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
 Das größte Element gemäß $\leq$ ist also immer $\top$.
+\begin{figure}[h]
+	\centering
+	\vcenter{\hbox{\includegraphics[height=5.25em]{gfx/theory/contextTreeExample1.pdf}}}
+	\qquad
+	\vcenter{\hbox{
+		\begin{tikzpicture}[
+			grow=down,
+			sloped,
+			level distance=2em,
+			sibling distance=3em,
+			edge from parent/.style={draw=black!70,latex-}]
+			\node {\color{rot}$\top$}
+				child {
+					node (a) {$a$}
+				}
+				child {
+					node (c1) {\color{rot}$c_1$}
+						child {
+							node (c2) {\color{rot}$c_2$}
+								child {
+									node {$P$}
+								}
+						}
+						child {
+							node (c3) {\color{rot}$c_3$}
+								child {
+									node {$R$}
+								}
+						}
+				}
+				child {
+					node (b) {$b$}
+				};
+				\draw[latex-latex] (a) -- (c1);
+				\draw[latex-latex] (c1) -- (b);
+				\draw[latex-latex] (c2) -- (c3);
+		\end{tikzpicture}
+	}}
+	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung ($x \rightarrow y \Leftrightarrow x \leq y$)}\label{fig:theory:kgorder}
+\end{figure}
 
-Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten ($dom(G)$) definieren.
+Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren.
 \begin{align*}
 	dom(G) :\Leftrightarrow\ & \forall\ r, v \in V: arg(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
 	& \land \forall\ v_1, v_2 \in V: coref(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
