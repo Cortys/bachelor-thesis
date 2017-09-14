@@ -183,5 +183,27 @@ Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschrei
 \section{Stanford CoreNLP}%
 \label{sec:theory:nlp}
 
+Um natürlichsprachliche Daten in einen Konzeptgraphen zu transformieren, ist im ersten Schritt eine Sprachanalyse notwendig.
+Hierfür wurde die Stanford CoreNLP~\cite{CoreNLP} und die Apache OpenNLP~\cite{OpenNLP} Bibliothek in Erwägung gezogen, da beide häufig genutzt, aktiv weiterentwickelt, frei verfügbar und JVM-basiert sind.
+Die JVM-Integration ist wichtig, um mit anderen verwendeten Bibliotheken kompatibel zu sein;
+mehr hierzu in Abschnitt~\ref{sec:text2kg:implementation}.
+Für die Implementation wurde schließlich CoreNLP gewählt, da es mit den mitgelieferten Modellen häufig bessere Ergebnisse als OpenNLP liefert.
+Da beide Bibliotheken bzgl.\ ihrer Funktionalität allerdings recht ähnlich sind, kann die NLP Komponente als substituierbar angesehen werden.
+Ein Wechsel von CoreNLP auf OpenNLP wäre mit relativ geringem Aufwand möglich.
+
+Im Folgenden wird nun die grundlegende Architektur von CorenNLP beschrieben.
+CoreNLP verwendet das in~\ref{sec:related:nlp} vorgestellte Pipeline-Modell.
+Die verschiedenen Verarbeitungsstufen der Pipeline werden Annotatoren genannt.
+Da die genaue Funktionsweise der Annotatoren ist für diese Arbeit weniger relevant, wichtiger ist ein Überblick über die Art der Ergebnisse, die die Annotatoren liefern.
+
+\paragraph{Tokenization und Lemmatization}
+Liefern, wie erwartet, eine Liste von Token bzw.\ eine Liste der Lemmata der Token.
+Es werden neben Englisch zahlreiche andere Sprachen und ein Großteil des Unicode Zeichensatzes unterstützt.
+Der Tokenizer verwendet zum Finden der Tokens intern einen deterministischen endlichen Automaten.
+
+\paragraph{POS-Tagging}
+Ordnet jedem Token eine Wortart und Flexion (POS-Tag) zu.
+Die Menge der POS-Tags wurde aus dem \textit{Penn Treebank Tag Set} übernommen.
+
 \section{Modellierung von Hinge-Loss-MRFs mit PSL}%
 \label{sec:theory:psl}

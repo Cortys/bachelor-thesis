@@ -216,7 +216,7 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 			(\text {today}, \text{I}, \text{be}, \text{test}, \text{myself}, \text{.})
 		\]
 	\item \textbf{Part-of-speech Tagging:}
-		Abbildung von Tokens auf ihre Wortarten (POS-Tags).
+		Abbildung von Tokens auf ihre Wortarten und Flexionen (POS-Tags).
 		\begin{center}
 			\includegraphics[height=4.5em]{gfx/related-work/posTaggingExample1.pdf}
 		\end{center}
@@ -229,7 +229,7 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 		Bestimmung von Token-Äquivalenzklassen, die jeweils auf das selbe Konzept verweisen (insbesondere Pronomina und ihr Antezedens).
 		\begin{align*}
 			(\text{Today}, \tikzmark{a}\text{\color{rot}I}, \text{'m},
-			 \text{testing}, \text{\color{rot}my}\tikzmark{b}\text{\color{rot}self}, \text{.})
+			 \text{testing}, \text{\color{rot}mys}\tikzmark{b}\text{\color{rot}elf}, \text{.})
 			\begin{tikzpicture}[overlay,remember picture]
 				\draw[-,rot,shorten >=3pt,shorten <=3pt] (a.center) to[bend right] (b.center);
 			\end{tikzpicture}
