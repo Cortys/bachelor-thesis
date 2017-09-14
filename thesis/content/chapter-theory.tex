@@ -203,7 +203,11 @@ Der Tokenizer verwendet zum Finden der Tokens intern einen deterministischen end
 
 \paragraph{POS-Tagging}
 Ordnet jedem Token eine Wortart und Flexion (POS-Tag) zu.
-Die Menge der POS-Tags wurde aus dem \textit{Penn Treebank Tag Set} übernommen.
+Die Menge der möglichen POS-Tags wurde aus dem \textit{Penn Treebank Tag Set}~\cite{PennTags} übernommen.
+Für das Finden der Tags benutzt CoreNLP sog.\ \textit{Cyclic Dependency Networks}~\cite{Toutanova2003}, eine Variante bayesscher Netze, in denen zyklische Abhängigkeiten erlaubt sind.
+
+\paragraph{Named Entity Recognition}
+
 
 \section{Modellierung von Hinge-Loss-MRFs mit PSL}%
 \label{sec:theory:psl}
