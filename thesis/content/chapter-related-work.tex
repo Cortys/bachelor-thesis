@@ -289,10 +289,10 @@ Fundamental verschieden von diesen beiden Verfahren sind \textit{Markov Random F
 Hier sind prinzipiell Abhängigkeiten zwischen allen Relationen möglich, was MRFs sehr flexibel macht.
 Da dies hinsichtlich der Laufzeit schnell impraktikabel wird, wird das Modell um einen Abhängigkeitsgraphen erweitert, der die Anzahl von betrachteten Abhängigkeiten reduziert.
 Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werden:
-Ersterer beschreibt statistische Abhängigkeiten zwischen Klassen von Relationen, während letzterer Abhängigkeiten zwischen spezifischen Fakten beschreibt.
+Ersterer beschreibt statistische Abhängigkeiten zwischen Relationen, während letzterer Relationen zwischen Konzepten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
-Das Finden eines Wissensgraphen ist in diesem Modell äquivalent zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome stetig, also aus $[0, 1]$ statt aus $\{ 0, 1 \}$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Das Finden eines Wissensgraphen ist in diesem Modell analog zum Lösen des MAX-SAT-Problems.
+Wählt man ein Kalkül in dem die Atome (i.~e.\ Zufallsvariablen des MRFs) aus $[0, 1]$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
 
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die \textit{Probabilistic Soft Logic} (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen \textit{Alternating Direction Method of Multipliers} (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.

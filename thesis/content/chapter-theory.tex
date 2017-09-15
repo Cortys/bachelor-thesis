@@ -121,7 +121,7 @@ $\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwisc
 Das größte Element gemäß $\leq$ ist also immer $\top$.
 \begin{figure}[h]
 	\centering
-	\vcenter{\hbox{\includegraphics[height=5.25em]{gfx/theory/contextTreeExample1.pdf}}}
+	\[\vcenter{\hbox{\includegraphics[height=5.25em]{gfx/theory/contextTreeExample1.pdf}}}
 	\qquad
 	\vcenter{\hbox{
 		\begin{tikzpicture}[
@@ -156,7 +156,7 @@ Das größte Element gemäß $\leq$ ist also immer $\top$.
 				\draw[latex-latex] (c1) -- (b);
 				\draw[latex-latex] (c2) -- (c3);
 		\end{tikzpicture}
-	}}
+	}}\]
 	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung. Die Existenz eines Pfades von $x$ nach $y$ im obigen baumartigen Graphen, entspricht $x \leq y$.}\label{fig:theory:kgorder}
 \end{figure}
 
@@ -204,10 +204,35 @@ Der Tokenizer verwendet zum Finden der Tokens intern einen deterministischen end
 \paragraph{POS-Tagging}
 Ordnet jedem Token eine Wortart und Flexion (POS-Tag) zu.
 Die Menge der möglichen POS-Tags wurde aus dem \textit{Penn Treebank Tag Set}~\cite{PennTags} übernommen.
-Für das Finden der Tags benutzt CoreNLP sog.\ \textit{Cyclic Dependency Networks}~\cite{Toutanova2003}, eine Variante bayesscher Netze, in denen zyklische Abhängigkeiten erlaubt sind.
+Für das Finden der Tags benutzt CoreNLP sog.\ \textit{Cyclic Dependency Networks}~\cite{Toutanova2003}, eine Erweiterung bayesscher Netze, in denen zyklische Abhängigkeiten erlaubt sind.
 
-\paragraph{Named Entity Recognition}
+\paragraph{Named Entity Recognition (NER)}
 
+\paragraph{Coreference Resolution}
+
+\paragraph{Dependency Parsing}
+Dieser Annotator ermittelt die grammatikalischen Beziehungen zwischen Worten.
+Das Ergebnis ist ein sog.\ Abhängigkeitsgraph (\textit{Dependency Graph}), in dem die Knoten Token und die Kanten Beziehungen repräsentieren.
+CoreNLP verwendet für die Kantentypen \textit{Universal Dependencies Version 2} (UD v2)~\cite{UDv2}, eine Menge von 37 Arten grammatikalischer Beziehungen, die für eine vielzahl natürlicher Sprachen nutzbar ist.
+Die Struktur der zurückgegebenen Abhängigkeitsgraphen, basiert auf einem ``\textit{{\color{blau}head}-{\color{rot}modifier}}''-Pattern;
+d.~h.\ dass, ausgehend von einem \textit{\color{blau}head}-Token, Kanten zu \textit{\color{rot}modifier}-Token gehen, die die Bedeutug des \textit{\color{blau}heads} verändern.
+\[
+	\text{\color{rot}Peter's} \xleftarrow{\text{possessive nominal modifier}}
+	\text{\color{blau}ball}
+	\xrightarrow{\text{adjectival modifier}} \text{\color{rot}red}
+\]
+Der CoreNLP Dependency Parser nutzt ein sog.\ \textit{Transition-based Parsing}~\cite{Nivre2004}, bei dem alle Token der Reihe nach aus einem Buffer auf einen Stack von aktuell betrachteten Token gelegt werden.
+Ein Klassifikator (im Falle von CoreNLP ist dies ein neuronales Netz) wählt dabei in jedem Schritt einen von drei Zustandsübergängen:
+\begin{enumerate}
+	\item \textbf{LEFT-ARC:}
+		Fügt eine Abhängigkeitskante $(i, j)$ vom ersten Token $i$ des Stacks zum zweiten Token $j$ des Stacks ein und entfernt dann $j$ vom Stack.
+	\item \textbf{RIGHT-ARC:}
+		Fügt eine Abhängigkeitskante $(j, i)$ vom zweiten Token $j$ des Stacks zum ersten Token $i$ des Stacks ein und entfernt dann $i$ vom Stack.
+	\item \textbf{SHIFT:}
+		Verschiebt das erste Token des Buffers auf den Stack.
+\end{enumerate}
+Diese drei Zustandsübergänge werden so lange angewandt, bis der Buffer leer ist.
+Durch die richtige Kombination von Übergängen lässt sich jeder beliebige Abhängigkeitsgraph beschreiben.
 
 \section{Modellierung von Hinge-Loss-MRFs mit PSL}%
 \label{sec:theory:psl}
