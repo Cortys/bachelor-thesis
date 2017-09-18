@@ -207,8 +207,28 @@ Die Menge der möglichen POS-Tags wurde aus dem \textit{Penn Treebank Tag Set}~\
 Für das Finden der Tags benutzt CoreNLP sog.\ \textit{Cyclic Dependency Networks}~\cite{Toutanova2003}, eine Erweiterung bayesscher Netze, in denen zyklische Abhängigkeiten erlaubt sind.
 
 \paragraph{Named Entity Recognition (NER)}
+Findet sog.\ Entitäten.
+CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kategorien von Klassen unterteilen lässt:
+\begin{enumerate}
+	\item \textbf{Benannte Entitäten:}
+		Person, Ort, Organisation und Sonstige.
+		Diese Entitätsklassen werden mittels \textit{Conditional Random Fields} (CRFs)~\cite{Finkel2005} erkannt.
+	\item \textbf{Numerische Entitäten:}
+		Geldbetrag, Zahl, Ordinalzahl und Prozentzahl.
+		Hierfür wird ein regelbasiertes System verwendet.
+		Die so erkannten Token werden zudem normalisiert, um eine leichtere Weiterverarbeitung zu ermöglichen.
+	\item \textbf{Temporale Entitäten:}
+		Datum, Uhrzeit, Dauer und Menge von Zeitpunkten.
+		Diese Klassen werden ebenfalls mit einem regelbasierten System erkannt.
+		Mittels SUTime~\cite{Chang2012} werden die erkannten Token anschließend normalisiert und relative Zeitangaben in absolute Zeitpunkte aufgelöst, sofern ein Referenzzeitpunkt gegeben ist.
+		Für die Normalisierung wird das TimeML TIMEX3-Format~\cite{TIMEX3} benutzt, mit dem sich auch komplexe Zeitangaben, wie \textit{``twice a week''} (\texttt{type=''set'' value=''P1W'' freq=''2X''}), formal ausdrücken lassen.
+\end{enumerate}
 
 \paragraph{Coreference Resolution}
+Ermittelt Äquivalenzklassen von Token, die auf das selbe Konzept bzw.\ die selbe Entität verweisen.
+CoreNLP stellt hierfür drei verschiedene Systeme bereit:
+Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen basiert.
+Die langsameren Systeme liefern im Schnitt bessere Ergebnisse.
 
 \paragraph{Dependency Parsing}
 Dieser Annotator ermittelt die grammatikalischen Beziehungen zwischen Worten.
