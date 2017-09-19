@@ -212,7 +212,7 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 \begin{enumerate}
 	\item \textbf{Benannte Entitäten:}
 		Person, Ort, Organisation und Sonstige.
-		Diese Entitätsklassen werden mittels \textit{Conditional Random Fields} (CRFs)~\cite{Finkel2005} erkannt.
+		Diese Entitätsklassen werden mittels \textit{Conditional Random Fields}~\cite{Finkel2005}, einer Variante von \textit{Markov Random Fields} (siehe~\ref{sec:theory:psl:mrf}), erkannt.
 	\item \textbf{Numerische Entitäten:}
 		Geldbetrag, Zahl, Ordinalzahl und Prozentzahl.
 		Hierfür wird ein regelbasiertes System verwendet.
@@ -257,8 +257,49 @@ Durch die richtige Kombination von Übergängen lässt sich jeder beliebige Abh�
 \section{Modellierung von HL-MRFs mit PSL}%
 \label{sec:theory:psl}
 
+In~\ref{sec:theory:cg} wurde beschrieben, wie komplexes Wissen durch Konzeptgraphen repräsentiert werden kann;
+in~\ref{sec:theory:nlp} wurde beschrieben, wie der Inhalt natürlichsprachlicher Texte extrahiert und durch eine Menge von Abhängigkeiten repräsentiert werden kann.
+Dieser Abschnitt beschreibt nun, wie aus einer Menge gegebenener Abhängigkeiten und Fakten neue Abhängigkeiten und Fakten inferiert werden können.
+Konkrekt werden hierfür \textit{Hinge-Loss Markov Random Fields} (HL-MRFs) und die \textit{Probabilistic Soft Logic} (PSL) vorgestellt.
+
 \subsection{Markov Random Fields}%
 \label{sec:theory:psl:mrf}
+
+MRFs sind, so wie auch bayessche Netze, eine Klasse von \textit{Probabilistischen Graphischen Modellen} (PGM);
+d.~h.\ sie sind Graphen, deren Knoten als Zufallsvariablen und deren Kanten als stochastische Abhängigkeiten interpretiert werden.
+Im Gegensatz zu bayesschen Netzen, sind die Kanten in MRFs allerdings ungerichtet, es sind also zyklische Abhängigkeiten erlaubt.
+Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvektors $X$ gemäß einer Potentialfunktion $\Phi$:
+\begin{align*}
+	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
+	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
+	G :=&\ (V_X, E) \text{, mit einem Knoten $v_i \in V_X$ für jede Zufallsvariable $X_i \in X$} \\
+	\mathcal{C} :=&\ \text{Menge der maximalen Cliquen in $G$} \\
+	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
+	\Phi_c(x_c) :=&\ \text{Potential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \propto P(X_c = x_c) \\
+	P(X = x) =&\ \frac{1}{Z} \prod_{c \in \mathcal{C}} \Phi_c(x_c) \text{, mit Normalisierungskonstante } Z := \sum_{x \in \mathcal{X}} \prod_{c \in \mathcal{C}} \Phi_c(x_c)
+\end{align*}
+Wie genau die Potentialfunktion $\Phi$ definiert ist, hängt primär von der modellierten Problemdomäne ab.
+Um die obige Definition zu veranschaulichen folgt ein Beispiel.
+
+Gegeben sei die SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$.
+MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.
+
+\begin{tabular}{m{0.25\textwidth} m{0.75\textwidth}}
+	\includegraphics[width=0.25\textwidth]{gfx/theory/mrfExample1.pdf}
+	&
+	{\begin{align*}
+		X :=&\ (A, B, C, D) \text{, mit } Bild(X) = {\{0, 1\}}^4 \\
+		\mathcal{C} :=&\ \{{\color{rot}\underbrace{\{ A, B, C \}}_{c_1}}, {\color{blau}\underbrace{\{ C, D \}}_{c_2}}\} \\ % chktex 21
+		{\color{rot}\Phi_{c_1}}(a, b, c) =&\ \min\{ 1 - a + b + c, 1 \} \\ % chktex 21
+		{\color{blau}\Phi_{c_2}}(c, d) =&\ \min\{ 2 - c - d, 1 \} \\ % chktex 21
+		P(X = (a, b, c, d)) =&\ \frac{1}{Z} {\color{rot}\Phi_{c_1}}(a, b, c)\ {\color{blau}\Phi_{c_2}}(c, d)
+	\end{align*}}
+\end{tabular}
+
+Gemäß dieser Definition, ist $x$ eine erfüllende Belegung gdw.\ $P(X = x) > 0$, d.~h.\ die Wahrscheinlichkeit, dass die Zufallsvariablen die Werte in $x$ annehmen, nicht null ist.
+
+\subsection{Hinge-Loss MRFs}%
+\label{sec:theory:psl:hlmrf}
 
 \subsection{Probabilistic Soft Logic}%
 \label{sec:theory:psl:psl}
