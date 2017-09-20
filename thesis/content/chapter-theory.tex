@@ -272,31 +272,54 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 \begin{align*}
 	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
 	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
-	G :=&\ (V_X, E) \text{, mit einem Knoten $v_i \in V_X$ für jede Zufallsvariable $X_i \in X$} \\
+	G :=&\ (X, E) \\
 	\mathcal{C} :=&\ \text{Menge der maximalen Cliquen in $G$} \\
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
-	\Phi_c(x_c) :=&\ \text{Potential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \propto P(X_c = x_c) \\
+	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
 	P(X = x) =&\ \frac{1}{Z} \prod_{c \in \mathcal{C}} \Phi_c(x_c) \text{, mit Normalisierungskonstante } Z := \sum_{x \in \mathcal{X}} \prod_{c \in \mathcal{C}} \Phi_c(x_c)
 \end{align*}
-Wie genau die Potentialfunktion $\Phi$ definiert ist, hängt primär von der modellierten Problemdomäne ab.
-Um die obige Definition zu veranschaulichen folgt ein Beispiel.
+Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufallsvariablen in $X$:
+\begin{enumerate}
+	\item \textbf{Globale Markov-Eigenschaft:}
+		\[
+			\forall X_A, X_B, X_S \subseteq X: sep_{X_A, X_B}(X_S) \rightarrow (X_A\, \bot \, X_B\, |\, X_S)
+		\]
+		Alle Paare $(X_A, X_B)$ von Teilmengen von $X$ sind bedingt unabhängig, sofern die Werte einer separierenden Teilmenge $X_S $ gegeben sind.
+		$X_S$ ist separierend ($\Leftrightarrow sep_{X_A, X_B}(X_S)$), wenn alle Pfade von $a \in X_A$ nach $b \in X_B$ einen Knoten $s \in X_S$ enthalten.
+	\item \textbf{Lokale Markov-Eigenschaft:}
+		\[
+			\forall X_i \in X: X_i\, \bot \, (X \setminus \Gamma(X_i) \setminus \{X_i\})\, |\, \Gamma(X_i)
+		\]
+		Eine direkte Konsequenz der globalen Markov-Eigenschaft ist die lokale Markov-Eigenschaft.
+		Jede Variable $X_i$ ist bedingt unabhängig von ihren nicht benachbarten Variablen, sofern ihre Nachbarschaft $\Gamma(X_i)$ gegeben ist.
+	\item \textbf{Paarweise Markov-Eigenschaft:}
+		\[
+			\forall X_i, X_j \in X: \{X_i, X_j \} \notin E \rightarrow (X_i\, \bot \, X_j\, |\, X \setminus \{ X_i, X_j \})
+		\]
+		Aus der lokalen Markov-Eigenschaft folgt, dass jedes nicht adjazente Variablenpaar $(X_i, X_j)$ bedingt unabhängig voneinander ist, sofern alle anderen Variablen gegeben sind.
+\end{enumerate}
 
+Um die obigen Definitionen zu veranschaulichen folgt ein Beispiel.
 Gegeben sei die SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$.
-MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.
-
+MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.\\
 \begin{tabular}{m{0.25\textwidth} m{0.75\textwidth}}
-	\includegraphics[width=0.25\textwidth]{gfx/theory/mrfExample1.pdf}
+	\includegraphics[width=0.23\textwidth]{gfx/theory/mrfExample1.pdf}
 	&
 	{\begin{align*}
 		X :=&\ (A, B, C, D) \text{, mit } Bild(X) = {\{0, 1\}}^4 \\
 		\mathcal{C} :=&\ \{{\color{rot}\underbrace{\{ A, B, C \}}_{c_1}}, {\color{blau}\underbrace{\{ C, D \}}_{c_2}}\} \\ % chktex 21
-		{\color{rot}\Phi_{c_1}}(a, b, c) =&\ \min\{ 1 - a + b + c, 1 \} \\ % chktex 21
-		{\color{blau}\Phi_{c_2}}(c, d) =&\ \min\{ 2 - c - d, 1 \} \\ % chktex 21
+		{\color{rot}\Phi_{c_1}}(a, b, c) :=&\ \min\{ 1 - a + b + c, 1 \} \\ % chktex 21
+		{\color{blau}\Phi_{c_2}}(c, d) :=&\ \min\{ 2 - c - d, 1 \} \\ % chktex 21
 		P(X = (a, b, c, d)) =&\ \frac{1}{Z} {\color{rot}\Phi_{c_1}}(a, b, c)\ {\color{blau}\Phi_{c_2}}(c, d)
 	\end{align*}}
-\end{tabular}
+\end{tabular}\\
+Gemäß dieser Definition, lässt sich die Erfüllbarkeit durch $\max_x P(X = x) > 0$ ausdrücken, d.~h.\ die Formel ist erfüllbar, wenn es eine Variablenbelegung mit Eintrittswahrscheinlichkeit~$> 0$ gibt.
+Die Normalisierungskonstante $Z$ hat auf das Ergebnis keinen Einfluss und kann daher ignoriert werden.
 
-Gemäß dieser Definition, ist $x$ eine erfüllende Belegung gdw.\ $P(X = x) > 0$, d.~h.\ die Wahrscheinlichkeit, dass die Zufallsvariablen die Werte in $x$ annehmen, nicht null ist.
+Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Finden einer Belegung der Zufallsvariablen ein NP-schweres Problem.
+Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
+Durch Einschränkung der Struktur von $G$ und $\Phi$ oder durch das erlauben von Approximationen, lassen sich MRFs jedoch deutlich effizienter lösen.
+Wenn z.~B. $G$ ein Baum ist, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden.
 
 \subsection{Hinge-Loss MRFs}%
 \label{sec:theory:psl:hlmrf}
