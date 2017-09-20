@@ -273,10 +273,10 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
 	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
 	G :=&\ (X, E) \\
-	\mathcal{C} :=&\ \text{Menge der maximalen Cliquen in $G$} \\
+	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
-	P(X = x) =&\ \frac{1}{Z} \prod_{c \in \mathcal{C}} \Phi_c(x_c) \text{, mit Normalisierungskonstante } Z := \sum_{x \in \mathcal{X}} \prod_{c \in \mathcal{C}} \Phi_c(x_c)
+	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisierkonst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
 Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufallsvariablen in $X$:
 \begin{enumerate}
@@ -310,19 +310,107 @@ MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllen
 		\mathcal{C} :=&\ \{{\color{rot}\underbrace{\{ A, B, C \}}_{c_1}}, {\color{blau}\underbrace{\{ C, D \}}_{c_2}}\} \\ % chktex 21
 		{\color{rot}\Phi_{c_1}}(a, b, c) :=&\ \min\{ 1 - a + b + c, 1 \} \\ % chktex 21
 		{\color{blau}\Phi_{c_2}}(c, d) :=&\ \min\{ 2 - c - d, 1 \} \\ % chktex 21
-		P(X = (a, b, c, d)) =&\ \frac{1}{Z} {\color{rot}\Phi_{c_1}}(a, b, c)\ {\color{blau}\Phi_{c_2}}(c, d)
+		P(X = (a, b, c, d)) :=&\ \frac{1}{Z} {\color{rot}\Phi_{c_1}}(a, b, c)\ {\color{blau}\Phi_{c_2}}(c, d)
 	\end{align*}}
 \end{tabular}\\
-Gemäß dieser Definition, lässt sich die Erfüllbarkeit durch $\max_x P(X = x) > 0$ ausdrücken, d.~h.\ die Formel ist erfüllbar, wenn es eine Variablenbelegung mit Eintrittswahrscheinlichkeit~$> 0$ gibt.
+Eine Clique repräsentiert in diesem MRF eine Disjunktionsklausel und das Cliquenpotential gibt an, ob eine gegebene Belegung die Klausel erfüllt.
+Gemäß dieser Definition, lässt sich die Erfüllbarkeit durch $\max_{x} P(X = x) > 0$ ausdrücken, d.~h.\ die Formel ist erfüllbar, gdw.\ es eine Variablenbelegung mit Eintrittswahrscheinlichkeit~$> 0$ gibt.
 Die Normalisierungskonstante $Z$ hat auf das Ergebnis keinen Einfluss und kann daher ignoriert werden.
 
-Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Finden einer Belegung der Zufallsvariablen ein NP-schweres Problem.
+Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Inferenzproblem, d.~h.\ das Finden einer maximal wahrscheinlichen Belegung der Zufallsvariablen, ein NP-schweres Problem.
 Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
-Durch Einschränkung der Struktur von $G$ und $\Phi$ oder durch das erlauben von Approximationen, lassen sich MRFs jedoch deutlich effizienter lösen.
+Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
 Wenn z.~B. $G$ ein Baum ist, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden.
 
 \subsection{Hinge-Loss MRFs}%
 \label{sec:theory:psl:hlmrf}
+
+Eine Unterart von MRFs, sind die sog.\ Hinge-Loss MRFs.
+Sie sind so strukturiert, dass sich das Inferenzproblem effizient und exakt durch konvexe Optimierungsverfahren lösen lässt.
+Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
+\begin{enumerate}
+	\item
+		Die Bedeutung von Zufallsvariablen und Kanten zwischen Zufallsvariablen ist klar definiert, da $\Phi$ nicht mehr frei wählbar ist.
+		Ähnlich zum Beispiel aus~\ref{sec:theory:psl:mrf}, repräsentieren Zufallsvariablen aussagenlogische Variablen und Cliquen Disjunktionsklauseln.
+	\item
+		Für den Zufallsvektor $X$ muss $Bild(X) = {[0, 1]}^n$ gelten,
+		d.~h.\ jede Zufallsvariable in $X$ beschreibt die Wahrscheinlichkeit, dass eine aussagenlogische Variable wahr ist.
+	\item
+		Die Definition der Verteilung $P$ ist etwas anders:
+		\begin{align*}
+			P(X = x) :=&\ \frac{1}{Z} \prod_{i = 1}^{m} e^{w_i\,\Phi_i(x)} \propto \exp\left(\sum_{i=1}^{m} w_i\,\Phi_i(x)\right) = \exp\left(w\,{\Phi(x)}^\top\right) \numberthis \\
+			w :=&\ (w_1, \dots, w_m) \in \mathbb{R}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
+		\end{align*}
+		Auf die Cliquenpotentiale $\Phi_i$ wird nun die Exponentialfunktion angewandt, zudem erhalten alle Cliquen bzw.\ Klauseln $c_i$ ein Gewicht $w_i$.
+		Das Inferenzproblem $\arg\max_{x} P(X = x)$ ist somit äquivalent zu $\arg\max_{x} w\,{\Phi(x)}^\top$.
+\end{enumerate}
+
+\paragraph{KNF-Formel Interpretation}
+Aufgrund der Einschränkung HL-MRFs auf aussagenlogische Ausdrücke, wird im Folgenden die Graphterminologie fallen gelassen und stattdessen die entsprechende aussagenlogische Terminologie verwendet.
+Ein HL-MRF wird nun als Repräsentation einer KNF-Formel $C_1 \land \dots \land C_m$ interpretiert.
+Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge positiver Atome $I^{+}_j \subseteq X$ und eine Menge negativer Atome $I^{-}_j \subseteq X$ beschrieben.
+\[
+	C_j = \left(\bigvee_{x \in I^{+}_j} x\right) \lor \left(\bigvee_{x \in I^{-}_j} \lnot x\right)
+\]
+
+\paragraph{Łukasiewicz Logik}
+Da die Variablen der KNF-Formel, gemäß obiger Definition, Werte~$\in [0, 1]$ annehmen können, ist nun noch unklar, wie die Operatoren $\land$, $\lor$ und $\lnot$ funktionieren sollen.
+HL-MRFs benutzen hierfür die sog.\ Łukasiewicz Logik, eine Erweiterung der booleschen Logik.
+Die Łukasiewicz Operatoren verhalten sich für die Extrema $0$ und $1$ so, wie die booleschen Operatoren, sind aber ebenfalls für alle dazwischen liegenden Eingabewerte definiert.
+\begin{align}
+	x_1 \land x_2 :=&\ \max\{ x_1 + x_2 - 1, 0 \} \\ % chktex 21
+	x_1 \lor x_2 :=&\ \min\{ x_1 + x_2, 1 \} \\ % chktex 21
+	\lnot x :=&\ 1 - x
+\end{align}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			title={$\land$},
+			xlabel=$x_1$,
+			ylabel=$x_2$,
+			width=0.35\textwidth,
+			colormap = {bluered}{color(0cm) = (blau); color(1cm) = (rot)}
+		]
+			\addplot3[
+				mesh,
+				samples=12,
+				domain=0:1,
+				domain y=0:1
+			]{max(x + y - 1, 0)};
+		\end{axis}
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\begin{axis}[
+			title={$\lor$},
+			xlabel=$x_1$,
+			ylabel=$x_2$,
+			width=0.35\textwidth,
+			colormap = {bluered}{color(0cm) = (blau); color(1cm) = (rot)}
+		]
+			\addplot3[
+				mesh,
+				samples=12,
+				domain=0:1,
+				domain y=0:1
+			]{min(x + y, 1)};
+		\end{axis}
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\begin{axis}[
+			title={$\lnot$},
+			xlabel=$x$,
+			width=0.35\textwidth,
+			colormap = {bluered}{color(0cm) = (blau); color(1cm) = (rot)}
+		]
+			\addplot[
+			surf,
+				domain=0:1
+			]{1 - x};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Visualisierung der Łukasiewicz Operatoren $\land$, $\lor$ und $\lnot$.}\label{fig:theory:luklogic}
+\end{figure}
 
 \subsection{Probabilistic Soft Logic}%
 \label{sec:theory:psl:psl}
