@@ -273,7 +273,7 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
 	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
 	G :=&\ (X, E) \\
-	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \\ % chktex 21
+	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \displaybreak[0]\\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
 	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisierkonst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
@@ -282,24 +282,26 @@ Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufa
 \begin{enumerate}
 	\item \textbf{Globale Markov-Eigenschaft:}
 		\[
-			\forall X_A, X_B, X_S \subseteq X: sep_{X_A, X_B}(X_S) \rightarrow (X_A\, \bot \, X_B\, |\, X_S)
+			\forall X_A, X_B, X_S \subseteq X: sep_{X_A, X_B}(X_S) \rightarrow (X_A \perp X_B \mid X_S)
 		\]
 		Alle Paare $(X_A, X_B)$ von Teilmengen von $X$ sind bedingt unabhängig, sofern die Werte einer separierenden Teilmenge $X_S $ gegeben sind.
 		$X_S$ ist separierend ($\Leftrightarrow sep_{X_A, X_B}(X_S)$), wenn alle Pfade von $a \in X_A$ nach $b \in X_B$ einen Knoten $s \in X_S$ enthalten.
 	\item \textbf{Lokale Markov-Eigenschaft:}
 		\[
-			\forall X_i \in X: X_i\, \bot \, (X \setminus \Gamma(X_i) \setminus \{X_i\})\, |\, \Gamma(X_i)
+			\forall X_i \in X: X_i \perp (X \setminus \Gamma(X_i) \setminus \{X_i\}) \mid \Gamma(X_i)
 		\]
 		Eine direkte Konsequenz der globalen Markov-Eigenschaft ist die lokale Markov-Eigenschaft.
 		Jede Variable $X_i$ ist bedingt unabhängig von ihren nicht benachbarten Variablen, sofern ihre Nachbarschaft $\Gamma(X_i)$ gegeben ist.
 	\item \textbf{Paarweise Markov-Eigenschaft:}
 		\[
-			\forall X_i, X_j \in X: \{X_i, X_j \} \notin E \rightarrow (X_i\, \bot \, X_j\, |\, X \setminus \{ X_i, X_j \})
+			\forall X_i, X_j \in X: \{X_i, X_j \} \notin E \rightarrow (X_i \perp X_j \mid X \setminus \{ X_i, X_j \})
 		\]
 		Aus der lokalen Markov-Eigenschaft folgt, dass jedes nicht adjazente Variablenpaar $(X_i, X_j)$ bedingt unabhängig voneinander ist, sofern alle anderen Variablen gegeben sind.
 \end{enumerate}
 
-Um die obigen Definitionen zu veranschaulichen folgt ein Beispiel.
+\paragraph{Beispiel}
+Die obigen Definitionen sind bislang noch recht abstrakt.
+Ein exemplarisches praktisches Einsatzgebiet von MRFs ist das Lösen von SAT-Problemen.
 Gegeben sei die SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$.
 MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.\\
 \begin{tabular}{m{0.25\textwidth} m{0.75\textwidth}}
@@ -317,6 +319,7 @@ Eine Clique repräsentiert in diesem MRF eine Disjunktionsklausel und das Clique
 Gemäß dieser Definition, lässt sich die Erfüllbarkeit durch $\max_{x} P(X = x) > 0$ ausdrücken, d.~h.\ die Formel ist erfüllbar, gdw.\ es eine Variablenbelegung mit Eintrittswahrscheinlichkeit~$> 0$ gibt.
 Die Normalisierungskonstante $Z$ hat auf das Ergebnis keinen Einfluss und kann daher ignoriert werden.
 
+\paragraph{Das MRF-Inferenzproblem}
 Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Inferenzproblem, d.~h.\ das Finden einer maximal wahrscheinlichen Belegung der Zufallsvariablen, ein NP-schweres Problem.
 Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
 Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
@@ -333,8 +336,8 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 		Die Bedeutung von Zufallsvariablen und Kanten zwischen Zufallsvariablen ist klar definiert, da $\Phi$ nicht mehr frei wählbar ist.
 		Ähnlich zum Beispiel aus~\ref{sec:theory:psl:mrf}, repräsentieren Zufallsvariablen aussagenlogische Variablen und Cliquen Disjunktionsklauseln.
 	\item
-		Für den Zufallsvektor $X$ muss $Bild(X) = {[0, 1]}^n$ gelten,
-		d.~h.\ jede Zufallsvariable in $X$ beschreibt die Wahrscheinlichkeit, dass eine aussagenlogische Variable wahr ist.
+		Für den Zufallsvektor $X$ muss $Bild(X) = {[0, 1]}^n$ gelten.
+		Diese Einschränkung besteht, da jede HL-MRF-Zufallsvariable als die Wahrscheinlichkeit, dass eine aussagenlogische Variable wahr ist, interpretiert wird.
 	\item
 		Die Definition der Verteilung $P$ ist etwas anders:
 		\begin{align*}
@@ -346,17 +349,17 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 \end{enumerate}
 
 \paragraph{KNF-Formel Interpretation}
-Aufgrund der Einschränkung HL-MRFs auf aussagenlogische Ausdrücke, wird im Folgenden die Graphterminologie fallen gelassen und stattdessen die entsprechende aussagenlogische Terminologie verwendet.
+Aufgrund der Einschränkung von HL-MRFs auf aussagenlogische Ausdrücke, wird im Folgenden die Graphterminologie fallen gelassen und stattdessen die entsprechende aussagen\-logische Terminologie verwendet.
 Ein HL-MRF wird nun als Repräsentation einer KNF-Formel $C_1 \land \dots \land C_m$ interpretiert.
-Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge positiver Atome $I^{+}_j \subseteq X$ und eine Menge negativer Atome $I^{-}_j \subseteq X$ beschrieben.
+Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge von Variablenindizes positiver Atome $I^{+}_j \subseteq \{1,\dots,n\}$ und eine Menge von Variablenindizes negativer Atome $I^{-}_j \subseteq \{1,\dots,n\}$ beschrieben.
 \[
-	C_j = \left(\bigvee_{x \in I^{+}_j} x\right) \lor \left(\bigvee_{x \in I^{-}_j} \lnot x\right)
+	C_j \cong \left(\bigvee_{i \in I^{+}_j} X_i\right) \lor \left(\bigvee_{i \in I^{-}_j} \lnot X_i\right)
 \]
 
 \paragraph{Łukasiewicz Logik}
 Da die Variablen der KNF-Formel, gemäß obiger Definition, Werte~$\in [0, 1]$ annehmen können, ist nun noch unklar, wie die Operatoren $\land$, $\lor$ und $\lnot$ funktionieren sollen.
-HL-MRFs benutzen hierfür die sog.\ Łukasiewicz Logik, eine Erweiterung der booleschen Logik.
-Die Łukasiewicz Operatoren verhalten sich für die Extrema $0$ und $1$ so, wie die booleschen Operatoren, sind aber ebenfalls für alle dazwischen liegenden Eingabewerte definiert.
+HL-MRFs benutzen hierfür die sog.\ Łukasiewicz Logik aus der Klasse der T-Norm Fuzzy Logiken;
+sie ist eine Erweiterung der booleschen Logik, d.~h.\ die Łukasiewicz Operatoren verhalten sich für die Extrema $0$ und $1$ so, wie die booleschen Operatoren, sind aber ebenfalls für alle dazwischen liegenden Eingabewerte definiert.
 \begin{align}
 	x_1 \land x_2 :=&\ \max\{ x_1 + x_2 - 1, 0 \} \\ % chktex 21
 	x_1 \lor x_2 :=&\ \min\{ x_1 + x_2, 1 \} \\ % chktex 21
@@ -411,6 +414,59 @@ Die Łukasiewicz Operatoren verhalten sich für die Extrema $0$ und $1$ so, wie 
 	\end{tikzpicture}
 	\caption{Visualisierung der Łukasiewicz Operatoren $\land$, $\lor$ und $\lnot$.}\label{fig:theory:luklogic}
 \end{figure}
+
+Mittels der Łukasiewicz Logik können Disjuktionsklauseln $C_j \in C$ für eine gegebene Variablenbelegung $x$ nun Wahrheitswerte~$\in [0, 1]$ zugeordnet werden.
+Dieser Wahrheitswert wird als Klauselpotential $\Phi_j(x)$ verwendet.
+Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
+\begin{alignat*}{3}
+	\operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j &&\Phi_j(x) \\ % chktex 35
+	= \operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j &&\left(\left(\bigvee_{i \in I^{+}_j} x_i\right) \lor \left(\bigvee_{i \in I^{-}_j} \lnot x_i\right)\right) \displaybreak[0]\\ % chktex 35
+	= \operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \min &&\left\{ \left(\sum_{i \in I^{+}_j} x_i\right) + \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 1 \right\} \numberthis % chktex 21, chktex 35
+\end{alignat*}
+
+Statt die Summe der Wahrheitswerte $\Phi_j(x)$ zu maximieren, kann alternativ auch die Summe der Distanzen zur Erfüllung $\ell_j(x)$, genannt \textit{distance to satisfaction}, minimiert werden;
+es gilt $\ell_j(x) = 1 - \Phi_j(x)$.
+Gemäß dieser Interpretation ist ein HL-MRF somit eine Menge von gewichteten Constraints $\ell_j(x) \leq 0$, für die eine Lösung mit möglichst wenigen Verletzungen gesucht wird.
+Das Inferenzproblem ist also
+\begin{align*}
+	\operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \{ \ell_j(x), 0 \} \displaybreak[0]\\ % chktex 35
+	= \operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \left\{ 1 - \left(\sum_{i \in I^{+}_j} x_i\right) - \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 0 \right\} \numberthis % chktex 21, chktex 35
+\end{align*}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			xlabel=$x_1$,
+			ylabel=$x_2$,
+			y dir=reverse,
+			width=0.45\textwidth,
+			colormap = {bluered}{color(0cm) = (blau); color(1cm) = (rot)}
+		]
+			\addplot3[
+				mesh,
+				samples=20,
+				domain=0:1,
+				domain y=0:1
+			]{max(1 - x - y, 0)};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Visualisierung der Loss-Funktion $\ell_j(x_1, x_2)$ für $C_j \cong X_1 \lor X_2$}\label{fig:theory:hingeloss}
+\end{figure}
+Wie Abb.~\ref{fig:theory:hingeloss} für den zwei-elementigen Klauselfall veranschaulicht, handelt es sich bei $\ell$ um eine Hinge-Loss Funktion.
+Hierher rührt die Bezeichnung Hinge-Loss MRF.\@
+
+\paragraph{MAX-SAT Äquivalenz}
+In~\ref{sec:theory:psl:mrf} wurden MRFs anhand des Beispiels der SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$ veranschaulicht.
+Diese KNF-Formel hat folgendes Inferenzproblem, wenn sie als HL-MRF repräsentiert wird:
+\[
+	\operatorname*{arg\,min}_{(a, b, c, d) \in {[0, 1]}^4} {\color{rot}w_1 \max\{a - b - c, 0\}} + {\color{blau}w_2 \max\{c + d - 1, 0\}} % chktex 21, chktex 35
+\]
+Da in der Verteilung $P$ von HL-MRFs die Exponentialfunktion auf die Potentiale angewandt wird, bewirkt eine unerfüllte Klausel mit $\Phi_j(x) = 0$ nicht, dass $P(X = x) = 0$.
+Stattdessen ist $P(X = x)$ proportional zu der Summe der Wahrheitswerte der Klauseln.
+Die HL-MRF-Inferenz beschreibt also nicht SAT, sondern eine Fuzzy-Logik-Entsprechung von MAX-SAT.\@
+Ein wichtiger Unterschied zum booleschen MAX-SAT ist, dass Klauseln gewichtet sind;
+das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer anderer Klauseln mit niedrigem Gewicht ausgleichen.
 
 \subsection{Probabilistic Soft Logic}%
 \label{sec:theory:psl:psl}
