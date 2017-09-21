@@ -470,3 +470,47 @@ das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer 
 
 \subsection{Probabilistic Soft Logic}%
 \label{sec:theory:psl:psl}
+
+Wie soeben beschrieben, sind HL-MRFs ein flexibles Werkzeug, um Probleme, die sich durch MAX-SAT ausdrücken lassen, zu lösen.
+Der Schritt von einem konkreten domänenspezifischen Problem in eine Menge von Klauseln $C$ und einen Gewichtsvektor $w$ ist bislang allerdings noch unklar.
+An dieser Stelle setzt die \textit{Probabilistic Soft Logic} (PSL) an.
+PSL ist eine formale Sprache, um mit einer intuitiven Syntax Klassen von HL-MRFs zu beschreiben.
+
+\subsubsection{Syntax}
+Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben Arten von Elementen:
+\begin{enumerate}
+	\item \textbf{Konstanten:}
+		Repräsentieren konstante Werte, wie z.~B. Strings oder Zahlen.
+		Werden für domänenspezifische Daten, wie z.~B. Namen benutzt. \\
+		\centerline{\texttt{''Alice'', 32}}
+	\item \textbf{Variablen:}
+		Werden während einer Inferenz mit Konstanten belegt.
+		PSL Variablen sind nicht zu verwechseln mit den Zufallsvariablen in MRFs. \\
+		\centerline{\texttt{x, y, z}}
+	\item \textbf{Terme:}
+		Ein Term ist entweder eine Konstante oder eine Variable.
+	\item \textbf{Prädikate:}
+		Entsprechen in etwa den prädikatenlogischen Prädikaten.
+		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Typsignatur beliebiger Arität.
+		Prädikate sind über Konstanten definiert, die Signatur ist daher über den Konstantentypen definiert. \\
+		\centerline{\texttt{Person/1: UUID, Name/2: UUID $\times$ String, Age/2: UUID $\times$ Integer}}
+	\item \textbf{Atome:}
+		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
+		Das Term-Tupel enthält die Argumente des Prädikates.
+		Wenn alle Argumente Konstanten sind, spricht man von einem Grundatom (\textit{ground atom}). \\
+		\centerline{\texttt{Person(x), Name(x, ''Alice''), Age(x, 32)}} % chktex 32, chktex 36
+	\item \textbf{Literale:}
+		Ein Literal ist entweder ein Atom oder ein negiertes Atom. \\
+		\centerline{\texttt{Name(x, ''Alice''), !Name(x, ''Bob'')}} % chktex 26, chktex 32, chktex 36
+	\item \textbf{Regeln:}
+		Eine Regel ist eine gewichtete Disjunktionsklausel von Literalen.
+		Die negativen Atome der Klausel bilden dabei den sog.\ Körper $B$ (\textit{body}), die positiven Atome den sog.\ Kopf $H$ (\textit{head}) der Regel.
+		Die so zerlegte Disjunktionsklausel lässt sich als Implikationsregel interpretieren:
+		\[
+			\left(\bigvee_{b \in B} \lnot b\right) \lor \left(\bigvee_{h \in H} h\right) \Leftrightarrow \left(\bigwedge_{b \in B}  b\right) \rightarrow \left(\bigvee_{h \in H} h\right)
+		\]
+		Mit Implikationen lassen sich nun intuitiv Zusammenhänge zwischen Prädikaten modellieren.\\
+		\centerline{\texttt{0.65: Person(x) \& Name(x, ''Alice'') -> Age(x, 32)}} % chktex 26, chktex 32, chktex 36
+\end{enumerate}
+
+Die Kombination aus einer Menge von PSL-Regeln und einer Menge von Grundatomen, deren Wahrheitswert bekannt ist, wird PSL-Programm genannt.
