@@ -74,18 +74,13 @@
 }{cleanthesis}
 \usepackage{cleanthesis}
 
-\usepackage{graphicx}
-
 \usepackage{mathtools}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
-\usepackage{stmaryrd}
-
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};} % chktex 1
-
-\usepackage[bguq]{frege}
 
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
@@ -94,6 +89,12 @@
 \pgfplotsset{
     cycle list={blau\\rot\\gruen\\},
 }
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
+\usepackage[bguq]{frege}
+\usepackage{stmaryrd}
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)

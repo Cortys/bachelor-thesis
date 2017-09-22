@@ -1,4 +1,6 @@
 % !TEX root = ../main.tex
+% chktex-file 26
+% chktex-file 36
 % chktex-file 46
 \chapter{Theoretische Grundlagen}%
 \label{sec:theory}
@@ -186,7 +188,7 @@ Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschrei
 Um natürlichsprachliche Daten in einen Konzeptgraphen zu transformieren, ist im ersten Schritt eine Sprachanalyse notwendig.
 Hierfür wurde die Stanford CoreNLP~\cite{CoreNLP} und die Apache OpenNLP~\cite{OpenNLP} Bibliothek in Erwägung gezogen, da beide häufig genutzt, aktiv weiterentwickelt, frei verfügbar und JVM-basiert sind.
 Die JVM-Integration ist wichtig, um mit anderen verwendeten Bibliotheken kompatibel zu sein;
-mehr hierzu in Abschnitt~\ref{sec:text2kg:implementation}.
+mehr hierzu in \treft{sec:text2kg:implementation}.
 Für die Implementation wurde schließlich CoreNLP gewählt, da es mit den mitgelieferten Modellen häufig bessere Ergebnisse als OpenNLP liefert.
 Da beide Bibliotheken bzgl.\ ihrer Funktionalität allerdings recht ähnlich sind, kann die NLP Komponente als substituierbar angesehen werden.
 Ein Wechsel von CoreNLP auf OpenNLP wäre mit relativ geringem Aufwand möglich.
@@ -342,7 +344,7 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 		Die Definition der Verteilung $P$ ist etwas anders:
 		\begin{align*}
 			P(X = x) :=&\ \frac{1}{Z} \prod_{i = 1}^{m} e^{w_i\,\Phi_i(x)} \propto \exp\left(\sum_{i=1}^{m} w_i\,\Phi_i(x)\right) = \exp\left(w\,{\Phi(x)}^\top\right) \numberthis \\
-			w :=&\ (w_1, \dots, w_m) \in \mathbb{R}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
+			w :=&\ (w_1, \dots, w_m) \in {[0, \infty]}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
 		\end{align*}
 		Auf die Cliquenpotentiale $\Phi_i$ wird nun die Exponentialfunktion angewandt, zudem erhalten alle Cliquen bzw.\ Klauseln $c_i$ ein Gewicht $w_i$.
 		Das Inferenzproblem $\arg\max_{x} P(X = x)$ ist somit äquivalent zu $\arg\max_{x} w\,{\Phi(x)}^\top$.
@@ -424,7 +426,7 @@ Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
 	= \operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \min &&\left\{ \left(\sum_{i \in I^{+}_j} x_i\right) + \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 1 \right\} \numberthis % chktex 21, chktex 35
 \end{alignat*}
 
-Statt die Summe der Wahrheitswerte $\Phi_j(x)$ zu maximieren, kann alternativ auch die Summe der Distanzen zur Erfüllung $\ell_j(x)$, genannt \textit{distance to satisfaction}, minimiert werden;
+Statt die Summe der Wahrheitswerte $\Phi_j(x)$ zu maximieren, kann alternativ auch die Summe der Distanzen zur Erfüllung $\ell_j(x)$, genannt \textit{Distance to Satisfaction}, minimiert werden;
 es gilt $\ell_j(x) = 1 - \Phi_j(x)$.
 Gemäß dieser Interpretation ist ein HL-MRF somit eine Menge von gewichteten Constraints $\ell_j(x) \leq 0$, für die eine Lösung mit möglichst wenigen Verletzungen gesucht wird.
 Das Inferenzproblem ist also
@@ -453,8 +455,11 @@ Das Inferenzproblem ist also
 	\end{tikzpicture}
 	\caption{Visualisierung der Loss-Funktion $\ell_j(x_1, x_2)$ für $C_j \cong X_1 \lor X_2$}\label{fig:theory:hingeloss}
 \end{figure}
-Wie Abb.~\ref{fig:theory:hingeloss} für den zwei-elementigen Klauselfall veranschaulicht, handelt es sich bei $\ell$ um eine Hinge-Loss Funktion.
+Wie \figreft{fig:theory:hingeloss} für den zwei-elementigen Klauselfall veranschaulicht, handelt es sich bei $\ell$ um eine Hinge-Loss Funktion.
 Hierher rührt die Bezeichnung Hinge-Loss MRF.\@
+Da Hinge-Loss Funktionen konvex sind und die Summe konvexer Funktionen ebenfalls konvex ist, handelt es sich bei der HL-MRF-Inferenz um ein konvexes Optimierungsproblem.
+Es existieren also effiziente und exakte Lösungsalgorithmen.
+Einer dieser Algorithmen ist das \textit{Alternating Direction Method of Multipliers}-Verfahren (ADMM), es wird in~\ref{sec:theory:psl:psl} näher vorgestellt.
 
 \paragraph{MAX-SAT Äquivalenz}
 In~\ref{sec:theory:psl:mrf} wurden MRFs anhand des Beispiels der SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$ veranschaulicht.
@@ -476,7 +481,7 @@ Der Schritt von einem konkreten domänenspezifischen Problem in eine Menge von K
 An dieser Stelle setzt die \textit{Probabilistic Soft Logic} (PSL) an.
 PSL ist eine formale Sprache, um mit einer intuitiven Syntax Klassen von HL-MRFs zu beschreiben.
 
-\subsubsection{Syntax}
+\subsubsection{PSL Syntax}
 Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben Arten von Elementen:
 \begin{enumerate}
 	\item \textbf{Konstanten:}
@@ -493,15 +498,15 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 		Entsprechen in etwa den prädikatenlogischen Prädikaten.
 		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Typsignatur beliebiger Arität.
 		Prädikate sind über Konstanten definiert, die Signatur ist daher über den Konstantentypen definiert. \\
-		\centerline{\texttt{Person/1: UUID, Name/2: UUID $\times$ String, Age/2: UUID $\times$ Integer}}
+		\centerline{\texttt{Person/1: UUID, Name/2: UUID $\times$ String, Female/1: UUID}}
 	\item \textbf{Atome:}
 		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
 		Das Term-Tupel enthält die Argumente des Prädikates.
 		Wenn alle Argumente Konstanten sind, spricht man von einem Grundatom (\textit{ground atom}). \\
-		\centerline{\texttt{Person(x), Name(x, ''Alice''), Age(x, 32)}} % chktex 32, chktex 36
+		\centerline{\texttt{Person(x), Name(x, ''Alice'')}} % chktex 32
 	\item \textbf{Literale:}
 		Ein Literal ist entweder ein Atom oder ein negiertes Atom. \\
-		\centerline{\texttt{Name(x, ''Alice''), !Name(x, ''Bob'')}} % chktex 26, chktex 32, chktex 36
+		\centerline{\texttt{Name(x, ''Alice''), !Name(x, ''Bob'')}} % chktex 32
 	\item \textbf{Regeln:}
 		Eine Regel ist eine gewichtete Disjunktionsklausel von Literalen.
 		Die negativen Atome der Klausel bilden dabei den sog.\ Körper $B$ (\textit{body}), die positiven Atome den sog.\ Kopf $H$ (\textit{head}) der Regel.
@@ -510,7 +515,38 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 			\left(\bigvee_{b \in B} \lnot b\right) \lor \left(\bigvee_{h \in H} h\right) \Leftrightarrow \left(\bigwedge_{b \in B}  b\right) \rightarrow \left(\bigvee_{h \in H} h\right)
 		\]
 		Mit Implikationen lassen sich nun intuitiv Zusammenhänge zwischen Prädikaten modellieren.\\
-		\centerline{\texttt{0.65: Person(x) \& Name(x, ''Alice'') -> Age(x, 32)}} % chktex 26, chktex 32, chktex 36
+		\centerline{\texttt{0.65: Person(x) \& Name(x, ''Alice'') \rightarrow Female(x)}} % chktex 32, chktex 1
 \end{enumerate}
 
-Die Kombination aus einer Menge von PSL-Regeln und einer Menge von Grundatomen, deren Wahrheitswert bekannt ist, wird PSL-Programm genannt.
+Eine Menge von PSL-Regeln wird PSL-Programm genannt.
+Als Input erwartet ein PSL-Programm eine sog.\ Basis $\mathcal{A}$.
+Die Basis ist dabei eine Menge von Grundatomen, die während der Inferenz in Betracht gezogen werden sollen, und setzt sich aus zwei disjunkten Teilmengen $\mathbb{C} \mathbin{\dot\cup} \mathbb{O} = \mathcal{A}$ zusammen.
+$\mathbb{C}$ ist die Menge der geschlossenen (\textit{closed}) Grundatome, d.~h.\ der Wahrheitswert~$\in [0, 1]$ dieser Atome ist bekannt.
+$\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswert noch unbekannt ist und daher inferiert werden soll.
+
+\paragraph{Beispiel}
+Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.
+Angenommen, es sollen Freundschaftsbeziehungen zwischen Personen inferiert werden.
+Ein stark vereinfachtes PSL-Programm hierfür könnte wie folgt aussehen:
+\begin{lstlisting}[mathescape=true]
+(r1) 0.5: !Friends(A, B)
+(r2) 0.6: Friends(A, B) & Friends(B, C) $\rightarrow$ Friends(A, C)
+(r3) 0.8: Hobby(A, X) & Hobby(B, X) $\rightarrow$ Friends(A, B)
+(r4)      Friends(A, B) $\rightarrow$ Friends(B, A).
+\end{lstlisting}
+In dieser Regelmenge sind vier Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
+\begin{enumerate}
+	\item $r_1$ bildet ab, dass zwei Personen a~priori nicht befreundet sind.
+		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhandensein einer Relation postuliert, wird \textit{Prior} genannt.
+		\textit{Priors} haben i.~d.~R. ein niedrigeres Gewicht, als die übrigen Regeln, damit sie bei der MAX-SAT-Inferenz leicht durch andere Regeln ``überstimmt'' werden können.
+	\item $r_2$ bildet die Transitivität der \texttt{Friends}-Relation ab.
+		Zwei Personen mit einem gemeinsamen Freund, sind evtl.\ befreundet.
+	\item $r_3$ bildet ab, dass Personen mit einem gemeinsamen Hobby oftmals befreundet sind.
+	\item $r_4$ bildet die Reflexivität der \texttt{Friends}-Relation ab.
+		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein implizites Gewicht $w_4 = \infty$.
+		Das Nichterfüllen von $r_4$ hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
+		Es ist also garantiert, dass jede MAX-SAT Lösung $r_4$ einhält;
+		d.~h. \texttt{Friends(A, B) = Friends(B, A)}.
+\end{enumerate}
+
+\subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}

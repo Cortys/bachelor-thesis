@@ -138,6 +138,7 @@
 	\colorlet{ctcolorchapterline}{ctcolormain}
 	\colorlet{ctcolorsection}{ctcolormain}
 	\colorlet{ctcolorsubsection}{ctcolormain}
+	\colorlet{ctcolorsubsubsection}{ctcolormain}
 	\colorlet{ctcolorparagraph}{ctcolorblack}
 	% --> text colors
 	\colorlet{ctcolorfloatlabel}{ctcoloraccessory}
@@ -153,6 +154,7 @@
 		\colorlet{ctcolorfootertitle}{ctcolorgray}
 		% --> sectioning colors
 		\colorlet{ctcolorsubsection}{ctcolorblack}
+		\colorlet{ctcolorsubsubsection}{ctcolorblack}
 		\colorlet{ctcolorpartnum}{ctcolorblack}
 		% --> text colors
 		\colorlet{ctcolorlistlabel}{ctcolorblack}
@@ -168,6 +170,7 @@
 		\colorlet{ctcolorchapterline}{ctcolorblack}
 		\colorlet{ctcolorsection}{ctcolorblack}
 		\colorlet{ctcolorsubsection}{ctcolorblack}
+		\colorlet{ctcolorsubsubsection}{ctcolorblack}
 		% --> text colors
 		\colorlet{ctcolorfloatlabel}{ctcolorblack}
 		\colorlet{ctcolorlistlabel}{ctcolorblack}
@@ -530,15 +533,15 @@
 %\newcommand{\thesissectionfont}{\color{ctcolormain}\LARGE\bfseries \roboto}
 \newcommand{\thesissectionfont}{\color{ctcolorsection}\LARGE \roboto}
 \newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\Large \roboto}
+\newcommand{\thesissubsubsectionfont}{\color{ctcolorsubsubsection}\large\roboto}
 \newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\roboto\small\bfseries}
 %
 % headings
 \setkomafont{part}{\thesispartfont} % for chapter entries
 \setkomafont{chapter}{\thesischapterfont} % for chapter entries
 \setkomafont{section}{\thesissectionfont} % for section entries
-\setkomafont{subsection}{\thesissubsectionfont} % for section entries
-\addtokomafont{subsubsection}{\roboto}
-%\addtokomafont{paragraph}{\roboto}
+\setkomafont{subsection}{\thesissubsectionfont} % for subsection entries
+\setkomafont{subsubsection}{\thesissubsubsectionfont} % for subsubsection entries
 \setkomafont{paragraph}{\thesisparagraphfont}
 
 %\setkomafont{subsection}{\large} % for subsection entries
