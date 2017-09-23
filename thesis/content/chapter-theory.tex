@@ -486,27 +486,24 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 \begin{enumerate}
 	\item \textbf{Konstanten:}
 		Repräsentieren konstante Werte, wie z.~B. Strings oder Zahlen.
-		Werden für domänenspezifische Daten, wie z.~B. Namen benutzt. \\
-		\centerline{\texttt{''Alice'', 32}}
+		Werden für domänenspezifische Daten, wie z.~B. Namen benutzt.
 	\item \textbf{Variablen:}
 		Werden während einer Inferenz mit Konstanten belegt.
-		PSL Variablen sind nicht zu verwechseln mit den Zufallsvariablen in MRFs. \\
-		\centerline{\texttt{x, y, z}}
+		PSL Variablen sind nicht zu verwechseln mit den Zufallsvariablen in MRFs.
 	\item \textbf{Terme:}
 		Ein Term ist entweder eine Konstante oder eine Variable.
 	\item \textbf{Prädikate:}
 		Entsprechen in etwa den prädikatenlogischen Prädikaten.
-		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Typsignatur beliebiger Arität.
-		Prädikate sind über Konstanten definiert, die Signatur ist daher über den Konstantentypen definiert. \\
-		\centerline{\texttt{Person/1: UUID, Name/2: UUID $\times$ String, Female/1: UUID}}
+		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Signatur aus Konstantentypen.
+		\[Person \subseteq \text{UUID},\quad Name \subseteq \text{UUID} \times \text{String}\]
 	\item \textbf{Atome:}
 		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
 		Das Term-Tupel enthält die Argumente des Prädikates.
 		Wenn alle Argumente Konstanten sind, spricht man von einem Grundatom (\textit{ground atom}). \\
-		\centerline{\texttt{Person(x), Name(x, ''Alice'')}} % chktex 32
+		\[Person(x),\quad Name(x, \text{``Alice''})\] % chktex 32
 	\item \textbf{Literale:}
 		Ein Literal ist entweder ein Atom oder ein negiertes Atom. \\
-		\centerline{\texttt{Name(x, ''Alice''), !Name(x, ''Bob'')}} % chktex 32
+		\[Name(x, \text{``Alice''}),\quad \lnot Name(x, \text{``Bob''})\] % chktex 32
 	\item \textbf{Regeln:}
 		Eine Regel ist eine gewichtete Disjunktionsklausel von Literalen.
 		Die negativen Atome der Klausel bilden dabei den sog.\ Körper $B$ (\textit{body}), die positiven Atome den sog.\ Kopf $H$ (\textit{head}) der Regel.
@@ -515,7 +512,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 			\left(\bigvee_{b \in B} \lnot b\right) \lor \left(\bigvee_{h \in H} h\right) \Leftrightarrow \left(\bigwedge_{b \in B}  b\right) \rightarrow \left(\bigvee_{h \in H} h\right)
 		\]
 		Mit Implikationen lassen sich nun intuitiv Zusammenhänge zwischen Prädikaten modellieren.\\
-		\centerline{\texttt{0.65: Person(x) \& Name(x, ''Alice'') \rightarrow Female(x)}} % chktex 32, chktex 1
+		\[0.65: Person(x) \land Name(x, \text{``Alice''}) \rightarrow Female(x)\] % chktex 32, chktex 1
 \end{enumerate}
 
 Eine Menge von PSL-Regeln wird PSL-Programm genannt.
@@ -528,25 +525,32 @@ $\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswert
 Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.
 Angenommen, es sollen Freundschaftsbeziehungen zwischen Personen inferiert werden.
 Ein stark vereinfachtes PSL-Programm hierfür könnte wie folgt aussehen:
-\begin{lstlisting}[mathescape=true]
-(r1) 0.5: !Friends(A, B)
-(r2) 0.6: Friends(A, B) & Friends(B, C) $\rightarrow$ Friends(A, C)
-(r3) 0.8: Hobby(A, X) & Hobby(B, X) $\rightarrow$ Friends(A, B)
-(r4)      Friends(A, B) $\rightarrow$ Friends(B, A).
-\end{lstlisting}
-In dieser Regelmenge sind vier Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
+\begin{align*}
+	0.5:&\ \lnot Friends(A, B) & (r_1) \\
+	0.1:&\ Friends(A, B) \land Friends(B, C) \rightarrow Friends(A, C) & (r_2) \\
+	0.8:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & (r_3) \\
+	&\ Friends(A, B) \rightarrow Friends(B, A) & (r_4) \\
+	&\ \lnot Friends(A, A) & (r_5)
+\end{align*}
+In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
 \begin{enumerate}
-	\item $r_1$ bildet ab, dass zwei Personen a~priori nicht befreundet sind.
-		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhandensein einer Relation postuliert, wird \textit{Prior} genannt.
-		\textit{Priors} haben i.~d.~R. ein niedrigeres Gewicht, als die übrigen Regeln, damit sie bei der MAX-SAT-Inferenz leicht durch andere Regeln ``überstimmt'' werden können.
-	\item $r_2$ bildet die Transitivität der \texttt{Friends}-Relation ab.
+	\item $r_1$ bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
+		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
+	\item $r_2$ bildet die Transitivität der $Friends$-Relation ab.
 		Zwei Personen mit einem gemeinsamen Freund, sind evtl.\ befreundet.
-	\item $r_3$ bildet ab, dass Personen mit einem gemeinsamen Hobby oftmals befreundet sind.
-	\item $r_4$ bildet die Reflexivität der \texttt{Friends}-Relation ab.
+	\item $r_3$ bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
+	\item $r_4$ bildet die Symmetrie der $Friends$-Relation ab.
 		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein implizites Gewicht $w_4 = \infty$.
 		Das Nichterfüllen von $r_4$ hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
 		Es ist also garantiert, dass jede MAX-SAT Lösung $r_4$ einhält;
-		d.~h. \texttt{Friends(A, B) = Friends(B, A)}.
+		d.~h. $Friends(A, B) = Friends(B, A)$.
+	\item $r_5$ ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
 \end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{gfx/theory/pslExample1.pdf}
+	\caption{Graph der inferierten {\color{blau}$Friends$-Relation} und der gegebenen {\color{rot}$Interest$-Relation}.}\label{fig:theory:pslExample1}
+\end{figure}
 
 \subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}
