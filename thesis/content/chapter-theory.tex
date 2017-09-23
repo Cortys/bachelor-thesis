@@ -547,10 +547,29 @@ In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends
 	\item $r_5$ ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
 \end{enumerate}
 
+Für das PSL-Programm $\{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}$ gegeben:
+\begin{align*}
+	\mathbb{C} &= \left\{ % chktex 21
+		\begin{aligned}
+			& {\color{rot}Interest}(\text{``Alice''}, \text{``Reading''}),\ &&{\color{rot}Interest}(\text{``Dave''}, \text{``Reading''}), \\
+			& {\color{rot}Interest}(\text{``Alice''}, \text{``Skiing''}),\ &&{\color{rot}Interest}(\text{``Charlie''}, \text{``Skiing''}), \\
+			& {\color{rot}Interest}(\text{``Bob''}, \text{``Tennis''}),\ &&{\color{rot}Interest}(\text{``Charlie''}, \text{``Tennis''}), \\
+			& {\color{gruen}Friends}(\text{``Alice''}, \text{``Bob''})
+		\end{aligned}
+	\right\} \\ % chktex 21
+	\mathbb{O} &= \{{\color{blau}Friends}(x, y): x, y \in \{\text{``Alice''}, \text{``Bob''}, \text{``Charlie''}, \text{``Dave''}\}\} \setminus \mathbb{C} % chktex 21
+\end{align*}
+Die Interessen der Personen und die Freundschaft zwischen Bob und Alice aus $\mathbb{C}$ werden als wahr angenommen.
+Die gesuchten Freundschaftsrelationen aus $\mathbb{O}$ sollen inferiert werden.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{gfx/theory/pslExample1.pdf}
 	\caption{Graph der inferierten {\color{blau}$Friends$-Relation} und der gegebenen {\color{rot}$Interest$-Relation}.}\label{fig:theory:pslExample1}
 \end{figure}
+\figreft{fig:theory:pslExample1} zeigt ein mögliches MAX-SAT Ergebnis der Inferenz.
+Personen mit gemeinsamen Interessen wurden aufgrund von $r_3$ als Freunde erkannt.
+Wegen des Priors $r_1$ ist $r_3$ allein allerdings nicht hinreichend für eine $Friends$-Beziehung mit Wert $1$.
+Hierfür ist die von $r_2$ modellierte Transitivitäteigenschaft notwendig;
+in der Clique \textit{Alice-Bob-Charlie} haben sich die $Friends$-Beziehungen gegenseitig verstärkt.
 
 \subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}
