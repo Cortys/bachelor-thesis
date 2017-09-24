@@ -524,11 +524,11 @@ $\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswert
 \paragraph{Beispiel}
 Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.
 Angenommen, es sollen Freundschaftsbeziehungen zwischen Personen inferiert werden.
-Ein stark vereinfachtes PSL-Programm hierfür könnte wie folgt aussehen:
+Ein stark vereinfachtes PSL-Programm hierfür könnte so aussehen:
 \begin{align*}
-	0.5:&\ \lnot Friends(A, B) & (r_1) \\
-	0.1:&\ Friends(A, B) \land Friends(B, C) \rightarrow Friends(A, C) & (r_2) \\
-	0.8:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & (r_3) \\
+	0.4:&\ \lnot Friends(A, B) & (r_1) \\
+	0.5:&\ Friends(A, B) \land Friends(B, C) \land A \neq C \rightarrow Friends(A, C) & (r_2) \\
+	1:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & (r_3) \\
 	&\ Friends(A, B) \rightarrow Friends(B, A) & (r_4) \\
 	&\ \lnot Friends(A, A) & (r_5)
 \end{align*}
@@ -538,6 +538,7 @@ In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends
 		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
 	\item $r_2$ bildet die Transitivität der $Friends$-Relation ab.
 		Zwei Personen mit einem gemeinsamen Freund, sind evtl.\ befreundet.
+		Das Infix-Prädikat $\neq$ ist üblicherweise vordefiniert.
 	\item $r_3$ bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
 	\item $r_4$ bildet die Symmetrie der $Friends$-Relation ab.
 		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein implizites Gewicht $w_4 = \infty$.
@@ -551,15 +552,15 @@ Für das PSL-Programm $\{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}
 \begin{align*}
 	\mathbb{C} &= \left\{ % chktex 21
 		\begin{aligned}
-			& {\color{rot}Interest}(\text{``Alice''}, \text{``Reading''}),\ &&{\color{rot}Interest}(\text{``Dave''}, \text{``Reading''}), \\
-			& {\color{rot}Interest}(\text{``Alice''}, \text{``Skiing''}),\ &&{\color{rot}Interest}(\text{``Charlie''}, \text{``Skiing''}), \\
-			& {\color{rot}Interest}(\text{``Bob''}, \text{``Tennis''}),\ &&{\color{rot}Interest}(\text{``Charlie''}, \text{``Tennis''}), \\
-			& {\color{gruen}Friends}(\text{``Alice''}, \text{``Bob''})
+			{\color{rot}Interest}(\text{``Alice''}, \text{``Reading''}) &= 0.5,\ &{\color{rot}Interest}(\text{``Dave''}, \text{``Reading''}) &= 1, \\
+			{\color{rot}Interest}(\text{``Alice''}, \text{``Skiing''}) &= 0.5,\ &{\color{rot}Interest}(\text{``Charlie''}, \text{``Skiing''}) &= 1, \\
+			{\color{rot}Interest}(\text{``Bob''}, \text{``Tennis''}) &= 1,\ &{\color{rot}Interest}(\text{``Charlie''}, \text{``Tennis''}) &= 1, \\
+			{\color{gruen}Friends}(\text{``Alice''}, \text{``Bob''}) &= 1
 		\end{aligned}
 	\right\} \\ % chktex 21
-	\mathbb{O} &= \{{\color{blau}Friends}(x, y): x, y \in \{\text{``Alice''}, \text{``Bob''}, \text{``Charlie''}, \text{``Dave''}\}\} \setminus \mathbb{C} % chktex 21
+	\mathbb{O} &= \{{\color{blau}Friends}(x, y) =\ \textbf{?} : x, y \in \{\text{``Alice''}, \text{``Bob''}, \text{``Charlie''}, \text{``Dave''}\}\} \setminus \mathbb{C} % chktex 21
 \end{align*}
-Die Interessen der Personen und die Freundschaft zwischen Bob und Alice aus $\mathbb{C}$ werden als wahr angenommen.
+Die Interessen der Personen und die Freundschaft zwischen Bob und Alice aus $\mathbb{C}$ werden als bekannt angenommen.
 Die gesuchten Freundschaftsrelationen aus $\mathbb{O}$ sollen inferiert werden.
 \begin{figure}[h]
 	\centering
@@ -567,9 +568,9 @@ Die gesuchten Freundschaftsrelationen aus $\mathbb{O}$ sollen inferiert werden.
 	\caption{Graph der inferierten {\color{blau}$Friends$-Relation} und der gegebenen {\color{rot}$Interest$-Relation}.}\label{fig:theory:pslExample1}
 \end{figure}
 \figreft{fig:theory:pslExample1} zeigt ein mögliches MAX-SAT Ergebnis der Inferenz.
-Personen mit gemeinsamen Interessen wurden aufgrund von $r_3$ als Freunde erkannt.
-Wegen des Priors $r_1$ ist $r_3$ allein allerdings nicht hinreichend für eine $Friends$-Beziehung mit Wert $1$.
-Hierfür ist die von $r_2$ modellierte Transitivitäteigenschaft notwendig;
-in der Clique \textit{Alice-Bob-Charlie} haben sich die $Friends$-Beziehungen gegenseitig verstärkt.
+Wegen des Priors $r_1$ werden Personen generell als nicht befreundet eingeordnet.
+Personen mit gemeinsamen Interessen werden hingegen, aufgrund von $r_3$, als Freunde erkannt.
+Die durch $r_2$ modellierte Transitivitäteigenschaft ist ein weiterer verstärkender Faktor.
+Dies lässt sich in der Clique \textit{Alice-Bob-Charlie} beobachten, die $Friends$-Beziehungen haben sich dort gegenseitig verstärkt.
 
 \subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}
