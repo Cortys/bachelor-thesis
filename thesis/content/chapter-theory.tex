@@ -516,7 +516,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 \end{enumerate}
 
 Eine Menge von PSL-Regeln wird PSL-Programm genannt.
-Als Input erwartet ein PSL-Programm eine sog.\ Basis $\mathcal{A}$.
+Als Input erwartet ein PSL-Programm $R$ eine sog.\ Basis $\mathcal{A}$.
 Die Basis ist dabei eine Menge von Grundatomen, die während der Inferenz in Betracht gezogen werden sollen, und setzt sich aus zwei disjunkten Teilmengen $\mathbb{C} \mathbin{\dot\cup} \mathbb{O} = \mathcal{A}$ zusammen.
 $\mathbb{C}$ ist die Menge der geschlossenen (\textit{closed}) Grundatome, d.~h.\ der Wahrheitswert~$\in [0, 1]$ dieser Atome ist bekannt.
 $\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswert noch unbekannt ist und daher inferiert werden soll.
@@ -548,7 +548,7 @@ In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends
 	\item $r_5$ ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
 \end{enumerate}
 
-Für das PSL-Programm $\{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}$ gegeben:
+Für das PSL-Programm $R = \{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}$ gegeben:
 \begin{align*}
 	\mathbb{C} &= \left\{ % chktex 21
 		\begin{aligned}
@@ -574,3 +574,31 @@ Die durch $r_2$ modellierte Transitivitäteigenschaft ist ein weiterer verstärk
 Dies lässt sich in der Clique \textit{Alice-Bob-Charlie} beobachten, die $Friends$-Beziehungen haben sich dort gegenseitig verstärkt.
 
 \subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}
+
+Wie soeben gezeigt, ist PSL ein intuitiver Formalismus zur Definition relationaler Modelle.
+Um Inferenzen durchzuführen, ist allerdings zuerst eine Übersetzung in ein HL-MRF notwendig.
+Gegeben ist hierbei immer ein PSL-Programm $R = \{r_1, \dots, r_k\}$ und eine Eingabe $\mathcal{A} = \mathbb{C} \mathbin{\dot\cup} \mathbb{O}$.
+Die Übersetzung erfolgt in zwei Schritten:
+\begin{enumerate}
+	\item \textbf{Zufallsvariablen:}
+		Die Grundatome aus $\mathbb{C}$ werden zu Zufallsvariablen $X$, deren Belegung $x$ gegeben ist.
+		Die Grundatome aus $\mathbb{O}$ werden zu Zufallsvariablen $Y$, für die die optimale Belegung $y \in \mathcal{Y}$ aus der Menge aller möglichen Belegungen $\mathcal{Y}$ gesucht wird.
+		Der Zufallsvektor des HL-MRFs ist also $X \cup Y$.
+	\item \textbf{Disjunktionsklauseln:}
+		In der bisherigen HL-MRF Definition wurde stets davon ausgegangen, dass die optimale Belegung \textit{aller} Zufallsvariablen gesucht ist.
+		Im Falle von PSL ist allerdings bereits bekannt, dass $X = x$ gilt.
+		Das Inferenzproblem lautet daher wie folgt:
+		\begin{align*}
+			\operatorname*{arg\,max}_{y \in \mathcal{Y}} P(Y = y \mid X = x) =&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} P(X \cup Y = x \cup y) \numberthis \\ % chktex 35
+			=&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} w\,{\Phi(y, x)}^\top % chktex 35
+		\end{align*}
+		Um ein HL-MRF zu erhalten, muss nun $\Phi$ und $w$, d.~h.\ die Menge der Klauseln $C$ und ihre Gewichte, definiert werden.
+		Die PSL-Regeln in $R$ sind zwar Klauseln, können aber nicht direkt als $C$ verwendet werden, da sie potentiell freie PSL-Variablen enthalten, die PSL-Atome also potentiell nicht in $\mathcal{A}$ sind.
+		Es erfolgt daher ein sog.\ \textit{Grounding} der PSL-Regeln.
+		In jede Regel aus $R$ wird dabei jede mögliche Belegung der PSL-Variablen eingesetzt, sodass die resultierende Regelinstanz nur Atome aus $\mathcal{A}$ enthält.
+		Die Menge dieser Regelinstanzen wird Grundregeln (\textit{ground rules}) genannt und als Klauselmenge $C$ benutzt.
+		Aus $C$ wiederum lässt sich $\Phi$ nun mittels der Łukasiewicz Logik eindeutig ableiten.
+		Das Gewicht jedes Potentials $\Phi_i$ ist dabei gleich dem Gewicht der PSL-Regel aus der es resultierte.
+\end{enumerate}
+
+\subsubsection{Inferenzverfahren}
