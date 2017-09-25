@@ -216,7 +216,7 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 \begin{enumerate}
 	\item \textbf{Benannte Entitäten:}
 		Person, Ort, Organisation und Sonstige.
-		Diese Entitätsklassen werden mittels \textit{Conditional Random Fields}~\cite{Finkel2005}, einer Variante von \textit{Markov Random Fields} (siehe~\ref{sec:theory:psl:mrf}), erkannt.
+		Diese Entitätsklassen werden mittels \textit{Conditional Random Fields}~\cite{Finkel2005}, einer Variante von \textit{Markov Random Fields}~\tref{sec:theory:psl:mrf}, erkannt.
 	\item \textbf{Numerische Entitäten:}
 		Geldbetrag, Zahl, Ordinalzahl und Prozentzahl.
 		Hierfür wird ein regelbasiertes System verwendet.
@@ -631,4 +631,4 @@ In~\cite[Kapitel 4]{Pujara2015} werden verschiedene mögliche Bewertungsverfahre
 Gegeben sei also eine Bewertung der Atome aus $\mathcal{A}$.
 Werden nun die Wahrheitswerte bislang offener Atome aus $\mathbb{O}$ bekannt, müssen ausschließlich die $m$ höchstbewerteten Atome aus $\mathbb{C}$ neu inferiert werden, die Wahrheitswerte aller anderen Atome werden fixiert.
 Je höher das sog.\ Budget $m$, desto höher ist die Qualität im Vergleich zu einer vollständigen Inferenz.
-Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI gegenüber einer vollständigen Inferenz meist nur unwesentlich schlechter ist, während sich die Inferenzdauer teils um über 60\% verringert.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI gegenüber einer vollständigen Inferenz meist nur unwesentlich schlechter ist, während sich die Inferenzdauer teils um über 60\% verringert~\cite[Kapitel 5]{Pujara2015}.
