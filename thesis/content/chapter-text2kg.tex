@@ -28,6 +28,21 @@ Nach diesen strukturellen Betrachtungen wird schließlich in \treft{sec:text2kg:
 \section{Implementation}%
 \label{sec:text2kg:implementation}
 
+Das in den folgenden Abschnitten beschriebene Verfahren wurde im Rahmen dieser Arbeit prototypisch implementiert.
+Bei der Wahl der hierfür verwandten Technologien wurde darauf Wert gelegt, dass eine möglichst nahtlose Integration der Komponenten möglich ist.
+Sowohl CoreNLP~\cite{CoreNLP} als auch die PSL-Referenzimplementation~\cite{PSL} sind JVM-Bibliotheken.
+Diese Arbeit wurde daher ebenfalls in einer JVM-Sprache implementiert.
+
+Hierfür wurde Clojure gewählt, ein moderner Lisp-1-Dialekt, mit einem Fokus auf funktionale Programmierung, unveränderliche Datenstrukturen und gleichzeitiger Interoperabilität mit objektorientierten Bibliotheken.
+Andere JVM-Sprachen, wie z.~B. Java, Scala oder Groovy, wurden ausgeschlossen, da sie sich während des Entwicklungsprozesses als hinderlich erwiesen haben.
+Der Hauptgrund hierfür ist, dass CoreNLP bei der Initialisierung diverse Modelle laden muss.
+Bei Verwendung eines modernen Desktop-Rechners benötigt dies ca.~20 Sekunden, auf langsamerer Hardware teils mehrere Minuten;
+diese Wartezeiten waren ein stark verlangsamender Faktor beim entwickeln.
+Da Clojure ein Lisp ist, unterstützt es traditionsgemäß \textit{REPL Driven Development}.
+Statt nach jeder Änderung die Anwendung neu zu starten und die Modelle erneut zu laden, kann so lediglich der geänderte Bytecode in den laufenden Prozess injiziert werden;
+die geladenen Modelle bleiben dabei im Speicher und die Änderung kann ohne weitere Wartezeit getestet werden.
+Durch die Wahl von Clojure konnte die Entwicklung deutlich beschleunigt werden.
+
 \section{Wissensgraphontologie}%
 \label{sec:text2kg:ontology}
 
