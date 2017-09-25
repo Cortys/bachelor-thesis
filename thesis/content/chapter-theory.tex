@@ -23,78 +23,80 @@ Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizi
 \label{sec:theory:cg:syntax}
 
 In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
-\begin{itemize}
-	\item \textbf{Konzeptknoten (\textit{concepts}):}
-		Entsprechen in etwa existenzquantisierten gebundenen Variablen.
-		Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
-			\quad\Leftrightarrow\quad
-			{\color{rot}\exists\ a, b} \numberthis
-		\end{align*}
-	\item \textbf{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments}):}
-		Relationsknoten entsprechen prädikatenlogischen Atomen.
-		Das Symbol innerhalb eines Relationsknoten gibt die Relation des Atoms an.
-		Für die Repräsentation der Argumente werden sog.~Argumentkanten zwischen Relationsknoten und Konzeptknoten verwendet.
-		Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierung der Argumentkanten oder bei zweistelligen Relationen durch gerichtete Argumentkanten abgebildet.
-		Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
-		für die Abbildung von \textit{ODER} wird die Negation verwendet.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/relationNode.pdf}}}
-			\quad\Leftrightarrow\quad
-			\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
-		\end{align*}
-	\item \textbf{Negationskontexte (\textit{negation contexts} oder \textit{cuts}):}
-		Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
-		Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
-			\quad\Leftrightarrow\quad
-			&\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
-			\quad\Leftrightarrow\quad
-			&\exists\ a\ {\color{rot}\forall}\ b: {\color{rot}\lnot} P(a, b)
-		\end{align*}
-		Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
-			\quad\Leftrightarrow\quad
-			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode2.pdf}}}
-		\end{align*}
-		Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
-		Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
-		die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode3.pdf}}}
-			\quad\Leftrightarrow\quad
-			&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
-			\quad\Leftrightarrow\quad
-			&{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
-		\end{align*}
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/negationNode4.pdf}}}
-			\quad\Leftrightarrow\quad
-			&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
-			\quad\Leftrightarrow\quad
-			&\exists\ a, b: P(a, b)\ {\color{rot}\lor}\ R(b, a)
-		\end{align*}
-	\item \textbf{Koreferenzkanten (\textit{coreference links}):}
-		Entspricht der Äquivalenzrelation.
-		\begin{align}
-			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
-			\quad\Leftrightarrow\quad
-			&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
-			\quad\Leftrightarrow\quad
-			&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b} \nonumber
-		\end{align}
-		Prinzipiell ließe sich die Äquivalenz auch durch Relationsknoten ausdrücken.
-		Um syntaktisch zu kennzeichnen, dass es sich nicht um eine beliebige Relation, sondern um eine Äquivalenzrelation handelt, wird dies jedoch i.~d.~R. nicht getan.
-		Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
-		\begin{align*}
-			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
-			\quad\Leftrightarrow\quad
-			\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
-		\end{align*}
-\end{itemize}
+
+\paragraph{Konzeptknoten (\textit{concepts})}
+	Entsprechen in etwa existenzquantisierten gebundenen Variablen.
+	Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
+	\begin{align*}
+		\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
+		\quad\Leftrightarrow\quad
+		{\color{rot}\exists\ a, b} \numberthis
+	\end{align*}
+
+\paragraph{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments})}
+Relationsknoten entsprechen prädikatenlogischen Atomen.
+Das Symbol innerhalb eines Relationsknoten gibt die Relation des Atoms an.
+Für die Repräsentation der Argumente werden sog.~Argumentkanten zwischen Relationsknoten und Konzeptknoten verwendet.
+Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierung der Argumentkanten oder bei zweistelligen Relationen durch gerichtete Argumentkanten abgebildet.
+Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
+für die Abbildung von \textit{ODER} wird die Negation verwendet.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/relationNode.pdf}}}
+	\quad\Leftrightarrow\quad
+	\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
+\end{align*}
+
+\paragraph{Negationskontexte (\textit{negation contexts} oder \textit{cuts})}
+Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
+Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+	\quad\Leftrightarrow\quad
+	&\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
+	\quad\Leftrightarrow\quad
+	&\exists\ a\ {\color{rot}\forall}\ b: {\color{rot}\lnot} P(a, b)
+\end{align*}
+Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+	\quad\Leftrightarrow\quad
+	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode2.pdf}}}
+\end{align*}
+Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
+Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
+die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode3.pdf}}}
+	\quad\Leftrightarrow\quad
+	&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
+	\quad\Leftrightarrow\quad
+	&{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
+\end{align*}
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/negationNode4.pdf}}}
+	\quad\Leftrightarrow\quad
+	&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
+	\quad\Leftrightarrow\quad
+	&\exists\ a, b: P(a, b)\ {\color{rot}\lor}\ R(b, a)
+\end{align*}
+
+\paragraph{Koreferenzkanten (\textit{coreference links})}
+Entspricht der Äquivalenzrelation.
+\begin{align}
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
+	\quad\Leftrightarrow\quad
+	&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
+	\quad\Leftrightarrow\quad
+	&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b} \nonumber
+\end{align}
+Prinzipiell ließe sich die Äquivalenz auch durch Relationsknoten ausdrücken.
+Um syntaktisch zu kennzeichnen, dass es sich nicht um eine beliebige Relation, sondern um eine Äquivalenzrelation handelt, wird dies jedoch i.~d.~R. nicht getan.
+Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
+	\quad\Leftrightarrow\quad
+	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
+\end{align*}
 
 \subsection{Dominierende Knoten}%
 \label{sec:theory:cg:domnodes}
@@ -459,7 +461,7 @@ Wie \figreft{fig:theory:hingeloss} für den zwei-elementigen Klauselfall veransc
 Hierher rührt die Bezeichnung Hinge-Loss MRF.\@
 Da Hinge-Loss Funktionen konvex sind und die Summe konvexer Funktionen ebenfalls konvex ist, handelt es sich bei der HL-MRF-Inferenz um ein konvexes Optimierungsproblem.
 Es existieren also effiziente und exakte Lösungsalgorithmen.
-Einer dieser Algorithmen ist das \textit{Alternating Direction Method of Multipliers}-Verfahren (ADMM), es wird in~\ref{sec:theory:psl:psl} näher vorgestellt.
+Einer dieser Algorithmen ist das \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM), es wird in~\ref{sec:theory:psl:inference} näher vorgestellt.
 
 \paragraph{MAX-SAT Äquivalenz}
 In~\ref{sec:theory:psl:mrf} wurden MRFs anhand des Beispiels der SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$ veranschaulicht.
@@ -601,4 +603,32 @@ Die Übersetzung erfolgt in zwei Schritten:
 		Das Gewicht jedes Potentials $\Phi_i$ ist dabei gleich dem Gewicht der PSL-Regel aus der es resultierte.
 \end{enumerate}
 
-\subsubsection{Inferenzverfahren}
+\subsection{Inferenzverfahren}%
+\label{sec:theory:psl:inference}
+
+In \treft{sec:theory:psl:hlmrf} wurde die Konvexität des HL-MRF-Inferenzproblems bereits diskutiert.
+Prinzipiell kann daher jedes konvexe Optimierungsverfahren im Kontext von HL-MRFs verwendet werden.
+In der Praxis hat sich jedoch ein Verfahren, als besonders effizient erwiesen.
+
+\paragraph{ADMM}
+Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM) ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
+Durch diese Variation lässt sich ADMM gut parallelisieren und ist somit geeignet für große Datenmengen und den Einsatz in Cluster-Umgebungen.
+Das ursprüngliche Paper~\cite[Kapitel 10]{Boyd2011} beschreibt explizit, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{Map-Reduce} oder \textit{Pregel} implementieren lässt.
+
+Die ADMM-Laufzeit ist proportional zur Klauselanzahl $|C|$.
+Die Klauselanzahl wiederum wächst gemäß $\mathcal{O}(|\mathcal{A}|^r)$, wobei $r$ die maximale Anzahl von Nicht-Grund-Atomen in einer PSL-Regel ist.
+Insgesamt wächst die Inferenzdauer also polynomiell in Abhängigkeit zur Eingabe $\mathcal{A}$.
+
+\paragraph{BOCI}
+Um effiziente Updates eines gegebenen Inferenzergebnises für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren entwickelt.
+Wenn ein Inferenzergebnis für $\mathcal{A} = \mathbb{C} \mathbin{\dot\cup} \mathbb{O}$ existiert und anschließend die Wahrheitswerte für einen Teil der bislang offenen Atome aus $\mathbb{O}$ bekannt werden, muss mittels BOCI keine weitere vollständige Inferenz durchgeführt werden.
+
+Die Grundidee dabei ist es Metadaten, die während der letzten ADMM-Inferenz angefallen sind, für eine Bewertung jedes Atoms zu benutzen.
+Die Bewertungen spiegeln die Volatilität der Wahrheitswerte der Atome, in Abhängigkeit von $\mathbb{C}$, wider.
+Welche Metadaten für die Bewertung verwendet werden sollten, hängt stark von der Semantik der Wahrheitswerte der PSL-Prädikate ab.
+In~\cite[Kapitel 4]{Pujara2015} werden verschiedene mögliche Bewertungsverfahren beschrieben, für diese Arbeit sind jene allerdings nicht näher relevant.
+
+Gegeben sei also eine Bewertung der Atome aus $\mathcal{A}$.
+Werden nun die Wahrheitswerte bislang offener Atome aus $\mathbb{O}$ bekannt, müssen ausschließlich die $m$ höchstbewerteten Atome aus $\mathbb{C}$ neu inferiert werden, die Wahrheitswerte aller anderen Atome werden fixiert.
+Je höher das sog.\ Budget $m$, desto höher ist die Qualität im Vergleich zu einer vollständigen Inferenz.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI gegenüber einer vollständigen Inferenz meist nur unwesentlich schlechter ist, während sich die Inferenzdauer teils um über 60\% verringert.

@@ -301,7 +301,7 @@ der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
 Um dieses Problem zu lösen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren~\cite{Pujara2015} entwickelt.
 BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
 Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
-Kommen nun neue Informationen an, müssen diese ausschließlich zusammen mit den $m$ höchstbewerteten bereits existierenden Atomen betrachtet werden, die Werte aller anderen Atome werden fixiert.
+Kommen nun neue Informationen an, müssen ausschließlich die $m$ höchstbewerteten Atome betrachtet werden, die Werte aller anderen Atome werden fixiert.
 Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
 Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten offline Inferenz.
 
