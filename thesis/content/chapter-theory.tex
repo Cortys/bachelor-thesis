@@ -118,7 +118,7 @@ Was genau dies bedeutet, wird im Folgenden erläutert. Zuerst müssen Konzeptgra
 	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
 	& \lor nest(b, a) \lor (\exists\ c \in V: nest(c, a) \land nest(c, b))
 \end{align*}
-Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{sheet of assertion} genannt wird.
+Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{Sheet of Assertion} genannt wird.
 $\top$ enthält alle Knoten, die keinen explizit dargestellten Elternkontext haben.
 Die Kontextbox von $\top$ umschließt also den gesamten Konzeptgraphen.
 $\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwischen Knoten ab, d.~h.\ $a \leq b$ gdw.\ $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
@@ -280,7 +280,7 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \displaybreak[0]\\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
-	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisierkonst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
+	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisierkonst.} Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
 Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufallsvariablen in $X$:
 \begin{enumerate}
