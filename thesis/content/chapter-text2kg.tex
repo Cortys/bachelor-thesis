@@ -56,23 +56,72 @@ Im Folgenden wird beschrieben, wie genau die in dieser Arbeit verwendete Ontolog
 \subsection{Verwendete Prädikate}%
 \label{sec:text2kg:ontology:pred}
 
+Im ersten Schritt wird geklärt, welche Prädikate in den in dieser Arbeit konstruierten Wissensgraphen vorkommen können.
+Es ist nicht sinnvoll beliebige Prädikate zuzulassen, da für eine effiziente maschinelle Weiterverarbeitung der Wissensgraphen, eine Semantik für alle vorkommenden Prädikate definiert sein muss.
+Für die Wissensgraphen in dieser Arbeit wird daher eine Menge von fünf Prädikaten verwendet, die im Folgenden näher erläutert wird.
+
+Zuvor wird allerdings die Konzeptgraphsyntax leicht modifiziert.
+Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine kompaktere Notation benutzt werden:
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/text2kg/relationNodeAlternativeSyntax1.pdf}}}
+	\Leftrightarrow
+	\vcenter{\hbox{\includegraphics[scale=0.8]{gfx/text2kg/relationNodeAlternativeSyntax2.pdf}}}
+\end{align*}
+Relationsknoten werden nicht mehr dargestellt.
+Bei unären Relationen werden die Relationsknotenbezeichner stattdessen mit in die Konzeptknoten geschrieben;
+binäre Relationen werden durch eine bezeichnete Kante zwischen dem ersten und zweiten Argument repräsentiert.
+
+Auf Basis dieser Syntax werden nun die fünf Wissensgraph-Prädikate beschrieben:
+\begin{enumerate}
+	\item \textbf{$label \subseteq \text{UUID} \times \text{String}$:}
+		Das $label$-Prädikat wird benutzt, um den Bezeichner eines Konzeptes zu repräsentieren.
+		Jedes Konzept hat höchstens einen Bezeichner.
+		Da Konzepte aus natürlichsprachlichen Texten extrahiert werden, kann i.~d.~R. allen Konzepten ein solcher Bezeichner zugeordnet werden.
+		In der bisher verwendeten Konzeptgraphsyntax lassen sich derartige Konstanten allerdings nicht ausdrücken.
+		Die Syntax wird daher erneut modifiziert.
+		Das $label$ eines Konzeptes wird nun, statt eines Variablenbezeichners, in den zugehörigen Konzeptknoten geschrieben.
+		\begin{align*}
+			\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/label.pdf}}}
+			\Leftrightarrow
+			\exists x: {\color{rot}label(x, \text{``book''})}
+		\end{align*}
+	\item \textbf{$inst \subseteq \text{UUID} \times \text{UUID}$:}
+		Die $inst$-Beziehung zwischen Konzepten entspricht grob der \textit{IS-A}-Beziehung semantischer Netze.
+		Das Vorhandensein von $inst(x, y)$ impliziert, dass $y$ alle Eigenschaften von $x$ besitzt.
+		\begin{align*}
+			\textit{``the good book''}
+			\Rightarrow
+			\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/inst.pdf}}}
+		\end{align*}
+	\item \textbf{$relation \subseteq \text{UUID}$:}
+		Da die Prädikatsmenge eingeschränkt ist, können keine Prädikate für Worte eingeführt werden, die Konzepte in Relation zueinander setzen (z.~B. \textit{X likes Y}).
+		Stattdessen werden sog.\ Relationskonzepte verwendet, d.~h.\ Konzepte, die andere Konzepte zueinander in Beziehung setzen.
+		Relationskonzepte $r$ werden durch das unäre Prädikat $relation(r)$ gekennzeichnet.
+		Um die durch $r$ in Beziehung stehenden Konzepte $x, y$ zu beschreiben werden die Prädikate $agent$ und $patient$ verwendet.
+	\item \textbf{$agent \subseteq \text{UUID} \times \text{UUID}$:}
+		Das $agent$-Prädikat zwischen einem Konzept $x$ und dem sog.\ Agens $y$ wird benutzt, um eine kausale Abhängigkeit des $x$ von $y$ zu beschreiben.
+		$agent(x, y)$ sagt also aus, dass $x$ aufgrund von $y$ existiert.
+	\item \textbf{$patient \subseteq \text{UUID} \times \text{UUID}$:}
+		Der Patiens $x$ eines Konzeptes $y$ ist ein Konzept, dessen Eigenschaften durch $y$ verändert werden.
+\end{enumerate}
+
 \subsection{Modale Kontexte}%
 \label{sec:text2kg:ontology:modal}
 
-Im zweiten Schritt wird nun geklärt, wie Modalität repräsentiert wird.
+Nachdem nun die verwendeten Prädikate beschrieben wurden, wird im zweiten Schritt geklärt, wie Wissensgraphen Modalität repräsentieren.
 Beispiele für modale Aussagen sind:
 \begin{center}
 	\textit{``I {\color{blau}think} that {\color{rot}the book is good}.''}\\
 	\textit{``{\color{rot}I} {\color{blau}don't want} to {\color{rot}go to the beach}.''}
 \end{center}
 Die beiden Teilaussagen \textit{\color{rot}``the book is good''} und \textit{\color{rot}``I go to the beach''} sind offensichtlich nicht unbedingt wahr, sondern beschreiben Möglichkeiten, die in Abhängigkeit von \textit{\color{blau}think} bzw.\ \textit{\color{blau}don't want} wahr oder falsch werden könnten.
-Ob die Aussagen wahr werden, hängt davon ab, inwiefern das Denken oder Wollen einer Person mit der Realität übereinstimmt.
+Ob die Aussagen wahr werden, hängt davon ab, inwiefern das Denken oder Wollen einer Person mit der Realität --- auch aktuale Welt genannt --- übereinstimmt.
 Dies ist je nach Person stark verschieden; manche tendieren dazu die allgemein als wahr akzeptierten Aussagen zu denken bzw.\ entsprechend ihrer Wünsche zu handeln, andere nicht.
 
 Um derartige Möglichkeiten und Notwendigkeiten direkt zu repräsentieren, reichen die vorgestellten Konzeptgraphen mit Negationskontexten nicht aus.
 Sowa hat dieses Problem ebenfalls erkannt und daher weitere Kontexttypen eingeführt.
 Die Beschreibung dieser zusätzlichen Kontexttypen ist allerdings oftmals zu unpräzise für eine eindeutige Übersetzung in die Prädikatenlogik.
-Aufbauend auf Sowas Ideen wird in dieser Arbeit daher eine abgeschwächte Variante modaler Kontexte eingeführt, die die Übersetzbarkeit in die Prädikatenlogik erster Ordnung bewahrt.
+Aufbauend auf Sowas Ideen wird in dieser Arbeit daher eine Variante modaler Kontexte eingeführt, die die Übersetzbarkeit in die Prädikatenlogik erster Ordnung bewahrt.
 Da die zuvor vorgestellten Konzeptgraphen bereits vollständig und korrekt sind, handelt es sich bei diesen modalen Kontexten also lediglich um eine Kurzschreibweise.
 
 Insgesamt gibt es durch die Erweiterung um modale Kontexe nun folgende vier Kontexttypen:
@@ -125,9 +174,38 @@ Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren ge
 \end{align*}
 Die Aussage \textit{``$P(x)$ gilt notwendigerweise''}, wird also als \textit{``Es gibt keine Welt $w$ in der $P_w(x)$ nicht gilt''} aufgefasst.
 Statt von Welten, wird in modalen Konzeptgraphen allerdings von Kontexten gesprochen.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/positivePossib.pdf}}}
+	&\Leftrightarrow
+	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/possibExpansion.pdf}}} \numberthis \\
+	&\Leftrightarrow
+	\exists c: context(c) \land (actual(c) \leftrightarrow \exists x: label(x, \text{``X''}))
+\end{align*}
+Anders als Aktualkontexte, tauchen Möglichkeitskontexte explizit in der prädikatenlogischen Repräsentation auf, sie lassen sich also nicht nur als Kontext sondern zugleich auch als Konzept auffassen.
+Der in einem Möglichkeitskontext $c$ enthaltene Teilgraph $G$ ist dabei genau dann wahr, wenn der Kontext die aktuale Welt beschreibt~($\Leftrightarrow actual(c)$).
+Solange $actual(c)$ unbekannt ist, kann also keine Aussage über die Wahrheit von $G$ gemacht werden.
+Wenn $actual(c)$ jedoch wahr bzw.\ falsch ist, ist $c$ äquivalent zu einem positiven bzw.\ negativen Aktualkontext.
+
+Zur Bestimmung von des Wahrheitswertes von $actual(c)$ ist i.~d.~R. domänenspezifisches Wissen notwendig.
+Dieses domänenspezifische Wissen, kann durch sog.\ Kontextrelationen eingebracht werden.
+Da Möglichkeitskontexte zugleich Konzepte sind, lassen sie sich zu anderen Konzepten in Relation setzen.
+Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}think} that {\color{rot}the book is good}.''} repräsentieren möchte.
+\begin{align*}
+	&\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \\
+	\Leftrightarrow
+	\exists i, g, t, c:&\ label(i, \text{``I''}) \land label(g, \text{``good''}) \\
+	\land&\ {\color{blau}label(t, \text{``think''}) \land relation(t) \land agent(t, i) \land patient(t, c)} \\
+	\land&\ {\color{rot}context(c) \land (actual(c) \leftrightarrow \exists b: label(b, \text{``book''}) \land inst(g, b))}
+\end{align*}
+Durch die Verknüpfung eines Konzeptes mit einem Kontext, kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
 
 \paragraph{Negativer Möglichkeitskontext}
 Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der einen negativen Aktualkontext umgibt.
+\begin{align}
+	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/negativePossib.pdf}}}
+	\Leftrightarrow
+	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/negativePossibExpansion.pdf}}}
+\end{align}
 
 \section{NLP-Phase}%
 \label{sec:text2kg:nlp}

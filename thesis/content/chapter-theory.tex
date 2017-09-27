@@ -28,7 +28,7 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten 
 	Entsprechen in etwa existenzquantisierten gebundenen Variablen.
 	Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
 	\begin{align*}
-		\vcenter{\hbox{\includegraphics[height=1.5em]{gfx/theory/conceptNode.pdf}}}
+		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/conceptNode.pdf}}}
 		\quad\Leftrightarrow\quad
 		{\color{rot}\exists\ a, b} \numberthis
 	\end{align*}
@@ -41,7 +41,7 @@ Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierun
 Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
 für die Abbildung von \textit{ODER} wird die Negation verwendet.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/relationNode.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode.pdf}}}
 	\quad\Leftrightarrow\quad
 	\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
 \end{align*}
@@ -50,7 +50,7 @@ für die Abbildung von \textit{ODER} wird die Negation verwendet.
 Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
 Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 	\quad\Leftrightarrow\quad
@@ -58,22 +58,22 @@ Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge 
 \end{align*}
 Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
-	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode2.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode2.pdf}}}
 \end{align*}
 Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
 Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
 die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/negationNode3.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode3.pdf}}}
 	\quad\Leftrightarrow\quad
 	&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 	\quad\Leftrightarrow\quad
 	&{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
 \end{align*}
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/negationNode4.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode4.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
 	\quad\Leftrightarrow\quad
@@ -83,7 +83,7 @@ die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
 \paragraph{Koreferenzkanten (\textit{coreference links})}
 Entspricht der Äquivalenzrelation.
 \begin{align}
-	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
 	\quad\Leftrightarrow\quad
@@ -93,9 +93,9 @@ Prinzipiell ließe sich die Äquivalenz auch durch Relationsknoten ausdrücken.
 Um syntaktisch zu kennzeichnen, dass es sich nicht um eine beliebige Relation, sondern um eine Äquivalenzrelation handelt, wird dies jedoch i.~d.~R. nicht getan.
 Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdge.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
-	\vcenter{\hbox{\includegraphics[height=3.75em]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
 \end{align*}
 
 \subsection{Dominierende Knoten}%
@@ -125,7 +125,7 @@ $\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwisc
 Das größte Element gemäß $\leq$ ist also immer $\top$.
 \begin{figure}[h]
 	\centering
-	\[\vcenter{\hbox{\includegraphics[height=5.25em]{gfx/theory/contextTreeExample1.pdf}}}
+	\[\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/contextTreeExample1.pdf}}}
 	\qquad
 	\vcenter{\hbox{
 		\begin{tikzpicture}[
@@ -174,10 +174,10 @@ Eine Intuition für diese Einschränkung ist, dass es nicht sinnvoll ist die Exi
 Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
 \begin{figure}[h]
 	\begin{align*}
-		\vcenter{\hbox{\includegraphics[height=3em]{gfx/theory/dominatingNodeViolation1.pdf}}}
+		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation1.pdf}}}
 		\quad
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $arg(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
-		\vcenter{\hbox{\includegraphics[height=2.25em]{gfx/theory/dominatingNodeViolation2.pdf}}}
+		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation2.pdf}}}
 		\quad
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $coref(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
 	\end{align*}
