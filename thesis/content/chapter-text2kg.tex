@@ -31,9 +31,9 @@ Nach diesen strukturellen Betrachtungen wird schließlich in \treft{sec:text2kg:
 Das in den folgenden Abschnitten beschriebene Verfahren wurde im Rahmen dieser Arbeit prototypisch implementiert.
 Bei der Wahl der hierfür verwandten Technologien wurde darauf Wert gelegt, dass eine möglichst nahtlose Integration der Komponenten möglich ist.
 Sowohl CoreNLP~\cite{CoreNLP} als auch die PSL-Referenzimplementation~\cite{PSL} sind JVM-Bibliotheken.
-Diese Arbeit wurde daher ebenfalls in einer JVM-Sprache implementiert.
+Diese Arbeit wurde daher ebenfalls für die JVM implementiert, insbesondere weil es zu der PSL-Referenzimplementation keine Alternative gibt und eine Reimplementation von PSL den Rahmen dieser Arbeit gesprengt hätte.
 
-Hierfür wurde Clojure gewählt, ein moderner Lisp-1-Dialekt, mit einem Fokus auf funktionale Programmierung, unveränderliche Datenstrukturen und gleichzeitiger Interoperabilität mit objektorientierten Bibliotheken.
+Als JVM-Sprache wurde Clojure gewählt; ein moderner Lisp-1-Dialekt, mit einem Fokus auf funktionale Programmierung, unveränderliche Datenstrukturen und gleichzeitiger Interoperabilität mit objektorientierten Bibliotheken.
 Andere JVM-Sprachen, wie z.~B. Java, Scala oder Groovy, wurden ausgeschlossen, da sie sich während des Entwicklungsprozesses als hinderlich erwiesen haben.
 Der Hauptgrund hierfür ist, dass CoreNLP bei der Initialisierung diverse Modelle laden muss.
 Bei Verwendung eines modernen Desktop-Rechners benötigt dies ca.~20 Sekunden, auf langsamerer Hardware teils mehrere Minuten;
@@ -63,11 +63,11 @@ Für die Wissensgraphen in dieser Arbeit wird daher eine Menge von fünf Prädik
 \paragraph{Syntax}
 Bevor diese Prädikate näher erläutert werden, wird allerdings die Konzeptgraphsyntax leicht modifiziert.
 Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine kompaktere Notation benutzt werden:
-\begin{align*}
+\begin{align}
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/text2kg/relationNodeAlternativeSyntax1.pdf}}}
 	\Leftrightarrow
 	\vcenter{\hbox{\includegraphics[scale=0.8]{gfx/text2kg/relationNodeAlternativeSyntax2.pdf}}}
-\end{align*}
+\end{align}
 Relationsknoten werden nicht mehr dargestellt.
 Bei unären Relationen werden die Relationsknotenbezeichner stattdessen mit in die Konzeptknoten geschrieben.
 Binäre Relationen werden durch eine bezeichnete Kante zwischen dem ersten und zweiten Argument repräsentiert.
@@ -95,11 +95,11 @@ Gemäß dieser Prämisse wurden fünf Wissensgraph-Prädikate definiert.
 		In der bisher verwendeten Konzeptgraphsyntax lassen sich derartige Konstanten allerdings nicht ausdrücken.
 		Die Syntax wird daher erneut leicht modifiziert.
 		Das $label$ eines Konzeptes wird nun, statt des Variablenbezeichners, in den zugehörigen Konzeptknoten geschrieben.
-		\begin{align*}
+		\begin{align}
 			\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/label.pdf}}}
 			\Leftrightarrow
 			\exists x: {\color{rot}label(x, \text{``book''})}
-		\end{align*}
+		\end{align}
 	\item \textbf{$inst \subseteq \text{concept}^2$:}
 		Die $inst$-Beziehung zwischen Konzepten entspricht grob der \textit{IS-A}-Beziehung semantischer Netze.
 		Das Vorhandensein von $inst(x, y)$ impliziert, dass $prop(x) \subseteq prop(y)$ gilt;
@@ -225,7 +225,7 @@ Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}thi
 \end{align*}
 Durch die Verknüpfung $patient(t, c)$ eines Konzeptes mit einem Kontext, kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
 Wie genau dies ablaufen kann, ist bislang allerdings noch unklar.
-In~\treft{sec:text2kg:psl} wird die $actual$-Inferenz näher untersucht.
+In \treft{sec:text2kg:psl} wird die $actual$-Inferenz näher untersucht.
 
 \paragraph{Negativer Möglichkeitskontext}
 Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der einen negativen Aktualkontext umgibt.
@@ -238,5 +238,77 @@ Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der ei
 \section{NLP-Phase}%
 \label{sec:text2kg:nlp}
 
-\section{Graphkonstruktionsphase}%
+In diesem Abschnitt werden die ersten beiden Stufen der Konstruktionspipeline beschrieben.
+Die erste Stufe ist im Wesentlichen lediglich ein Wrapper um verschiedene CoreNLP-Annotatoren.
+In der zweiten Stufe werden dann die CoreNLP-Annotationen in einen Konzeptgraphen mit der soeben beschriebenen Ontologie transformiert.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.67\textwidth]{gfx/text2kg/nlpPhase.pdf}
+	\caption{NLP-Phase der Konstruktionspipeline}\label{fig:text2kg:nlpPhase}
+\end{figure}
+
+\subsection{Nachrichtenformat}%
+\label{sec:text2kg:nlp:msg}
+
+Vor der Beschreibung der Pipeline-Stufen, muss geklärt werden, wie genau die eingegebenen Nachrichten aufgebaut sind.
+Da diese Arbeit lediglich die grundlegende Architektur eines Wissensgraphkonstruktionsverfahrens beschreibt, wurde eine vereinfachte Struktur gewählt, die die wesentlichen Eigenschaften von Nachrichten enthält.
+Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponenten verstanden:
+\begin{enumerate}
+	\item \textbf{Sender:}
+		Als Sender wird, der Einfachheit halber, der Name des Absenders verwendet.
+		Im Kontext von E-Mail Nachrichten müsste zwar zwischen dem Absendernamen und der Absenderadresse differenziert werden, diese Unterscheidung macht das Verfahren allerdings lediglich komplizierter, ohne dabei die Kernaspekte zu bereichern.
+	\item \textbf{Empfänger:}
+		Auch hier wird lediglich der Empfängername benutzt.
+		Nachrichten mit mehreren Empfängern werden in dieser Arbeit nicht betrachtet.
+	\item \textbf{Sendedatum:}
+		Gemeint ist hiermit lediglich ein Datum der Form \texttt{YYYY-MM-DD}.
+		Uhrzeiten und Zeitzonen werden nicht berücksichtigt.
+	\item \textbf{Inhalt:}
+		Der Nachrichteninhalt wird als natürlichsprachliche Zeichenkette verstanden.
+		Als Sprache wird dabei Englisch angenommen, da CoreNLP dann die besten Ergebnisse liefert.
+		Zudem werden eingebundene Multimedia-Inhalte und Anhänge nicht berücksichtigt.
+\end{enumerate}
+
+Zwei sehr einfache exemplarische Nachrichten sind:
+\begin{center}\pbox{\textwidth}{
+	$(m_1)$ \texttt{2017-06-11}: Bob $\rightarrow$ Alice: \textit{``I think I saw you today.''} \\ % chktex 8
+	$(m_2)$ \texttt{2017-06-12}: Alice $\rightarrow$ Bob: \textit{``I don't think I saw you yesterday.''} % chktex 8
+}\end{center}
+
+\subsection{CoreNLP Annotation}%
+\label{sec:text2kg:nlp:corenlp}
+
+In \treft{sec:theory:nlp} wurden die, für diese Arbeit wesentlichen, Annotatoren bereits vorgestellt: Tokenization, Lemmatization, POS-Tagging, NER, Coreference Resolution und Dependency Parsing.
+Um mit den Ergebnissen all dieser Annotatoren zu arbeiten, werden jene in einer gemeinsamen Datenstruktur zusammengefasst, dem sog.\ \textit{Annotationsgraphen}.
+Hierbei handelt es sich um den Abhängigkeitsgraphen des Dependency Parsers, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
+\begin{enumerate}
+	\item \textbf{Lemmata:}
+		Die Vollformen der Token werden durch ihre Lemmata ersetzt.
+		Dieser Änderung liegt die Annahme zugrunde, dass die syntaktische Repräsentation einer Wortbeugung i.~d.~R. nicht relevant ist.
+		Durch die Lemmatisierung wird es einfacher ähnliche Begriffe aufgrund ihrer textuellen Ähnlichkeit zu identifizieren.
+	\item \textbf{POS-Tags:}
+		Durch das Verwerfen der Token-Vollformen können wertvolle grammatikalische Informationen verloren gehen.
+		Daher wird jedem Token-Knoten sein POS-Tag hinzugefügt, welcher die Wortart und Beugung jedes lemmatisierten Tokens einheitlich repräsentiert.
+	\item \textbf{NER-Klassen:}
+		Alle Token-Knoten, die der NER-Annotator klassifizieren konnte, erhalten ihre Klasse und im Fall von numerischen oder Datums-Token eine normalisierte Form des Wertes, den sie repräsentieren.
+	\item \textbf{Koreferenzklassen:}
+		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotatinsgraphen eingefügt.
+		Als Kantenmenge wird allerdings nicht $C \times C$ verwendet, da diese unnötig groß ist und zudem nicht alle verfügbaren Informationen repräsentiert.
+		Die CoreNLP Coreference Resolution ordnet jeder Klasse nämlich eine sog.\ \textit{Representative Mention} $rep(C) \in C$ zu.
+		$rep(C)$ ist das Token einer Klasse, welches diese am besten repräsentiert.
+		\begin{align*}
+			\text{T}\tikzmark{toma}\text{om is calling hi}\tikzmark{tomb}\text{s brother.}
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[-,shorten >=3pt,shorten <=3pt] (toma.center) to[bend right] (tomb.center);
+			\end{tikzpicture}
+			\Rightarrow
+			C = \{\text{Tom}, \text{his}\}, rep(C) = \text{Tom}
+		\end{align*}
+		Um die $rep$-Information zu erhalten, werden nur Koreferenzkanten von $rep(C)$ zu den anderen Klassentoken $C \setminus \{rep(C)\}$ hinzugefügt.
+\end{enumerate}
+
+\subsection{Konzeptgraphtransformation}%
+\label{sec:text2kg:nlp:transform}
+
+\section{Wissensgraphkonstruktionsphase}%
 \label{sec:text2kg:psl}
