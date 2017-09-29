@@ -271,8 +271,8 @@ Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponent
 
 Zwei sehr einfache exemplarische Nachrichten sind:
 \begin{center}\pbox{\textwidth}{
-	$(m_1)$ \texttt{2017-06-11}: Bob $\rightarrow$ Alice: \textit{``I think I saw you today.''} \\ % chktex 8
-	$(m_2)$ \texttt{2017-06-12}: Alice $\rightarrow$ Bob: \textit{``I don't think I saw you yesterday.''} % chktex 8
+	$(m_1)$ \texttt{2017-06-11}: Bob $\rightarrow$ Alice: \textit{``I think I saw you in the red tent today.''} \\ % chktex 8
+	$(m_2)$ \texttt{2017-06-12}: Alice $\rightarrow$ Bob: \textit{``Oh\dots I don't remember seeing you yesterday.''} % chktex 8
 }\end{center}
 
 \subsection{CoreNLP Annotation}%
@@ -280,7 +280,7 @@ Zwei sehr einfache exemplarische Nachrichten sind:
 
 In \treft{sec:theory:nlp} wurden die, für diese Arbeit wesentlichen, Annotatoren bereits vorgestellt: Tokenization, Lemmatization, POS-Tagging, NER, Coreference Resolution und Dependency Parsing.
 Um mit den Ergebnissen all dieser Annotatoren zu arbeiten, werden jene in einer gemeinsamen Datenstruktur zusammengefasst, dem sog.\ \textit{Annotationsgraphen}.
-Hierbei handelt es sich um den Abhängigkeitsgraphen des Dependency Parsers, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
+Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhanced++ Dependency Parsers}, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
 \begin{enumerate}
 	\item \textbf{Lemmata:}
 		Die Vollformen der Token werden durch ihre Lemmata ersetzt.
@@ -290,7 +290,9 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des Dependency Parsers, in 
 		Durch das Verwerfen der Token-Vollformen können wertvolle grammatikalische Informationen verloren gehen.
 		Daher wird jedem Token-Knoten sein POS-Tag hinzugefügt, welcher die Wortart und Beugung jedes lemmatisierten Tokens einheitlich repräsentiert.
 	\item \textbf{NER-Klassen:}
-		Alle Token-Knoten, die der NER-Annotator klassifizieren konnte, erhalten ihre Klasse und im Fall von numerischen oder Datums-Token eine normalisierte Form des Wertes, den sie repräsentieren.
+		Alle Token-Knoten, die der NER-Annotator klassifizieren konnte, erhalten ihre Klasse.
+		Für alle von SUTime erkannten Zeitangaben, wird zudem ein neuer Knoten eingefügt.
+		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}) werden mittels einer Koreferenzkante mit dem Zeitknoten verknüpft.
 	\item \textbf{Koreferenzklassen:}
 		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotatinsgraphen eingefügt.
 		Als Kantenmenge wird allerdings nicht $C \times C$ verwendet, da diese unnötig groß ist und zudem nicht alle verfügbaren Informationen repräsentiert.
@@ -306,6 +308,15 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des Dependency Parsers, in 
 		\end{align*}
 		Um die $rep$-Information zu erhalten, werden nur Koreferenzkanten von $rep(C)$ zu den anderen Klassentoken $C \setminus \{rep(C)\}$ hinzugefügt.
 \end{enumerate}
+
+\figreft{fig:text2kg:annotationGraph1} zeigt den Annotationsgraphen der Beispielnachricht $m_2$.
+In den Knoten sind die Token-Lemmata, die NER-Klasse und der POS-Tag dargestellt.
+Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich hervorgehoben.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{gfx/text2kg/annotationGraph1.pdf}
+	\caption{Annotationsgraph der Nachricht \textit{``I think I saw you in the red tent today.''} vom \texttt{2017-06-11}.}\label{fig:text2kg:annotationGraph1} % chktex 8
+\end{figure}
 
 \subsection{Konzeptgraphtransformation}%
 \label{sec:text2kg:nlp:transform}
