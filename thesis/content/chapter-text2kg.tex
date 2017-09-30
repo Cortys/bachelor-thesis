@@ -1,5 +1,5 @@
 % !TEX root = ../main.tex
-%
+% chktex-file 46
 \chapter{Vorgeschlagenes Wissensgraph\-konstruktions\-verfahren}%
 \label{sec:text2kg}
 
@@ -71,6 +71,7 @@ Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine
 Relationsknoten werden nicht mehr dargestellt.
 Bei unären Relationen werden die Relationsknotenbezeichner stattdessen mit in die Konzeptknoten geschrieben.
 Binäre Relationen werden durch eine bezeichnete Kante zwischen dem ersten und zweiten Argument repräsentiert.
+Der nun nicht mehr explizit dargestellte Relationsknoten befindet sich dabei implizit im Kontext des kleinsten Argumentes gemäß $\leq$-Relation, sodass alle dominierenden Knoten erhalten bleiben.
 
 \paragraph{Wissensmodell}
 Um eine semantisch konsistente Menge von Wissensgraph-Prädikaten zu definieren, ist es sinnvoll zuvor ein Modell zu definieren, welches den abstrakten Begriff des \textit{Konzeptes} formalisiert.
@@ -124,7 +125,8 @@ Gemäß dieser Prämisse wurden fünf Wissensgraph-Prädikate definiert.
 		$p_x$ lässt sich für natürlichsprachliche Konzepte offensichtlich nicht sinnvoll formal definieren.
 		Dies ist allerdings auch nicht notwendig, wenn $p_x$ als von außen gegebenes Domänenwissen betrachtet wird, welches erst bei der Interpretation der Daten eingebracht wird.
 \end{enumerate}
-Diese Kombination von Prädikaten hat sich als hinreichend mächtig erwiesen, um eine Vielzahl natürlichsprachlicher Aussagen abzubilden.
+Die Prädikate $agent$ und $patient$ sind grob an die linguistische Idee des Proto-Agens und Proto-Patiens angelehnt~\cite{Dowty1991}.
+Zusammen mit den anderen Prädikaten haben sie sich als hinreichend mächtig erwiesen, um eine Vielzahl natürlichsprachlicher Aussagen abzubilden.
 \begin{align*}
 	\textit{``I saw you yesterday.''}
 	\Rightarrow
@@ -149,8 +151,7 @@ Sowa hat dieses Problem ebenfalls erkannt und daher weitere Kontexttypen eingef�
 Die Beschreibung dieser zusätzlichen Kontexttypen ist allerdings oftmals zu unpräzise für eine eindeutige Übersetzung in die Prädikatenlogik.
 Aufbauend auf Sowas Ideen wird in dieser Arbeit daher eine Variante modaler Kontexte eingeführt, die die Übersetzbarkeit in die Prädikatenlogik erster Ordnung bewahrt.
 Da die zuvor vorgestellten Konzeptgraphen bereits vollständig und korrekt sind, handelt es sich bei diesen modalen Kontexten also lediglich um eine Kurzschreibweise.
-
-Insgesamt gibt es durch die Erweiterung um modale Kontexe nun folgende vier Kontexttypen:
+Insgesamt gibt es durch die Erweiterung um modale Kontexe nun vier Kontexttypen:
 \begin{multicols}{2}
 	\flushleft\begin{enumerate}
 		\item Positiver Aktualkontext
@@ -192,7 +193,7 @@ Entspricht dem bisherigen Negationskontext.
 
 \paragraph{Positiver Möglichkeitskontext}
 Dieser Kontexttyp bildet die modale Möglichkeit ab.
-Um die Mächtigkeit der Prädikatenlogik beizubehalten, wird hierfür keine fundamental neue Struktur eingeführt.
+Um die Übersetzbarkeit in die Prädikatenlogik beizubehalten, wird hierfür keine fundamental neue Struktur eingeführt.
 Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren gemäß der Mögliche-Welten-Interpretation analog zu den prädikatenlogischen Quantoren verhalten.
 \begin{align*}
 	{\color{rot}\square} P(x)\ &\Leftrightarrow \lnot {\color{blau}\lozenge} \lnot P(x) \\
@@ -240,7 +241,7 @@ Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der ei
 
 In diesem Abschnitt werden die ersten beiden Stufen der Konstruktionspipeline beschrieben.
 Die erste Stufe ist im Wesentlichen lediglich ein Wrapper um verschiedene CoreNLP-Annotatoren.
-In der zweiten Stufe werden dann die CoreNLP-Annotationen in einen Konzeptgraphen mit der soeben beschriebenen Ontologie transformiert.
+In der zweiten Stufe werden dann die CoreNLP-Annotationen in eine Konzeptgraphinstanz der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie transformiert.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.67\textwidth]{gfx/text2kg/nlpPhase.pdf}
@@ -278,8 +279,8 @@ Zwei sehr einfache exemplarische Nachrichten sind:
 \subsection{CoreNLP Annotation}%
 \label{sec:text2kg:nlp:corenlp}
 
-In \treft{sec:theory:nlp} wurden die, für diese Arbeit wesentlichen, Annotatoren bereits vorgestellt: Tokenization, Lemmatization, POS-Tagging, NER, Coreference Resolution und Dependency Parsing.
-Um mit den Ergebnissen all dieser Annotatoren zu arbeiten, werden jene in einer gemeinsamen Datenstruktur zusammengefasst, dem sog.\ \textit{Annotationsgraphen}.
+In \treft{sec:theory:nlp} wurden die für diese Arbeit wesentlichen Annotatoren bereits vorgestellt: Tokenization, Lemmatization, POS-Tagging, NER, Coreference Resolution und Dependency Parsing.
+Um mit den Ergebnissen all dieser Annotatoren zu arbeiten, werden jene in einer gemeinsamen Datenstruktur zusammengefasst, dem sog.\ \textit{Annotations\-graphen}.
 Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhanced++ Dependency Parsers}, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
 \begin{enumerate}
 	\item \textbf{Lemmata:}
@@ -306,7 +307,7 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 			\Rightarrow
 			C = \{\text{Tom}, \text{his}\}, rep(C) = \text{Tom}
 		\end{align*}
-		Um die $rep$-Information zu erhalten, werden nur Koreferenzkanten von $rep(C)$ zu den anderen Klassentoken $C \setminus \{rep(C)\}$ hinzugefügt.
+		Um die $rep$-Information zu erhalten, werden nur Koreferenzkanten von den anderen Klassentoken $C \setminus \{rep(C)\}$ zu $rep(C)$ hinzugefügt.
 \end{enumerate}
 
 \figreft{fig:text2kg:annotationGraph1} zeigt den Annotationsgraphen der Beispielnachricht $m_2$.
@@ -314,12 +315,38 @@ In den Knoten sind die Token-Lemmata, die NER-Klasse und der POS-Tag dargestellt
 Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich hervorgehoben.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{gfx/text2kg/annotationGraph1.pdf}
+	\includegraphics[width=0.6\textwidth]{gfx/text2kg/annotationGraph1.pdf}
 	\caption{Annotationsgraph der Nachricht \textit{``I think I saw you in the red tent today.''} vom \texttt{2017-06-11}.}\label{fig:text2kg:annotationGraph1} % chktex 8
 \end{figure}
 
 \subsection{Konzeptgraphtransformation}%
 \label{sec:text2kg:nlp:transform}
+
+Aus dem Annotationsgraphen einer Nachricht muss im nächsten Schritt der sog.\ \textit{Extraktionsgraph} erstellt werden.
+Hierbei handelt es sich um einen Konzeptgraphinstanzen der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie, der den Inhalt der Nachricht beschreibt.
+Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich jede beliebige Aussage im Extraktionsgraph zu repräsentieren.
+Das Ziel der Extraktionsgraphkonstruktion ist daher lediglich, einige wesentliche repräsentierbare semantische Strukturen zu identifizieren.
+
+Hierfür wird eine deterministische regelbasierte Transformationspipeline benutzt.
+Diese basiert auf der Annahme, dass bestimmte Muster von POS-Tags und grammatikalischen Abhängigkeiten Rückschlüsse auf die semantischen Rollen in einer Aussage zulassen.
+Es wird also wenig bis gar kein Wissen über Wortbedeutungen o.~ä.\ verwendet.
+Die Transformationspipeline, die im Rahmen dieser Arbeit entwickelt wurde, verwendet 15 Stufen, die sich in vier Phasen gliedern lassen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.84\textwidth]{gfx/text2kg/transformationPipeline.pdf}
+	\caption{Annotationsgraph $\rightarrow$ Extraktionsgraph Transformationspipeline}\label{fig:text2kg:transformationPipeline}
+\end{figure}
+Die einzelnen Transformationsstufen jeder Phase sind primär exemplarisch zu verstehen.
+Um die Extraktionsqualität zu verbessern, können und sollten weitere Stufen hinzugefügt werden.
+
+\subsubsection{1. Phase: Vereinfachen der Annotationen}
+
+\subsubsection{2. Phase: Einfügen der Extraktionen}
+
+\subsubsection{3. Phase: Entfernen der Annotationen}
+
+\subsubsection{4. Phase: Vereinfachen der Extraktionen}
 
 \section{Wissensgraphkonstruktionsphase}%
 \label{sec:text2kg:psl}
