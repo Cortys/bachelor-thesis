@@ -330,23 +330,144 @@ Das Ziel der Extraktionsgraphkonstruktion ist daher lediglich, einige wesentlich
 Hierfür wird eine deterministische regelbasierte Transformationspipeline benutzt.
 Diese basiert auf der Annahme, dass bestimmte Muster von POS-Tags und grammatikalischen Abhängigkeiten Rückschlüsse auf die semantischen Rollen in einer Aussage zulassen.
 Es wird also wenig bis gar kein Wissen über Wortbedeutungen o.~ä.\ verwendet.
-Die Transformationspipeline, die im Rahmen dieser Arbeit entwickelt wurde, verwendet 15 Stufen, die sich in vier Phasen gliedern lassen.
+Die Transformationspipeline, die im Rahmen dieser Arbeit entwickelt wurde, lässt sich in vier Phasen gliedern.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.84\textwidth]{gfx/text2kg/transformationPipeline.pdf}
 	\caption{Annotationsgraph $\rightarrow$ Extraktionsgraph Transformationspipeline}\label{fig:text2kg:transformationPipeline}
 \end{figure}
-Die einzelnen Transformationsstufen jeder Phase sind primär exemplarisch zu verstehen.
-Um die Extraktionsqualität zu verbessern, können und sollten weitere Stufen hinzugefügt werden.
+Die einzelnen Transformationsschritte in jeder Phase sind primär exemplarisch zu verstehen.
+Um die Extraktionsqualität zu verbessern, können und sollten weitere Schritte hinzugefügt werden.
 
 \subsubsection{1. Phase: Vereinfachen der Annotationen}
+In dieser Phase werden im ersten Schritt alle Daten aus dem Annotationsgraphen entfernt, die kein potentieller Bestandteil eines Konzeptes sind (z.~B. Token für Satz- und Sonderzeicher, sowie Interjektionen, wie \textit{``Oh''}).
+Die entfernten Token können zwar die Konnotation anderer Token beeinflussen, da deren Übersetzung in Konzeptgraphkonstrukte allerdings ein nicht triviales Problem ist, werden sie hier der Einfachheit halber ignoriert.
+Anschließend werden Token, die Bestandteile eines Kompositums sind, zu einem Knoten zusammengefasst.
+Die übrigbleibende Menge von Token-Knoten und Komposita bildet nun die Menge der Konzeptknoten des Wissensgraphen.
 
 \subsubsection{2. Phase: Einfügen der Extraktionen}
+Diese Phase ist für das Finden der Konzeptgraphstruktur verantwortlich.
+In ihr werden Konzeptgraph-Relationen zwischen den Konzept- bzw. Token-Knoten aus der ersten Phase und Kontexte in den Annotationsgraphen eingefügt.
+
+\paragraph{Einfügen von $relation$-, $agent$- und $patient$-Prädikaten}
+Agens- und Patiens-Relationen bilden einen Großteil der semantischen Beziehungen im Wissensgraphen ab.
+Sie werden auf zwei Wegen aus den Annotationen extrahiert.
+\begin{itemize}
+	\item \textbf{Prädikate:}
+		Ein recht offensichtlicher Ansatz ist das Nutzen von Subjekt- und Objekt-Beziehungen.
+		Direkte Objekte eines Prädikates sind i.~d.~R. auch dessen Patiens.
+		Bei Subjekten ist die Diathese des Prädikates zu beachten.
+		In Aktiv-Konstruktionen entspricht das Subjekt für gewöhnlich dem Agens.
+		Bei passiven Prädikaten hingegen, ist das Subjekt der Patiens.
+		Prädikate können dabei meist als $relation$ aufgefasst werden.
+		\begin{align*}
+			\text{Ali}\tikzmark{alice}\text{ce}\ %
+			{\color{rot}\overbrace{\text{\color{black}visi}\tikzmark{visited}\text{\color{black}ted}}^{relation}}\ %
+			\text{Bo}\tikzmark{bob1}\text{b. H}\tikzmark{bob2}\text{e was being}\ %
+			{\color{rot}\overbrace{\text{\color{black}interv}\tikzmark{interviewed}\text{\color{black}iewed.}}^{relation}}
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (visited.center) to[bend left] node[below] {\color{rot}$\scriptstyle agent$} (alice.center);
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (visited.center) to[bend right] node[below] {\color{rot}$\scriptstyle patient$} (bob1.center);
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (interviewed.center) to[bend left] node[below] {\color{rot}$\scriptstyle patient$} (bob2.center);
+			\end{tikzpicture}
+		\end{align*}
+
+		Eine Ausnahme der vorigen Regeln sind Kopulae, da sie keine konkrete Eigen\-bedeutung haben und somit auch keinen Patiens haben können, den sie verändern.
+		Es handelt sich stattdessen um Bindewörter, die ihrem Subjekt die Eigenschaften ihres Objekts zuschreiben.
+		Da CoreNLP Kopulae erkennt, lässt sich diese Ausnahme leicht umsetzen.
+		Im Englischen ist die Erkennung relativ trivial, da nur das Verb \textit{to be} Kopula ist.
+		Der Umgang mit Kopulae wird im Kontext der $inst$-Relation betrachtet.
+
+		Konkret werden also folgende Transformationen durchgeführt:
+		$nsubj(x, y) \rightarrow agent(x, y)$, $nsubjpass(x, y) \lor dobj(x, y) \rightarrow patient(x, y)$ und $tag(x, \text{VB*}) \rightarrow relation(x)$.
+		Dabei darf $x$ keine Kopula sein.
+	\item \textbf{Präpositionen:}
+		Neben Prädikaten werden Präpositionen häufig zum Verknüpfen von Konzepten benutzt.
+		Diese haben im Gegensatz zu Prädikaten jedoch im Allgemeinen keinen Agens.
+		Stattdessen lässt sich das auf eine Präposition $p$ folgende Konzept $x$ als Patiens von $p$ auffassen.
+		Wird nun eine solche Präpositionalkonstruktion in Beziehung zu einem anderen Konzept $y$ gesetzt, wird $y$ von $x$ verändert, $y$ ist dann also Patiens von $x$.\\
+		\begin{align*}
+			\text{The pen fe}\tikzmark{fell}\text{ll bel}\tikzmark{below2}\text{ow the ch}\tikzmark{chair2}\text{air.}
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (below2.center) to[bend right] node[below] {\color{rot}$\scriptstyle patient$} (chair2.center);
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] ([yshift=5pt] chair2.north) to[bend right] node[above=-3pt] {\color{rot}$\scriptstyle patient$} ([yshift=5pt] fell.north);
+			\end{tikzpicture}
+		\end{align*}
+
+		Konkret wird die folgende Transformation durchgeführt:
+		\[nmod(x, y) \lor nummod(x, y) \lor case(x, y) \rightarrow patient(y, x)\]
+\end{itemize}
+
+\paragraph{Einfügen von $inst$-Prädikaten}
+Für die Bestimmung von $inst$-Relationen werden drei Verfahren benutzt.
+\begin{itemize}
+	\item \textbf{NER-Klassen:}
+		Manche Konzepte besitzen NER-Klassen (z.~B. Person, Ort, Organisation etc.), die bereits $inst$-Relationen abbilden.
+		Es werden daher Konzeptknoten für alle vorkommenden Klassen hinzugefügt.
+		Diese werden durch $inst$-Kanten mit ihren Instanzen verbunden.
+	\item \textbf{Kopulae:}
+		Ein Prädikat, welches Kopula ist, wurde für das Identifizieren von $agent$- und $patient$-Relationen zuvor explizit ausgeschlossen.
+		Dies liegt daran, dass Kopulae ihre Subjekte und Objekte i.~d.~R. in ein $inst$-ähnliches Verhältnis setzen.
+		\begin{align*}
+			\text{Ali}\tikzmark{alice2}\text{ce is tir}\tikzmark{tired}\text{ed.}
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (tired.center) to[bend left] node[below] {\color{rot}$\scriptstyle inst$} (alice2.center);
+			\end{tikzpicture}
+		\end{align*}
+		Konkret wird folgende Transformation durchgeführt:
+		\[(\exists z: cop(x, z)) \land nsubj(x, y) \rightarrow inst(x, y)\]
+	\item \textbf{Attribute, Adverbien und Appositionen:}
+		Ähnlich wie Kopulae drücken diese drei grammatikalischen Beziehungen ein $inst$-ähnliches Verhältnis aus.
+		\begin{align*}
+			\text{Bo}\tikzmark{bob2}\text{b, a profes}\tikzmark{professional}\text{sional athl}\tikzmark{athlete}\text{ete, ru}\tikzmark{runs}\text{ns fa}\tikzmark{fast}\text{st.}
+			\begin{tikzpicture}[overlay,remember picture]
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (athlete.center) to[bend left] node[below] {\color{rot}$\scriptstyle inst$} (bob2.center);
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] ([yshift=5pt] professional.north) to[bend left] node[above=-2pt] {\color{rot}$\scriptstyle inst$} ([yshift=5pt] athlete.north);
+				\draw[->,rot,shorten >=3pt,shorten <=3pt] (fast.center) to[bend left] node[below] {\color{rot}$\scriptstyle inst$} (runs.center);
+			\end{tikzpicture}
+		\end{align*}
+		Die Transformationsregel ist:
+		\[amod(x, y) \lor advmod(x, y) \lor appos(x, y) \rightarrow inst(y, x)\]
+\end{itemize}
+
+\paragraph{Einfügen von Kontexten}
+Nachdem nun beschrieben wurde, wie die Konzeptgraph-Relationen ermittelt werden, muss noch geklärt werden, wie die Kontexthierarchie aufgebaut wird.
+Das gewählte Verfahren lässt sich in zwei Schritte gliedern.
+Im ersten Schritt werden ausschließlich positive Möglichkeitskontexte eingefügt.
+Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 
 \subsubsection{3. Phase: Entfernen der Annotationen}
 
+Dies ist die trivialste der vier Phasen.
+Sie wird hier lediglich der Vollständigkeit halber erwähnt.
+Alle Abhängigkeitsgraph-Kanten, sowie POS-Tags und NER-Klassen-Tags werden entfernt, $coref$-Kanten bleiben erhalten.
+Das Ergebnis ist nun beinahe ein Konzeptgraph.
+
 \subsubsection{4. Phase: Vereinfachen der Extraktionen}
+
+\paragraph{Koreferenzkanten}
+Nach der dritten Phase liegt zwar prinzipiell eine Konzeptgraphstruktur vor, es kann allerdings noch Verletzungen der Eigenschaft dominierender Knoten geben.
+Konkret liegt dies daran, dass die in~\ref{sec:text2kg:nlp:corenlp} eingefügten Koreferenzkanten nach Einfügen der Kontexte in benachbarten Kontexten liegen können.
+Dies passiert z.~B. dann, wenn in zwei Nebensätzen von der selben Person gesprochen wird, diese jedoch im Hauptsatz nicht auftaucht.
+Die Existenz einer derartigen Koreferenz impliziert, dass das koreferente Konzept auch im Kontext des Hauptsatzes existent sein muss, obwohl es nicht explizit erwähnt wird.
+Um dominierende Knoten zu erhalten, können die koreferenten Konzepte also zu einem Konzeptknoten zusammengefasst werden.
+Dieser neue Knoten übernimmt das $label$ der \textit{Representative Mention}~\tref{sec:text2kg:nlp:corenlp} und wird in den kleinsten gemeinsamen Elternkontext aller zusammengefassten Knoten (gemäß der $\leq$-Relation) eingefügt.
+Dabei geht zwar die Information verloren, wo und mit welchen Pronomina das Konzept innerhalb der Nachricht referenziert wurde, dies ist allerdings i.~d.~R. irrelevant für die weitere Verarbeitung.
+Nach diesem Schritt liegt ein Konzeptgraph vor.
+
+\paragraph{Kontexte}
+Um einen möglichst kompakten Konzeptgraph zu erhalten, werden im letzten Schritt geschachtelte Kontexte vereinfacht.
+Dabei werden $2n$-fach geschachtelte Ketten negativer Aktualkontexte entfernt.
+Zudem werden positive und negative Möglichkeitskontexte, die lediglich einen negativen Aktualkontext enthalten zu negativen bzw.\ positiven Möglichkeitskontexten.
+Diese Vereinfachungen werden so lange greedy durchgeführt, bis keine weiteren mehr möglich sind.
+Das Ergebnis ist der Extraktionsgraph.
+
+\begin{figure}[h]
+	\includegraphics[width=0.4\textwidth]{gfx/text2kg/annotationGraph1.pdf}
+	\includegraphics[width=0.6\textwidth]{gfx/text2kg/extractionGraph1.pdf}
+	\caption{Annotationsgraph und daraus konstruierter Extraktionsgraph der Nachricht \textit{``I think I saw you in the red tent today.''} vom \texttt{2017-06-11}.}\label{fig:text2kg:extractionGraph1} % chktex 8
+\end{figure}
 
 \section{Wissensgraphkonstruktionsphase}%
 \label{sec:text2kg:psl}
