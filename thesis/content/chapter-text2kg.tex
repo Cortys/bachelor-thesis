@@ -483,9 +483,9 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 					\rightarrow
 					\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext1.pdf}}}
 				\end{align*}
-			\item Falls im vorherigen Schritt zwei Konzepte negiert wurden, die miteinander in Beziehung stehen, ist nun die Eigenschaft dominierender Knoten verletzt.
-				Außerdem gibt es potentiell $agent$- oder $patient$-Kanten, die in einen der Negationskontexe hineinlaufen, was gemäß der vorigen Überlegungen unzulässig ist.
-				Für jede Relation $\color{rot}p(x, y)$, die aus einer dieser beiden Gründe, unzulässig ist, werden nun Korrekturen vorgenommen, sodass hinterher $x \leq y$ gilt und somit keine Regel-Verletzungen mehr vorliegen:
+			\item Es kann nun $agent$- oder $patient$-Kanten geben, die in einen der hinzugefügten Negationskontexe hineinlaufen, was gemäß der vorigen Überlegungen {\color{rot}unzulässig} ist.
+				Für jede dieser Kanten von $x$ nach $y$ werden nun Korrekturen vorgenommen, sodass hinterher $x \leq y$ gilt und somit keine Regel-Verletzungen mehr vorliegen.
+				Es werden dabei zuerst $patient$-Kanten, dann $agent$-Kanten, korrigiert.
 				\begin{enumerate}[label*={.\arabic*}]
 					\item Falls vor der Korrektur $y \leq x$ gilt, wird $x$ in den Kontext von $y$ bewegt.
 						\begin{align*}
@@ -493,6 +493,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 							\rightarrow
 							\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
 						\end{align*}
+
 					\item Andernfalls wird der größte Elternkontext von $x$, der nicht gemeinsamer Elternkontext von $x$ und $y$ ist, in den Kontext von $y$ verschoben.
 					\begin{align*}
 						\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
@@ -538,3 +539,53 @@ Das Ergebnis ist der Extraktionsgraph.
 
 \section{Wissensgraphkonstruktionsphase}%
 \label{sec:text2kg:psl}
+
+Nachdem nun geklärt ist, wie die Konstruktion des Extraktionsgraphen einer Nachricht abläuft, wird im Folgenden beschrieben, wie dieser Extraktionsgraph mittels PSL in einen bestehenden Wissensgraphen eingefügt wird.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.49\textwidth]{gfx/text2kg/pslPhase.pdf}
+	\caption{Wissensgraphkonstruktionsphase der Konstruktionspipeline}\label{fig:text2kg:pslPhase}
+\end{figure}
+
+\subsection{Konstruktion des Konjunktionsgraphen}%
+\label{sec:text2kg:psl:conj}
+
+Der erste Schritt der Wissensgraphkonstruktion ist das Bilden des sog.\ Konjuktionsgraphen.
+Der Konjunktionsgraph ist ein Konzeptgraph, der alle Informationen der einzufügenden Nachricht und des bestehenden Wissensgraphen enthält, allerdings noch keine Schlussfolgerungen aus den hinzugekommenen Informationen beinhaltet.
+Der Konjunktionsgraph wird in vier Schritten konstruiert.
+\begin{enumerate}
+	\item \textbf{Latente Konzepte:}
+		Da mit PSL keine neuen Konzepte, sondern lediglich Relationen zwischen gegebenen Konzepten inferiert werden können, müssen alle potentiell möglichen Konzepte bereits im Konjunktionsgraph vorhanden sein.
+		Alle Konzepte des Extraktionsgraphen, die sich innerhalb des Wurzel-Möglichkeitskontextes befinden, werden daher dupliziert und als globale latente Konzepte in das Sheet of Assertion eingefügt.
+		Zwischen den latenten Konzepten und den zugehörigen Konzepten werden zudem $inst$-Relationen eingefügt.
+		Während der PSL-Inferenz wird dann bestimmt, ob ein latentes Konzept auch außerhalb des Möglichkeitskontextes aus dem es stammt existent ist und somit zu einem Konzept wird.
+		\begin{align*}
+			\includegraphics[scale=0.5]{gfx/text2kg/latentGraph.pdf}
+		\end{align*}
+	\item \textbf{Nachrichtenmetadaten:}
+		Damit der Konjunktionsgraph alle Informationen der einzufügenden Nachricht enthält, müssen neben dem Extraktionsgraph, der lediglich den Inhalt der Nachricht beschreibt, auch der Sender $S$ und Empfänger $R$ eingefügt werden.
+		Dies geschieht durch folgende Erweiterung des Extraktionsgraphen $E$:
+		\begin{align*}
+			\includegraphics[scale=0.5]{gfx/text2kg/messageGraph.pdf}
+		\end{align*}
+		Die $patient(\text{contain}, E)$-Kante hat dabei den Wurzel-Möglichkeitskontext von $E$ als Ziel.
+	\item \textbf{Konjunktion:}
+		Der um Metadaten erweiterte Extraktionsgraph kann nun mit dem Wissensgraphen kombiniert werden.
+		Hierfür werden lediglich die Knoten- und Kantenmengen vereinigt.
+		Dies entspricht der logischen Konjunktion der durch beide Graphen repräsentierten Ausdrücke.
+	\item \textbf{Koreferenzen:}
+		Im Konjunktionsgraph befinden sich i.~d.~R. bekannte koreferente Konzepte.
+		Um den Graphen zu vereinfachen und die Inferenz zu vereinfachen, sollten diese Konzepte zusammengefasst werden.
+		Konkret handelt es sich hierbei um die NER-Klassen-Konzeptknoten (Person, Ort, Datum etc.), die latenten Konzepte und um die Knoten, die für $S$ und $R$ eingefügt wurden.
+		Diese drei Arten von Knoten können bereits durch vorherige Nachrichten Teil des Wissensgraphen geworden sein und müssen beim Hinzukommen einer neuen Nachricht nicht erneut eingefügt werden.
+\end{enumerate}
+
+\subsection{Relationsinferenz mit PSL}%
+\label{sec:text2kg:psl:inference}
+
+Der Konjunktionsgraph wird nun als Eingabe für ein PSL-Programm verwendet, welches neue Relationen zwischen den Konzepten inferieren soll.
+In diesem Abschnitt wird beschrieben, wie ein solches PSL-Programm aussehen kann.
+
+\subsection{Dynamische PSL-Programme mit Meta-Regeln}%
+\label{sec:text2kg:psl:meta}
