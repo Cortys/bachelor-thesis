@@ -352,7 +352,7 @@ In ihr werden Konzeptgraph-Relationen zwischen den Konzept- bzw. Token-Knoten au
 
 \paragraph{Einfügen von $relation$-, $agent$- und $patient$-Prädikaten}
 Agens- und Patiens-Relationen bilden einen Großteil der semantischen Beziehungen im Wissensgraphen ab.
-Sie werden auf zwei Wegen aus den Annotationen extrahiert.
+Sie werden auf drei Wegen aus den Annotationen extrahiert.
 \begin{itemize}
 	\item \textbf{Prädikate:}
 		Ein recht offensichtlicher Ansatz ist das Nutzen von Subjekt- und Objekt-Beziehungen.
@@ -397,6 +397,8 @@ Sie werden auf zwei Wegen aus den Annotationen extrahiert.
 
 		Konkret wird die folgende Transformation durchgeführt:
 		\[nmod(x, y) \lor nummod(x, y) \lor case(x, y) \rightarrow patient(y, x)\]
+	\item \textbf{Adverbien:}
+		$advmod(x, y) \rightarrow patient(y, x)$, da die Veränderung eines Verbs durch ein Adverb ebenfalls als eine Patiens-Beziehung aufgefasst werden kann.
 \end{itemize}
 
 \paragraph{Einfügen von $inst$-Prädikaten}
@@ -417,18 +419,17 @@ Für die Bestimmung von $inst$-Relationen werden drei Verfahren benutzt.
 		\end{align*}
 		Konkret wird folgende Transformation durchgeführt:
 		\[(\exists z: cop(x, z)) \land nsubj(x, y) \rightarrow inst(x, y)\]
-	\item \textbf{Attribute, Adverbien und Appositionen:}
-		Ähnlich wie Kopulae drücken diese drei grammatikalischen Beziehungen ein $inst$-ähnliches Verhältnis aus.
+	\item \textbf{Attribute und Appositionen:}
+		Ähnlich wie Kopulae drücken diese zwei grammatikalischen Beziehungen ein $inst$-ähnliches Verhältnis aus.
 		\begin{align*}
-			\text{Bo}\tikzmark{bob2}\text{b, a profes}\tikzmark{professional}\text{sional athl}\tikzmark{athlete}\text{ete, ru}\tikzmark{runs}\text{ns fa}\tikzmark{fast}\text{st.}
+			\text{Bo}\tikzmark{bob2}\text{b, a profes}\tikzmark{professional}\text{sional athl}\tikzmark{athlete}\text{ete, runs.}
 			\begin{tikzpicture}[overlay,remember picture]
 				\draw[->,rot,shorten >=3pt,shorten <=3pt] (athlete.center) to[bend left] node[below] {\color{rot}$\scriptstyle inst$} (bob2.center);
 				\draw[->,rot,shorten >=3pt,shorten <=3pt] ([yshift=5pt] professional.north) to[bend left] node[above=-2pt] {\color{rot}$\scriptstyle inst$} ([yshift=5pt] athlete.north);
-				\draw[->,rot,shorten >=3pt,shorten <=3pt] (fast.center) to[bend left] node[below] {\color{rot}$\scriptstyle inst$} (runs.center);
 			\end{tikzpicture}
 		\end{align*}
 		Die Transformationsregel ist:
-		\[amod(x, y) \lor advmod(x, y) \lor appos(x, y) \rightarrow inst(y, x)\]
+		\[amod(x, y) \lor appos(x, y) \rightarrow inst(y, x)\]
 \end{itemize}
 
 \paragraph{Einfügen von Kontexten}
@@ -436,13 +437,78 @@ Nachdem nun beschrieben wurde, wie die Konzeptgraph-Relationen ermittelt werden,
 Das gewählte Verfahren lässt sich in zwei Schritte gliedern.
 Im ersten Schritt werden ausschließlich positive Möglichkeitskontexte eingefügt.
 Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
+\begin{enumerate}
+	\item \textbf{Möglichkeitskontexte:}
+		Um Möglichkeitskontexte einfügen zu können, muss zuerst definiert werden, was als Möglichkeit verstanden wird.
+		Sowas Ansatz hierfür ist es, Teilsätze (im Englischen \textit{clause} genannt) als solche zu interpretieren, da sie jeweils genau einen Sachverhalt ausdrücken, der möglicherweise wahr ist.
+		Teilsätze können prinzipiell beliebig geschachtelt werden und hängen i.~d.~R. von einem einleitenden Konzept ab;
+		sie lassen sich also gut durch entsprechend geschachtelte Möglichkeitskontexte repräsentieren.
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{gfx/text2kg/contextExtractionGraph1.pdf}
+			\caption{\textit{Clause}-basierte Kontextschachtelung der Aussage \textit{``Tom thinks that Mary wants to marry a sailor.''}}\label{fig:text2kg:contextExtractionGraph1} % chktex 8
+		\end{figure}
+		In dieser Arbeit werden die Möglichkeitskontexte nach dem selben Prinzip eingefügt.
+		Teilsätze lassen sich im Annotationsgraphen über die Abhängigkeiten $csubj, ccomp, xcomp$ und $advcl$ leicht identifizieren.
+		Da der Abhängigkeitsgraph ein DAG ist, können Konzepte in mehreren Teilsätzen bzw. Kontexten auftauchen;
+		in diesem Fall muss das Konzept in den kleinsten gemeinsamen Elternkontext (gemäß $\leq$-Relation) eingefügt werden.
+
+		Da die Gesamtheit einer Nachricht $m$ nicht unbedingt wahr sein muss, wird zudem ein Wurzel-Möglichkeitskontext eingefügt, der alle Konzepte, die innerhalb von $m$ erwähnt wurden, enthält.
+		Konzeptknoten, die für NER-Klassen eingefügt wurden, fallen nicht darunter, da die Existenz der NER-Klassen, unabhängig vom Inhalt einer Nachricht, als wahr vorausgesetzt wird.
+
+	\item \textbf{Negative Aktualkontexte:}
+		Das Formalisieren von Negation in natürlichen Sprachen ist nicht immer eindeutig möglich.
+		Dies liegt daran, dass die Bedeutung einer Negation variieren kann, so ist doppelte Verneinung im Englischen z.~B. manchmal ein umgangssprachliches stilistisches Mittel zur Betonung der Negation (z.~B. \textit{``We don't have no time.''}).
+		Da eine umfassende Behandlung aller möglichen Interpretationen der Negation den Rahmen dieser Arbeit gesprengt hätte, wird stattdessen ein stark vereinfachtes Modell verwendet, welches für viele, jedoch nicht für alle, Aussagen korrekte Ergebnisse liefert.
+
+		Natürlichsprachliche Negation wird im Folgenden immer als äquivalent zur logischen Negation verstanden.
+		Um diese Negationen durch Kontexte zu repräsentieren, muss definiert werden, welche Konzepte durch das Vorkommen einer natürlichsprachlichen Negation betroffen sind.
+		Als allgemeine Regel wird benutzt, dass für $agent$ und $patient$-Beziehungen von $x$ nach $y$ die Eigenschaft $x \leq y$~\tref{sec:theory:cg:domnodes} gilt; d.~h.\ die Nicht-Existenz des Agens oder Patiens eines Prädikates, impliziert dessen Nicht-Existenz.
+		\begin{align*}
+			\textit{No man helped.}
+			\Rightarrow
+			\begin{cases}
+				{\color{rot}\exists helped \lnot \exists man: agent(helped, man)} & \text{\textit{man} betont}\\
+				{\color{gruen}\lnot \exists man \exists helped: agent(helped, man)} & \text{\textit{helped} betont}\ \checkmark
+			\end{cases}
+		\end{align*}
+		Wie das obige Beispiel zeigt, ist diese Regel nicht unbedingt korrekt.
+		Die Interpretation gemäß der Regel ist allerdings meist zutreffend, da alternative Interpretationen im Englischen i.~d.~R. nur durch Betonung bestimmter Wörter ausgedrückt werden können.
+		Das Einfügen negativer Kontexte läuft gemäß der vorigen Überlegungen wie folgt ab:
+		\begin{enumerate}[label*={\arabic*}]
+			\item Konzepte, die eine ungerade Anzahl von $neg$-Beziehungen zu Negations-Token haben, werden von einem negativen Aktualkontext umschlossen.
+				\begin{align*}
+					\textit{No man drinks no beer.}
+					\rightarrow
+					\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext1.pdf}}}
+				\end{align*}
+			\item Falls im vorherigen Schritt zwei Konzepte negiert wurden, die miteinander in Beziehung stehen, ist nun die Eigenschaft dominierender Knoten verletzt.
+				Außerdem gibt es potentiell $agent$- oder $patient$-Kanten, die in einen der Negationskontexe hineinlaufen, was gemäß der vorigen Überlegungen unzulässig ist.
+				Für jede Relation $\color{rot}p(x, y)$, die aus einer dieser beiden Gründe, unzulässig ist, werden nun Korrekturen vorgenommen, sodass hinterher $x \leq y$ gilt und somit keine Regel-Verletzungen mehr vorliegen:
+				\begin{enumerate}[label*={.\arabic*}]
+					\item Falls vor der Korrektur $y \leq x$ gilt, wird $x$ in den Kontext von $y$ bewegt.
+						\begin{align*}
+							\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext1.pdf}}}
+							\rightarrow
+							\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
+						\end{align*}
+					\item Andernfalls wird der größte Elternkontext von $x$, der nicht gemeinsamer Elternkontext von $x$ und $y$ ist, in den Kontext von $y$ verschoben.
+					\begin{align*}
+						\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
+						\rightarrow
+						\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext3.pdf}}}
+					\end{align*}
+				\end{enumerate}
+		\end{enumerate}
+\end{enumerate}
 
 \subsubsection{3. Phase: Entfernen der Annotationen}
 
 Dies ist die trivialste der vier Phasen.
 Sie wird hier lediglich der Vollständigkeit halber erwähnt.
 Alle Abhängigkeitsgraph-Kanten, sowie POS-Tags und NER-Klassen-Tags werden entfernt, $coref$-Kanten bleiben erhalten.
-Das Ergebnis ist nun beinahe ein Konzeptgraph.
+Das Ergebnis ist nun bereits beinahe ein Konzeptgraph.
 
 \subsubsection{4. Phase: Vereinfachen der Extraktionen}
 
@@ -451,15 +517,16 @@ Nach der dritten Phase liegt zwar prinzipiell eine Konzeptgraphstruktur vor, es 
 Konkret liegt dies daran, dass die in~\ref{sec:text2kg:nlp:corenlp} eingefügten Koreferenzkanten nach Einfügen der Kontexte in benachbarten Kontexten liegen können.
 Dies passiert z.~B. dann, wenn in zwei Nebensätzen von der selben Person gesprochen wird, diese jedoch im Hauptsatz nicht auftaucht.
 Die Existenz einer derartigen Koreferenz impliziert, dass das koreferente Konzept auch im Kontext des Hauptsatzes existent sein muss, obwohl es nicht explizit erwähnt wird.
-Um dominierende Knoten zu erhalten, können die koreferenten Konzepte also zu einem Konzeptknoten zusammengefasst werden.
+
+Um dominierende Knoten zu erhalten, können die koreferenten Konzepte zu einem Konzeptknoten zusammengefasst werden.
 Dieser neue Knoten übernimmt das $label$ der \textit{Representative Mention}~\tref{sec:text2kg:nlp:corenlp} und wird in den kleinsten gemeinsamen Elternkontext aller zusammengefassten Knoten (gemäß der $\leq$-Relation) eingefügt.
 Dabei geht zwar die Information verloren, wo und mit welchen Pronomina das Konzept innerhalb der Nachricht referenziert wurde, dies ist allerdings i.~d.~R. irrelevant für die weitere Verarbeitung.
 Nach diesem Schritt liegt ein Konzeptgraph vor.
 
 \paragraph{Kontexte}
-Um einen möglichst kompakten Konzeptgraph zu erhalten, werden im letzten Schritt geschachtelte Kontexte vereinfacht.
+Um einen möglichst kompakten Konzeptgraphen zu erhalten, werden im letzten Schritt geschachtelte Kontexte vereinfacht.
 Dabei werden $2n$-fach geschachtelte Ketten negativer Aktualkontexte entfernt.
-Zudem werden positive und negative Möglichkeitskontexte, die lediglich einen negativen Aktualkontext enthalten zu negativen bzw.\ positiven Möglichkeitskontexten.
+Zudem werden positive und negative Möglichkeitskontexte, die lediglich einen negativen Aktualkontext enthalten, zu negativen bzw.\ positiven Möglichkeitskontexten.
 Diese Vereinfachungen werden so lange greedy durchgeführt, bis keine weiteren mehr möglich sind.
 Das Ergebnis ist der Extraktionsgraph.
 
