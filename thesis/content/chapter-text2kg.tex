@@ -607,6 +607,7 @@ Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kon
 	\item $nest: \textbf{UUID} \times \textbf{UUID}$: Ordnet Kontexten ihre direkten Kindknoten zu.
 	\item $nest_{indirect}: \textbf{UUID} \times \textbf{UUID}$: Ordnet jedem Kontext alle Knoten zu, die von seiner Kontextbox umschlossen sind.
 \end{enumerate}
+\edef\pslPredCount{\theenumi}
 
 Bei $similar$ handelt es sich um ein sog.\ funktionales Prädikat.
 Funktionale Prädikate werden intensional durch eine Funktion beschrieben und dürfen weder in der offenen Atommenge $\mathbb{O}$, noch in der geschlossenen Atommenge $\mathbb{C}$ vorkommen, da weder das Definieren, noch das Inferieren, von Grundatomen eines solchen Prädikates sinnvoll ist.
@@ -622,26 +623,48 @@ Konkret wird folgende Regelmenge verwendet:
 	\begin{align*}
 		1:\ & label(A, L_A) \land label(B, L_B) \land similar(L_A, L_B)  & \rulemark{rule:text2kg:inst:sim} \\
 			& \land nest(C_A, A) \land nest_{indirect}(C_A, B) \\
-			& \land A \neq B \land \lnot relation(A) \rightarrow inst(A, B) \\
-		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\
-		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \\
+			& \land A \neq B \land \lnot relation(A) \rightarrow inst(A, B) \\[1ex]
+		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\[1ex]
+		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \\[1ex]
 		\infty:\ & inst(A, B) \rightarrow \lnot inst(B, A) & \rulemark{rule:text2kg:inst:asym}
 		\intertext{Die Regel~\ruleref{rule:text2kg:inst:sim} modelliert die Annahme, dass zwischen zwei Konzepten $A, B$ mit ähnlichen Labeln u.~U.\ eine $inst(A, B)$-Beziehung besteht;
 		Voraussetzung dafür ist, dass $B \leq A$ gilt.
 		\ruleref{rule:text2kg:inst:prior} beschreibt, dass $inst$ im Allgemeinen nicht gilt.
 		Die Constraints \ruleref{rule:text2kg:inst:trans} und \ruleref{rule:text2kg:inst:asym} bilden die Transitivität und Asymmetrie von $inst$ ab.
 	\item \textbf{Regeln zur $concept$-Inferenz:}}
-		0.05:\ & concept_{latent}(A) \land inst(A, B) \rightarrow concept(A) & \rulemark{rule:text2kg:concept:hasinst} \\
-		0.5:\ & concept(A) \land concept_{latent}(B) \land inst(A, B) \rightarrow concept(B) & \rulemark{rule:text2kg:concept:isinst} \\
+		0.05:\ & concept_{latent}(A) \land inst(A, B) \rightarrow concept(A) & \rulemark{rule:text2kg:concept:hasinst} \\[1ex]
+		0.5:\ & concept(A) \land concept_{latent}(B) \land inst(A, B) \rightarrow concept(B) & \rulemark{rule:text2kg:concept:isinst} \\[1ex]
 		0.1:\ & \lnot concept(A) & \rulemark{rule:text2kg:concept:prior}
 		\intertext{\ruleref{rule:text2kg:concept:hasinst} modelliert die Annahme, dass ein latentes Konzept mit mehreren Instanzen vermutlich ein tatsächliches Konzept ist.
 		\ruleref{rule:text2kg:concept:isinst} beschreibt umgekehrt, dass ein latentes Konzept, das Instanz eines tatsächlichen Konzeptes ist, vermutlich ebenfalls ein tatsächliches Konzept ist.
 	\item \textbf{Regeln zur $nest_{indirect}$-Inferenz:}}
-		\infty:\ & nest(A, B) \rightarrow nest_{indirect}(A, B) & \rulemark{rule:text2kg:nest:dir} \\
+		\infty:\ & nest(A, B) \rightarrow nest_{indirect}(A, B) & \rulemark{rule:text2kg:nest:dir} \\[1ex]
 		\infty:\ & nest_{indirect}(A, B) \land nest(B, C) \rightarrow nest_{indirect}(A, C) & \rulemark{rule:text2kg:nest:trans}
 		\intertext{Da nur $nest$-Relationen und keine $nest_{indirect}$-Relationen in der Eingabe vorhanden sind, müssen letztere mit \ruleref{rule:text2kg:nest:dir} und \ruleref{rule:text2kg:nest:trans} inferiert werden.}
 	\end{align*}
 \end{itemize}
+
+\paragraph{Domänenspezifische PSL-Regeln}
+Die allgemeinen Regeln sind nicht ausreichend, um aus einem gegebenen Konjunktionsgraphen relevante Erkenntnisse zu ziehen.
+Hierfür ist domänenspezifisches Wissen und eine zugehörige Regelmenge notwendig.
+Um das Grundprinzip zu veranschaulichen wird in dieser Arbeit eine sehr einfache domänenspezifische Regelmenge verwendet.
+Abhängig vom betrachteten Datenset, sind die Inferenz mit realen Kommunikationsdaten i.~d.~R. deutlich umfangreichere Regelmengen notwendig.
+
+Die verwendeten domänenspezifischen Regeln führen zusätzlich zu den \pslPredCount\ allgemeinen PSL-Prädikaten ein, die zur Repräsentation von Zwischenergebnissen benutzt werden.
+Diese zusätzlichen Prädikate sind nicht unbedingt notwendig, sondern vereinfachen lediglich die Regeldefinition.
+Die folgenden domänenspezifischen Regeln werden verwendet:
+\begin{align*}
+	1:\ & context(ctx) \land patient(contain, ctx) \land agent(contain, msg) & \rulemark{rule:text2kg:message} \\
+		& \land inst(\texttt{''concept\_contain''}, contain) \rightarrow message(ctx, msg) \displaybreak[0] \\[1ex]
+	1:\ & message(ctx, msg) \land patient(send, msg) \land agent(send, sender) & \rulemark{rule:text2kg:sender} \\
+		& \land inst(\texttt{''concept\_send''}, send) \rightarrow message(ctx, sender) \displaybreak[0] \\[1ex]
+	1:\ & message(ctx, msg) \land patient(receive, msg) \land agent(receive, receiver) & \rulemark{rule:text2kg:receiver} \\
+		& \land inst(\texttt{''concept\_receive''}, receive) \rightarrow message(ctx, receiver) \displaybreak[0] \\[1ex]
+	1:\ & nest_{indirect}(ctx, I) \land inst(\texttt{''concept\_I''}, I) & \rulemark{rule:text2kg:i} \\
+		& \land sender(ctx, sender) \rightarrow inst(sender, I) \displaybreak[0] \\[1ex]
+	1:\ & nest_{indirect}(ctx, you) \land inst(\texttt{''concept\_you''}, you) & \rulemark{rule:text2kg:you} \\
+		& \land receiver(ctx, receiver) \rightarrow inst(receiver, you)
+\end{align*}
 
 \subsection{Dynamische PSL-Programme mit Meta-Regeln}%
 \label{sec:text2kg:psl:meta}
