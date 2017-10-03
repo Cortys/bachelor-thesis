@@ -114,7 +114,7 @@ Was genau dies bedeutet, wird im Folgenden erläutert. Zuerst müssen Konzeptgra
 	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
 	coref(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
 	arg(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
-	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\ c \in V: nest(c, v) \} \displaybreak[0]\\
+	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\ c \in V \setminus \{ \top \}: nest(c, v) \} \displaybreak[0]\\
 	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
 	& \lor nest(b, a) \lor (\exists\ c \in V: nest(c, a) \land nest(c, b))
 \end{align*}
@@ -497,7 +497,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 	\item \textbf{Prädikate:}
 		Entsprechen in etwa den prädikatenlogischen Prädikaten.
 		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Signatur aus Konstantentypen.
-		\[Person \subseteq \text{UUID},\quad Name \subseteq \text{UUID} \times \text{String}\]
+		\[Person: \text{UUID},\quad Name: \text{UUID} \times \text{String}\]
 	\item \textbf{Atome:}
 		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
 		Das Term-Tupel enthält die Argumente des Prädikates.
@@ -528,26 +528,26 @@ Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.
 Angenommen, es sollen Freundschaftsbeziehungen zwischen Personen inferiert werden.
 Ein stark vereinfachtes PSL-Programm hierfür könnte so aussehen:
 \begin{align*}
-	0.4:&\ \lnot Friends(A, B) & (r_1) \\
-	0.5:&\ Friends(A, B) \land Friends(B, C) \land A \neq C \rightarrow Friends(A, C) & (r_2) \\
-	1:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & (r_3) \\
-	&\ Friends(A, B) \rightarrow Friends(B, A) & (r_4) \\
-	&\ \lnot Friends(A, A) & (r_5)
+	0.4:&\ \lnot Friends(A, B) & \rulemark{rule:theory:prior} \\
+	0.5:&\ Friends(A, B) \land Friends(B, C) \land A \neq C \rightarrow Friends(A, C) & \rulemark{rule:theory:trans} \\
+	1:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & \rulemark{rule:theory:sim} \\
+	\infty:&\ Friends(A, B) \rightarrow Friends(B, A) & \rulemark{rule:theory:sym} \\
+	\infty:&\ \lnot Friends(A, A) & \rulemark{rule:theory:irref}
 \end{align*}
 In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
-\begin{enumerate}
-	\item $r_1$ bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
+\begin{enumerate}[label=$(r_{\arabic*})$]
+	\item bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
 		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
-	\item $r_2$ bildet die Transitivität der $Friends$-Relation ab.
+	\item bildet die Transitivität der $Friends$-Relation ab.
 		Zwei Personen mit einem gemeinsamen Freund, sind evtl.\ befreundet.
 		Das Infix-Prädikat $\neq$ ist üblicherweise vordefiniert.
-	\item $r_3$ bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
-	\item $r_4$ bildet die Symmetrie der $Friends$-Relation ab.
-		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein implizites Gewicht $w_4 = \infty$.
+	\item bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
+	\item bildet die Symmetrie der $Friends$-Relation ab.
+		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein Gewicht $w_4 = \infty$.
 		Das Nichterfüllen von $r_4$ hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
 		Es ist also garantiert, dass jede MAX-SAT Lösung $r_4$ einhält;
 		d.~h. $Friends(A, B) = Friends(B, A)$.
-	\item $r_5$ ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
+	\item ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
 \end{enumerate}
 
 Für das PSL-Programm $R = \{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}$ gegeben:

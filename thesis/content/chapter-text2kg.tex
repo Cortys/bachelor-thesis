@@ -587,5 +587,61 @@ Der Konjunktionsgraph wird in vier Schritten konstruiert.
 Der Konjunktionsgraph wird nun als Eingabe für ein PSL-Programm verwendet, welches neue Relationen zwischen den Konzepten inferieren soll.
 In diesem Abschnitt wird beschrieben, wie ein solches PSL-Programm aussehen kann.
 
+\paragraph{PSL-Prädikate}
+Im ersten Schritt müssen die verwendeten PSL-Prädikate definiert werden.
+Hier bietet es sich an, die fünf Konzeptgraph-Relationen zu übernehmen.
+Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kontextstruktur definert werden.
+\begin{enumerate}[noitemsep]
+	\item $concept: \textbf{UUID}$: Markiert nicht latente Konzeptknoten.
+	\item $concept_{latent}: \textbf{UUID}$: Markiert latente Konzeptknoten.
+	\item $label: \textbf{UUID} \times \textbf{String}$: Aus der Ontologie übernommen.
+	\item $inst: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
+	\item $relation: \textbf{UUID}$: Aus der Ontologie übernommen.
+	\item $agent: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
+	\item $patient: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
+	\item $similar: \textbf{String} \times \textbf{String}$: Die auf $[0, 1]$ normalisierte Levensthein-Distanz der gegebenen Strings.
+		Falls zwei Strings $A, B$ eine normalisierte Distanz~$< 0.5$ haben, gilt jedoch $similar(A, B) = 0$.
+	\item $context: \textbf{UUID}$: Markiert Kontexte.
+	\item $possibility: \textbf{UUID}$: Markiert Möglichkeitskontexte.
+	\item $negative: \textbf{UUID}$: Markiert negative Kontexte.
+	\item $nest: \textbf{UUID} \times \textbf{UUID}$: Ordnet Kontexten ihre direkten Kindknoten zu.
+	\item $nest_{indirect}: \textbf{UUID} \times \textbf{UUID}$: Ordnet jedem Kontext alle Knoten zu, die von seiner Kontextbox umschlossen sind.
+\end{enumerate}
+
+Bei $similar$ handelt es sich um ein sog.\ funktionales Prädikat.
+Funktionale Prädikate werden intensional durch eine Funktion beschrieben und dürfen weder in der offenen Atommenge $\mathbb{O}$, noch in der geschlossenen Atommenge $\mathbb{C}$ vorkommen, da weder das Definieren, noch das Inferieren, von Grundatomen eines solchen Prädikates sinnvoll ist.
+$similar$ wird verwendet, um die $label$-Ähnlichkeit zweier Konzepte bei der Inferenz berücksichtigen zu können.
+
+\paragraph{Allgemeine PSL-Regeln}
+Basierend auf der Semantik der PSL-Prädikate, lassen sich allgemeine PSL-Regeln definieren, die unabhängig von der Bedeutung einzelner Konzepte wahr sind.
+Ein Teil dieser Regeln modelliert negative Priors und Transitivität.
+Der Rest modelliert verschiedene Annahmen über die Struktur der Prädikate.
+Konkret wird folgende Regelmenge verwendet:
+\begin{itemize}
+	\item \textbf{Regeln zur $inst$-Inferenz:}
+	\begin{align*}
+		1:\ & label(A, L_A) \land label(B, L_B) \land similar(L_A, L_B)  & \rulemark{rule:text2kg:inst:sim} \\
+			& \land nest(C_A, A) \land nest_{indirect}(C_A, B) \\
+			& \land A \neq B \land \lnot relation(A) \rightarrow inst(A, B) \\
+		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\
+		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \\
+		\infty:\ & inst(A, B) \rightarrow \lnot inst(B, A) & \rulemark{rule:text2kg:inst:asym}
+		\intertext{Die Regel~\ruleref{rule:text2kg:inst:sim} modelliert die Annahme, dass zwischen zwei Konzepten $A, B$ mit ähnlichen Labeln u.~U.\ eine $inst(A, B)$-Beziehung besteht;
+		Voraussetzung dafür ist, dass $B \leq A$ gilt.
+		\ruleref{rule:text2kg:inst:prior} beschreibt, dass $inst$ im Allgemeinen nicht gilt.
+		Die Constraints \ruleref{rule:text2kg:inst:trans} und \ruleref{rule:text2kg:inst:asym} bilden die Transitivität und Asymmetrie von $inst$ ab.
+	\item \textbf{Regeln zur $concept$-Inferenz:}}
+		0.05:\ & concept_{latent}(A) \land inst(A, B) \rightarrow concept(A) & \rulemark{rule:text2kg:concept:hasinst} \\
+		0.5:\ & concept(A) \land concept_{latent}(B) \land inst(A, B) \rightarrow concept(B) & \rulemark{rule:text2kg:concept:isinst} \\
+		0.1:\ & \lnot concept(A) & \rulemark{rule:text2kg:concept:prior}
+		\intertext{\ruleref{rule:text2kg:concept:hasinst} modelliert die Annahme, dass ein latentes Konzept mit mehreren Instanzen vermutlich ein tatsächliches Konzept ist.
+		\ruleref{rule:text2kg:concept:isinst} beschreibt umgekehrt, dass ein latentes Konzept, das Instanz eines tatsächlichen Konzeptes ist, vermutlich ebenfalls ein tatsächliches Konzept ist.
+	\item \textbf{Regeln zur $nest_{indirect}$-Inferenz:}}
+		\infty:\ & nest(A, B) \rightarrow nest_{indirect}(A, B) & \rulemark{rule:text2kg:nest:dir} \\
+		\infty:\ & nest_{indirect}(A, B) \land nest(B, C) \rightarrow nest_{indirect}(A, C) & \rulemark{rule:text2kg:nest:trans}
+		\intertext{Da nur $nest$-Relationen und keine $nest_{indirect}$-Relationen in der Eingabe vorhanden sind, müssen letztere mit \ruleref{rule:text2kg:nest:dir} und \ruleref{rule:text2kg:nest:trans} inferiert werden.}
+	\end{align*}
+\end{itemize}
+
 \subsection{Dynamische PSL-Programme mit Meta-Regeln}%
 \label{sec:text2kg:psl:meta}

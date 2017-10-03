@@ -1,5 +1,5 @@
 % !TEX root = main.tex
-
+% chktex-file 46
 
 % **************************************************
 % Files' Character Encoding
@@ -98,6 +98,7 @@
 \usepackage{stmaryrd}
 \usepackage{multicol}
 \usepackage{pbox}
+\usepackage{xifthen}
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)
@@ -110,3 +111,9 @@
     bookmarksnumbered=true,     %
     bookmarksopen=true          %
 }
+
+\makeatletter
+\newcounter{rulecount}[section]
+\newcommand{\rulemark}[1]{\ensuremath{\refstepcounter{rulecount}(r_{\therulecount})\ltx@label{#1}}} % chktex 36
+\newcommand{\ruleref}[1]{\ensuremath{r_{\ref{#1}}}}
+\makeatother
