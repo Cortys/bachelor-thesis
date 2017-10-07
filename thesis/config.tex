@@ -98,7 +98,14 @@
 \usepackage{stmaryrd}
 \usepackage{multicol}
 \usepackage{pbox}
-\usepackage{xifthen}
+
+\usepackage{minted}
+\usepackage{etoolbox,xpatch}
+\makeatletter
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
+\makeatother
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)

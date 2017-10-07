@@ -58,7 +58,7 @@ Im Folgenden wird beschrieben, wie genau die in dieser Arbeit verwendete Ontolog
 
 Im ersten Schritt wird geklärt, welche Prädikate in den in dieser Arbeit konstruierten Wissensgraphen vorkommen können.
 Es ist nicht sinnvoll beliebige Prädikate zuzulassen, da für eine effiziente maschinelle Weiterverarbeitung der Wissensgraphen, eine Semantik für alle vorkommenden Prädikate definiert sein muss.
-Für die Wissensgraphen in dieser Arbeit wird daher eine Menge von fünf Prädikaten verwendet.
+Für die Wissensgraphen in dieser Arbeit wird daher eine Menge von sechs Prädikaten verwendet.
 
 \paragraph{Syntax}
 Bevor diese Prädikate näher erläutert werden, wird allerdings die Konzeptgraphsyntax leicht modifiziert.
@@ -87,7 +87,7 @@ Der Wissensgraph ist also ein Formalismus zur Beschreibung von Eigenschaften der
 \paragraph{Prädikate}
 Abhängig davon, welche Eigenschaften erfasst werden sollen, können die zu verwendenden Prädikate stark variieren.
 Die für diese Arbeit verwendete Prädikatsmenge hat nicht das Ziel der Vollständigkeit, sondern versucht vielmehr einige wesentliche Eigenschaften natürlichsprachlicher Aussagen zu erfassen.
-Gemäß dieser Prämisse wurden fünf Wissensgraph-Prädikate definiert.
+Gemäß dieser Prämisse wurden sechs Wissensgraph-Prädikate definiert.
 \begin{enumerate}
 	\item \textbf{$label \subseteq \text{concept} \times \text{string}$:}
 		Das $label$-Prädikat wird benutzt, um den Bezeichner eines Konzeptes zu repräsentieren.
@@ -101,6 +101,10 @@ Gemäß dieser Prämisse wurden fünf Wissensgraph-Prädikate definiert.
 			\Leftrightarrow
 			\exists x: {\color{rot}label(x, \text{``book''})}
 		\end{align}
+	\item \textbf{$named \subseteq \text{concept}$:}
+		Die Bedeutung des durch $label$ beschriebenen Bezeichners kann stark variieren.
+		Für die meisten Konzepte ist das $label$ ein Verweis auf ein natürlichsprachliches Wort, dessen Bedeutung übernommen wird.
+		Manche Konzepte, wie z.~B. Personen, Städte oder Firmen, lassen sich darüber hinaus jedoch durch ihren Bezeichner identifizieren; diese Konzepte erhalten das Attribut $named$.
 	\item \textbf{$inst \subseteq \text{concept}^2$:}
 		Die $inst$-Beziehung zwischen Konzepten entspricht grob der \textit{IS-A}-Beziehung semantischer Netze.
 		Das Vorhandensein von $inst(x, y)$ impliziert, dass $prop(x) \subseteq prop(y)$ gilt;
@@ -123,7 +127,7 @@ Gemäß dieser Prämisse wurden fünf Wissensgraph-Prädikate definiert.
 		Es wird dabei davon ausgegangen, dass $x$ eine Eigenschaft $p_x \in prop(x)$ hat, die beschreibt, wie $x$ andere Konzepte verändert.
 		$patient(x, y)$ impliziert, dass $prop(y)$ die durch $p_x$ geforderten Eigenschaften hat.
 		$p_x$ lässt sich für natürlichsprachliche Konzepte offensichtlich nicht sinnvoll formal definieren.
-		Dies ist allerdings auch nicht notwendig, wenn $p_x$ als von außen gegebenes Domänenwissen betrachtet wird, welches erst bei der Interpretation der Daten eingebracht wird.
+		Dies ist allerdings auch nicht notwendig, wenn $p_x$ als mittels $label$ gegebenes Domänenwissen betrachtet wird, welches erst bei der Interpretation der Daten eingebracht wird.
 \end{enumerate}
 Die Prädikate $agent$ und $patient$ sind grob an die linguistische Idee des Proto-Agens und Proto-Patiens angelehnt~\cite{Dowty1991}.
 Zusammen mit den anderen Prädikaten haben sie sich als hinreichend mächtig erwiesen, um eine Vielzahl natürlichsprachlicher Aussagen abzubilden.
@@ -261,9 +265,10 @@ Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponent
 	\item \textbf{Empfänger:}
 		Auch hier wird lediglich der Empfängername benutzt.
 		Nachrichten mit mehreren Empfängern werden in dieser Arbeit nicht betrachtet.
-	\item \textbf{Sendedatum:}
-		Gemeint ist hiermit lediglich ein Datum der Form \texttt{YYYY-MM-DD}.
-		Uhrzeiten und Zeitzonen werden nicht berücksichtigt.
+	\item \textbf{Sendezeit:}
+		Gemeint ist hiermit ein Datum oder Zeitpunkt im TIMEX3-Format (z.~B. \texttt{YYYY-MM-DD}), welches den Absendezeitpunkt der Nachricht beschreibt.
+		TIMEX3 unterstützt höchstens sekundengenaue Angaben und keine Zeitzonen.
+		Für die Zwecke dieser Arbeit sind diese Einschränkungen allerdings nicht problematisch.
 	\item \textbf{Inhalt:}
 		Der Nachrichteninhalt wird als natürlichsprachliche Zeichenkette verstanden.
 		Als Sprache wird dabei Englisch angenommen, da CoreNLP dann die besten Ergebnisse liefert.
@@ -350,6 +355,11 @@ Die übrigbleibende Menge von Token-Knoten und Komposita bildet nun die Menge de
 Diese Phase ist für das Finden der Konzeptgraphstruktur verantwortlich.
 In ihr werden Konzeptgraph-Relationen zwischen den Konzept- bzw. Token-Knoten aus der ersten Phase und Kontexte in den Annotationsgraphen eingefügt.
 
+\paragraph{Einfügen von $label$- und $named$-Prädikaten}
+Das Einfügen der Bezeichner ist trivial.
+Als $label$ wird für alle Konzepte ihr Lemma verwendet.
+Alle Konzepte mit einem POS-Tag, der einen Eigennamen impliziert (\texttt{NNP} und \texttt{NNPS}), erhalten das $named$-Attribut.
+
 \paragraph{Einfügen von $relation$-, $agent$- und $patient$-Prädikaten}
 Agens- und Patiens-Relationen bilden einen Großteil der semantischen Beziehungen im Wissensgraphen ab.
 Sie werden auf drei Wegen aus den Annotationen extrahiert.
@@ -408,6 +418,8 @@ Für die Bestimmung von $inst$-Relationen werden drei Verfahren benutzt.
 		Manche Konzepte besitzen NER-Klassen (z.~B. Person, Ort, Organisation etc.), die bereits $inst$-Relationen abbilden.
 		Es werden daher Konzeptknoten für alle vorkommenden Klassen hinzugefügt.
 		Diese werden durch $inst$-Kanten mit ihren Instanzen verbunden.
+		Die eingefügten Klassenknoten repräsentieren die abstrakten Konzepte der verschiedenen Klassen;
+		sie werden also durch ihr $label$ eindeutig identifiziert und erhalten daher das $named$-Attribut.
 	\item \textbf{Kopulae:}
 		Ein Prädikat, welches Kopula ist, wurde für das Identifizieren von $agent$- und $patient$-Relationen zuvor explizit ausgeschlossen.
 		Dies liegt daran, dass Kopulae ihre Subjekte und Objekte i.~d.~R. in ein $inst$-ähnliches Verhältnis setzen.
@@ -560,11 +572,12 @@ Der Konjunktionsgraph wird in vier Schritten konstruiert.
 		Alle Konzepte des Extraktionsgraphen, die sich innerhalb des Wurzel-Möglichkeitskontextes befinden, werden daher dupliziert und als globale latente Konzepte in das Sheet of Assertion eingefügt.
 		Zwischen den latenten Konzepten und den zugehörigen Konzepten werden zudem $inst$-Relationen eingefügt.
 		Während der PSL-Inferenz wird dann bestimmt, ob ein latentes Konzept auch außerhalb des Möglichkeitskontextes aus dem es stammt existent ist und somit zu einem Konzept wird.
+		Da latente Konzepte das durch ihr $label$ repräsentierte Konzept repräsentieren, erhalten sie das $named$-Attribut.
 		\begin{align*}
 			\includegraphics[scale=0.5]{gfx/text2kg/latentGraph.pdf}
 		\end{align*}
 	\item \textbf{Nachrichtenmetadaten:}
-		Damit der Konjunktionsgraph alle Informationen der einzufügenden Nachricht enthält, müssen neben dem Extraktionsgraph, der lediglich den Inhalt der Nachricht beschreibt, auch der Sender $S$ und Empfänger $R$ eingefügt werden.
+		Damit der Konjunktionsgraph alle Informationen der einzufügenden Nachricht enthält, müssen neben dem Extraktionsgraph, der lediglich den Inhalt der Nachricht beschreibt, auch der Sender $S$, der Empfänger $R$ und die Sendezeit $T$ eingefügt werden.
 		Dies geschieht durch folgende Erweiterung des Extraktionsgraphen $E$:
 		\begin{align*}
 			\includegraphics[scale=0.5]{gfx/text2kg/messageGraph.pdf}
@@ -589,18 +602,19 @@ In diesem Abschnitt wird beschrieben, wie ein solches PSL-Programm aussehen kann
 
 \paragraph{PSL-Prädikate}
 Im ersten Schritt müssen die verwendeten PSL-Prädikate definiert werden.
-Hier bietet es sich an, die fünf Konzeptgraph-Relationen zu übernehmen.
+Hier bietet es sich an, die sechs Konzeptgraph-Relationen zu übernehmen.
 Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kontextstruktur definert werden.
 \begin{enumerate}[noitemsep]
 	\item $concept: \textbf{UUID}$: Markiert nicht latente Konzeptknoten.
 	\item $concept_{latent}: \textbf{UUID}$: Markiert latente Konzeptknoten.
 	\item $label: \textbf{UUID} \times \textbf{String}$: Aus der Ontologie übernommen.
+	\item $named: \textbf{UUID}$: Aus der Ontologie übernommen.
 	\item $inst: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
 	\item $relation: \textbf{UUID}$: Aus der Ontologie übernommen.
 	\item $agent: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
 	\item $patient: \textbf{UUID} \times \textbf{UUID}$: Aus der Ontologie übernommen.
-	\item $similar: \textbf{String} \times \textbf{String}$: Die auf $[0, 1]$ normalisierte Levensthein-Distanz der gegebenen Strings.
-		Falls zwei Strings $A, B$ eine normalisierte Distanz~$< 0.5$ haben, gilt jedoch $similar(A, B) = 0$.
+	\item $similar: \textbf{String} \times \textbf{String}$: Die Jaro-Ähnlichkeit der gegebenen Strings.
+		Falls zwei Strings $A, B$ eine Distanz~$< 0.75$ haben, gilt jedoch $similar(A, B) = 0$.
 	\item $context: \textbf{UUID}$: Markiert Kontexte.
 	\item $possibility: \textbf{UUID}$: Markiert Möglichkeitskontexte.
 	\item $negative: \textbf{UUID}$: Markiert negative Kontexte.
@@ -611,7 +625,10 @@ Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kon
 
 Bei $similar$ handelt es sich um ein sog.\ funktionales Prädikat.
 Funktionale Prädikate werden intensional durch eine Funktion beschrieben und dürfen weder in der offenen Atommenge $\mathbb{O}$, noch in der geschlossenen Atommenge $\mathbb{C}$ vorkommen, da weder das Definieren, noch das Inferieren, von Grundatomen eines solchen Prädikates sinnvoll ist.
-$similar$ wird verwendet, um die $label$-Ähnlichkeit zweier Konzepte bei der Inferenz berücksichtigen zu können.
+$similar$ wird verwendet, um die $label$-Ähnlichkeit von $named$-Konzepten bei der Inferenz berücksichtigen zu können.
+Es wurde das Jaro-Ähnlichkeitsmaß gewählt, da es für Namen gute Ergebnisse liefert und sich zudem effizient berechnen lässt~\cite{Christen2006}, was aufgrund der zahlreichen Vergleiche, die im Rahmen einer Inferenz durchgeführt werden, wichtig ist.
+Ähnlichkeitswerte~$< 0.75$ werden auf $0$ abgerundet, damit unähnliche $label$ bei der Inferenz gar nicht erst betrachtet werden.
+Der Schwellwert wurde manuell gewählt~\tref{sec:evaluation}.
 
 \paragraph{Allgemeine PSL-Regeln}
 Basierend auf der Semantik der PSL-Prädikate, lassen sich allgemeine PSL-Regeln definieren, die unabhängig von der Bedeutung einzelner Konzepte wahr sind.
@@ -621,13 +638,13 @@ Konkret wird folgende Regelmenge verwendet:
 \begin{itemize}
 	\item \textbf{Regeln zur $inst$-Inferenz:}
 	\begin{align*}
-		1:\ & label(A, L_A) \land label(B, L_B) \land similar(L_A, L_B)  & \rulemark{rule:text2kg:inst:sim} \\
-			& \land nest(C_A, A) \land nest_{indirect}(C_A, B) \\
-			& \land A \neq B \land \lnot relation(A) \rightarrow inst(A, B) \\[1ex]
+		0.2:\ & label(A, L_A) \land label(B, L_B) \land similar(L_A, L_B)  & \rulemark{rule:text2kg:inst:sim} \\
+			& \land nest(C_A, A) \land nest_{indirect}(C_A, B) \land A \neq B \\
+			& \land named(A) \land named(B) \rightarrow inst(A, B) \\[1ex]
 		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\[1ex]
 		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \\[1ex]
 		\infty:\ & inst(A, B) \rightarrow \lnot inst(B, A) & \rulemark{rule:text2kg:inst:asym}
-		\intertext{Die Regel~\ruleref{rule:text2kg:inst:sim} modelliert die Annahme, dass zwischen zwei Konzepten $A, B$ mit ähnlichen Labeln u.~U.\ eine $inst(A, B)$-Beziehung besteht;
+		\intertext{Die Regel~\ruleref{rule:text2kg:inst:sim} modelliert die Annahme, dass zwischen zwei $named$-Konzepten $A, B$ mit ähnlichen Labeln u.~U.\ eine $inst(A, B)$-Beziehung besteht;
 		Voraussetzung dafür ist, dass $B \leq A$ gilt.
 		\ruleref{rule:text2kg:inst:prior} beschreibt, dass $inst$ im Allgemeinen nicht gilt.
 		Die Constraints \ruleref{rule:text2kg:inst:trans} und \ruleref{rule:text2kg:inst:asym} bilden die Transitivität und Asymmetrie von $inst$ ab.
@@ -640,7 +657,13 @@ Konkret wird folgende Regelmenge verwendet:
 	\item \textbf{Regeln zur $nest_{indirect}$-Inferenz:}}
 		\infty:\ & nest(A, B) \rightarrow nest_{indirect}(A, B) & \rulemark{rule:text2kg:nest:dir} \\[1ex]
 		\infty:\ & nest_{indirect}(A, B) \land nest(B, C) \rightarrow nest_{indirect}(A, C) & \rulemark{rule:text2kg:nest:trans}
-		\intertext{Da nur $nest$-Relationen und keine $nest_{indirect}$-Relationen in der Eingabe vorhanden sind, müssen letztere mit \ruleref{rule:text2kg:nest:dir} und \ruleref{rule:text2kg:nest:trans} inferiert werden.}
+		\intertext{Da nur $nest$-Relationen und keine $nest_{indirect}$-Relationen in der Eingabe vorhanden sind, müssen letztere mit \ruleref{rule:text2kg:nest:dir} und \ruleref{rule:text2kg:nest:trans} inferiert werden.
+	\item \textbf{Geschlossene Prädikate:}}
+		\infty:\ & \lnot named(A) & \rulemark{rule:text2kg:closed:named} \\[1ex]
+		\infty:\ & \lnot relation(A) & \rulemark{rule:text2kg:closed:relation} \\[1ex]
+		\infty:\ & \lnot nest(A) & \rulemark{rule:text2kg:closed:nest} \\[1ex]
+		\intertext{Der Zweck dieser Priors ist es, zu verhindern, dass zusätzlich zu den $named$-, $relation$- und $nest$-Atomen des Konjuktionsgraphen weitere derartige Atome inferiert werden.
+		Da bei der PSL-Inferenz keine NLP-Informationen zur Verfügung stehen, können diese Prädikate nämlich im Allgemeinen nicht sinnvoll inferiert werden und werden daher von der Inferenz ausgeschlossen.}
 	\end{align*}
 \end{itemize}
 
@@ -650,21 +673,25 @@ Hierfür ist domänenspezifisches Wissen und eine zugehörige Regelmenge notwend
 Um das Grundprinzip zu veranschaulichen wird in dieser Arbeit eine sehr einfache domänenspezifische Regelmenge verwendet.
 Abhängig vom betrachteten Datenset, sind die Inferenz mit realen Kommunikationsdaten i.~d.~R. deutlich umfangreichere Regelmengen notwendig.
 
-Die verwendeten domänenspezifischen Regeln führen zusätzlich zu den \pslPredCount\ allgemeinen PSL-Prädikaten ein, die zur Repräsentation von Zwischenergebnissen benutzt werden.
+Die verwendeten domänenspezifischen Regeln führen zusätzlich zu den \pslPredCount\ allgemeinen PSL-Prädikaten weitere Prädikate ein, die zur Repräsentation von Zwischenergebnissen benutzt werden.
 Diese zusätzlichen Prädikate sind nicht unbedingt notwendig, sondern vereinfachen lediglich die Regeldefinition.
 Die folgenden domänenspezifischen Regeln werden verwendet:
 \begin{align*}
 	1:\ & context(ctx) \land patient(contain, ctx) \land agent(contain, msg) & \rulemark{rule:text2kg:message} \\
-		& \land inst(\texttt{''concept\_contain''}, contain) \rightarrow message(ctx, msg) \displaybreak[0] \\[1ex]
-	1:\ & message(ctx, msg) \land patient(send, msg) \land agent(send, sender) & \rulemark{rule:text2kg:sender} \\
-		& \land inst(\texttt{''concept\_send''}, send) \rightarrow message(ctx, sender) \displaybreak[0] \\[1ex]
-	1:\ & message(ctx, msg) \land patient(receive, msg) \land agent(receive, receiver) & \rulemark{rule:text2kg:receiver} \\
-		& \land inst(\texttt{''concept\_receive''}, receive) \rightarrow message(ctx, receiver) \displaybreak[0] \\[1ex]
+		& \land inst(\texttt{''concept\_contain''}, contain) \rightarrow {\color{blau}message}(ctx, msg) \displaybreak[0] \\[1ex]
+	1:\ & {\color{blau}message}(ctx, msg) \land patient(send, msg) \land agent(send, sender) & \rulemark{rule:text2kg:sender} \\
+		& \land inst(\texttt{''concept\_send''}, send) \rightarrow {\color{blau}sender}(ctx, sender) \displaybreak[0] \\[1ex]
+	1:\ & {\color{blau}message}(ctx, msg) \land patient(receive, msg) \land agent(receive, receiver) & \rulemark{rule:text2kg:receiver} \\
+		& \land inst(\texttt{''concept\_receive''}, receive) \rightarrow {\color{blau}receiver}(ctx, receiver) \displaybreak[0] \\[1ex]
 	1:\ & nest_{indirect}(ctx, I) \land inst(\texttt{''concept\_I''}, I) & \rulemark{rule:text2kg:i} \\
-		& \land sender(ctx, sender) \rightarrow inst(sender, I) \displaybreak[0] \\[1ex]
+		& \land {\color{blau}sender}(ctx, sender) \rightarrow inst(sender, I) \displaybreak[0] \\[1ex]
 	1:\ & nest_{indirect}(ctx, you) \land inst(\texttt{''concept\_you''}, you) & \rulemark{rule:text2kg:you} \\
-		& \land receiver(ctx, receiver) \rightarrow inst(receiver, you)
+		& \land {\color{blau}receiver}(ctx, receiver) \rightarrow inst(receiver, you) \\[1ex]
+	1:\ & inst(\texttt{''concept\_uncombinable''}, x) \land inst(x, p_1) \land inst(x, p_2) & \rulemark{rule:text2kg:uncomb} \\
+		& \land inst(p_1, y) \land inst(p_2, y) \land p_1 \neq p_2 \land \lnot inst(p_2, p_1) \rightarrow inst(p_1, p_2)
 \end{align*}
+
+\paragraph{Domänenspezifisches Vorwissen}
 
 \subsection{Dynamische PSL-Programme mit Meta-Regeln}%
 \label{sec:text2kg:psl:meta}
