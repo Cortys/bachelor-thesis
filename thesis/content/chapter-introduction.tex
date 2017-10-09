@@ -48,40 +48,65 @@ Ein Beispiel hierfür ist die Auswertung von Kommunikationsdaten aus E-Mails ode
 \section{Ziele der Arbeit}%
 \label{sec:intro:goals}
 
-Das übergeordnete Ziel dieser Arbeit ist es, ein Verfahren zu finden, welches das soeben beschriebene Problem der automatisierten Wissensgraphkonstruktion für E-Mail-Daten löst.
-Konkret sei ein Stream von E-Mails gegeben, denen jeweils ein Inhalt, ein Absender, eine Menge von Empfängern und ggf.\ weitere Metadaten, wie z.~B. Absendezeit, Absendeort oder IP-Adresse, zugeordnet ist.
+Das übergeordnete Ziel dieser Arbeit ist es, ein Verfahren zu finden, welches das soeben beschriebene Problem der automatisierten Wissensgraphkonstruktion für Kommunikationsdaten löst.
+Konkret sei ein Stream von Textnachrichten, wie z.~B.\ E-Mails, gegeben, denen jeweils ein Inhalt, ein Absender, ein Empfänger und ggf.\ weitere Metadaten, wie z.~B. die Absendezeit, zugeordnet ist.
 Die Nachrichteninhalte werden der Einfachheit halber als ausschließlich englischsprachig angenommen.
 Außerdem wird eine, für E-Mails und andere Kurznachrichten typische, eingeschränkte Sprachkomplexität angenommen.
 Die Nachrichten sollen nacheinander in das zu konstruierende System eingefügt werden, welches sukzessive einen Wissensgraphen daraus erzeugt.
 
-Für diese Erzeugung muss eine Reihe von Teilproblemen gelöst werden:
+Für diese Erzeugung müssen im Wesentlichen drei Teilprobleme gelöst werden:
 \begin{enumerate}
 	\item \textbf{Onotologie:}
-		Spezifikation einer Wissensgraphontologie, die mächtig genug ist, um die Diversität natürlichsprachlich beschriebener Informationen abzubilden.
-	\item \textbf{Repräsentation:}
-		Spezifikation der maschinellen Repräsentation des Wissensgraphen.
+		Spezifikation einer Wissensgraphontologie, die mächtig genug ist, um möglichst diverse natürlichsprachlich beschriebene Informationen abzubilden.
 	\item \textbf{Sprachverarbeitung:}
 		Finden eines Verfahrens, welches die natürlichsprachlichen Inhalte der Nachrichten in eine für die Wissensgraphkonstruktion geeignete Form bringt.
 	\item \textbf{Grapherweiterung:}
 		Finden eines Verfahrens, um eine eintreffende Nachricht in den bestehenden Wissensgraphen einzufügen.
 \end{enumerate}
+Die Teillösungen können zu einem Konstruktionsverfahren kombiniert werden, welches grob wie folgt aufgebaut ist:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.82\textwidth]{gfx/introduction/overview.pdf}
+	\caption{Grober Aufbau des Konstruktionsverfahrens}\label{fig:intro:overview}
+\end{figure}
 
-Das aus den Teillösungen zusammengesetzte Verfahren muss, neben der offensichtlichen Anforderung einen Wissensgraphen zu konstruieren, zudem folgende technische Anforderungen erfüllen:
+Mittels eines Sprachverarbeitungs- und Grapherweiterungsverfahrens wird ein Wissensgraph konstruiert, der die spezifizierte Ontologie benutzt.
+Der Zweck dieses Wissensgraphen ist, dass er mittels eines Anfragesystems strukturiert ausgelesen werden kann und so zur Beantwortung von Fragen über den Inhalt der eigegebenen Nachrichten benutzt werden kann.
+In dieser Arbeit wird sich allerdings auf die Konstruktion beschränkt, der Aufbau eines Anfragesystems wird nicht beschrieben.
+
+Das derart zusammengesetzte Verfahren muss folgende technische Anforderungen erfüllen:
 \begin{enumerate}
 	\item \textbf{Erweiterbarkeit:}
-		Es sollen Schnittstellen eingeplant sein, um neben der Sprachverarbeitung auch andere Verarbeitungsverfahren, z.~B. für Bilder, hinzufügen zu können.
-		Die Graphontologie, Graphrepräsentation und das Grapherweiterungsverfahren dürfen also nicht zu sehr auf die Struktur natürlicher Sprache zugeschnitten sein.
+		Es soll prinzipiell möglich sein, zusätzlich zur Sprachverarbeitung auch andere Verarbeitungsverfahren, z.~B. für Bilder, hinzufügen zu können.
+		Insbesondere die Graphontologie darf also nicht zu sehr auf die Struktur natürlicher Sprache zugeschnitten sein, damit auch Informationen aus nicht natürlichsprachlichen Datenquellen repräsentierbar sind.
 	\item \textbf{Parallelisierbarkeit:}
-		Das Verfahren soll in der Lage sein die Rechenleistung mehrerer Prozessorkerne zu nutzen.
+		Das Verfahren soll in der Lage sein die Rechenleistung mehrerer Prozessorkerne bzw.\ Prozessoren zu nutzen.
 		Diese Anforderung betrifft insbesondere das Grapherweiterungsverfahren.
 \end{enumerate}
+
+Diese Arbeit entstand in Kooperation mit der Firma Atos.
+Die soeben beschriebenen Ziele und technischen Anforderungen waren dabei vorgegeben.
+Eine weitere Anforderung war die prototypische Implementation des entwickelten Verfahrens.
+Ziel ist es dabei jedoch nicht, eine Software zu entwickeln, welche sich in der Praxis einsetzen lässt.
+Vielmehr geht es darum, prototypisch aufzuzeigen, wie die Wissensgraphkonstruktion aus Kommunikationsdaten prinzipiell ablaufen kann.
 
 \section{Aufbau der Arbeit}%
 \label{sec:intro:structure}
 
+Die drei Komponenten Ontologie, Sprachverarbeitung und Grapherweiterung bilden die Basis des Aufbaus dieser Arbeit.
+In den Kapiteln~\ref{sec:related} bis~\ref{sec:text2kg} werden sie schrittweise genauer betrachtet, bis am Ende ein konkretes Verfahren zur Wissensgraphkonstruktion beschrieben ist.
+
 \paragraph{Kapitel~\ref{sec:related}}
+Im ersten Schritt wird ein Überblick über die bisherige Forschung und vorhandenen Technologien gegeben.
+Das Finden einer Graphontologie lässt sich als ein Problem der Wissensrepräsentation verstehen, daher wird zuerst ein Überblick über die bisherige Entwicklung von Wissensrepräsentationsverfahren gegeben.
+Anschließend folgt ein Überblick über verbreitete Werkzeuge zur Sprachverarbeitung.
+Zuletzt wird beschrieben, welche Ansätze es zur Konstruktion von Wissensgraphen mit einer gegeben Ontologie aus gegebenen Eingabedaten gibt.
 
 \paragraph{Kapitel~\ref{sec:theory}}
+Da diese Arbeit direkt auf manchen der in Kapitel~\ref{sec:related} vorgestellten Arbeiten aufbaut, werden diese Arbeiten hier näher erläutert.
+Zuerst werden die sog.\ Konzeptgraphen beschrieben, da die verwendete Graphontologie auf diesen aufbaut.
+Es folgt ein Überblick über die Funktionsweise von CoreNLP, dem verwendeten Werkzeug zur Sprachverarbeitung.
+Zuletzt wird eine kurze Einführung in HL-MRFs gegeben, einer Klasse von graphischen Modellen, welche zur Konstruktion von Wissensgraphen benutzt werden können.
 
 \paragraph{Kapitel~\ref{sec:text2kg}}
 

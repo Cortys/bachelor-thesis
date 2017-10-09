@@ -1,6 +1,8 @@
 % !TEX root = ../main.tex
 % chktex-file 46
-\chapter{Vorgeschlagenes Wissensgraph\-konstruktions\-verfahren}%
+\def\cgScale{0.6}
+
+\chapter{Wissensgraph\-konstruktion aus Kommunikations\-daten}%
 \label{sec:text2kg}
 
 Auf Basis der vorgestellten Konzeptgraphen, CoreNLP und PSL wird im folgenden Kapitel ein Verfahren für die online Konstruktion eines Wissensgraphen aus natürlichsprachlichen Textnachrichten aufgebaut.
@@ -66,7 +68,7 @@ Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine
 \begin{align}
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/text2kg/relationNodeAlternativeSyntax1.pdf}}}
 	\Leftrightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.8]{gfx/text2kg/relationNodeAlternativeSyntax2.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/relationNodeAlternativeSyntax2.pdf}}}
 \end{align}
 Relationsknoten werden nicht mehr dargestellt.
 Bei unären Relationen werden die Relationsknotenbezeichner stattdessen mit in die Konzeptknoten geschrieben.
@@ -97,7 +99,7 @@ Gemäß dieser Prämisse wurden sechs Wissensgraph-Prädikate definiert.
 		Die Syntax wird daher erneut leicht modifiziert.
 		Das $label$ eines Konzeptes wird nun, statt des Variablenbezeichners, in den zugehörigen Konzeptknoten geschrieben.
 		\begin{align}
-			\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/label.pdf}}}
+			\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/label.pdf}}}
 			\Leftrightarrow
 			\exists x: {\color{rot}label(x, \text{``book''})}
 		\end{align}
@@ -112,7 +114,7 @@ Gemäß dieser Prämisse wurden sechs Wissensgraph-Prädikate definiert.
 		\begin{align*}
 			\textit{``the good book''}
 			\Rightarrow
-			\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/inst.pdf}}}
+			\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/inst.pdf}}}
 		\end{align*}
 	\item \textbf{$relation \subseteq \text{concept}$:}
 		Da die Prädikatsmenge eingeschränkt ist, können keine eigenen Prädikate für Worte eingeführt werden, die Konzepte in Relation zueinander setzen (z.~B. \textit{X likes Y}).
@@ -134,7 +136,7 @@ Zusammen mit den anderen Prädikaten haben sie sich als hinreichend mächtig erw
 \begin{align*}
 	\textit{``I saw you yesterday.''}
 	\Rightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/relAgPat.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/relAgPat.pdf}}}
 \end{align*}
 
 \subsection{Modale Kontexte}%
@@ -170,7 +172,7 @@ So, wie der Allquantor in Konzeptgraphen durch Negation der negierten existenzqu
 Da es nun vier Kontexttypen gibt, muss die Konzeptgraphsyntax leicht angepasst werden, um zwischen den verschiedenen Typen differenzieren zu können:
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{gfx/text2kg/contextTypes.pdf}
+	\includegraphics[scale=\cgScale]{gfx/text2kg/contextTypes.pdf}
 	\caption{Konzeptgraphsyntax für modale Kontexte}\label{fig:text2kg:contextTypes}
 \end{figure}
 
@@ -180,9 +182,9 @@ Er entspricht in etwa der Klammerung in der Prädikatenlogik.
 Das \textit{Sheet of Assertion}~$\top$ ist ein solcher Kontext, abgesehen davon tauchen positive Aktualkontexte allerdings nicht auf;
 sie werden hier lediglich der Vollständigkeit halber erwähnt.
 \begin{align}
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/positiveActual.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/positiveActual.pdf}}}
 	\Leftrightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/x.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/x.pdf}}}
 	\Leftrightarrow
 	\exists x: label(x, \text{``X''})
 \end{align}
@@ -190,7 +192,7 @@ sie werden hier lediglich der Vollständigkeit halber erwähnt.
 \paragraph{Negativer Aktualkontext}
 Entspricht dem bisherigen Negationskontext.
 \begin{align}
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/negativeActual.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negativeActual.pdf}}}
 	\Leftrightarrow
 	\lnot \exists x: label(x, \text{``X''})
 \end{align}
@@ -206,9 +208,9 @@ Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren ge
 Die Aussage \textit{``$P(x)$ gilt notwendigerweise''}, wird also als \textit{``Es gibt keine Welt $w$ in der $P_w(x)$ nicht gilt''} aufgefasst.
 Statt von Welten, wird in modalen Konzeptgraphen allerdings von Kontexten gesprochen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/positivePossib.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/positivePossib.pdf}}}
 	&\Leftrightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/possibExpansion.pdf}}} \numberthis \\
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibExpansion.pdf}}} \numberthis \\
 	&\Leftrightarrow
 	\exists c: context(c) \land (actual(c) \leftrightarrow \exists x: label(x, \text{``X''}))
 \end{align*}
@@ -221,8 +223,9 @@ Zur Bestimmung von des Wahrheitswertes von $actual(c)$ ist i.~d.~R. domänenspez
 Dieses domänenspezifische Wissen, kann durch sog.\ Kontextrelationen eingebracht werden.
 Da Möglichkeitskontexte zugleich Konzepte sind, lassen sie sich zu anderen Konzepten in Relation setzen.
 Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}think} that {\color{rot}the book is good}.''} repräsentieren möchte.
+
 \begin{align*}
-	&\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \\
+	&\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \\
 	\Leftrightarrow
 	\exists i, g, t, c:&\ label(i, \text{``I''}) \land label(g, \text{``good''}) \\
 	\land&\ {\color{blau}label(t, \text{``think''}) \land relation(t) \land agent(t, i) \land patient(t, c)} \\
@@ -235,9 +238,9 @@ In \treft{sec:text2kg:psl} wird die $actual$-Inferenz näher untersucht.
 \paragraph{Negativer Möglichkeitskontext}
 Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der einen negativen Aktualkontext umgibt.
 \begin{align}
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/negativePossib.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negativePossib.pdf}}}
 	\Leftrightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.6]{gfx/text2kg/negativePossibExpansion.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negativePossibExpansion.pdf}}}
 \end{align}
 
 \section{NLP-Phase}%
@@ -493,7 +496,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 				\begin{align*}
 					\textit{No man drinks no beer.}
 					\rightarrow
-					\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext1.pdf}}}
+					\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext1.pdf}}}
 				\end{align*}
 			\item Es kann nun $agent$- oder $patient$-Kanten geben, die in einen der hinzugefügten Negationskontexe hineinlaufen, was gemäß der vorigen Überlegungen {\color{rot}unzulässig} ist.
 				Für jede dieser Kanten von $x$ nach $y$ werden nun Korrekturen vorgenommen, sodass hinterher $x \leq y$ gilt und somit keine Regel-Verletzungen mehr vorliegen.
@@ -501,16 +504,16 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 				\begin{enumerate}[label*={.\arabic*}]
 					\item Falls vor der Korrektur $y \leq x$ gilt, wird $x$ in den Kontext von $y$ bewegt.
 						\begin{align*}
-							\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext1.pdf}}}
+							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext1.pdf}}}
 							\rightarrow
-							\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
+							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\end{align*}
 
 					\item Andernfalls wird der größte Elternkontext von $x$, der nicht gemeinsamer Elternkontext von $x$ und $y$ ist, in den Kontext von $y$ verschoben.
 					\begin{align*}
-						\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext2.pdf}}}
+						\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\rightarrow
-						\vcenter{\hbox{\includegraphics[scale=0.5]{gfx/text2kg/negContext3.pdf}}}
+						\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext3.pdf}}}
 					\end{align*}
 				\end{enumerate}
 		\end{enumerate}
@@ -574,13 +577,13 @@ Der Konjunktionsgraph wird in vier Schritten konstruiert.
 		Während der PSL-Inferenz wird dann bestimmt, ob ein latentes Konzept auch außerhalb des Möglichkeitskontextes aus dem es stammt existent ist und somit zu einem Konzept wird.
 		Da latente Konzepte das durch ihr $label$ repräsentierte Konzept repräsentieren, erhalten sie das $named$-Attribut.
 		\begin{align*}
-			\includegraphics[scale=0.5]{gfx/text2kg/latentGraph.pdf}
+			\includegraphics[scale=\cgScale]{gfx/text2kg/latentGraph.pdf}
 		\end{align*}
 	\item \textbf{Nachrichtenmetadaten:}
 		Damit der Konjunktionsgraph alle Informationen der einzufügenden Nachricht enthält, müssen neben dem Extraktionsgraph, der lediglich den Inhalt der Nachricht beschreibt, auch der Sender $S$, der Empfänger $R$ und die Sendezeit $T$ eingefügt werden.
 		Dies geschieht durch folgende Erweiterung des Extraktionsgraphen $E$:
 		\begin{align*}
-			\includegraphics[scale=0.5]{gfx/text2kg/messageGraph.pdf}
+			\includegraphics[scale=\cgScale]{gfx/text2kg/messageGraph.pdf}
 		\end{align*}
 		Die $patient(\text{contain}, E)$-Kante hat dabei den Wurzel-Möglichkeitskontext von $E$ als Ziel.
 	\item \textbf{Konjunktion:}
@@ -701,7 +704,7 @@ Damit die domänenspezifischen Regeln die gewünschten Ergebnisse liefern, müss
 Dieses Wissen ist im Wesentlichen der Initialzustand des Wissensgraphen, bevor Nachrichten eingefügt wurden.
 In dieser Arbeit wird der folgende initiale Wissensgraph verwendet:
 \begin{align*}
-	\includegraphics[scale=0.5]{gfx/text2kg/initialGraph.pdf}
+	\includegraphics[scale=\cgScale]{gfx/text2kg/initialGraph.pdf}
 \end{align*}
 Für die Analyse von Nachrichten, die viel domänenspezifisches Wissen enthalten, ist offensichtlich eine wesentlich umfangreichere Wissensbasis erforderlich.
 Hierfür könnten frei verfügbare semantische Netze, wie z.~B.\ WordNet~\cite{WordNet} oder NELL~\cite{Carlson2010}, verwendet werden.
@@ -713,6 +716,3 @@ Letztere Relation wird verwendet, damit \ruleref{rule:text2kg:uncomb} für Perso
 Falls also ein Konzept Instanz zweier Personen ist, muss eine dieser beiden Personen eine Instanz der anderen Person sein.
 Anders formuliert bedeutet dies, dass ein Konzept nicht zugleich zwei verschiedene Personen $p_1 \neq p_2$ repräsentieren kann.
 Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
-
-\subsection{Dynamische PSL-Programme mit Meta-Regeln}%
-\label{sec:text2kg:psl:meta}
