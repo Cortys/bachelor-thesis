@@ -628,7 +628,7 @@ Funktionale Prädikate werden intensional durch eine Funktion beschrieben und d�
 $similar$ wird verwendet, um die $label$-Ähnlichkeit von $named$-Konzepten bei der Inferenz berücksichtigen zu können.
 Es wurde das Jaro-Ähnlichkeitsmaß gewählt, da es für Namen gute Ergebnisse liefert und sich zudem effizient berechnen lässt~\cite{Christen2006}, was aufgrund der zahlreichen Vergleiche, die im Rahmen einer Inferenz durchgeführt werden, wichtig ist.
 Ähnlichkeitswerte~$< 0.75$ werden auf $0$ abgerundet, damit unähnliche $label$ bei der Inferenz gar nicht erst betrachtet werden.
-Der Schwellwert wurde manuell gewählt~\tref{sec:evaluation}.
+Der Schwellwert $0.75$ wurde manuell gewählt~\tref{sec:evaluation}.
 
 \paragraph{Allgemeine PSL-Regeln}
 Basierend auf der Semantik der PSL-Prädikate, lassen sich allgemeine PSL-Regeln definieren, die unabhängig von der Bedeutung einzelner Konzepte wahr sind.
@@ -690,8 +690,29 @@ Die folgenden domänenspezifischen Regeln werden verwendet:
 	1:\ & inst(\texttt{''concept\_uncombinable''}, x) \land inst(x, p_1) \land inst(x, p_2) & \rulemark{rule:text2kg:uncomb} \\
 		& \land inst(p_1, y) \land inst(p_2, y) \land p_1 \neq p_2 \land \lnot inst(p_2, p_1) \rightarrow inst(p_1, p_2)
 \end{align*}
+\ruleref{rule:text2kg:message}, \ruleref{rule:text2kg:sender} und \ruleref{rule:text2kg:receiver} ordnen Nachrichten ihre Sender und Empfänger zu, was aufgrund der einheitlichen Repräsentation der Nachrichtenmetadaten im Konjunktionsgraphen eindeutig möglich ist.
+\ruleref{rule:text2kg:i} und \ruleref{rule:text2kg:you} beschreiben, dass die Konzepte \textit{I} und \textit{you} innerhalb einer Nachricht auf den Sender bzw.\ den Empfänger dieser Nachricht verweisen.
+Interessanter ist die Regel \ruleref{rule:text2kg:uncomb}.
+Falls ein Konzept $y$ Instanz zweier Konzepte $p_1 \neq p_2$ ist, die wiederum Instanz eines \textit{uncombinable} Konzeptes $x$ sind, gilt entweder $inst(p_1, p_2)$ oder $inst(p_2, p_1)$.
+Der Zweck dieser Regel wird im Kontext des im Folgenden beschriebenen domänenspezifischen Vorwissens deutlich.
 
 \paragraph{Domänenspezifisches Vorwissen}
+Damit die domänenspezifischen Regeln die gewünschten Ergebnisse liefern, müssen sie um domänenspezifisches Wissen ergänzt werden.
+Dieses Wissen ist im Wesentlichen der Initialzustand des Wissensgraphen, bevor Nachrichten eingefügt wurden.
+In dieser Arbeit wird der folgende initiale Wissensgraph verwendet:
+\begin{align*}
+	\includegraphics[scale=0.5]{gfx/text2kg/initialGraph.pdf}
+\end{align*}
+Für die Analyse von Nachrichten, die viel domänenspezifisches Wissen enthalten, ist offensichtlich eine wesentlich umfangreichere Wissensbasis erforderlich.
+Hierfür könnten frei verfügbare semantische Netze, wie z.~B.\ WordNet~\cite{WordNet} oder NELL~\cite{Carlson2010}, verwendet werden.
+
+Um das Grundprinzip des Konstruktionsverfahren zu illustrieren, ist ein kleiner initialer Wissensgraph allerdings vollkommen ausreichend.
+Es sind im Wesentlichen drei Tatsachen kodiert:
+Ein Datum ist eine spezielle Form der Zeitangabe, die Konzepte \textit{my} und \textit{we} schließen u.~a.\ das Konzept \textit{I} ein und Personen sind \textit{uncombinable}.
+Letztere Relation wird verwendet, damit \ruleref{rule:text2kg:uncomb} für Personen gilt.
+Falls also ein Konzept Instanz zweier Personen ist, muss eine dieser beiden Personen eine Instanz der anderen Person sein.
+Anders formuliert bedeutet dies, dass ein Konzept nicht zugleich zwei verschiedene Personen $p_1 \neq p_2$ repräsentieren kann.
+Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
 
 \subsection{Dynamische PSL-Programme mit Meta-Regeln}%
 \label{sec:text2kg:psl:meta}
