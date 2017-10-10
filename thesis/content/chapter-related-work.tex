@@ -169,11 +169,12 @@ Da es sich hierbei, im Gegensatz zu NELL, primär um strukturierte Daten handelt
 Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekannt.
 
 \begin{figure}[h]
+	\centering
 	\begin{tikzpicture}
 		\pgfplotstableread[col sep=comma] {data/related-work/knowledgeGraph.csv}\knowledgeGraphTrend%
 		\begin{axis}[
-			width=\textwidth,
-			height=6cm,
+			width=0.8\textwidth,
+			height=5cm,
 			smooth,
 			axis x line=bottom,
 			axis line style={draw=none},
@@ -246,7 +247,7 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 \end{enumerate}
 
 Wie sich erkennen lässt, bauen die Verarbeitungsschritte sukzessive aufeinander auf und bilden eine Art Pipeline~\cite{Pipeline}.
-Dieses Pipeline-Modell findet sich auch in vielen NLP-Werkzeugen wieder.
+Dieses Pipeline-Modell findet sich in vielen NLP-Werkzeugen wieder.
 Ein solches ist z.~B. das quelloffene Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
 Ein alternatives NLP-Toolkit ist Apache~OpenNLP~\cite{OpenNLP};\@
 es bietet ähnliche Module wie CoreNLP an.
@@ -295,7 +296,7 @@ Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werd
 Ersterer beschreibt statistische Abhängigkeiten zwischen Relationen, während letzterer Relationen zwischen Konzepten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell analog zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome (i.~e.\ Zufallsvariablen des MRFs) aus $[0, 1]$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz S-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}, da die Loss-Funktion der Disjunktion in dieser S-Norm ein Hinge-Loss ist.
+Wählt man ein Kalkül in dem die Atome (i.~e.\ Zufallsvariablen des MRFs) aus $[0, 1]$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz T-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}.
 
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die \textit{Probabilistic Soft Logic} (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen \textit{Alternating Direction Method of Multipliers} (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
@@ -306,7 +307,7 @@ BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Be
 Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
 Kommen nun neue Informationen an, müssen ausschließlich die $m$ höchstbewerteten Atome betrachtet werden, die Werte aller anderen Atome werden fixiert.
 Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
-Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten offline Inferenz.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist, als bei einer kompletten offline Inferenz.
 
 Die Kombination von PSL, ADMM und BOCI ist daher ein guter Ausgangspunkt für den Entwurf eines online Wissensgraphkonstruktionsverfahrens.
 Der Vorteil dieses Ansatzes gegenüber eines Latent Feature oder Graph Feature Modells ist, dass sich andere domänenspezifische Expertensysteme leicht in eine PSL Inferenz integrieren lassen.

@@ -23,27 +23,9 @@ Das im Folgenden vorgestellte Verfahren folgt einem dreistufigen Pipeline-Modell
 		Der resultierende Konjunktionsgraph wird als Eingabe für ein PSL-Programm verwendet, welches auf Basis des hinzugekommenen Wissens neue Beziehungen im Wissensgraphen inferiert.
 \end{enumerate}
 Die Beschreibung dieser Pipeline erfolgt in vier Abschnitten.
-In \treft{sec:text2kg:implementation} wird kurz die technische Umsetzung erläutert.
-\treft{sec:text2kg:ontology} beschreibt anschließend die Ontologie der konstruierten Wissensgraphen.
-Nach diesen strukturellen Betrachtungen wird schließlich in \treft{sec:text2kg:nlp} und \treft{sec:text2kg:psl} die Transformation von Text zu Extraktionsgraph, bzw.\ von Extraktionsgraph zu Wissensgraph beschrieben.
-
-\section{Implementation}%
-\label{sec:text2kg:implementation}
-
-Das in den folgenden Abschnitten beschriebene Verfahren wurde im Rahmen dieser Arbeit prototypisch implementiert.
-Bei der Wahl der hierfür verwandten Technologien wurde darauf Wert gelegt, dass eine möglichst nahtlose Integration der Komponenten möglich ist.
-Sowohl CoreNLP~\cite{CoreNLP} als auch die PSL-Referenzimplementation~\cite{PSL} sind JVM-Bibliotheken.
-Diese Arbeit wurde daher ebenfalls für die JVM implementiert, insbesondere weil es zu der PSL-Referenzimplementation keine Alternative gibt und eine Reimplementation von PSL den Rahmen dieser Arbeit gesprengt hätte.
-
-Als JVM-Sprache wurde Clojure gewählt; ein moderner Lisp-1-Dialekt, mit einem Fokus auf funktionale Programmierung, unveränderliche Datenstrukturen und gleichzeitiger Interoperabilität mit objektorientierten Bibliotheken.
-Andere JVM-Sprachen, wie z.~B. Java, Scala oder Groovy, wurden ausgeschlossen, da sie sich während des Entwicklungsprozesses als hinderlich erwiesen haben.
-Der Hauptgrund hierfür ist, dass CoreNLP bei der Initialisierung diverse Modelle laden muss.
-Bei Verwendung eines modernen Desktop-Rechners benötigt dies ca.~20 Sekunden, auf langsamerer Hardware teils mehrere Minuten;
-diese Wartezeiten waren ein stark verlangsamender Faktor beim entwickeln.
-Da Clojure ein Lisp ist, unterstützt es traditionsgemäß \textit{REPL Driven Development}.
-Statt nach jeder Änderung die Anwendung neu zu starten und die Modelle erneut zu laden, kann so lediglich der geänderte Bytecode in den laufenden Prozess injiziert werden;
-die geladenen Modelle bleiben dabei im Speicher und die Änderung kann ohne weitere Wartezeit getestet werden.
-Durch die Wahl von Clojure konnte die Entwicklung deutlich beschleunigt werden.
+\treft{sec:text2kg:ontology} beschreibt die Ontologie der konstruierten Wissensgraphen.
+Nachdem beschrieben ist, wie die zu konstruierenden Wissensgraphen strukturell aufgebaut sein sollen, wird schließlich in \treft{sec:text2kg:nlp} und \treft{sec:text2kg:psl} die Transformation von Text zu Extraktionsgraph, bzw.\ von Extraktionsgraph zu Wissensgraph beschrieben.
+In \treft{sec:text2kg:implementation} wird abschließend kurz die technische Umsetzung des zuvor beschriebenen Verfahrens erläutert.
 
 \section{Wissensgraphontologie}%
 \label{sec:text2kg:ontology}
@@ -200,7 +182,7 @@ Entspricht dem bisherigen Negationskontext.
 \paragraph{Positiver Möglichkeitskontext}
 Dieser Kontexttyp bildet die modale Möglichkeit ab.
 Um die Übersetzbarkeit in die Prädikatenlogik beizubehalten, wird hierfür keine fundamental neue Struktur eingeführt.
-Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren gemäß der Mögliche-Welten-Interpretation analog zu den prädikatenlogischen Quantoren verhalten.
+Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren gemäß der Mögliche-Welten-Interpretation analog zu den prädikatenlogischen Quantoren verhalten.\\
 \begin{align*}
 	{\color{rot}\square} P(x)\ &\Leftrightarrow \lnot {\color{blau}\lozenge} \lnot P(x) \\
 	{\color{rot}\forall} w: world(w) \rightarrow P_w(x)\ &\Leftrightarrow \lnot {\color{blau}\exists} w: world(w) \land \lnot P_w(x) \numberthis
@@ -225,7 +207,7 @@ Da Möglichkeitskontexte zugleich Konzepte sind, lassen sie sich zu anderen Konz
 Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}think} that {\color{rot}the book is good}.''} repräsentieren möchte.
 
 \begin{align*}
-	&\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \\
+	&\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \displaybreak[0]\\
 	\Leftrightarrow
 	\exists i, g, t, c:&\ label(i, \text{``I''}) \land label(g, \text{``good''}) \\
 	\land&\ {\color{blau}label(t, \text{``think''}) \land relation(t) \land agent(t, i) \land patient(t, c)} \\
@@ -458,10 +440,9 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 		Sowas Ansatz hierfür ist es, Teilsätze (im Englischen \textit{clause} genannt) als solche zu interpretieren, da sie jeweils genau einen Sachverhalt ausdrücken, der möglicherweise wahr ist.
 		Teilsätze können prinzipiell beliebig geschachtelt werden und hängen i.~d.~R. von einem einleitenden Konzept ab;
 		sie lassen sich also gut durch entsprechend geschachtelte Möglichkeitskontexte repräsentieren.
-
-		\begin{figure}
+		\begin{figure}[t]
 			\centering
-			\includegraphics[width=0.5\textwidth]{gfx/text2kg/contextExtractionGraph1.pdf}
+			\includegraphics[scale=\cgScale]{gfx/text2kg/contextExtractionGraph1.pdf}
 			\caption{\textit{Clause}-basierte Kontextschachtelung der Aussage \textit{``Tom thinks that Mary wants to marry a sailor.''}}\label{fig:text2kg:contextExtractionGraph1} % chktex 8
 		\end{figure}
 		In dieser Arbeit werden die Möglichkeitskontexte nach dem selben Prinzip eingefügt.
@@ -487,7 +468,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 				{\color{rot}\exists helped \lnot \exists man: agent(helped, man)} & \text{\textit{man} betont}\\
 				{\color{gruen}\lnot \exists man \exists helped: agent(helped, man)} & \text{\textit{helped} betont}\ \checkmark
 			\end{cases}
-		\end{align*}
+		\end{align*}\\
 		Wie das obige Beispiel zeigt, ist diese Regel nicht unbedingt korrekt.
 		Die Interpretation gemäß der Regel ist allerdings meist zutreffend, da alternative Interpretationen im Englischen i.~d.~R. nur durch Betonung bestimmter Wörter ausgedrückt werden können.
 		Das Einfügen negativer Kontexte läuft gemäß der vorigen Überlegungen wie folgt ab:
@@ -504,14 +485,13 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 				\begin{enumerate}[label*={.\arabic*}]
 					\item Falls vor der Korrektur $y \leq x$ gilt, wird $x$ in den Kontext von $y$ bewegt.
 						\begin{align*}
-							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext1.pdf}}}
+							\vcenter{\hbox{\hspace{-1.4em}\includegraphics[scale=\cgScale]{gfx/text2kg/negContext1.pdf}}}
 							\rightarrow
 							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\end{align*}
-
 					\item Andernfalls wird der größte Elternkontext von $x$, der nicht gemeinsamer Elternkontext von $x$ und $y$ ist, in den Kontext von $y$ verschoben.
 					\begin{align*}
-						\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
+						\vcenter{\hbox{\hspace{-0.6em}\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\rightarrow
 						\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext3.pdf}}}
 					\end{align*}
@@ -643,13 +623,13 @@ Konkret wird folgende Regelmenge verwendet:
 	\begin{align*}
 		0.2:\ & label(A, L_A) \land label(B, L_B) \land similar(L_A, L_B)  & \rulemark{rule:text2kg:inst:sim} \\
 			& \land nest(C_A, A) \land nest_{indirect}(C_A, B) \land A \neq B \\
-			& \land named(A) \land named(B) \rightarrow inst(A, B) \\[1ex]
-		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\[1ex]
-		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \\[1ex]
-		\infty:\ & inst(A, B) \rightarrow \lnot inst(B, A) & \rulemark{rule:text2kg:inst:asym}
+			& \land named(A) \land named(B) \rightarrow inst(A, B) \displaybreak[0]
 		\intertext{Die Regel~\ruleref{rule:text2kg:inst:sim} modelliert die Annahme, dass zwischen zwei $named$-Konzepten $A, B$ mit ähnlichen Labeln u.~U.\ eine $inst(A, B)$-Beziehung besteht;
-		Voraussetzung dafür ist, dass $B \leq A$ gilt.
-		\ruleref{rule:text2kg:inst:prior} beschreibt, dass $inst$ im Allgemeinen nicht gilt.
+		Voraussetzung dafür ist, dass $B \leq A$ gilt.}
+		0.1:\ & \lnot inst(A, B) & \rulemark{rule:text2kg:inst:prior} \displaybreak[0]\\[1ex]
+		\infty:\ & inst(A, B) \land inst(B, C) \rightarrow inst(A, C) & \rulemark{rule:text2kg:inst:trans} \displaybreak[0]\\[1ex]
+		\infty:\ & inst(A, B) \rightarrow \lnot inst(B, A) & \rulemark{rule:text2kg:inst:asym}\displaybreak[0]
+		\intertext{\ruleref{rule:text2kg:inst:prior} beschreibt, dass $inst$ im Allgemeinen nicht gilt.
 		Die Constraints \ruleref{rule:text2kg:inst:trans} und \ruleref{rule:text2kg:inst:asym} bilden die Transitivität und Asymmetrie von $inst$ ab.
 	\item \textbf{Regeln zur $concept$-Inferenz:}}
 		0.05:\ & concept_{latent}(A) \land inst(A, B) \rightarrow concept(A) & \rulemark{rule:text2kg:concept:hasinst} \\[1ex]
@@ -662,12 +642,12 @@ Konkret wird folgende Regelmenge verwendet:
 		\infty:\ & nest_{indirect}(A, B) \land nest(B, C) \rightarrow nest_{indirect}(A, C) & \rulemark{rule:text2kg:nest:trans}
 		\intertext{Da nur $nest$-Relationen und keine $nest_{indirect}$-Relationen in der Eingabe vorhanden sind, müssen letztere mit \ruleref{rule:text2kg:nest:dir} und \ruleref{rule:text2kg:nest:trans} inferiert werden.
 	\item \textbf{Geschlossene Prädikate:}}
-		\infty:\ & \lnot named(A) & \rulemark{rule:text2kg:closed:named} \\[1ex]
-		\infty:\ & \lnot relation(A) & \rulemark{rule:text2kg:closed:relation} \\[1ex]
-		\infty:\ & \lnot nest(A) & \rulemark{rule:text2kg:closed:nest} \\[1ex]
+		\infty:\ & \lnot named(A) & \rulemark{rule:text2kg:closed:named} \displaybreak[0]\\[1ex]
+		\infty:\ & \lnot relation(A) & \rulemark{rule:text2kg:closed:relation} \displaybreak[0]\\[1ex]
+		\infty:\ & \lnot nest(A) & \rulemark{rule:text2kg:closed:nest} \displaybreak[0]
 		\intertext{Der Zweck dieser Priors ist es, zu verhindern, dass zusätzlich zu den $named$-, $relation$- und $nest$-Atomen des Konjuktionsgraphen weitere derartige Atome inferiert werden.
 		Da bei der PSL-Inferenz keine NLP-Informationen zur Verfügung stehen, können diese Prädikate nämlich im Allgemeinen nicht sinnvoll inferiert werden und werden daher von der Inferenz ausgeschlossen.}
-	\end{align*}
+	\end{align*}%
 \end{itemize}
 
 \paragraph{Domänenspezifische PSL-Regeln}
@@ -681,15 +661,15 @@ Diese zusätzlichen Prädikate sind nicht unbedingt notwendig, sondern vereinfac
 Die folgenden domänenspezifischen Regeln werden verwendet:
 \begin{align*}
 	1:\ & context(ctx) \land patient(contain, ctx) \land agent(contain, msg) & \rulemark{rule:text2kg:message} \\
-		& \land inst(\texttt{''concept\_contain''}, contain) \rightarrow {\color{blau}message}(ctx, msg) \displaybreak[0] \\[1ex]
+		& \land inst(\texttt{''concept\_contain''}, contain) \rightarrow {\color{blau}message}(ctx, msg) \displaybreak[0]\\[1ex]
 	1:\ & {\color{blau}message}(ctx, msg) \land patient(send, msg) \land agent(send, sender) & \rulemark{rule:text2kg:sender} \\
-		& \land inst(\texttt{''concept\_send''}, send) \rightarrow {\color{blau}sender}(ctx, sender) \displaybreak[0] \\[1ex]
+		& \land inst(\texttt{''concept\_send''}, send) \rightarrow {\color{blau}sender}(ctx, sender) \displaybreak[0]\\[1ex]
 	1:\ & {\color{blau}message}(ctx, msg) \land patient(receive, msg) \land agent(receive, receiver) & \rulemark{rule:text2kg:receiver} \\
-		& \land inst(\texttt{''concept\_receive''}, receive) \rightarrow {\color{blau}receiver}(ctx, receiver) \displaybreak[0] \\[1ex]
+		& \land inst(\texttt{''concept\_receive''}, receive) \rightarrow {\color{blau}receiver}(ctx, receiver) \displaybreak[0]\\[1ex]
 	1:\ & nest_{indirect}(ctx, I) \land inst(\texttt{''concept\_I''}, I) & \rulemark{rule:text2kg:i} \\
-		& \land {\color{blau}sender}(ctx, sender) \rightarrow inst(sender, I) \displaybreak[0] \\[1ex]
+		& \land {\color{blau}sender}(ctx, sender) \rightarrow inst(sender, I) \displaybreak[0]\\[1ex]
 	1:\ & nest_{indirect}(ctx, you) \land inst(\texttt{''concept\_you''}, you) & \rulemark{rule:text2kg:you} \\
-		& \land {\color{blau}receiver}(ctx, receiver) \rightarrow inst(receiver, you) \\[1ex]
+		& \land {\color{blau}receiver}(ctx, receiver) \rightarrow inst(receiver, you) \displaybreak[0]\\[1ex]
 	1:\ & inst(\texttt{''concept\_uncombinable''}, x) \land inst(x, p_1) \land inst(x, p_2) & \rulemark{rule:text2kg:uncomb} \\
 		& \land inst(p_1, y) \land inst(p_2, y) \land p_1 \neq p_2 \land \lnot inst(p_2, p_1) \rightarrow inst(p_1, p_2)
 \end{align*}
@@ -705,7 +685,7 @@ Dieses Wissen ist im Wesentlichen der Initialzustand des Wissensgraphen, bevor N
 In dieser Arbeit wird der folgende initiale Wissensgraph verwendet:
 \begin{align*}
 	\includegraphics[scale=\cgScale]{gfx/text2kg/initialGraph.pdf}
-\end{align*}
+\end{align*}\\
 Für die Analyse von Nachrichten, die viel domänenspezifisches Wissen enthalten, ist offensichtlich eine wesentlich umfangreichere Wissensbasis erforderlich.
 Hierfür könnten frei verfügbare semantische Netze, wie z.~B.\ WordNet~\cite{WordNet} oder NELL~\cite{Carlson2010}, verwendet werden.
 
@@ -716,3 +696,24 @@ Letztere Relation wird verwendet, damit \ruleref{rule:text2kg:uncomb} für Perso
 Falls also ein Konzept Instanz zweier Personen ist, muss eine dieser beiden Personen eine Instanz der anderen Person sein.
 Anders formuliert bedeutet dies, dass ein Konzept nicht zugleich zwei verschiedene Personen $p_1 \neq p_2$ repräsentieren kann.
 Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
+
+\section{Implementation}%
+\label{sec:text2kg:implementation}
+
+Das in den vorherigen Abschnitten beschriebene Verfahren wurde im Rahmen dieser Arbeit prototypisch implementiert.
+Bei der Wahl der hierfür verwandten Technologien wurde darauf Wert gelegt, dass eine möglichst nahtlose Integration der Komponenten möglich ist.
+Sowohl CoreNLP~\cite{CoreNLP} als auch die PSL-Referenzimplementation~\cite{PSL} sind JVM-Bibliotheken.
+Diese Arbeit wurde ebenfalls für die JVM implementiert, insbesondere weil es zu der JVM-basierten PSL-Referenzimplementation keine Alternative gibt und eine Reimplementation von PSL den Rahmen dieser Arbeit gesprengt hätte.
+
+Als JVM-Sprache wurde Clojure gewählt, ein moderner Lisp-1-Dialekt.
+Andere JVM-Sprachen, wie z.~B. Java, Scala oder Groovy, wurden ausgeschlossen, da sie sich während des Entwicklungsprozesses als hinderlich erwiesen haben.
+Der Hauptgrund hierfür ist, dass CoreNLP bei der Initialisierung der Verarbeitungs-Pipeline diverse Modelle laden muss.
+Abhängig von der benutzten Hardware dauert dies zwischen ca.\ 20 Sekunden und mehreren Minuten;
+diese Wartezeiten sind ein stark verlangsamender Faktor, wenn sie nach jeder Code-Änderung auftreten.
+Da Clojure ein Lisp ist, unterstützt es traditionsgemäß \textit{REPL Driven Development}.
+Statt nach jeder Änderung die Anwendung neu zu starten und die Modelle erneut zu laden, kann so lediglich der geänderte Bytecode in den laufenden Prozess injiziert werden;
+die geladenen Modelle bleiben dabei im Speicher und die Änderung kann ohne weitere Wartezeit getestet werden.
+Durch die Wahl von Clojure konnte die Entwicklung deutlich beschleunigt werden.
+
+Alle im folgenden Kapitel vorgestellten Tests wurden mit der entwickelten Referenzimplementation durchgeführt.
+Die Rechte am Quelltext liegen bei der Firma Atos, er kann daher nicht frei verfügbar gemacht werden.

@@ -26,8 +26,7 @@
 \newcommand{\thesisSecondReviewerUniversity}{\protect{Universität Paderborn}}
 \newcommand{\thesisSecondReviewerDepartment}{Institut für Informatik}
 
-\newcommand{\thesisFirstSupervisor}{Dr.~Theodor Lettmann}
-\newcommand{\thesisSecondSupervisor}{Prof.~Dr.~Eyke Hüllermeier}
+\newcommand{\thesisSupervisor}{Dr.~Theodor Lettmann}
 
 \newcommand{\thesisUniversity}{Universität Paderborn}
 \newcommand{\thesisUniversityDepartment}{}
@@ -94,11 +93,6 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
-\usepackage[bguq]{frege}
-\usepackage{stmaryrd}
-\usepackage{multicol}
-\usepackage{pbox}
-
 \usepackage{minted}
 \usepackage{etoolbox,xpatch}
 \makeatletter
@@ -106,6 +100,11 @@
 \def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
 \xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
 \makeatother
+
+\usepackage[bguq]{frege}
+\usepackage{stmaryrd}
+\usepackage{multicol}
+\usepackage{pbox}
 
 \hypersetup{% setup the hyperref-package options
     pdftitle={\thesisTitle},    %   - title (PDF meta)

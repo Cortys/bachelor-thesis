@@ -338,9 +338,10 @@
 % **************************************************
 \setstretch{1.2}					% value for line spacing, use \setstretch{} or \singlespacing or \onehalfspacing or \doublespacing
 \setlength{\parindent}{0em}			% value for paragraph indentation
-\clubpenalty = 1000					% prevent single lines at the beginning of a paragraph (Schusterjungen)
-\widowpenalty = 1000				% prevent single lines at the end of a paragraph (Hurenkinder)
-\displaywidowpenalty = 1000			%
+\setlength{\parskip}{1em}
+\clubpenalty = 5000					% prevent single lines at the beginning of a paragraph (Schusterjungen)
+\widowpenalty = 9999				% prevent single lines at the end of a paragraph (Hurenkinder)
+\displaywidowpenalty = 5000			%
 
 % **************************************************
 % List Definitions

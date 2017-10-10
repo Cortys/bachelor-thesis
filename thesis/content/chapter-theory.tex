@@ -85,7 +85,7 @@ Entspricht der Äquivalenzrelation.
 \begin{align}
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
-	&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \\
+	&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \displaybreak[0]\\
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: P(a, b) \land {\color{rot}a \neq b} \nonumber
 \end{align}
@@ -232,7 +232,6 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 Ermittelt Äquivalenzklassen von Token, die auf das selbe Konzept bzw.\ die selbe Entität verweisen.
 CoreNLP stellt hierfür drei verschiedene Systeme bereit:
 Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen basiert.
-Die langsameren Systeme liefern im Schnitt bessere Ergebnisse.
 
 \paragraph{Dependency Parsing}
 Dieser Annotator ermittelt die grammatikalischen Beziehungen zwischen Worten.
@@ -417,8 +416,7 @@ sie ist eine Erweiterung der booleschen Logik, d.~h.\ die Łukasiewicz Operatore
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Visualisierung der Łukasiewicz Operatoren $\land$, $\lor$ und $\lnot$.}\label{fig:theory:luklogic}
-\end{figure}
-
+\end{figure} \\
 Mittels der Łukasiewicz Logik können Disjuktionsklauseln $C_j \in C$ für eine gegebene Variablenbelegung $x$ nun Wahrheitswerte~$\in [0, 1]$ zugeordnet werden.
 Dieser Wahrheitswert wird als Klauselpotential $\Phi_j(x)$ verwendet.
 Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
@@ -431,7 +429,7 @@ Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
 Statt die Summe der Wahrheitswerte $\Phi_j(x)$ zu maximieren, kann alternativ auch die Summe der Distanzen zur Erfüllung $\ell_j(x)$, genannt \textit{Distance to Satisfaction}, minimiert werden;
 es gilt $\ell_j(x) = 1 - \Phi_j(x)$.
 Gemäß dieser Interpretation ist ein HL-MRF somit eine Menge von gewichteten Constraints $\ell_j(x) \leq 0$, für die eine Lösung mit möglichst wenigen Verletzungen gesucht wird.
-Das Inferenzproblem ist also
+Das Inferenzproblem lässt sich also das Finden des folgenden Minimums beschreiben:
 \begin{align*}
 	\operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \{ \ell_j(x), 0 \} \displaybreak[0]\\ % chktex 35
 	= \operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \left\{ 1 - \left(\sum_{i \in I^{+}_j} x_i\right) - \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 0 \right\} \numberthis % chktex 21, chktex 35

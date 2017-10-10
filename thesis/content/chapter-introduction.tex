@@ -68,8 +68,7 @@ Die Teillösungen können zu einem Konstruktionsverfahren kombiniert werden, wel
 	\centering
 	\includegraphics[width=0.82\textwidth]{gfx/introduction/overview.pdf}
 	\caption{Grober Aufbau des Konstruktionsverfahrens}\label{fig:intro:overview}
-\end{figure}
-
+\end{figure} \\
 Mittels eines Sprachverarbeitungs- und Grapherweiterungsverfahrens wird ein Wissensgraph konstruiert, der die spezifizierte Ontologie benutzt.
 Der Zweck dieses Wissensgraphen ist, dass er mittels eines Anfragesystems strukturiert ausgelesen werden kann und so zur Beantwortung von Fragen über den Inhalt der eigegebenen Nachrichten benutzt werden kann.
 In dieser Arbeit wird sich allerdings auf die Konstruktion beschränkt, der Aufbau eines Anfragesystems wird nicht beschrieben.
@@ -94,22 +93,29 @@ Vielmehr geht es darum, prototypisch aufzuzeigen, wie die Wissensgraphkonstrukti
 \label{sec:intro:structure}
 
 Die drei Komponenten Ontologie, Sprachverarbeitung und Grapherweiterung bilden die Basis des Aufbaus dieser Arbeit.
-In den Kapiteln~\ref{sec:related} bis~\ref{sec:text2kg} werden sie schrittweise genauer betrachtet, bis am Ende ein konkretes Verfahren zur Wissensgraphkonstruktion beschrieben ist.
+In den Kapiteln~\ref{sec:related} bis~\ref{sec:text2kg} werden diese Komponenten schrittweise genauer betrachtet, was am Ende in einem konkreten Verfahren zur Wissensgraphkonstruktion resultiert.
 
-\paragraph{Kapitel~\ref{sec:related}}
+\paragraph{Kapitel~\ref{sec:related}: \nameref{sec:related}}
 Im ersten Schritt wird ein Überblick über die bisherige Forschung und vorhandenen Technologien gegeben.
 Das Finden einer Graphontologie lässt sich als ein Problem der Wissensrepräsentation verstehen, daher wird zuerst ein Überblick über die bisherige Entwicklung von Wissensrepräsentationsverfahren gegeben.
 Anschließend folgt ein Überblick über verbreitete Werkzeuge zur Sprachverarbeitung.
 Zuletzt wird beschrieben, welche Ansätze es zur Konstruktion von Wissensgraphen mit einer gegeben Ontologie aus gegebenen Eingabedaten gibt.
 
-\paragraph{Kapitel~\ref{sec:theory}}
+\paragraph{Kapitel~\ref{sec:theory}: \nameref{sec:theory}}
 Da diese Arbeit direkt auf manchen der in Kapitel~\ref{sec:related} vorgestellten Arbeiten aufbaut, werden diese Arbeiten hier näher erläutert.
-Zuerst werden die sog.\ Konzeptgraphen beschrieben, da die verwendete Graphontologie auf diesen aufbaut.
-Es folgt ein Überblick über die Funktionsweise von CoreNLP, dem verwendeten Werkzeug zur Sprachverarbeitung.
+Zuerst werden die sog.\ Konzeptgraphen beschrieben, da die verwendete Graphontologie auf ihnen aufbaut.
+Es folgt ein Überblick über den Aufbau von CoreNLP, dem verwendeten Werkzeug zur Sprachverarbeitung.
 Zuletzt wird eine kurze Einführung in HL-MRFs gegeben, einer Klasse von graphischen Modellen, welche zur Konstruktion von Wissensgraphen benutzt werden können.
 
-\paragraph{Kapitel~\ref{sec:text2kg}}
+\paragraph{Kapitel~\ref{sec:text2kg}: \nameref{sec:text2kg}}
+Basierend auf den in Kapitel~\ref{sec:theory} vorgestellten Arbeiten wird nun die konkret verwendete Ontologie, das Sprachverarbeitungsverfahren und die Grapherweiterung beschrieben.
+Außerdem wird kurz erläutert, wie das resultierende Gesamtverfahren implementiert wurde.
 
-\paragraph{Kapitel~\ref{sec:evaluation}}
+\paragraph{Kapitel~\ref{sec:evaluation}: \nameref{sec:evaluation}}
+Um die Stärken und Schwächen des in Kapitel~\ref{sec:text2kg} beschriebenen Verfahrens aufzuzeigen, wird es hier mit realen Kommunikationsdaten getestet.
+Da es bislang keine Testdatensets gibt, die gut für die Evaluation des entwickelten Verfahrens geeignet sind, erfolgen keine umfangreichen empirischen Tests.
+Stattdessen werden stichprobenartig kleine Nachrichtensets eingefügt.
+Der resultierende Wissensgraph wird anschließend manuell untersucht.
 
-\paragraph{Kapitel~\ref{sec:conclusion}}
+\paragraph{Kapitel~\ref{sec:conclusion}: \nameref{sec:conclusion}}
+Abschließend werden die Ergebnisse zusammengefasst und ein Ausblick auf offen gebliebene Fragestellungen gegeben.
