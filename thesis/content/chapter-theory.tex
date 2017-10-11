@@ -533,7 +533,7 @@ Ein stark vereinfachtes PSL-Programm hierfür könnte so aussehen:
 	\infty:&\ \lnot Friends(A, A) & \rulemark{rule:theory:irref}
 \end{align*}
 In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
-\begin{enumerate}[label=$(r_{\arabic*})$]
+\begin{enumerate}[label=$(\ruleno{\arabic*})$]
 	\item bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
 		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
 	\item bildet die Transitivität der $Friends$-Relation ab.
@@ -541,14 +541,14 @@ In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends
 		Das Infix-Prädikat $\neq$ ist üblicherweise vordefiniert.
 	\item bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
 	\item bildet die Symmetrie der $Friends$-Relation ab.
-		Im Gegensatz zu den anderen Regeln, ist $r_4$ ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein Gewicht $w_4 = \infty$.
-		Das Nichterfüllen von $r_4$ hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
-		Es ist also garantiert, dass jede MAX-SAT Lösung $r_4$ einhält;
+		Im Gegensatz zu den anderen Regeln, ist \ruleref{rule:theory:sym} ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein Gewicht $w_4 = \infty$.
+		Das Nichterfüllen von \ruleref{rule:theory:sym} hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
+		Es ist also garantiert, dass jede MAX-SAT Lösung \ruleref{rule:theory:sym} einhält;
 		d.~h. $Friends(A, B) = Friends(B, A)$.
 	\item ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
 \end{enumerate}
 
-Für das PSL-Programm $R = \{r_1, \dots, r_5\}$ sei nun folgender Input $\mathcal{A}$ gegeben:
+Für das PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ sei nun folgender Input $\mathcal{A}$ gegeben:
 \begin{align*}
 	\mathbb{C} &= \left\{ % chktex 21
 		\begin{aligned}

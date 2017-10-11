@@ -120,6 +120,8 @@
 
 \makeatletter
 \newcounter{rulecount}[section]
-\newcommand{\rulemark}[1]{\ensuremath{\refstepcounter{rulecount}(r_{\therulecount})\ltx@label{#1}}} % chktex 36
-\newcommand{\ruleref}[1]{\ensuremath{r_{\ref{#1}}}}
+\newcommand{\ruleno}[1]{\ensuremath{r_{#1}}}
+\newcommand{\rulecurrent}{\ruleno{\therulecount}}
+\newcommand{\rulemark}[1]{\refstepcounter{rulecount}(\rulecurrent)\ltx@label{#1}} % chktex 36
+\newcommand{\ruleref}[1]{\ruleno{\ref{#1}}}
 \makeatother

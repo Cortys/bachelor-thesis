@@ -697,6 +697,16 @@ Falls also ein Konzept Instanz zweier Personen ist, muss eine dieser beiden Pers
 Anders formuliert bedeutet dies, dass ein Konzept nicht zugleich zwei verschiedene Personen $p_1 \neq p_2$ repräsentieren kann.
 Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
 
+\paragraph{Wissensgraphkonstruktion}
+Die Wissensgraphkonstruktion lässt sich nun als Inferenz mit dem PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ verstehen.
+Die geschlossenen Grundatome $\mathbb{C}$ der Eingabe sind die Relationen und deren Argumente im Konjuktionsgraph.
+Als offene Grundatommenge $\mathbb{O}$ werden alle übrigen möglichen Relationen von und zwischen Konzeptknoten verwendet.
+$\mathbb{O}$ kann und muss dabei nicht vollständig in den Speicher geladen werden.
+Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mathbb{O}$ werden erst dann instanziiert, wenn sie das erste Mal in einer Grundregel auftauchen.
+Als Inferenzverfahren wird das in~\ref{sec:theory:psl:inference} vorgestellte ADMM-Verfahren benutzt.
+BOCI kann nicht benutzt werden, da es in seiner aktuellen Form erfordert, dass keine neuen Grundatome zwischen zwei Inferenzen hinzukommen;
+beim Einfügen einer Nachricht gilt dies offensichtlich nicht.
+
 \section{Implementation}%
 \label{sec:text2kg:implementation}
 

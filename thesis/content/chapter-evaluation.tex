@@ -10,14 +10,51 @@
 \chapter{Bewertung}%
 \label{sec:evaluation}
 
-Hallo Welt.
+Die Bewertung des im vorigen Kapitel vorgestellten Verfahrens erfolgt in zwei Schritten.
+In~\ref{sec:evaluation:quality} wird im ersten Schritt die Qualität der konstruierten Wissensgraphen untersucht.
+Anschließend wird in~\ref{sec:evaluation:time} die Tauglichkeit des Verfahrens im Kontext von Nachrichtenstreams betrachtet.
+
+\section{Qualitative Bewertung}%
+\label{sec:evaluation:quality}
+
+Das vorgestellte Verfahren macht zahlreiche Annahmen über die Struktur und Komplexität der Eingabedaten, zudem wird lediglich ein kleiner Teil aller potentiell in Annotationsgraphen enthaltenen Informationen genutzt.
+In diesem Kapitel wird betrachtet, wie sich diese Einschränkungen auf die Qualität der resultierenden Wissensgraphen auswirken.
+Ziel ist dabei nicht eine umfassende empirische Auswertung durchzuführen, sondern stattdessen die Stärken und Schwächen des Verfahrens anhand von stichprobenartig ausgewählten, realen Beispieldaten aufzuzeigen.
+Es gibt im Wesentlichen drei Gründe für diese Entscheidung:
+\begin{enumerate}
+	\item Das entwickelte Verfahren ist primär prototypisch zu verstehen.
+		Das Ziel war nicht ein bestimmtes Maß an Qualität zu erreichen, sondern vielmehr die Praktikabilität des Ansatzes zu demonstrieren.
+	\item Es gibt keine alternativen Ansätze mit dem das entwickelte Verfahren verglichen werden kann.
+		Eine automatisierte Konzeptgraph-basierte Wissensgraphkonstruktion aus natürlichsprachlichen Nachrichten wurde bislang in keiner anderen Arbeit untersucht.
+	\item Es existieren zudem keine Testdatensets, die für eine empirische Analyse des entwickelten Verfahrens geeignet sind.
+		Es existieren zwar Testdaten für die verwendeten NLP-Tasks (NER, POS-Tagging, Coreference Resolution etc.), da die Ergebnisse hierfür allerdings direkt aus CoreNLP stammen, würde mit den verfügbaren Testdaten lediglich die Performance von CoreNLP gemessen.
+		Benötigt sind Testdaten, die das Evaluieren der Konzept\-graph\-struktur erlauben, d.~h.\ solche, die Informationen über die semantischen Abhängigkeiten und Negation von Konzepten enthalten.
+\end{enumerate}
+
+\subsection{Bewertungsansatz}%
+\label{sec:evaluation:quality:method}
+
+Da für die Bewertung nicht auf Referenzergebnisse zurückgegriffen werden kann, müssen die Ergebnisse manuell ausgewertet werden.
+Das manuelle Auswerten einer repräsentativen Stichprobe von Testnachrichten hätte den zeitlichen Rahmen dieser Arbeit gesprengt.
+Daher wird stattdessen mit einer kleinen Menge von Testnachrichten gearbeitet.
+Um das Ergebnis dieser Nachrichten zu bewerten, wird der aus ihnen konstruierte Wissensgraph im ersten Schritt in eine Neo4j-Graphdatenbank eingefügt.
+Anschließend wird darauf eine Menge von Testanfragen ausgeführt und die Ergebnisse manuell mit den in den Nachrichtentexten enthaltenen Informationen abgeglichen.
+Auf diesem Wege kann zwar die Wissensgraphqualität nicht akkurat beurteilt werden, es ist allerdings möglich tendenzielle Stärken und Schwächen des Verfahrens zu erkennen.
+
+\subsection{Testdaten}%
+\label{sec:evaluation:quality:data}
+
+Die verwendeten Textnachrichten stammen aus dem Enron E-Mail Datenset~\cite{Cohen2015}.
+Da das zufällige Auswählen von E-Mails aus diesem Datenset i.~d.~R. in unzusammenhängenden Nachrichtensets resultiert, wurden die Enron Daten nicht direkt benutzt, sondern stattdessen der Enron Threads Corpus~\cite{EnronThreads}.
+Hierbei handelt es sich um ein Datenset, welches die E-Mail-Rohdaten in zusammengehörige Kommunikationsthreads gruppiert.
+Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da darin die selben Personen und Themen auftauchen und somit die Möglichkeit Beziehungen zwischen diesen zu finden besteht.
+
+\subsection{Ergebnisse}%
+\label{sec:evaluation:quality:results}
+
+\section{Laufzeituntersuchung}%
+\label{sec:evaluation:time}
 
 \inputminted{cypher}{data/evaluation/people.cql}
 \inputminted{cypher}{data/evaluation/personTimeAction.cql}
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}
-
-\section{Testmethode}%
-\label{sec:evaluation:methodology}
-
-\section{Ergebnisse}%
-\label{sec:evaluation:results}
