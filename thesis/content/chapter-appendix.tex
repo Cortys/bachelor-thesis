@@ -1,4 +1,21 @@
 % !TEX root = ../main.tex
-%
-\chapter{Anhang}
+% chktex-file 46
+
+\chapter{Anhang}%
 \label{sec:appendix}
+
+\section{Verwendete Testnachrichten}%
+\label{sec:appendix:testmsgs}
+
+Die Testnachrichten 1--7 stammen aus dem Thread \texttt{bin1/363227} des Enron Threads Corpus~\cite{EnronThreads}.
+Da das implementierte Wissensgraphkonstruktionsverfahren nicht speziell für E-Mails ausgelegt ist, wird nicht zwischen Absender und Absender-Adresse unterschieden.
+Die Absender- und Empfänger-Adressen in den Rohdaten wurden daher durch die Namen der Absender bzw. Empfänger ersetzt.
+Abgesehen von dieser Änderung, wurden die Inhalte und Absendezeitpunkte der Mails unverändert übernommen.
+\inputminted{clojure}{data/evaluation/testdata.clj}
+
+\section{Verwendete Testanfragen}%
+\label{sec:appendix:testqueries}
+
+\inputminted{cypher}{data/evaluation/people.cql}
+\inputminted{cypher}{data/evaluation/personTimeAction.cql}
+\inputminted{cypher}{data/evaluation/personNegationAction.cql}

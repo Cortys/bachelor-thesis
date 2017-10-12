@@ -56,6 +56,20 @@
 \definecolor{dunkelblau}{HTML}{1E3666}
 \definecolor{hellblau}{HTML}{8ea7d7}
 
+\usepackage{minted}
+\usepackage{etoolbox,xpatch}
+\makeatletter
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
+\makeatother
+\setminted{
+	fontsize=\footnotesize,
+	numbers=left,
+	tabsize=4,
+	breaklines=true
+}
+
 \PassOptionsToPackage{% setup clean thesis style
     figuresep=space,
     sansserif=false,
@@ -92,14 +106,6 @@
 
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily,breaklines=true}
-
-\usepackage{minted}
-\usepackage{etoolbox,xpatch}
-\makeatletter
-\AtBeginEnvironment{minted}{\dontdofcolorbox}
-\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
-\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
-\makeatother
 
 \usepackage[bguq]{frege}
 \usepackage{stmaryrd}

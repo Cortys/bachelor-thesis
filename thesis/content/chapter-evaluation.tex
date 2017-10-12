@@ -1,12 +1,5 @@
 % !TEX root = ../main.tex
 % chktex-file 46
-\setminted[cypher]{
-	fontsize=\footnotesize,
-	numbers=left,
-	tabsize=4,
-	breaklines=true
-}
-
 \chapter{Bewertung}%
 \label{sec:evaluation}
 
@@ -45,16 +38,19 @@ Auf diesem Wege kann zwar die Wissensgraphqualität nicht akkurat beurteilt werd
 \label{sec:evaluation:quality:data}
 
 Die verwendeten Textnachrichten stammen aus dem Enron E-Mail Datenset~\cite{Cohen2015}.
-Da das zufällige Auswählen von E-Mails aus diesem Datenset i.~d.~R. in unzusammenhängenden Nachrichtensets resultiert, wurden die Enron Daten nicht direkt benutzt, sondern stattdessen der Enron Threads Corpus~\cite{EnronThreads}.
+Da das zufällige Auswählen von E-Mails aus diesem Datenset i.~d.~R. in unzusammenhängenden Nachrichtensets resultiert, wurden die Enron Daten nicht direkt benutzt, sondern stattdessen der Enron Threads Corpus~\cite{Jamison2013}\cite{EnronThreads}.
 Hierbei handelt es sich um ein Datenset, welches die E-Mail-Rohdaten in zusammengehörige Kommunikationsthreads gruppiert.
-Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da darin die selben Personen und Themen auftauchen und somit die Möglichkeit Beziehungen zwischen diesen zu finden besteht.
+Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da darin oftmals die selben Personen und Themen auftauchen und somit die Möglichkeit besteht, Beziehungen zwischen diesen zu finden.
+
+Für die Testnachrichten wurde zufällig ein Testthread aus der Menge aller Threads ausgewählt, der die Schlüsselwörter \textit{``yesterday''} oder \textit{``tomorrow''} enthält.
+Ziel dabei war es, Nachrichten, in denen es um Termine oder Ereignisse geht, zu erhalten, da diese Nachrichten häufig auch ohne umfangreiches domänenspezifisches Wissen verstanden werden können.
+Die Wahl eines beliebigen Threads resultierte meist in Nachrichten, die nur mit domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
+Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:testmsgs} zu finden.
 
 \subsection{Ergebnisse}%
 \label{sec:evaluation:quality:results}
 
+
+
 \section{Laufzeituntersuchung}%
 \label{sec:evaluation:time}
-
-\inputminted{cypher}{data/evaluation/people.cql}
-\inputminted{cypher}{data/evaluation/personTimeAction.cql}
-\inputminted{cypher}{data/evaluation/personNegationAction.cql}
