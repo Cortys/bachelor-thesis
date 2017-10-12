@@ -8,5 +8,5 @@ call algo.unionFind.stream(
 	{graph: "cypher"})
 yield nodeId, setId
 match (node) where id(node) = nodeId
-with setId, collect(distinct node.label) as personNames
-return personNames
+with setId, collect(distinct node.label) as people
+return people

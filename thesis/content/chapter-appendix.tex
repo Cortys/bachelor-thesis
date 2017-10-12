@@ -5,17 +5,30 @@
 \label{sec:appendix}
 
 \section{Verwendete Testnachrichten}%
-\label{sec:appendix:testmsgs}
+\label{sec:appendix:msgs}
 
 Die Testnachrichten 1--7 stammen aus dem Thread \texttt{bin1/363227} des Enron Threads Corpus~\cite{EnronThreads}.
+Die Testnachricht 8 wurde nachträglich hinzugefügt, da in den vorherigen Nachrichten keine Negation vorkam.
 Da das implementierte Wissensgraphkonstruktionsverfahren nicht speziell für E-Mails ausgelegt ist, wird nicht zwischen Absender und Absender-Adresse unterschieden.
 Die Absender- und Empfänger-Adressen in den Rohdaten wurden daher durch die Namen der Absender bzw. Empfänger ersetzt.
 Abgesehen von dieser Änderung, wurden die Inhalte und Absendezeitpunkte der Mails unverändert übernommen.
 \inputminted{clojure}{data/evaluation/testdata.clj}
 
 \section{Verwendete Testanfragen}%
-\label{sec:appendix:testqueries}
+\label{sec:appendix:queries}
 
+Zur Evaluation des aus den Testnachrichten konstruierten Wissensgraphen wurden drei Testanfragen verwendet, die jeweils verschiedene Aspekte des Graphen betrachten.
+Die Anfragen sind in der Sprache Cypher des Neo4j-Graphdatenbanksystems~\cite{Neo4j} geschrieben.
+Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{GraphAlgo} durchgeführt.
+
+\subsection{Personen}%
+\label{sec:appendix:queries:people}
 \inputminted{cypher}{data/evaluation/people.cql}
+
+\subsection{Ereignisse und Termine}%
+\label{sec:appendix:queries:events}
 \inputminted{cypher}{data/evaluation/personTimeAction.cql}
+
+\subsection{Positive und negative Aussagen}%
+\label{sec:appendix:queries:neg}
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}

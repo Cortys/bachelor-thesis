@@ -1,0 +1,17 @@
+relation,patient,time
+miss,call,2001-03-12T09:54:24
+have,meeting,2001-03-13
+send,message,2001-03-13T09:54:24
+send,message,2001-03-14T15:15:02
+send,message,2001-03-15T11:59:59
+send,message,2001-03-15T21:26:00
+receive,message,
+talk,etc. option,
+talk,time,
+receive,message,
+receive,message,
+send,paper,
+enjoy,talk,
+illustrate,technique,
+read,papers,
+read,preprint,

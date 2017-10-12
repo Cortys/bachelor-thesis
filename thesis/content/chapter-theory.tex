@@ -279,7 +279,7 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \displaybreak[0]\\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
-	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisierkonst.} Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
+	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisier.konst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
 Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufallsvariablen in $X$:
 \begin{enumerate}
@@ -459,7 +459,7 @@ Wie \figreft{fig:theory:hingeloss} für den zwei-elementigen Klauselfall veransc
 Hierher rührt die Bezeichnung Hinge-Loss MRF.\@
 Da Hinge-Loss Funktionen konvex sind und die Summe konvexer Funktionen ebenfalls konvex ist, handelt es sich bei der HL-MRF-Inferenz um ein konvexes Optimierungsproblem.
 Es existieren also effiziente und exakte Lösungsalgorithmen.
-Einer dieser Algorithmen ist das \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM), es wird in~\ref{sec:theory:psl:inference} näher vorgestellt.
+Einer dieser Algorithmen ist das \textit{Alternating Direction Method of Multipliers} Verfahren~(ADMM), es wird in~\ref{sec:theory:psl:inference} näher vorgestellt.
 
 \paragraph{MAX-SAT Äquivalenz}
 In~\ref{sec:theory:psl:mrf} wurden MRFs anhand des Beispiels der SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$ veranschaulicht.
@@ -479,7 +479,7 @@ das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer 
 Wie soeben beschrieben, sind HL-MRFs ein flexibles Werkzeug, um Probleme, die sich durch MAX-SAT ausdrücken lassen, zu lösen.
 Der Schritt von einem konkreten domänenspezifischen Problem in eine Menge von Klauseln $C$ und einen Gewichtsvektor $w$ ist bislang allerdings noch unklar.
 An dieser Stelle setzt die \textit{Probabilistic Soft Logic} (PSL) an.
-PSL ist eine formale Sprache, um mit einer intuitiven Syntax Klassen von HL-MRFs zu beschreiben.
+PSL ist eine formale Sprache, um mit einer intuitiven Syntax, Klassen von HL-MRFs zu beschreiben.
 
 \subsubsection{PSL Syntax}
 Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben Arten von Elementen:
@@ -519,7 +519,7 @@ Eine Menge von PSL-Regeln wird PSL-Programm genannt.
 Als Input erwartet ein PSL-Programm $R$ eine sog.\ Basis $\mathcal{A}$.
 Die Basis ist dabei eine Menge von Grundatomen, die während der Inferenz in Betracht gezogen werden sollen, und setzt sich aus zwei disjunkten Teilmengen $\mathbb{C} \mathbin{\dot\cup} \mathbb{O} = \mathcal{A}$ zusammen.
 $\mathbb{C}$ ist die Menge der geschlossenen (\textit{closed}) Grundatome, d.~h.\ der Wahrheitswert~$\in [0, 1]$ dieser Atome ist bekannt.
-$\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswert noch unbekannt ist und daher inferiert werden soll.
+$\mathbb{O}$ umfasst die offenen (\textit{open}) Grundatome, deren Wahrheitswerte noch unbekannt sind und daher durch das PSL-Programm inferiert werden sollen.
 
 \paragraph{Beispiel}
 Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.

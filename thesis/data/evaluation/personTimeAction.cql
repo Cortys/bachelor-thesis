@@ -7,3 +7,4 @@ optional match (:concept {id:"concept_time"})-[:inst]->(t:concept),
 where not exists(t.named) and t.id starts with "concept_"
 unwind patients as patient
 return r.label as relation, patient, t.label as time
+order by time

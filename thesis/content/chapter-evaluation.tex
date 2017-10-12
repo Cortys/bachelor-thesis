@@ -21,7 +21,7 @@ Es gibt im Wesentlichen drei Gründe für diese Entscheidung:
 		Eine automatisierte Konzeptgraph-basierte Wissensgraphkonstruktion aus natürlichsprachlichen Nachrichten wurde bislang in keiner anderen Arbeit untersucht.
 	\item Es existieren zudem keine Testdatensets, die für eine empirische Analyse des entwickelten Verfahrens geeignet sind.
 		Es existieren zwar Testdaten für die verwendeten NLP-Tasks (NER, POS-Tagging, Coreference Resolution etc.), da die Ergebnisse hierfür allerdings direkt aus CoreNLP stammen, würde mit den verfügbaren Testdaten lediglich die Performance von CoreNLP gemessen.
-		Benötigt sind Testdaten, die das Evaluieren der Konzept\-graph\-struktur erlauben, d.~h.\ solche, die Informationen über die semantischen Abhängigkeiten und Negation von Konzepten enthalten.
+		Benötigt wären Testdaten, die das Evaluieren der Konzept\-graph\-struktur erlauben, d.~h.\ solche, die Informationen über die semantischen Abhängigkeiten und Negation von Konzepten enthalten.
 \end{enumerate}
 
 \subsection{Bewertungsansatz}%
@@ -30,8 +30,8 @@ Es gibt im Wesentlichen drei Gründe für diese Entscheidung:
 Da für die Bewertung nicht auf Referenzergebnisse zurückgegriffen werden kann, müssen die Ergebnisse manuell ausgewertet werden.
 Das manuelle Auswerten einer repräsentativen Stichprobe von Testnachrichten hätte den zeitlichen Rahmen dieser Arbeit gesprengt.
 Daher wird stattdessen mit einer kleinen Menge von Testnachrichten gearbeitet.
-Um das Ergebnis dieser Nachrichten zu bewerten, wird der aus ihnen konstruierte Wissensgraph im ersten Schritt in eine Neo4j-Graphdatenbank eingefügt.
-Anschließend wird darauf eine Menge von Testanfragen ausgeführt und die Ergebnisse manuell mit den in den Nachrichtentexten enthaltenen Informationen abgeglichen.
+Um das Ergebnis dieser Nachrichten zu bewerten, wird der aus ihnen konstruierte Wissensgraph im ersten Schritt in eine Neo4j-Graphdatenbank~\cite{Neo4j} eingefügt.
+Anschließend wird daran eine Menge von Testanfragen~\tref{sec:appendix:queries} gestellt und die Ergebnisse manuell mit den in den Nachrichtentexten enthaltenen Informationen abgeglichen.
 Auf diesem Wege kann zwar die Wissensgraphqualität nicht akkurat beurteilt werden, es ist allerdings möglich tendenzielle Stärken und Schwächen des Verfahrens zu erkennen.
 
 \subsection{Testdaten}%
@@ -45,12 +45,43 @@ Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da dari
 Für die Testnachrichten wurde zufällig ein Testthread aus der Menge aller Threads ausgewählt, der die Schlüsselwörter \textit{``yesterday''} oder \textit{``tomorrow''} enthält.
 Ziel dabei war es, Nachrichten, in denen es um Termine oder Ereignisse geht, zu erhalten, da diese Nachrichten häufig auch ohne umfangreiches domänenspezifisches Wissen verstanden werden können.
 Die Wahl eines beliebigen Threads resultierte meist in Nachrichten, die nur mit domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
-Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:testmsgs} zu finden.
+Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:msgs} zu finden.
 
 \subsection{Ergebnisse}%
 \label{sec:evaluation:quality:results}
 
+In diesem Abschnitt wird der aus den Testdaten konstruierte Wissensgraph\footnote{Es befindet sich ein Neo4j-Datenbank-Export des Wissensgraphen unter \url{https://github.com/Cortys/bachelor-thesis/blob/master/thesis/data/evaluation/testKG.cql}, mit diesem können die Ergebnisse nachvollzogen werden.} untersucht.
+Hierfür werden drei Testanfragen benutzt.
 
+\paragraph{Personen}
+Die erste Anfrage testet, welche Personen in den Nachrichten erkannt wurden.
+Da die selbe Person in verschiedenen Kontexten verschiedene Namen haben kann, ist die Ausgabe der Anfrage eine Liste von Personen, die jeweils durch eine Liste von Namen beschrieben werden.
+\begin{table}[h]
+	\centering
+	\csvautotabular[separator=semicolon]{data/evaluation/people.csv}
+	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:people}}\label{tab:evaluation:people}
+\end{table}
+
+Diese Anfrage arbeitet im Wesentlichen in zwei Schritten.
+Im ersten Schritt wird der Teilgraph aller Konzepte gebildet, die Instanz von \textit{person} und nicht Instanz von \textit{I} oder \textit{you} sind.
+Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängenden Komponenten des Teilgraphen ermittelt.
+Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die die selbe Person in verschiedenen Nachrichten hat.
+
+\paragraph{Ereignisse und Termine}
+
+\begin{table}[h]
+	\centering
+	\csvautotabular{data/evaluation/personTimeAction.csv}
+	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:events}}\label{tab:evaluation:personTimeAction}
+\end{table}
+
+\paragraph{Positive und negative Aussagen}
+
+\begin{table}[h]
+	\centering
+	\csvautotabular[separator=semicolon]{data/evaluation/personNegationAction.csv}
+	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:neg}}\label{tab:evaluation:personNegationAction}
+\end{table}
 
 \section{Laufzeituntersuchung}%
 \label{sec:evaluation:time}
