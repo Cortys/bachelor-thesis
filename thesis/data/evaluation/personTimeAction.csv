@@ -1,17 +1,17 @@
-relation,patient,time
-miss,call,2001-03-12T09:54:24
-have,meeting,2001-03-13
-send,message,2001-03-13T09:54:24
-send,message,2001-03-14T15:15:02
-send,message,2001-03-15T11:59:59
-send,message,2001-03-15T21:26:00
-receive,message,
-talk,etc. option,
-talk,time,
-receive,message,
-receive,message,
-send,paper,
-enjoy,talk,
-illustrate,technique,
-read,papers,
-read,preprint,
+,relation,patient,time
+1,miss,call,2001-03-12 09:54:24
+2,have,meeting,2001-03-13
+3,send,message,2001-03-13 09:54:24
+4,send,message,2001-03-14 15:15:02
+5,send,message,2001-03-15 11:59:59
+6,send,message,2001-03-15 21:26:00
+7,receive,message,
+8,talk,etc. option,
+9,talk,time,
+10,receive,message,
+11,receive,message,
+12,send,paper,
+13,enjoy,talk,
+14,illustrate,technique,
+15,read,papers,
+16,read,preprint,

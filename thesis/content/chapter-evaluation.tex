@@ -54,34 +54,51 @@ In diesem Abschnitt wird der aus den Testdaten konstruierte Wissensgraph\footnot
 Hierfür werden drei Testanfragen benutzt.
 
 \paragraph{Personen}
-Die erste Anfrage testet, welche Personen in den Nachrichten erkannt wurden.
+Die erste Anfrage~\tref{sec:appendix:queries:people} testet, welche Personen in den Nachrichten erkannt wurden.
 Da die selbe Person in verschiedenen Kontexten verschiedene Namen haben kann, ist die Ausgabe der Anfrage eine Liste von Personen, die jeweils durch eine Liste von Namen beschrieben werden.
-\begin{table}[h]
-	\centering
-	\csvautotabular[separator=semicolon]{data/evaluation/people.csv}
-	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:people}}\label{tab:evaluation:people}
-\end{table}
-
-Diese Anfrage arbeitet im Wesentlichen in zwei Schritten.
-Im ersten Schritt wird der Teilgraph aller Konzepte gebildet, die Instanz von \textit{person} und nicht Instanz von \textit{I} oder \textit{you} sind.
-Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängenden Komponenten des Teilgraphen ermittelt.
-Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die die selbe Person in verschiedenen Nachrichten hat.
+\csvautobooklongtable[separator=semicolon]{data/evaluation/people.csv}
+In den Testnachrichten werden fünf Personen erkannt.
+Dabei lassen sich zwei Arten von Fehlern beobachten:
+\begin{enumerate}
+	\item Es kommen nur vier Personen in den Nachrichten vor.
+		Der Bezeichner \textit{Dr. Lu} von Person~5 wurde nicht als koreferent zu den Bezeichnern von Person~1 erkannt. % chktex 12
+		Dies liegt daran, dass für die Erkennung von koreferenten Namen lediglich die CoreNLP Koreferenzinformationen und die Jaro-Distanzen von $named$-Konzepten berücksichtigt werden.
+		Das Ergebnis ließe sich verbessern, indem weitere Informationen, wie z.~B. der Kontext, in dem ein Bezeichner auftaucht berücksichtigt werden.
+	\item Person~1 hat die drei fehlerhaften Bezeichner \textit{TX Zimin}, \textit{address} und \textit{Zimin Lu Enron Corp} erhalten.
+		Diese Fehler stammen aus dem Dependency Parser von CoreNLP, sie lassen sich mit der aktuellen Architektur, in der alle Informationen über den Eingabetext aus den CoreNLP-Annotatoren stammen, also nicht vermeiden.
+		Die Ursache des Fehlers ist die Testnachricht~6~\tref{sec:appendix:msgs}, in der eine Postanschrift vorkommt;
+		damit kann CoreNLP in der verwendeten Version~3.8.0 noch nicht umgehen.
+\end{enumerate}
 
 \paragraph{Ereignisse und Termine}
+Die zweite Anfrage~\tref{sec:appendix:queries:events} testet, wie gut $relation$-Konzepte erkannt werden.
+Hierfür wird aufgelistet, was \textit{Duane Seppi} wann getan hat.
+\csvautobooklongtable{data/evaluation/personTimeAction.csv}
+Wie zu erwarten, finden sich im Ergebnis für alle gesendeten und empfangenen Nachrichten entsprechende \textit{send}- bzw. \textit{receive}-Einträge.
+Unter den übrigen Einträgen, wurden den ersten beiden Einträgen Zeitpunkte zugeordnet.
+Beide stammen aus der ersten Testnachricht und sind im Wesentlichen korrekt, die relativen Zeitangaben \textit{yesterday} und \textit{today} wurden von SUTime korrekt aufgelöst und die PSL-Regel \ruleref{rule:text2kg:i} hat die Pronomina, die Agens der $relation$-Konzepte sind, korrekt der Person \textit{Duane Seppi} zugeordnet.
+Es wurden allerdings auch verschiedene Fehler gemacht:
+\begin{enumerate}
+	\item In den Einträgen 8 und 9 haben Fehler im Abhängigkeitsgraphen eine semantisch inkorrekte Repräsentation des ersten Satzes von Nachricht~3 verursacht.
+	\item Die Einträge 15 und 16 sind fehlerhaft, da bei der CoreNLP Coreference Resolution das Pronomen \textit{I} des zweiten Satzes von Nachricht~6 fälschlicherweise mit \textit{Duane Seppi} verknüpft wurde.
+\end{enumerate}
+Allgemein lässt sich feststellen, dass semantische Fehler im Wissensgraphen i.~d.~R. aus Fehlern in den CoreNLP Ergebnissen resultieren.
+Dies ist zu erwarten, da die verwendeten domänenspezifischen Regeln und das Vorwissen sehr allgemein und nicht sonderlich umfangreich sind.
+Die meisten, nicht durch CoreNLP verursachten Fehler, sind daher fehlende Informationen im Wissensgraphen.
 
-\begin{table}[h]
-	\centering
-	\csvautotabular{data/evaluation/personTimeAction.csv}
-	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:events}}\label{tab:evaluation:personTimeAction}
-\end{table}
+Da mit genug Hintergrundwissen nahezu beliebig viele Informationen aus einer gegebenen Nachricht inferiert werden können, ist unklar welche Informationen als fehlend verstanden werden sollen.
+Es folgt daher eine lediglich exemplarische Liste von fehlenden Ergebnissen, die das Verbesserungspotential des vorgestellten Verfahrens illustrieren:
+\begin{enumerate}
+	\item Die Aussage von Satz~2 aus Nachricht~3 wird nicht im Wissensgraphen repräsentiert:
+		\textit{``This is related to some research some colleagues and I are doing applying recent innovations in Monte Carlo valuation of options with early exercise.''}
+
+		Der Grund hierfür ist, dass nicht alle Universal Dependencies Abhängigkeitstypen auf ihre semantische Entsprechung in der Wissensgraphontologie abgebildet werden.
+		Der obige Satz wird z.~B. deshalb nicht korrekt im Graphen repräsentiert, da die Typen \texttt{advcl} und \texttt{acl} bislang nicht berücksichtigt werden.
+\end{enumerate}
 
 \paragraph{Positive und negative Aussagen}
 
-\begin{table}[h]
-	\centering
-	\csvautotabular[separator=semicolon]{data/evaluation/personNegationAction.csv}
-	\caption{Ergebnis von Anfrage~\ref{sec:appendix:queries:neg}}\label{tab:evaluation:personNegationAction}
-\end{table}
+\csvautobooklongtable[separator=semicolon]{data/evaluation/personNegationAction.csv}
 
 \section{Laufzeituntersuchung}%
 \label{sec:evaluation:time}

@@ -23,12 +23,25 @@ Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{G
 
 \subsection{Personen}%
 \label{sec:appendix:queries:people}
+
 \inputminted{cypher}{data/evaluation/people.cql}
+Diese Anfrage arbeitet im Wesentlichen in zwei Schritten.
+Im ersten Schritt wird der Teilgraph aller Konzepte gebildet, die Instanz von \textit{person} und nicht Instanz von \textit{I} oder \textit{you} sind.
+Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängenden Komponenten des Teilgraphen ermittelt.
+Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die die selbe Person in verschiedenen Nachrichten hat.
+
+Der Grund für diesen Aufbau ist, dass eine Person als ein Konzept mit gewissen charakterisierenden Eigenschaften verstanden werden kann.
+Die Existenz von $inst(A, B)$ zwischen zwei Personen-Konzepten $A, B$ bedeutet, dass $B$ die charakterisierenden Eigenschaften von $A$ besitzt und somit beide Konzepte auf die selbe Person verweisen.
+Für die Modellierung dieser Idee werden keine Koreferenzkanten verwendet, da zwei Konzepte, die auf die selbe Person verweisen, dennoch verschieden sein können; $B$ könnte z.~B. ein Konzept sein, welches die Person $A$ zu einem bestimmten Zeitpunkt repräsentiert.
 
 \subsection{Ereignisse und Termine}%
 \label{sec:appendix:queries:events}
+
 \inputminted{cypher}{data/evaluation/personTimeAction.cql}
+Diese Anfrage ermittelt die Liste der $label$ aller $relation$-Konzepte und ihrem Patiens, deren Agens die Person ist, die durch \textit{Duane Seppi} bezeichnet wird.
+Sofern bekannt, wird den Relationskonzepten der Zeitpunkt zugeordnet, deren Patiens sie sind.
 
 \subsection{Positive und negative Aussagen}%
 \label{sec:appendix:queries:neg}
+
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}
