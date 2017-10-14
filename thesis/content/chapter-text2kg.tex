@@ -446,7 +446,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 			\caption{\textit{Clause}-basierte Kontextschachtelung der Aussage \textit{``Tom thinks that Mary wants to marry a sailor.''}}\label{fig:text2kg:contextExtractionGraph1} % chktex 8
 		\end{figure}
 		In dieser Arbeit werden die Möglichkeitskontexte nach dem selben Prinzip eingefügt.
-		Teilsätze lassen sich im Annotationsgraphen über die Abhängigkeiten $csubj, ccomp, xcomp$ und $advcl$ leicht identifizieren.
+		Teilsätze lassen sich im Annotationsgraphen über die Abhängigkeiten $csubj, ccomp$ und $xcomp$ leicht identifizieren.
 		Da der Abhängigkeitsgraph ein DAG ist, können Konzepte in mehreren Teilsätzen bzw. Kontexten auftauchen;
 		in diesem Fall muss das Konzept in den kleinsten gemeinsamen Elternkontext (gemäß $\leq$-Relation) eingefügt werden.
 
@@ -706,6 +706,9 @@ Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mat
 Als Inferenzverfahren wird das in~\ref{sec:theory:psl:inference} vorgestellte ADMM-Verfahren benutzt.
 BOCI kann nicht benutzt werden, da es in seiner aktuellen Form erfordert, dass keine neuen Grundatome zwischen zwei Inferenzen hinzukommen;
 beim Einfügen einer Nachricht gilt dies offensichtlich nicht.
+
+Nach dem Ausführen von ADMM wird im letzten Schritt die Menge der inferierten Atome als Menge von Konzeptgraph-Relationen interpretiert und als neuer Wissensgraph verwendet.
+Um die Graphgröße zu reduzieren werden dabei alle Atome mit einer Wahrscheinlichkeit $< 0.5$ verworfen.
 
 \section{Implementation}%
 \label{sec:text2kg:implementation}

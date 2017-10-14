@@ -51,23 +51,31 @@ Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:msgs} zu finde
 \label{sec:evaluation:quality:results}
 
 In diesem Abschnitt wird der aus den Testdaten konstruierte Wissensgraph\footnote{Es befindet sich ein Neo4j-Datenbank-Export des Wissensgraphen unter \url{https://github.com/Cortys/bachelor-thesis/blob/master/thesis/data/evaluation/testKG.cql}, mit diesem können die Ergebnisse nachvollzogen werden.} untersucht.
-Hierfür werden drei Testanfragen benutzt.
+Hierfür werden vier Testanfragen benutzt.
+Die Ergebnisse dieser Anfragen werden auf Korrektheit geprüft und benutzt, um Verbesserungspotential des Verfahrens aufzuzeigen.
+Dabei wird zwischen zwei Arten von Fehlern unterschieden:
+\newcommand{\errorA}{{\color{rot} (A)}}
+\newcommand{\errorB}{{\color{blau} (B)}}
+\begin{tasks}[label-offset=1em](2) % chktex 36
+	\task[\errorA] \color{rot}Fehlerhafte Informationen
+	\task[\errorB] \color{blau}Fehlende Informationen
+\end{tasks}
 
 \paragraph{Personen}
 Die erste Anfrage~\tref{sec:appendix:queries:people} testet, welche Personen in den Nachrichten erkannt wurden.
 Da die selbe Person in verschiedenen Kontexten verschiedene Namen haben kann, ist die Ausgabe der Anfrage eine Liste von Personen, die jeweils durch eine Liste von Namen beschrieben werden.
 \csvautobooklongtable[separator=semicolon]{data/evaluation/people.csv}
 In den Testnachrichten werden fünf Personen erkannt.
-Dabei lassen sich zwei Arten von Fehlern beobachten:
+Dabei lassen sich zwei Fehler beobachten:
 \begin{enumerate}
 	\item Es kommen nur vier Personen in den Nachrichten vor.
 		Der Bezeichner \textit{Dr. Lu} von Person~5 wurde nicht als koreferent zu den Bezeichnern von Person~1 erkannt. % chktex 12
 		Dies liegt daran, dass für die Erkennung von koreferenten Namen lediglich die CoreNLP Koreferenzinformationen und die Jaro-Distanzen von $named$-Konzepten berücksichtigt werden.
-		Das Ergebnis ließe sich verbessern, indem weitere Informationen, wie z.~B. der Kontext, in dem ein Bezeichner auftaucht berücksichtigt werden.
+		Das Ergebnis ließe sich verbessern, indem weitere Informationen, wie z.~B. der Kontext, in dem ein Bezeichner auftaucht berücksichtigt werden. \errorB\
 	\item Person~1 hat die drei fehlerhaften Bezeichner \textit{TX Zimin}, \textit{address} und \textit{Zimin Lu Enron Corp} erhalten.
 		Diese Fehler stammen aus dem Dependency Parser von CoreNLP, sie lassen sich mit der aktuellen Architektur, in der alle Informationen über den Eingabetext aus den CoreNLP-Annotatoren stammen, also nicht vermeiden.
 		Die Ursache des Fehlers ist die Testnachricht~6~\tref{sec:appendix:msgs}, in der eine Postanschrift vorkommt;
-		damit kann CoreNLP in der verwendeten Version~3.8.0 noch nicht umgehen.
+		damit kann CoreNLP in der verwendeten Version~3.8.0 noch nicht umgehen. \errorA\
 \end{enumerate}
 
 \paragraph{Ereignisse und Termine}
@@ -79,26 +87,37 @@ Unter den übrigen Einträgen, wurden den ersten beiden Einträgen Zeitpunkte zu
 Beide stammen aus der ersten Testnachricht und sind im Wesentlichen korrekt, die relativen Zeitangaben \textit{yesterday} und \textit{today} wurden von SUTime korrekt aufgelöst und die PSL-Regel \ruleref{rule:text2kg:i} hat die Pronomina, die Agens der $relation$-Konzepte sind, korrekt der Person \textit{Duane Seppi} zugeordnet.
 Es wurden allerdings auch verschiedene Fehler gemacht:
 \begin{enumerate}
-	\item In den Einträgen 8 und 9 haben Fehler im Abhängigkeitsgraphen eine semantisch inkorrekte Repräsentation des ersten Satzes von Nachricht~3 verursacht.
-	\item Die Einträge 15 und 16 sind fehlerhaft, da bei der CoreNLP Coreference Resolution das Pronomen \textit{I} des zweiten Satzes von Nachricht~6 fälschlicherweise mit \textit{Duane Seppi} verknüpft wurde.
-\end{enumerate}
-Allgemein lässt sich feststellen, dass semantische Fehler im Wissensgraphen i.~d.~R. aus Fehlern in den CoreNLP Ergebnissen resultieren.
-Dies ist zu erwarten, da die verwendeten domänenspezifischen Regeln und das Vorwissen sehr allgemein und nicht sonderlich umfangreich sind.
-Die meisten, nicht durch CoreNLP verursachten Fehler, sind daher fehlende Informationen im Wissensgraphen.
-
-Da mit genug Hintergrundwissen nahezu beliebig viele Informationen aus einer gegebenen Nachricht inferiert werden können, ist unklar welche Informationen als fehlend verstanden werden sollen.
-Es folgt daher eine lediglich exemplarische Liste von fehlenden Ergebnissen, die das Verbesserungspotential des vorgestellten Verfahrens illustrieren:
-\begin{enumerate}
+	\item In den Einträgen 8 und 9 haben Fehler im Abhängigkeitsgraphen eine semantisch inkorrekte Repräsentation des ersten Satzes von Nachricht~3 verursacht:
+	 	\textit{``I would be grateful if I could talk with you some time about the typical terms one sees in Swing, take or pay, virtual storage, etc.\ options.''} \errorA\
+	\item Die Einträge 15 und 16 sind fehlerhaft, da bei der CoreNLP Coreference Resolution das Pronomen \textit{I} des zweiten Satzes von Nachricht~6 fälschlicherweise mit \textit{Duane Seppi} verknüpft wurde. \errorA\
 	\item Die Aussage von Satz~2 aus Nachricht~3 wird nicht im Wissensgraphen repräsentiert:
-		\textit{``This is related to some research some colleagues and I are doing applying recent innovations in Monte Carlo valuation of options with early exercise.''}
+		\textit{``This is related to some research some colleagues and I are doing applying recent innovations in Monte Carlo valuation of options with early exercise.''} \errorB\
 
 		Der Grund hierfür ist, dass nicht alle Universal Dependencies Abhängigkeitstypen auf ihre semantische Entsprechung in der Wissensgraphontologie abgebildet werden.
-		Der obige Satz wird z.~B. deshalb nicht korrekt im Graphen repräsentiert, da die Typen \texttt{advcl} und \texttt{acl} bislang nicht berücksichtigt werden.
+		Der obige Satz wird z.~B. deshalb nicht korrekt im Graphen repräsentiert, da die Abhängigkeitstypen \texttt{advcl} und \texttt{acl} bislang nicht berücksichtigt werden.
 \end{enumerate}
 
-\paragraph{Positive und negative Aussagen}
+\paragraph{Personenbezogene Daten}
+Die dritte Anfrage~\tref{sec:appendix:queries:numbers} testet, wie gut Faktenwissen, welches in der Eingabe vorhanden ist, erkannt und aus dem Wissensgraphen ausgelesen werden kann.
+In den verwendeten Testnachrichten teilen sich zwei Personen ihre Telefonnummern mit.
+Die Anfrage nach allen Nummern und zugehörigen Nummertypen (Telefon-, Fax-, Hausnummer etc.) aller Personen, liefert folgendes Ergebnis:
+\csvautobooklongtable[separator=semicolon]{data/evaluation/numbers.csv}
+Die Telefonnummern wurden korrekt erkannt.
+Bei der ersten Nummer fehlt jedoch die Information, dass es sich um eine Telefonnummer handelt \errorB;\@
+dies liegt daran, dass in der Nachricht, in der sie vorkommt nicht explizit erwähnt wird, um was für eine Art Nummer es sich handelt.
+Um dies zu erkennen, müssten Kommunikationsverläufe berücksichtigt werden, statt Nachrichten weitestgehend isoliert zu betrachten.
 
+\paragraph{Positive und negative Aussagen}
+In den vorigen Anfragen wurden Kontexte nicht berücksichtigt, da die Testnachrichten größtenteils Tatsachen beschreiben.
+Die vierte Anfrage~\tref{sec:appendix:queries:neg} wird daher benutzt, um die Erkennung von Negationskontexten zu testen.
+Konkret werden hierfür alle Relationen abgefragt, die in von \textit{John Doe} geschriebenen Nachrichten erwähnt werden und für die etwas über deren Wahrheit oder Unwahrheit bekannt ist.
 \csvautobooklongtable[separator=semicolon]{data/evaluation/personNegationAction.csv}
+Relation~4 wurde dabei semantisch inkorrekt abgebildet \errorA.
+Die Negation von \textit{``I have something''} im Satz \textit{``I'm not writing this message because I have something to say''} wird nicht erkannt.
+Grund hierfür ist zum einen, dass der Abhängigkeitstyp \texttt{advcl} in der NLP-Phase nicht berücksichtigt wird.
+Außerdem fehlt das Hintergrundwissen über die Bedeutung des Wortes \textit{because}.
+Um den Satz korrekt zu verstehen, wäre es notwendig die Implikation $\textit{I have something} \rightarrow \lnot(\textit{I write message})$ zu erkennen, mit dem Wissen, dass \textit{I write message} wahr ist, zu verknüpfen und schließlich $\lnot(\textit{I have something})$ zu folgern.
+Zu derartige Schlussfolgerungen ist das vorgestellte Verfahren bislang nicht in der Lage.
 
 \section{Laufzeituntersuchung}%
 \label{sec:evaluation:time}

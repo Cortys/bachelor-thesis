@@ -41,6 +41,15 @@ Für die Modellierung dieser Idee werden keine Koreferenzkanten verwendet, da zw
 Diese Anfrage ermittelt die Liste der $label$ aller $relation$-Konzepte und ihrem Patiens, deren Agens die Person ist, die durch \textit{Duane Seppi} bezeichnet wird.
 Sofern bekannt, wird den Relationskonzepten der Zeitpunkt zugeordnet, deren Patiens sie sind.
 
+\subsection{Personenbezogene Daten}%
+\label{sec:appendix:queries:numbers}
+
+\inputminted{cypher}{data/evaluation/numbers.cql}
+Diese Anfrage ermittelt zuerst alle Konzepte, die Instanz von \textit{number} sind und zugleich Patiens einer Person sind;
+die Patiens-Relation zwischen einer Person und einem anderen Konzept wird benutzt, um eine Zugehörigkeit auszudrücken.
+Das Ergebnis ist also die Menge aller Nummern und den Personen, denen sie gehören.
+Um zu bestimmen, um was für eine Art von Nummer es sich dabei jeweils handelt, wird anschließend für jede Numme $B$ die Menge aller Konzepte $A$ bestimmt, für die $inst(A, B)$ gilt.
+
 \subsection{Positive und negative Aussagen}%
 \label{sec:appendix:queries:neg}
 
