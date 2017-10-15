@@ -1,6 +1,6 @@
 ;agents;relation;patients;truth
 1;I, John Doe, uncombinable, person;need;example message;POSITIVE
-2;conversation;contain;negation;NEGATIVE
-3;I, John Doe, uncombinable, person;write;message;NEGATIVE
-4;I, John Doe, uncombinable, person;have;something;POSITIVE
-5;example message;contain;negation;POSITIVE
+2;I, John Doe, uncombinable, person;have;something;POSITIVE
+3;example message;contain;negation;POSITIVE
+4;conversation;contain;negation;NEGATIVE
+5;I, John Doe, uncombinable, person;write;message;NEGATIVE

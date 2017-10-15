@@ -9,7 +9,7 @@
 
 Die Testnachrichten 1--7 stammen aus dem Thread \texttt{bin1/363227} des Enron Threads Corpus~\cite{EnronThreads}.
 Die Testnachricht 8 wurde nachträglich hinzugefügt, da in den vorherigen Nachrichten keine Negation vorkam.
-Da das implementierte Wissensgraphkonstruktionsverfahren nicht speziell für E-Mails ausgelegt ist, wird nicht zwischen Absender und Absender-Adresse unterschieden.
+Da das implementierte Wissensgraph-Konstruktionsverfahren nicht speziell für E-Mails ausgelegt ist, wird nicht zwischen Absender und Absender-Adresse unterschieden.
 Die Absender- und Empfänger-Adressen in den Rohdaten wurden daher durch die Namen der Absender bzw. Empfänger ersetzt.
 Abgesehen von dieser Änderung, wurden die Inhalte und Absendezeitpunkte der Mails unverändert übernommen.
 \inputminted{clojure}{data/evaluation/testdata.clj}
@@ -28,11 +28,11 @@ Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{G
 Diese Anfrage arbeitet im Wesentlichen in zwei Schritten.
 Im ersten Schritt wird der Teilgraph aller Konzepte gebildet, die Instanz von \textit{person} und nicht Instanz von \textit{I} oder \textit{you} sind.
 Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängenden Komponenten des Teilgraphen ermittelt.
-Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die die selbe Person in verschiedenen Nachrichten hat.
+Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die dieselbe Person in verschiedenen Nachrichten hat.
 
 Der Grund für diesen Aufbau ist, dass eine Person als ein Konzept mit gewissen charakterisierenden Eigenschaften verstanden werden kann.
 Die Existenz von $inst(A, B)$ zwischen zwei Personen-Konzepten $A, B$ bedeutet, dass $B$ die charakterisierenden Eigenschaften von $A$ besitzt und somit beide Konzepte auf die selbe Person verweisen.
-Für die Modellierung dieser Idee werden keine Koreferenzkanten verwendet, da zwei Konzepte, die auf die selbe Person verweisen, dennoch verschieden sein können; $B$ könnte z.~B. ein Konzept sein, welches die Person $A$ zu einem bestimmten Zeitpunkt repräsentiert.
+Für die Modellierung dieser Idee werden keine Koreferenzkanten verwendet, da zwei Konzepte, die auf dieselbe Person verweisen, dennoch verschieden sein können; $B$ könnte z.~B. ein Konzept sein, welches die Person $A$ zu einem bestimmten Zeitpunkt repräsentiert.
 
 \subsection{Ereignisse und Termine}%
 \label{sec:appendix:queries:events}
@@ -54,3 +54,20 @@ Um zu bestimmen, um was für eine Art von Nummer es sich dabei jeweils handelt, 
 \label{sec:appendix:queries:neg}
 
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}
+Diese Anfrage ermittelt zuerst alle Relationen, die von einem Kontext umgeben sind, der den Inhalt einer Nachricht beschreibt, die von \textit{John Doe} gesendet wurde.
+Anschließend wird für jede Relation geprüft, ob sie negative Elternkontexte hat.
+Da in der NLP-Phase bereits doppelte Verneinungen vereinfacht werden, müssen diese nicht beachtet werden.
+Es sind daher drei Fälle zu beachten:
+\begin{enumerate}
+	\item \textbf{\texttt{POSITIVE}:}
+		Die Relation hat keine negativen Elternkontexte und ist somit selbst positiv.
+	\item \textbf{\texttt{NEGATIVE}:}
+		Die Relation hat einen negativen Elternkontext, deren einziges Kind sie ist.
+		In diesem Fall ist die Relation negiert.
+	\item \textbf{\texttt{CONDITIONAL}:}
+		Die Relation hat mehrere negative Elternkontexte oder ist nicht einziges Kind ihres negativen Elternkontextes.
+		In diesem Fall ist die Existenz der Relation abhängig von der Existenz anderer Konzepte.
+		Prinzipiell ließen sich diese Abhängigkeiten abfragen, der Einfachheit halber, wird dies hier jedoch nicht getan.
+\end{enumerate}
+Diese Anfrage ist ein gutes Beispiel dafür, dass mit einer Graph-Anfragesprache, in diesem Beispiel Cypher, Kontexte nur recht umständlich berücksichtigt werden können.
+Das Entwickeln eines speziell für Konzeptgraphen ausgelegten Anfragesystems ist daher empfehlenswert, um die Syntax komplexerer Anfragen verständlich zu halten.

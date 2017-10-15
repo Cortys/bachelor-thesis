@@ -9,14 +9,12 @@ with collect(distinct a.label) as agents,
 	r, nestPath
 unwind nodes(nestPath) as ctx
 optional match (ctx)-[:nest]->(child)
-with ctx, count(ctx) as cnt, agents, r, patients
+with ctx, count(child) as cnt, agents, r, patients
 with filter(c in collect({neg: ctx.negative, cnt: cnt}) where c.neg) as negs,
 	agents, r, patients
 with case
-	when size(negs) > 0 then case
-		when any(c in negs where c.cnt > 1) then "CONDITIONAL"
-		else "NEGATIVE"
-	end
-	else "POSITIVE"
+	when size(negs) = 0 then "POSITIVE"
+    when size(negs) = 1 and none(c in negs where c.cnt > 1) then "NEGATIVE"
+    else "CONDITIONAL"
 end as truth, agents, r, patients
 return agents, r.label as relation, patients, truth
