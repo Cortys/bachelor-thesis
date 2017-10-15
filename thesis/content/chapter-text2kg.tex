@@ -241,7 +241,7 @@ In der zweiten Stufe werden dann die CoreNLP-Annotationen in eine Konzeptgraphin
 \label{sec:text2kg:nlp:msg}
 
 Vor der Beschreibung der Pipeline-Stufen, muss geklärt werden, wie genau die eingegebenen Nachrichten aufgebaut sind.
-Da diese Arbeit lediglich die grundlegende Architektur eines Wissensgraphkonstruktionsverfahrens beschreibt, wurde eine vereinfachte Struktur gewählt, die die wesentlichen Eigenschaften von Nachrichten enthält.
+Da diese Arbeit lediglich die grundlegende Architektur eines Wissensgraph-Konstruktionsverfahrens beschreibt, wurde eine vereinfachte Struktur gewählt, die die wesentlichen Eigenschaften von Nachrichten enthält.
 Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponenten verstanden:
 \begin{enumerate}
 	\item \textbf{Sender:}
@@ -315,7 +315,7 @@ Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich h
 Aus dem Annotationsgraphen einer Nachricht muss im nächsten Schritt der sog.\ \textit{Extraktionsgraph} erstellt werden.
 Hierbei handelt es sich um einen Konzeptgraphinstanzen der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie, der den Inhalt der Nachricht beschreibt.
 Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich jede beliebige Aussage im Extraktionsgraph zu repräsentieren.
-Das Ziel der Extraktionsgraphkonstruktion ist daher lediglich, einige wesentliche repräsentierbare semantische Strukturen zu identifizieren.
+Das Ziel der Extraktionsgraph-Konstruktion ist daher lediglich, einige wesentliche repräsentierbare semantische Strukturen zu identifizieren.
 
 Hierfür wird eine deterministische regelbasierte Transformationspipeline benutzt.
 Diese basiert auf der Annahme, dass bestimmte Muster von POS-Tags und grammatikalischen Abhängigkeiten Rückschlüsse auf die semantischen Rollen in einer Aussage zulassen.
@@ -503,7 +503,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 
 Dies ist die trivialste der vier Phasen.
 Sie wird hier lediglich der Vollständigkeit halber erwähnt.
-Alle Abhängigkeitsgraph-Kanten, sowie POS-Tags und NER-Klassen-Tags werden entfernt, $coref$-Kanten bleiben erhalten.
+Alle Abhängigkeitsgraph-Kanten, sowie POS-Tags und NER-Klassen-Tags werden entfernt, $\mathit{coref}$-Kanten bleiben erhalten.
 Das Ergebnis ist nun bereits beinahe ein Konzeptgraph.
 
 \subsubsection{4. Phase: Vereinfachen der Extraktionen}
@@ -511,7 +511,7 @@ Das Ergebnis ist nun bereits beinahe ein Konzeptgraph.
 \paragraph{Koreferenzkanten}
 Nach der dritten Phase liegt zwar prinzipiell eine Konzeptgraphstruktur vor, es kann allerdings noch Verletzungen der Eigenschaft dominierender Knoten geben.
 Konkret liegt dies daran, dass die in~\ref{sec:text2kg:nlp:corenlp} eingefügten Koreferenzkanten nach Einfügen der Kontexte in benachbarten Kontexten liegen können.
-Dies passiert z.~B. dann, wenn in zwei Nebensätzen von der selben Person gesprochen wird, diese jedoch im Hauptsatz nicht auftaucht.
+Dies passiert z.~B. dann, wenn in zwei Nebensätzen von derselben Person gesprochen wird, diese jedoch im Hauptsatz nicht auftaucht.
 Die Existenz einer derartigen Koreferenz impliziert, dass das koreferente Konzept auch im Kontext des Hauptsatzes existent sein muss, obwohl es nicht explizit erwähnt wird.
 
 Um dominierende Knoten zu erhalten, können die koreferenten Konzepte zu einem Konzeptknoten zusammengefasst werden.
@@ -532,7 +532,7 @@ Das Ergebnis ist der Extraktionsgraph.
 	\caption{Annotationsgraph und daraus konstruierter Extraktionsgraph der Nachricht \textit{``I think I saw you in the red tent today.''} vom \texttt{2017-06-11}.}\label{fig:text2kg:extractionGraph1} % chktex 8
 \end{figure}
 
-\section{Wissensgraphkonstruktionsphase}%
+\section{Wissensgraph-Konstruktionsphase}%
 \label{sec:text2kg:psl}
 
 Nachdem nun geklärt ist, wie die Konstruktion des Extraktionsgraphen einer Nachricht abläuft, wird im Folgenden beschrieben, wie dieser Extraktionsgraph mittels PSL in einen bestehenden Wissensgraphen eingefügt wird.
@@ -540,13 +540,13 @@ Nachdem nun geklärt ist, wie die Konstruktion des Extraktionsgraphen einer Nach
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{gfx/text2kg/pslPhase.pdf}
-	\caption{Wissensgraphkonstruktionsphase der Konstruktionspipeline}\label{fig:text2kg:pslPhase}
+	\caption{Wissensgraph-Konstruktionsphase der Konstruktionspipeline}\label{fig:text2kg:pslPhase}
 \end{figure}
 
 \subsection{Konstruktion des Konjunktionsgraphen}%
 \label{sec:text2kg:psl:conj}
 
-Der erste Schritt der Wissensgraphkonstruktion ist das Bilden des sog.\ Konjuktionsgraphen.
+Der erste Schritt der Wissensgraph-Konstruktion ist das Bilden des sog.\ Konjuktionsgraphen.
 Der Konjunktionsgraph ist ein Konzeptgraph, der alle Informationen der einzufügenden Nachricht und des bestehenden Wissensgraphen enthält, allerdings noch keine Schlussfolgerungen aus den hinzugekommenen Informationen beinhaltet.
 Der Konjunktionsgraph wird in vier Schritten konstruiert.
 \begin{enumerate}
@@ -697,8 +697,8 @@ Falls also ein Konzept Instanz zweier Personen ist, muss eine dieser beiden Pers
 Anders formuliert bedeutet dies, dass ein Konzept nicht zugleich zwei verschiedene Personen $p_1 \neq p_2$ repräsentieren kann.
 Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
 
-\paragraph{Wissensgraphkonstruktion}
-Die Wissensgraphkonstruktion lässt sich nun als Inferenz mit dem PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ verstehen.
+\paragraph{Wissensgraph-Konstruktion}
+Die Wissensgraph-Konstruktion lässt sich nun als Inferenz mit dem PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ verstehen.
 Die geschlossenen Grundatome $\mathbb{C}$ der Eingabe sind die Relationen und deren Argumente im Konjuktionsgraph.
 Als offene Grundatommenge $\mathbb{O}$ werden alle übrigen möglichen Relationen von und zwischen Konzeptknoten verwendet.
 $\mathbb{O}$ kann und muss dabei nicht vollständig in den Speicher geladen werden.

@@ -3,12 +3,12 @@
 \chapter{Verwandte Arbeiten}%
 \label{sec:related}
 
-Die in~\ref{sec:intro:goals} beschriebenen Ziele werden bereits seit langem erforscht.
+Das in~\ref{sec:intro:goals} beschriebene Ziel der automatisierten Wissensgraph-Konstruktion wird bereits seit langem erforscht.
 Der Begriff \textit{Wissensgraph} wurde 2012 durch Google popularisiert, die Ideen dahinter lassen sich allerdings bis ins Ende des 19. Jahrhunderts zurückverfolgen.
 Dieses Kapitel zeigt auf, wie sich die Themen dieser Arbeit in die bisherige Forschung einfügen.
 \ref{sec:related:kr} ordnet hierfür das Konzept des Wissensgraphen in die Entwicklungsgeschichte der Wissensrepräsentation ein. % chktex 2
 In~\ref{sec:related:nlp} wird ein Überblick über die momentan verbreiteten \textit{Natural Language Processing} (NLP) Werkzeuge gegeben.
-Das Wissensgraphkonzept und NLP wird schließlich in~\ref{sec:related:kgc} kombiniert und es werden die aktuell verwendeten Verfahren zur Wissensgraphkonstruktion beschrieben.
+Das Wissensgraphkonzept und NLP wird schließlich in~\ref{sec:related:kgc} kombiniert und es werden die aktuell verwendeten Verfahren zur Wissensgraph-Konstruktion beschrieben.
 
 \section{Ansätze zur Wissensrepräsentation}%
 \label{sec:related:kr}
@@ -69,13 +69,13 @@ Im Gegensatz zu den prädikatenlogischen Ersetzungsaxiomen, die auf der syntakti
 
 \paragraph{Prädikatenlogik: Peano-Russell Notation (1910)}
 Die zweidimensionalen Notationen wurde häufig kritisiert, da sie die lineare, algebraische Notation der symbolischen Logik von Boole und De Morgan verwarfen~\cite{Sluga1987}.
-Freges Begriffsschrft und Peirces Existenzgraphen konnten sich daher nicht durchsetzen.
+Freges Begriffsschrift und Peirces Existenzgraphen konnten sich daher nicht durchsetzen.
 Peirces algebraische prädikatenlogische Notation hingegen, stieß auf größere Akzeptanz.
 Giuseppe Peano hat auf deren Basis eine ähnliche Notation entwickelt, welche allerdings nicht die algebraischen Operatoren benutzt, damit sich logische Ausdrücke besser mit mathematischen Ausdrücken kombinieren lassen.
 Bertrand Russell hat Peanos Notation anschließend in leicht abgewandelter Form in den \textit{Principia Mathematica}~\cite{Whitehead1910} benutzt.
 Diese sog.~Peano-Russell-Notation ist im Wesentlichen identisch mit der modernen Schreibweise.
 
-Trotz des Verschwindens der zweidimensionalen Notationen, finden sich noch heute Anlehnungen daran~\cite{WikiBegriffsschrift}.
+Trotz des Verschwindens der zweidimensionalen Notationen, finden sich noch heute Anlehnungen daran~\cite{Begriffsschrift}.
 So ist z.~B. die Negation $\lnot A$ auf Freges negierten Inhaltsstrich $\Fncontent A$ und der Ableitungsoperator $\vdash$ auf Freges Urteilsstrich mit angefügtem Inhaltsstrich $\Facontent$ zurückzuführen.
 
 \subsection{Entwicklung maschineller Wissensrepräsentation}%
@@ -98,11 +98,11 @@ Zwar war es so theoretisch möglich Probleme aus diversen Domänen zu lösen, au
 
 \paragraph{Expertensysteme}
 Aufgrund der Misserfolge universeller Problemlöser für praktische Probleme, hat die Forschung begonnen sich mehr auf die Entwicklung von Expertensystemen zu fokussieren.
-Expertensysteme besitzen für gewöhnlich eine Wissensbasis in der domänenspezifisches Wissen in Form von Regeln und Fakten kodiert ist.
+Expertensysteme besitzen für gewöhnlich eine Wissensbasis, in der domänenspezifisches Wissen in Form von Regeln und Fakten kodiert ist.
 Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen.
 
 \paragraph{Semantic Networks (1956)}
-Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht erstmal in den sog.~\textit{Semantic Networks}~\cite{Lehmann1992} (zu dt.~semantische Netzwerke) auf.
+Die Idee, Graphen als Datenstruktur für Wissensbasen zu verwenden, taucht im Kontext der Informatik erstmals unter dem Begriff \textit{Semantic Networks}~\cite{Lehmann1992} (zu dt.~semantische Netzwerke) auf.
 Dieser Ansatz beschreibt Wissen als Menge von $(subject,\allowbreak predicate,\allowbreak object)$-Tripeln.
 Es gibt darüber hinaus allerdings keine klaren Regeln, wie ein semantisches Netz strukturiert sein muss.
 Semantische Netzwerke sind daher primär als ein Oberbegriff für die große Vielfalt konkreter graphbasierter Wissensbasen zu verstehen.
@@ -166,7 +166,8 @@ Sie wird benutzt, um Suchanfragen semantisch, statt per String-Matching, zu bean
 So können z.~B. zum Suchbegriff verwandte Ergebnisse angezeigt werden, selbst wenn es keine textuelle Ähnlichkeit zu jenem gibt.
 Laut Googles Aussagen stammen die Quelldaten u.~a.\ aus Wikipedia Infoboxen, Wikidata und dem CIA World Factbook.
 Da es sich hierbei, im Gegensatz zu NELL, primär um strukturierte Daten handelt, ist das automatisierte Einpflegen mit hoher Genauigkeit möglich.
-Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekannt.
+Mit welcher Ontologie die Daten im Graph repräsentiert werden und wie sie in diese Repräsentation übersetzt werden, ist nicht öffentlich bekannt.
+Obwohl bislang nur wenig über die Technologie veröffentlicht wurde, lässt sich beobachten, dass das öffentliche Interesse an der Thematik seit Googles Ankündigung im Mai 2012 deutlich gestiegen ist~\freft{fig:related:kgTrend}.
 
 \begin{figure}[h]
 	\centering
@@ -199,12 +200,12 @@ Wie genau die Daten im Graph repräsentiert werden, ist nicht öffentlich bekann
 \section{NLP-Werkzeuge}%
 \label{sec:related:nlp}
 
-Neben der Repräsentation von Wissen, ist auch die Verarbeitung natürlicher Sprache ein Kernbestandteil dieser Arbeit.
+Neben der Repräsentation von Wissen, ist auch die Verarbeitung natürlicher Sprache eine Kernaufgabe dieser Arbeit.
 Hierfür existiert bereits eine Vielzahl von \textit{Natural Language Processing} (NLP) Werkzeugen.
-Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in den meisten Werkeugen verwendet werden.
+Trotz dieser Vielfalt lassen sich grundlegende Verarbeitungsschritte festmachen, die in den meisten Werkeugen verwendet werden.
 \begin{enumerate}
 	\item \textbf{Tokenization:}
-		Oftmals einer der ersten Verarbeitungsschritte einer NLP Bibliothek.
+		In der Regel einer der ersten Verarbeitungsschritte einer NLP Bibliothek.
 		Eine Eingabezeichenkette wird dabei in eine Liste von Tokens zerlegt.
 		Token sind u.~a. Wörter, Satzzeichen und numerische Literale.
 		\[
@@ -230,7 +231,7 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 			({\color{gruen}\underbrace{\text{Today}}_{\text{date}}}, \text{I}, \text{'m}, \text{testing}, \text{myself}, \text{.})
 		\]
 	\item \textbf{Coreference Resolution:}
-		Bestimmung von Token-Äquivalenzklassen, die jeweils auf das selbe Konzept verweisen (insbesondere Pronomina und ihr Antezedens).
+		Bestimmung von Token-Äquivalenzklassen, die jeweils auf dasselbe Konzept verweisen (insbesondere Pronomina und ihr Antezedens).
 		\begin{align*}
 			(\text{Today}, \tikzmark{a}\text{\color{rot}I}, \text{'m},
 			 \text{testing}, \text{\color{rot}mys}\tikzmark{b}\text{\color{rot}elf}, \text{.})
@@ -239,7 +240,7 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 			\end{tikzpicture}
 		\end{align*}
 	\item \textbf{Dependency Parsing:}
-		Eine auf den POS-Tags aufbauende syntaktische Analyse, welche die grammatikalischen Abhängigkeiten der Token untereinander ausgibt.
+		Eine auf den Part-of-speech-Tags aufbauende syntaktische Analyse, welche die grammatikalischen Abhängigkeiten der Token untereinander ausgibt.
 		Die Menge dieser Abhängigkeiten bildet einen Baum oder baumähnlichen Graphen, der \textit{Treebank} bzw.\ \textit{Dependency Graph} genannt wird.
 		\begin{center}
 			\includegraphics[height=5.5em]{gfx/related-work/depParseExample1.pdf}
@@ -248,19 +249,19 @@ Trotz dieser Vielfalt lassen sich Kernverarbeitungsschritte festmachen, die in d
 
 Wie sich erkennen lässt, bauen die Verarbeitungsschritte sukzessive aufeinander auf und bilden eine Art Pipeline~\cite{Pipeline}.
 Dieses Pipeline-Modell findet sich in vielen NLP-Werkzeugen wieder.
-Ein solches ist z.~B. das quelloffene Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
+Ein solches Werkzeug ist z.~B. das quelloffene Stanford~CoreNLP Projekt~\cite{Manning2014}\cite{CoreNLP}, welches u.~a. Module für alle der soeben vorgestellten Verarbeitungsschritte beinhaltet.
 Ein alternatives NLP-Toolkit ist Apache~OpenNLP~\cite{OpenNLP};\@
 es bietet ähnliche Module wie CoreNLP an.
 
-\section{Wissensgraphkonstruktionsverfahren}%
+\section{Wissensgraph-Konstruktionsverfahren}%
 \label{sec:related:kgc}
 
 Wie in~\ref{sec:related:kr:today} gezeigt, gibt es diverse Ansätze um Graphen aus Daten zu konstruieren.
 Da für das Thema dieser Arbeit insbesondere automatisierte Verfahren relevant sind, die mit unstrukurierten Daten, wie z.~B. natürlicher Sprache, umgehen können, werden diese im Folgenden näher beschrieben.
 
-Üblicherweise arbeiten Wissensgraphkonstruktionsverfahren nicht direkt mit den unstrukturierten Eingabedaten, wie z.~B. den Inhalten von E-Mails,
+Üblicherweise arbeiten Wissensgraph-Konstruktionsverfahren nicht direkt mit den unstrukturierten Eingabedaten, wie z.~B. den Inhalten von E-Mails,
 sondern mit einer Knoten- bzw.\ Konzeptmenge und ggf.\ auch einer Kanten- bzw.\ Relationsmenge, die zuvor, z.~B. mittels eines in~\ref{sec:related:nlp} vorgestellten NLP-Verfahrens, aus den Rohdaten extrahiert wurden.
-Die Wissensgraphkonstruktion ist somit äquivalent zum Problem der \textit{Link Prediction}, also dem Finden von Relationen zwischen den gegebenen Konzepten.
+Die Wissensgraph-Konstruktion ist somit äquivalent zum Problem der \textit{Link Prediction}, also dem Finden von Relationen zwischen den gegebenen Konzepten.
 Die Link Prediction wiederum lässt sich als ein Problem des \textit{Statistical Relational Learnings} (SRL) auffassen.
 In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cite{Nickel2016}, die auf verschiedenen Annahmen über die Korrelation der zu verknüpfenden Informationen basieren:
 \begin{enumerate}
@@ -274,7 +275,7 @@ In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cit
 
 \paragraph{Latent Feature Models}
 Ein Beispiel für ein Latent Feature Modell ist das RESCAL-Verfahren~\cite{Nickel2013}, welches auf Tensorfaktorisierung basiert.
-Die Grundidee dabei ist es, allen Entitäten $i$ einen Feature-Vektor $e_i \in \mathbb{R}^H$ zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
+Die Grundidee dabei ist es, allen Entitäten $i$ einen Vektor $e_i \in \mathbb{R}^H$, welcher $H$ Eigenschaften bzw.\ Features von $i$ repräsentiert, zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
 Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^\top\ W_k\ e_j$ beschrieben.
 Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
 RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.
@@ -293,14 +294,14 @@ Fundamental verschieden von diesen beiden Verfahren sind \textit{Markov Random F
 Hier sind prinzipiell Abhängigkeiten zwischen allen Relationen möglich, was MRFs sehr flexibel macht.
 Da dies hinsichtlich der Laufzeit schnell impraktikabel wird, wird das Modell um einen Abhängigkeitsgraphen erweitert, der die Anzahl von betrachteten Abhängigkeiten reduziert.
 Der Abhängigkeitsgraph darf dabei nicht mit dem Wissensgraphen verwechselt werden:
-Ersterer beschreibt statistische Abhängigkeiten zwischen Relationen, während letzterer Relationen zwischen Konzepten beschreibt.
+Der Abhängigkeitsgraph beschreibt statistische Abhängigkeiten zwischen Relationen, während der Wissensgraphen Relationen zwischen Konzepten beschreibt.
 Zur Modellierung von Abhängigkeitsgraphen werden i.~d.~R. Kalküle verwendet, die an eine Prädikatenlogik erster Ordnung angelehnt sind.
 Das Finden eines Wissensgraphen ist in diesem Modell analog zum Lösen des MAX-SAT-Problems.
-Wählt man ein Kalkül in dem die Atome (i.~e.\ Zufallsvariablen des MRFs) aus $[0, 1]$ sind, und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz T-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}.
+Wählt man ein Kalkül, in dem die Atome (i.~e.\ Zufallsvariablen des MRFs) aus $[0, 1]$ sind und Formeln zudem ausschließlich Disjunktionen und Negationen gemäß Łukasiewicz T-Norm enthalten, erhält man ein sog.\ \textit{Hinge-Loss-MRF}~\cite{Bach2013}\cite{Bach2015}.
 
 Ein konkretes Kalkül, welches sich zur Spezifikation von HL-MRFs eignet, ist die \textit{Probabilistic Soft Logic} (PSL)~\cite{Broecheler2010}\cite{Bach2015}.
 MAX-SAT lässt sich für solche HL-MRFs effizient und parallelisierbar mit dem konvexen \textit{Alternating Direction Method of Multipliers} (ADMM) Optimierungsverfahren~\cite{Boyd2011} lösen.
-In dessen ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
+In seiner ursprünglichen Form ist ADMM allerdings ausschließlich für offline Inferenz geeignet;
 der Wissensgraph müsste also bei jeder Eingabe neu konstruiert werden.
 Um dieses Problem zu lösen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren~\cite{Pujara2015} entwickelt.
 BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Bewertung für jedes Atom zu berechnen.
@@ -309,7 +310,7 @@ Kommen nun neue Informationen an, müssen ausschließlich die $m$ höchstbewerte
 Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
 Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist, als bei einer kompletten offline Inferenz.
 
-Die Kombination von PSL, ADMM und BOCI ist daher ein guter Ausgangspunkt für den Entwurf eines online Wissensgraphkonstruktionsverfahrens.
-Der Vorteil dieses Ansatzes gegenüber eines Latent Feature oder Graph Feature Modells ist, dass sich andere domänenspezifische Expertensysteme leicht in eine PSL Inferenz integrieren lassen.
+Die Kombination von PSL, ADMM und BOCI ist daher ein guter Ausgangspunkt für den Entwurf eines online Wissensgraph-Konstruktionsverfahrens.
+Der Vorteil dieses Ansatzes gegenüber Latent Feature oder Graph Feature Modellen ist, dass sich domänenspezifische Expertensysteme, z.~B. Geoinformationssysteme, leicht in eine PSL Inferenz integrieren lassen.
 PSL erlaubt nämlich die Inklusion von benutzerdefinierten Funktionen und Prädikaten.
 Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten oder domänenspezifisches Hintergrundwissen, wie die Distanz zwischen zwei namentlich genannten Orten, mit in die Entity Resolution einfließen zu lassen.

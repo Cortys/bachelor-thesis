@@ -5,19 +5,19 @@
 \chapter{Grundlagen und Hilfsmittel}%
 \label{sec:theory}
 
-In Kapitel~\ref{sec:related} wurde ein Überblick über das Problemumfeld der Wissensgraphkonstruktion gegeben.
+In Kapitel~\ref{sec:related} wurde ein Überblick über das Problemumfeld der Wissensgraph-Konstruktion gegeben.
 Diese Arbeit baut insbesondere auf den bereits kurz vorgestellten Konzeptgraphen, Stanfords~CoreNLP Bibliothek und der PSL auf.
-Für die folgenden Kapitel ist ein Grundverständnis dieser drei Themen notwendig.
+Für die folgenden Kapitel ist ein Grundverständnis dieser drei Hilfsmittel notwendig.
 Sie werden daher in den folgenden Abschnitten näher beschrieben.
 
 \section{Wissensmodellierung mit Konzeptgraphen}%
 \label{sec:theory:cg}
 
-John F. Sowas Konzeptgraphen bilden die Basis der Graphontologie dieser Arbeit.
+John F. Sowas Konzeptgraphen~\cite{Sowa1976} bilden die Basis der Graphontologie dieser Arbeit.
 Wie in~\ref{sec:related:kr:history} beschrieben, sind sie ein auf Existenzgraphen basierendes logisches Kalkül.
 Die vollständige Konzeptgraphsyntax geht allerdings weit über die Prädikatenlogik hinaus, da auch Modallogik und natürlichsprachliche Konzepte, wie z.~B. Fragen und Betonungen, unterstützt werden.
 Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
-Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, deren Vollständigkeit und Korrektheit bewiesen ist.
+Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, die ein Kalkül bildet, dessen Vollständigkeit und Korrektheit bewiesen ist.
 
 \subsection{Syntax}%
 \label{sec:theory:cg:syntax}
@@ -25,7 +25,7 @@ Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizi
 In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
 
 \paragraph{Konzeptknoten (\textit{concepts})}
-	Entsprechen in etwa existenzquantisierten gebundenen Variablen.
+	Entsprechen in etwa existenzquantisiert gebundenen Variablen.
 	Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
 	\begin{align*}
 		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/conceptNode.pdf}}}
@@ -104,15 +104,17 @@ Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die d
 So wie die Syntaxelemente prädikatenlogischer Ausdrücke nicht beliebig kombiniert werden können, unterliegen auch Konzeptgraphen gewissen Einschränkungen.
 Die Einschränkung, dass alle Knoten und Kontexte höchstens einen Elternkontext haben dürfen, wurde bereits erwähnt.
 Die zweite wichtige Einschränkung ist das Verbot nicht dominierender Knoten (\textit{dominating nodes}).
-Was genau dies bedeutet, wird im Folgenden erläutert. Zuerst müssen Konzeptgraphen jedoch formal spezifiziert werden.
+Was genau dies bedeutet, wird im Folgenden erläutert.
+Zuerst müssen Konzeptgraphen jedoch formal spezifiziert werden.
 \begin{align*}
-	G :=\ &(V, E) \text{, mit globalem Kontext } \top \in V \\
+	G :=\ &\text{gerichteter Graph } (V, E) \text{, mit globalem Kontext } \top \in V \\
+	V :=\ &concept \mathbin{\dot\cup} relation \mathbin{\dot\cup} context, E := nest \mathbin{\dot\cup} \mathit{coref} \mathbin{\dot\cup} arg \\ % chktex 35
 	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
 	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
 	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
 	neg(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Negationskontext} \displaybreak[0]\\
 	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
-	coref(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
+	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
 	arg(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
 	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\ c \in V \setminus \{ \top \}: nest(c, v) \} \displaybreak[0]\\
 	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
@@ -167,9 +169,9 @@ Das größte Element gemäß $\leq$ ist also immer $\top$.
 Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren.
 \begin{align*}
 	dom(G) :\Leftrightarrow\ & \forall\ r, v \in V: arg(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
-	& \land \forall\ v_1, v_2 \in V: coref(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
+	& \land \forall\ v_1, v_2 \in V: \mathit{coref}(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
 \end{align*}
-Für jeden Konzeptgraphen $G$ muss $dom(G)$ gelten.
+Ein Graph $G$ ist ein Konzeptgraph gdw.\ $(V, nest)$ ein Wald ist und $dom(G)$ gilt.
 Eine Intuition für diese Einschränkung ist, dass es nicht sinnvoll ist die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist.
 Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
 \begin{figure}[h]
@@ -179,7 +181,7 @@ Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschrei
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $arg(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
 		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation2.pdf}}}
 		\quad
-		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $coref(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
+		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $\mathit{coref}(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
 	\end{align*}
 	\caption{Beispiele für fehlerhafte Konzeptgraphen ohne dominierende Knoten.}\label{fig:theory:invalidkg}
 \end{figure}
@@ -195,18 +197,18 @@ Für die Implementation wurde schließlich CoreNLP gewählt, da es mit den mitge
 Da beide Bibliotheken bzgl.\ ihrer Funktionalität allerdings recht ähnlich sind, kann die NLP Komponente als substituierbar angesehen werden.
 Ein Wechsel von CoreNLP auf OpenNLP wäre mit relativ geringem Aufwand möglich.
 
-Im Folgenden wird nun die grundlegende Architektur von CorenNLP beschrieben.
+Im Folgenden wird nun die grundlegende Architektur von CoreNLP beschrieben.
 CoreNLP verwendet das in~\ref{sec:related:nlp} vorgestellte Pipeline-Modell.
 Die verschiedenen Verarbeitungsstufen der Pipeline werden Annotatoren genannt.
-Da die genaue Funktionsweise der Annotatoren ist für diese Arbeit weniger relevant, wichtiger ist ein Überblick über die Art der Ergebnisse, die die Annotatoren liefern.
+Die genaue Funktionsweise der Annotatoren ist für diese Arbeit weniger relevant, wichtiger ist ein Überblick über die Art der Ergebnisse, die die Annotatoren liefern.
 
 \paragraph{Tokenization und Lemmatization}
-Liefern, wie erwartet, eine Liste von Token bzw.\ eine Liste der Lemmata der Token.
-Es werden neben Englisch zahlreiche andere Sprachen und ein Großteil des Unicode Zeichensatzes unterstützt.
-Der Tokenizer verwendet zum Finden der Tokens intern einen deterministischen endlichen Automaten.
+Diese Annotatoren liefern, wie erwartet, eine Liste von Token bzw.\ eine Liste der Lemmata der Token.
+Es werden neben Englisch zahlreiche weitere Sprachen und ein Großteil des Unicode Zeichensatzes unterstützt.
+Der Tokenizer verwendet zum Finden der Token intern einen deterministischen endlichen Automaten.
 
 \paragraph{POS-Tagging}
-Ordnet jedem Token eine Wortart und Flexion (POS-Tag) zu.
+Dieser Annotator ordnet jedem Token eine Wortart und Flexion (POS-Tag) zu.
 Die Menge der möglichen POS-Tags wurde aus dem \textit{Penn Treebank Tag Set}~\cite{Santorini1990} übernommen.
 Für das Finden der Tags benutzt CoreNLP sog.\ \textit{Cyclic Dependency Networks}~\cite{Toutanova2003}, eine Erweiterung bayesscher Netze, in denen zyklische Abhängigkeiten erlaubt sind.
 
@@ -229,7 +231,7 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 \end{enumerate}
 
 \paragraph{Coreference Resolution}
-Ermittelt Äquivalenzklassen von Token, die auf das selbe Konzept bzw.\ die selbe Entität verweisen.
+Ermittelt Äquivalenzklassen von Token, die auf dasselbe Konzept bzw.\ dieselbe Entität verweisen.
 CoreNLP stellt hierfür drei verschiedene Systeme bereit:
 Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen basiert.
 
@@ -275,7 +277,7 @@ Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvekto
 \begin{align*}
 	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
 	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
-	G :=&\ (X, E) \\
+	G :=&\ (\{ X_1, \dots, X_n \}, E) \\
 	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \displaybreak[0]\\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
@@ -313,8 +315,8 @@ MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllen
 	{\begin{align*}
 		X :=&\ (A, B, C, D) \text{, mit } Bild(X) = {\{0, 1\}}^4 \\
 		\mathcal{C} :=&\ \{{\color{rot}\underbrace{\{ A, B, C \}}_{c_1}}, {\color{blau}\underbrace{\{ C, D \}}_{c_2}}\} \\ % chktex 21
-		{\color{rot}\Phi_{c_1}}(a, b, c) :=&\ \min\{ 1 - a + b + c, 1 \} \\ % chktex 21
-		{\color{blau}\Phi_{c_2}}(c, d) :=&\ \min\{ 2 - c - d, 1 \} \\ % chktex 21
+		{\color{rot}\Phi_{c_1}}(a, b, c) :=&\ \min\{ (1 - a) + b + c, 1 \} \\ % chktex 21
+		{\color{blau}\Phi_{c_2}}(c, d) :=&\ \min\{ (1 - c) + (1 - d), 1 \} \\ % chktex 21
 		P(X = (a, b, c, d)) :=&\ \frac{1}{Z} {\color{rot}\Phi_{c_1}}(a, b, c)\ {\color{blau}\Phi_{c_2}}(c, d)
 	\end{align*}}
 \end{tabular}\\
@@ -322,11 +324,15 @@ Eine Clique repräsentiert in diesem MRF eine Disjunktionsklausel und das Clique
 Gemäß dieser Definition, lässt sich die Erfüllbarkeit durch $\max_{x} P(X = x) > 0$ ausdrücken, d.~h.\ die Formel ist erfüllbar, gdw.\ es eine Variablenbelegung mit Eintrittswahrscheinlichkeit~$> 0$ gibt.
 Die Normalisierungskonstante $Z$ hat auf das Ergebnis keinen Einfluss und kann daher ignoriert werden.
 
+In diesem sehr einfachen Beispiel konnte jede Klausel eindeutig auf eine Clique abgebildet werden.
+Dies ist nicht immer der Fall; fügt man dem obigen Beispiel die Klausel $(\lnot B)$ hinzu, muss ${\color{rot}\Phi_{c_1}}(a, b, c) = (1 - b) \min\{ (1 - a) + b + c, 1 \}$ gesetzt werden. % chktex 21
+Falls es also eine Klausel gibt, die alle Variablen der SAT-Instanz enthält, und es somit nur eine Clique gibt, sind alle Zufallsvariablen voneinander abhängig.
+
 \paragraph{Das MRF-Inferenzproblem}
 Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Inferenzproblem, d.~h.\ das Finden einer maximal wahrscheinlichen Belegung der Zufallsvariablen, ein NP-schweres Problem.
 Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
-Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
-Wenn z.~B. $G$ ein Baum ist, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden.
+Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das Erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
+Wenn z.~B. $G$ ein Baum ist, es also nur 2-Cliquen gibt, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden (siehe 2-SAT~\cite{2SAT}).
 
 \subsection{Hinge-Loss MRFs}%
 \label{sec:theory:psl:hlmrf}
@@ -358,6 +364,9 @@ Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge von Variablenindizes 
 \[
 	C_j \cong \left(\bigvee_{i \in I^{+}_j} X_i\right) \lor \left(\bigvee_{i \in I^{-}_j} \lnot X_i\right)
 \]
+Statt jeder Clique ein Potential zuzuordnen, wird in HL-MRFs jeder Klausel ein Potential zugeordnet;
+dies wird getan, um die Potentiale einfacher zu halten.
+Zwei Klauseln mit denselben Variablen werden also durch zwei Potentiale, statt, wie in MRFs, durch eines, beschrieben.
 
 \paragraph{Łukasiewicz Logik}
 Da die Variablen der KNF-Formel, gemäß obiger Definition, Werte~$\in [0, 1]$ annehmen können, ist nun noch unklar, wie die Operatoren $\land$, $\lor$ und $\lnot$ funktionieren sollen.
