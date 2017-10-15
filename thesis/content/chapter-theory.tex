@@ -108,14 +108,14 @@ Was genau dies bedeutet, wird im Folgenden erläutert.
 Zuerst müssen Konzeptgraphen jedoch formal spezifiziert werden.
 \begin{align*}
 	G :=\ &\text{gerichteter Graph } (V, E) \text{, mit globalem Kontext } \top \in V \\
-	V :=\ &concept \mathbin{\dot\cup} relation \mathbin{\dot\cup} context, E := nest \mathbin{\dot\cup} \mathit{coref} \mathbin{\dot\cup} arg \\ % chktex 35
+	V :=\ &concept \mathbin{\dot\cup} relation \mathbin{\dot\cup} context, E := nest \mathbin{\dot\cup} \mathit{coref} \mathbin{\dot\cup} \mathit{arg} \\ % chktex 35
 	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
 	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
 	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
 	neg(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Negationskontext} \displaybreak[0]\\
 	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
 	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
-	arg(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
+	\mathit{arg}(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
 	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\ c \in V \setminus \{ \top \}: nest(c, v) \} \displaybreak[0]\\
 	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
 	& \lor nest(b, a) \lor (\exists\ c \in V: nest(c, a) \land nest(c, b))
@@ -168,7 +168,7 @@ Das größte Element gemäß $\leq$ ist also immer $\top$.
 
 Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren.
 \begin{align*}
-	dom(G) :\Leftrightarrow\ & \forall\ r, v \in V: arg(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
+	dom(G) :\Leftrightarrow\ & \forall\ r, v \in V: \mathit{arg}(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
 	& \land \forall\ v_1, v_2 \in V: \mathit{coref}(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
 \end{align*}
 Ein Graph $G$ ist ein Konzeptgraph gdw.\ $(V, nest)$ ein Wald ist und $dom(G)$ gilt.
@@ -178,7 +178,7 @@ Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschrei
 	\begin{align*}
 		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation1.pdf}}}
 		\quad
-		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $arg(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
+		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $\mathit{arg}(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
 		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation2.pdf}}}
 		\quad
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $\mathit{coref}(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
