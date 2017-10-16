@@ -1,4 +1,53 @@
 % !TEX root = ../main.tex
-%
-\chapter{Zusammenfassung}
+% chktex-file 46
+\chapter{Zusammenfassung}%
 \label{sec:conclusion}
+
+Abschließend wird nun zusammengefasst, inwiefern das in~\ref{sec:intro:goals} beschriebene Ziel einer erweiterbaren, parallelisierbaren Wissensgraph-Konstruktion aus Kommunikationsdaten erreicht wurde.
+Hierfür werden in~\ref{sec:conclusion:review} die erreichten Teilziele betrachtet.
+Anschließend wird in~\ref{sec:conclusion:todo} ein Ausblick auf Möglichkeiten der Weiterentwicklung des Systems gegeben.
+
+\section{Rückblick}%
+\label{sec:conclusion:review}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{gfx/conclusion/overview.pdf}
+	\caption{Grober Aufbau des Konstruktionsverfahrens}\label{fig:conclusion:overview}
+\end{figure}
+In Kapitel~\ref{sec:text2kg} wurden Lösungen für die drei wesentlichen Teilprobleme Ontologie, Sprachverarbeitung und Grapherweiterung beschrieben.
+Die drei Teillösungen bilden zusammen ein Konstruktionsverfahren, welches dem zu Anfang beschriebenen Aufbau entspricht.
+
+\paragraph{Ontologie}
+Die Wissensgraphontologie basiert auf Konzeptgraphen.
+Im Gegensatz zu den Fakten-Tripel basierten semantischen Netzen, die lediglich beschreiben, welche Beziehungen zwischen Konzepten existieren, kann mittels Konzeptgraphen auch beschrieben werden, welche Beziehungen nicht, oder nur möglicherweise existieren.
+Die konstruierten Wissensgraphen haben also eine deutlich höhere Ausdrucksstärke, als z.~B. NELL oder der Google~Knowledge~Graph.
+Diese Ausdrucksstärke ist notwendig, um die Komplexität natürlichsprachlicher Aussagen sinnvoll abbilden zu können.
+
+Damit die Konzeptgraphen eine möglichst präzise Semantik haben, muss die Semantik der verwendeten Relationen beschrieben werden.
+Es wurde daher ein möglichst minimales Set von Relationen definiert~\tref{sec:text2kg:ontology:pred}, welches zur Beschreibung einer Vielzahl natürlichsprachlicher Aussagen geeignet ist.
+
+Eine der in~\ref{sec:intro:goals} beschriebenen Anforderungen an das Konstruktionsverfahren ist die Erweiterbarkeit, d.~h.\ die prinzipielle Möglichkeit nicht natürlichsprachliche Eingaben einzufügen.
+Konkret bedeutet dies, dass z.~B. ein Bild in denselben Wissensgraph eingefügt werden kann, in den auch Textnachrichten eingefügt werden.
+Da die gewählten Konzeptgraph-Relationen nicht speziell für natürliche Sprache ausgelegt sind, ist dies prinzipiell möglich;
+es gibt keine Relationen, die bestimmte grammatikalische Konstrukte oder Wortarten abbilden.
+Wie die Integration anderer Eingabearten im Detail aussehen könnte, war jedoch nicht Teil der Aufgabenstellung und wurde daher nicht näher untersucht.
+
+\paragraph{Sprachverarbeitung}
+Für die Transformation einer Nachricht in einen Konzeptgraphen wird das Stanford~CoreNLP Framework mit einer Menge von Transformationsregeln~\tref{sec:text2kg:nlp:transform} kombiniert, welche die von CoreNLP gefundenen Strukturen auf äquivalente Konzeptgraph-Strukturen abbilden.
+
+\paragraph{Grapherweiterung}
+Das Einfügen des aus einer Nachricht extrahierten Konzeptgraphen in einen bestehenden Wissensgraphen erfolgt mittels PSL.\@
+Im Rahmen dieser Arbeit wurde PSL erstmals im Kontext einer Konzeptgraph-basierten Wissensgraph-Konstruktion eingesetzt.
+Es wurde ein Set von PSL-Regeln~\tref{sec:text2kg:psl:inference} vorgestellt, welches den Einsatz in diesem Kontext exemplarisch aufzeigt.
+
+Neben der Erweiterbarkeit war auch die Parallelisierbarkeit eines der in~\ref{sec:intro:goals} beschriebenen Ziele.
+Durch die Wahl von PSL für die Grapherweiterung wurde diese Anforderung prinzipiell erfüllt.
+Das für die Inferenz verwendete ADMM-Verfahren lässt sich gut verteilt lösen.
+In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Programmiermodellen, wie z.~B. Map-Reduce oder Pregel, implementieren lässt.
+Aufbauend darauf, wird in~\cite{Lubell-Doughtie2013} eine konkrete Map-Reduce-basierte Implementation vorgestellt.
+PSL ist prinzipiell also für den Einsatz in Cluster-Umgebungen geeignet.
+In der im Rahmen dieser Arbeit erstellten Implementation wurde jedoch die Single-Machine ADMM-Implementation der PSL-Referenzimplementation verwendet, da diese für einen Prototypen völlig ausreichend ist.
+
+\section{Ausblick}%
+\label{sec:conclusion:todo}

@@ -332,7 +332,7 @@ Falls es also eine Klausel gibt, die alle Variablen der SAT-Instanz enthält, un
 Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Inferenzproblem, d.~h.\ das Finden einer maximal wahrscheinlichen Belegung der Zufallsvariablen, ein NP-schweres Problem.
 Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
 Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das Erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
-Wenn z.~B. $G$ ein Baum ist, es also nur 2-Cliquen gibt, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden (siehe 2-SAT~\cite{2SAT}).
+Wenn z.~B. $G$ ein Baum ist, es also nur 2-Cliquen gibt, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden (vgl.\ 2-SAT~\cite{2SAT}).
 
 \subsection{Hinge-Loss MRFs}%
 \label{sec:theory:psl:hlmrf}
@@ -620,7 +620,7 @@ In der Praxis hat sich jedoch ein Verfahren, als besonders effizient erwiesen.
 \paragraph{ADMM}
 Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM) ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
 Durch diese Variation lässt sich ADMM gut parallelisieren und ist somit geeignet für große Datenmengen und den Einsatz in Cluster-Umgebungen.
-Das ursprüngliche Paper~\cite[Kapitel 10]{Boyd2011} beschreibt explizit, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{Map-Reduce} oder \textit{Pregel} implementieren lässt.
+In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{Map-Reduce} oder \textit{Pregel} implementieren lässt.
 
 Die ADMM-Laufzeit ist proportional zur Klauselanzahl $|C|$.
 Die Klauselanzahl wiederum wächst gemäß $\mathcal{O}(|\mathcal{A}|^r)$, wobei $r$ die maximale Anzahl von Nicht-Grund-Atomen in einer PSL-Regel ist.
