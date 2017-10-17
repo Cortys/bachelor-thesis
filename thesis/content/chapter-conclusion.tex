@@ -49,5 +49,45 @@ Aufbauend darauf, wird in~\cite{Lubell-Doughtie2013} eine konkrete Map-Reduce-ba
 PSL ist prinzipiell also für den Einsatz in Cluster-Umgebungen geeignet.
 In der im Rahmen dieser Arbeit erstellten Implementation wurde jedoch die Single-Machine ADMM-Implementation der PSL-Referenzimplementation verwendet, da diese für einen Prototypen völlig ausreichend ist.
 
+Das Ziel ein erweiterbares, parallelisierbares Wissensgraph-Konstruktionsverfahren für Kommunikationsdaten zu konzipieren wurde somit prinzipiell erreicht.
+Nichts desto trotz gibt es noch zahlreiche Möglichkeiten das vorgestellte Verfahren weiterzuentwickeln.
+
 \section{Ausblick}%
 \label{sec:conclusion:todo}
+
+Im Folgenden wird ein Überblick über Möglichkeiten der Weiterentwickung und offen gebliebene Fragestellungen gegeben.
+
+\paragraph{Verbessern der Testmethode}
+Ein Problem bei der Konzeption des Verfahrens war der Umstand, dass es keine Testdaten mit Referenzergebnissen gibt, anhand derer Änderungen am Verfahren bewertet werden können.
+Die Qualität vieler Entscheidungen, wie z.~B. der Wahl der Regelgewichte, konnte daher nur auf Basis manuell durchgeführter, stichprobenartiger Tests bewertet werden.
+
+Das Entwickeln eines Testdaten-Sets, mit dem sich die Performance eines Wissensgraph-Konstruktionsverfahrens repräsentativ empirisch messen lässt, ist wichtig, um ein systematisches Weiterentwickeln des Verfahrens zu ermöglichen.
+Das in dieser Arbeit verwendete Enron E-Mail Datenset ist potentiell ein guter Ausgangspunkt hierfür.
+Zu klären ist, welche Art von Informationen die Referenzergebnisse enthalten und wie eine umfangreiche Menge solcher Referenzergebnisse konstruiert werden kann.
+
+\paragraph{NLP-Phase}
+Im vorgestellten Verfahren wird lediglich ein Teil der von CoreNLP extrahierten Informationen in Konzeptgraph-Strukturen übersetzt.
+Durch die Integration bislang ungenutzter Abhängigkeitstypen ließe sich die Qualität der Ergebnisse, wie in~\ref{sec:evaluation:quality:results}~Anfrage~2 gezeigt, deutlich verbessern.
+
+Außerdem sollte die verwendete Heuristik zur Übersetzung von natürlichsprachlicher Negation in negative Kontexte verbessert werden.
+In~\ref{sec:evaluation:quality:results}~Anfrage~4 wird dies deutlich.
+Ein Ansatz hierfür ist z.~B. das Nutzen des CoreNLP Natural Logic Annotators~\cite{MacCartney2007}, welcher u.~a.\ Quantoren, Negationen und die zugehörigen Scopes, d.~h.\ die modifizierten Token, erkennt.
+
+\paragraph{PSL-Phase}
+Die verwendeten domänenspezifischen Regeln und das domänenspezifische Vorwissen sind bislang sehr rudimentär.
+In künftigen Arbeiten könnten vorhandene Wissensbasen, wie z.~B. NELL~\cite{Carlson2010} oder YAGO~\cite{YAGO}, in die PSL-Inferenz integriert werden.
+
+Neben der Nutzung domänenspezifischen Wissens, besteht außerdem Verbesserungspotential bei der Nutzung von Kontexten in der Inferenz.
+Bislang werden Kontexte nur benutzt, um die Richtung von $inst$-Relationen zu ermitteln.
+Das Inferieren des $actual$-Attributs von Möglichkeitskontexten~\tref{sec:text2kg:ontology:modal} zur Bestimmung der Glaubwürdigkeit von Aussagen wäre z.~B. eine sinnvolle Erweiterung des Verfahrens.
+
+\paragraph{Inferenz}
+Wie~\treft{sec:evaluation:time} gezeigt hat, besteht noch Verbesserungsbedarf bei der Geschwindigkeit der PSL-Inferenz, bevor das Verfahren in der Praxis einsetzbar ist.
+Um dies zu erreichen, ist die Kombination verschiedener Ansätze denkbar:
+\begin{enumerate}
+	\item Nutzen einer Cluster-fähigen ADMM-Implementation, statt der PSL-Referenz\-implementation.
+		Hierfür könnte z.~B. die zuvor erwähnte Hadoop Map-Reduce Implementation~\cite{Lubell-Doughtie2013} verwendet werden.
+	\item Weiterentwicklung von BOCI, sodass wachsende Eingabemengen unterstützt werden.
+		Bereits im ursprünglichen Paper~\cite[Abschnitt 6]{Pujara2015} wird dies als offene Fragestellung für folgende Arbeiten genannt.
+		Mittels des Inferenz-Budgets könnte dann die Inferenzdauer nahezu beliebig verringert werden, sofern dafür eine entsprechende Verschlechterung der Inferenzqualität hingenommen wird.
+\end{enumerate}

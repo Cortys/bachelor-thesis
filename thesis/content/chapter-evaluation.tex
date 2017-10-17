@@ -124,3 +124,35 @@ Zu derartige Schlussfolgerungen ist das vorgestellte Verfahren bislang nicht in 
 
 In diesem Abschnitt wird untersucht, inwiefern sich das beschriebene Verfahren im Kontext von Nachrichtenstreams eignet.
 Da in der PSL-Phase für jede eingefügte Nachricht momentan eine vollständige ADMM-basierte Inferenz durchgeführt wird, ist zu erwarten, dass mit jeder eingefügten Nachricht die Inferenzdauer steigt.
+Dies wurde überprüft indem der Reihe nach die Nachrichten aus drei verschiedenen Enron E-Mail Threads eingefügt wurden;
+verwendet wurden die zufällig ausgewählten Threads \texttt{bin1/300249}, \texttt{bin1/363227} und \texttt{bin5/350143}.
+Nachrichten ohne Inhalt, From- oder To-Header wurden ignoriert.
+Insgesamt wurden 57 Nachrichten der Reihe nach eingefügt%
+\footnote{Die Tests wurden auf einem Desktop-Rechner mit einem AMD Ryzen~7~1800X Prozessor (8~Kerne, 16~Threads, 3.6~GHz) und 32~GB RAM unter Linux mit der Kernel-Version 4.13.5 und OpenJDK~8u162 durchgeführt.
+Da ein Testdurchlauf knapp 42 Stunden benötigt, wurden aus zeitlichen Gründen lediglich zwei Durchläufe durchgeführt und gemittelt.}.
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\pgfplotstableread[col sep=comma] {data/evaluation/perfBig.csv}\evaluationPerfData%
+		\begin{axis}[
+			width=\textwidth,
+			height=6cm,
+			axis x line=bottom,
+			axis line style={draw=none},
+			ytick style={draw=none},
+			ymajorgrids,
+			ylabel={Inferenzdauer in Sek.}
+		]
+			\addplot+[no markers,style=thick,restrict x to domain=1:24] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above,pos=0.3]{\texttt{bin1/300249}};
+			\addplot+[no markers,style=thick,restrict x to domain=25:32] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above=5pt,pos=0.5]{\texttt{bin1/363227}};
+			\addplot+[no markers,style=thick,restrict x to domain=33:57] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above=10pt,pos=0.5]{\texttt{bin5/350143}};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Inferenzdauer beim sequentiellen Einfügen der Testnachrichten}\label{fig:evaluation:perf}
+\end{figure}
+Wie erwartet steigt die Inferenzdauer mit jeder eingefügten Nachricht tendenziell an; es lässt sich jedoch beobachten, dass das Einfügen der ersten Nachricht aus einem Thread eine deutliche Erhöhung der Inferenzdauer verursacht.
+Dies lässt sich dadurch erklären, dass neue Threads i.~d.~R. neue Konzepte einführen, die mit den bereits vorhandenen Konzepten in Relation gebracht werden müssen.
+Nachfolgende Nachrichten desselben Threads führen weniger neue Konzepte ein und bewirken daher keinen deutlichen Anstieg der Inferenzdauer.
