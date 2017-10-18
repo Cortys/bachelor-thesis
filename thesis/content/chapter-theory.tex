@@ -620,7 +620,7 @@ In der Praxis hat sich jedoch ein Verfahren, als besonders effizient erwiesen.
 \paragraph{ADMM}
 Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM) ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
 Durch diese Variation lässt sich ADMM gut parallelisieren und ist somit geeignet für große Datenmengen und den Einsatz in Cluster-Umgebungen.
-In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{Map-Reduce} oder \textit{Pregel} implementieren lässt.
+In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{MapReduce}~\cite{Dean2008} oder \textit{Pregel}~\cite{Malewicz2010} implementieren lässt.
 
 Die ADMM-Laufzeit ist proportional zur Klauselanzahl $|C|$.
 Die Klauselanzahl wiederum wächst gemäß $\mathcal{O}(|\mathcal{A}|^r)$, wobei $r$ die maximale Anzahl von Nicht-Grund-Atomen in einer PSL-Regel ist.

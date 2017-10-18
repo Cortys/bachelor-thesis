@@ -1,8 +1,16 @@
 % !TEX root = ../main.tex
 %
 \pdfbookmark[0]{Abstract}{Abstract}
-\chapter*{Abstract}
+\chapter*{Abstract}%
 \label{sec:abstract}
 \vspace*{-10mm}
 
-Hallo Welt. Test5.
+In dieser Arbeit wird ein Verfahren zur automatisierten Wissensgraph-Konstruktion aus natürlichsprachlichen textuellen Kommunikationsdaten (z.~B. E-Mails) vorgestellt.
+Das vorgestellte Verfahren transformiert einen Stream von Textnachrichten sukzessive in einen Wissensgraphen.
+Es arbeitet in zwei Schritten:
+Im ersten Schritt wird ein Natural Language Processing (NLP) einer eingegebenen Nachricht mit der Stanford CoreNLP Bibliothek durchgeführt.
+Das im NLP-Schritt extrahierte Wissen wird anschließend mittels der Probabilistic Soft Logic (PSL) in den bisherigen Wissensgraphen eingefügt.
+Die Struktur des so konstruierten Graphen baut auf J.~F.~Sowas Konzeptgraphen auf.
+Neu in dieser Arbeit ist die Kombination von Konzeptgraphen, CoreNLP und PSL.\@
+Der Vorteil dieser Kombination ist die hohe Ausdrucksstärke der konstruierten Wissensgraphen und die Skalierbarkeit des Verfahrens.
+Das Verfahren wurde implementiert und wird anhand realer Testdaten bewertet.

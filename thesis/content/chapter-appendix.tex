@@ -71,3 +71,16 @@ Es sind daher drei Fälle zu beachten:
 \end{enumerate}
 Diese Anfrage ist ein gutes Beispiel dafür, dass mit einer Graph-Anfragesprache, in diesem Beispiel Cypher, Kontexte nur recht umständlich berücksichtigt werden können.
 Das Entwickeln eines speziell für Konzeptgraphen ausgelegten Anfragesystems ist daher empfehlenswert, um die Syntax komplexerer Anfragen verständlich zu halten.
+
+\section{Laufzeitergebnisse}%
+\label{sec:appendix:perf}
+
+\def\kor{$Kor_i(\Delta t, c)$}
+Es folgt eine Tabelle mit den gemessenen Laufzeitergebnissen.
+Für jede Nachricht $m_i$ wird die Einfügedauer $t_i$ in Sekunden, die Anzahl der Grundatome $a_i$, die den Extraktionsgraphen von $m_i$ repräsentieren, die Anzahl neuer Konzepte $c_i$ (d.~h.\ Konzepte mit einem $label$, welches in den vorigen Nachrichten noch nicht vorgekommen ist), $\Delta t_i$ und die Korrelation \kor\ für alle Nachrichten $m_j \in \{ m_i, \dots, m_{57} \}$ angegeben.
+
+Die Nachrichten $m_1, \dots, m_{24}$ stammen aus \texttt{bin1/300249}, $m_{25}, \dots, m_{32}$ sind die für die Qualitätsuntersuchung verwendeten Nachrichten aus \texttt{bin1/363227}~\tref{sec:appendix:msgs}, $m_{33}, \dots, m_{57}$ stammen aus \texttt{bin5/350143}.
+\csvautobooklongtable[
+	separator=comma,
+	table head=\toprule$i$ & $t_i$ & $a_i$ & $c_i$ & $\Delta t_i$ & \kor\\\midrule, % chktex 21
+]{data/evaluation/perfBig.csv}

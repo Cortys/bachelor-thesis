@@ -22,9 +22,9 @@ Die drei Teillösungen bilden zusammen ein Konstruktionsverfahren, welches dem z
 Die Wissensgraphontologie basiert auf Konzeptgraphen.
 Im Gegensatz zu den Fakten-Tripel basierten semantischen Netzen, die lediglich beschreiben, welche Beziehungen zwischen Konzepten existieren, kann mittels Konzeptgraphen auch beschrieben werden, welche Beziehungen nicht, oder nur möglicherweise existieren.
 Die konstruierten Wissensgraphen haben also eine deutlich höhere Ausdrucksstärke, als z.~B. NELL oder der Google~Knowledge~Graph.
-Diese Ausdrucksstärke ist notwendig, um die Komplexität natürlichsprachlicher Aussagen sinnvoll abbilden zu können.
+Diese Ausdrucksstärke ist wichtig, um die Komplexität natürlichsprachlicher Aussagen abbilden zu können.
 
-Damit die Konzeptgraphen eine möglichst präzise Semantik haben, muss die Semantik der verwendeten Relationen beschrieben werden.
+Damit den konstruierten Konzeptgraphen eine Semantik zugeordnet werden, muss die Semantik der verwendeten Relationen beschrieben werden.
 Es wurde daher ein möglichst minimales Set von Relationen definiert~\tref{sec:text2kg:ontology:pred}, welches zur Beschreibung einer Vielzahl natürlichsprachlicher Aussagen geeignet ist.
 
 Eine der in~\ref{sec:intro:goals} beschriebenen Anforderungen an das Konstruktionsverfahren ist die Erweiterbarkeit, d.~h.\ die prinzipielle Möglichkeit nicht natürlichsprachliche Eingaben einzufügen.
@@ -34,7 +34,7 @@ es gibt keine Relationen, die bestimmte grammatikalische Konstrukte oder Wortart
 Wie die Integration anderer Eingabearten im Detail aussehen könnte, war jedoch nicht Teil der Aufgabenstellung und wurde daher nicht näher untersucht.
 
 \paragraph{Sprachverarbeitung}
-Für die Transformation einer Nachricht in einen Konzeptgraphen wird das Stanford~CoreNLP Framework mit einer Menge von Transformationsregeln~\tref{sec:text2kg:nlp:transform} kombiniert, welche die von CoreNLP gefundenen Strukturen auf äquivalente Konzeptgraph-Strukturen abbilden.
+Für die Transformation einer Nachricht in einen Konzeptgraphen wurde das Stanford~CoreNLP Framework mit einer Menge von Transformationsregeln~\tref{sec:text2kg:nlp:transform} kombiniert, welche die von CoreNLP gefundenen Strukturen auf äquivalente Konzeptgraph-Strukturen abbilden.
 
 \paragraph{Grapherweiterung}
 Das Einfügen des aus einer Nachricht extrahierten Konzeptgraphen in einen bestehenden Wissensgraphen erfolgt mittels PSL.\@
@@ -43,11 +43,12 @@ Es wurde ein Set von PSL-Regeln~\tref{sec:text2kg:psl:inference} vorgestellt, we
 
 Neben der Erweiterbarkeit war auch die Parallelisierbarkeit eines der in~\ref{sec:intro:goals} beschriebenen Ziele.
 Durch die Wahl von PSL für die Grapherweiterung wurde diese Anforderung prinzipiell erfüllt.
-Das für die Inferenz verwendete ADMM-Verfahren lässt sich gut verteilt lösen.
-In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Programmiermodellen, wie z.~B. Map-Reduce oder Pregel, implementieren lässt.
-Aufbauend darauf, wird in~\cite{Lubell-Doughtie2013} eine konkrete Map-Reduce-basierte Implementation vorgestellt.
+Das für die Inferenz verwendete ADMM-Verfahren lässt sich gut verteilt implementieren.
+In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Programmiermodellen, wie z.~B. MapReduce oder Pregel, implementieren lässt.
+Aufbauend darauf, wird in~\cite{Lubell-Doughtie2013} eine Hadoop MapReduce-basierte Implementation vorgestellt.
 PSL ist prinzipiell also für den Einsatz in Cluster-Umgebungen geeignet.
-In der im Rahmen dieser Arbeit erstellten Implementation wurde jedoch die Single-Machine ADMM-Implementation der PSL-Referenzimplementation verwendet, da diese für einen Prototypen völlig ausreichend ist.
+Die exemplarische verteilte PSL-Implementation \textit{foxPSL}~\cite{Magliacane2015} demonstriert dies.
+In der im Rahmen dieser Arbeit erstellten Implementation wurde die PSL-Referenzimplementation verwendet, da diese am besten dokumentiert ist und die Geschwindigkeit für die verwendeten kleinen Datensets ausreichend ist.
 
 Das Ziel ein erweiterbares, parallelisierbares Wissensgraph-Konstruktionsverfahren für Kommunikationsdaten zu konzipieren wurde somit prinzipiell erreicht.
 Nichts desto trotz gibt es noch zahlreiche Möglichkeiten das vorgestellte Verfahren weiterzuentwickeln.
@@ -58,10 +59,11 @@ Nichts desto trotz gibt es noch zahlreiche Möglichkeiten das vorgestellte Verfa
 Im Folgenden wird ein Überblick über Möglichkeiten der Weiterentwickung und offen gebliebene Fragestellungen gegeben.
 
 \paragraph{Verbessern der Testmethode}
-Ein Problem bei der Konzeption des Verfahrens war der Umstand, dass es keine Testdaten mit Referenzergebnissen gibt, anhand derer Änderungen am Verfahren bewertet werden können.
+Ein Problem bei der Konzeption des Verfahrens war der Umstand, dass es keine Kommunikationsdaten mit Referenzergebnissen gibt, anhand derer Änderungen am Verfahren bewertet werden können.
 Die Qualität vieler Entscheidungen, wie z.~B. der Wahl der Regelgewichte, konnte daher nur auf Basis manuell durchgeführter, stichprobenartiger Tests bewertet werden.
 
-Das Entwickeln eines Testdaten-Sets, mit dem sich die Performance eines Wissensgraph-Konstruktionsverfahrens repräsentativ empirisch messen lässt, ist wichtig, um ein systematisches Weiterentwickeln des Verfahrens zu ermöglichen.
+Um dieses Problem zu lösen, könnte ein Kommunikationsdaten-Testset entwickelt werden, mit dem sich die Performance eines Wissensgraph-Konstruktionsverfahrens repräsentativ empirisch messen lässt.
+Ein solches Datenset ist wichtig, um ein systematisches Weiterentwickeln des Verfahrens zu ermöglichen.
 Das in dieser Arbeit verwendete Enron E-Mail Datenset ist potentiell ein guter Ausgangspunkt hierfür.
 Zu klären ist, welche Art von Informationen die Referenzergebnisse enthalten und wie eine umfangreiche Menge solcher Referenzergebnisse konstruiert werden kann.
 
@@ -86,8 +88,18 @@ Wie~\treft{sec:evaluation:time} gezeigt hat, besteht noch Verbesserungsbedarf be
 Um dies zu erreichen, ist die Kombination verschiedener Ansätze denkbar:
 \begin{enumerate}
 	\item Nutzen einer Cluster-fähigen ADMM-Implementation, statt der PSL-Referenz\-implementation.
-		Hierfür könnte z.~B. die zuvor erwähnte Hadoop Map-Reduce Implementation~\cite{Lubell-Doughtie2013} verwendet werden.
+		Hierfür könnte z.~B. die zuvor erwähnte Hadoop MapReduce Implementation~\cite{Lubell-Doughtie2013} oder foxPSL~\cite{Magliacane2015} verwendet werden.
 	\item Weiterentwicklung von BOCI, sodass wachsende Eingabemengen unterstützt werden.
 		Bereits im ursprünglichen Paper~\cite[Abschnitt 6]{Pujara2015} wird dies als offene Fragestellung für folgende Arbeiten genannt.
 		Mittels des Inferenz-Budgets könnte dann die Inferenzdauer nahezu beliebig verringert werden, sofern dafür eine entsprechende Verschlechterung der Inferenzqualität hingenommen wird.
+	\item Effizienterer Umgang mit transitiven Relationen.
+		Bei der Inferenz werden $inst$-Atome aufgrund der Transitivität von $inst$ instanziiert.
+		Während der Inferenz sind diese Atome wichtig, sie werden momentan allerdings auch Teil des Wissensgraphen.
+		Das Entfernen dieser redundanten $inst$-Atome, würde die Kantenanzahl des in~\ref{sec:evaluation:time} konstruierten Graphen um mehr als 75\% verringern.
+		Während der Inferenz würden die transitiven $inst$-Relationen dann nur temporär instanziiert.
+		Inwiefern durch eine derartige Erweiterung der PSL-Inferenz neben der Graph-Größe auch die Inferenzdauer verringert werden kann, ist zu untersuchen.
 \end{enumerate}
+
+Wie soeben gezeigt, gibt es viele Möglichkeiten das vorgestellten Wissensgraph-Konstruktionsverfahren weiterzuentwickeln.
+Diese Arbeit ist daher primär als ein Ausgangspunkt zu verstehen, der zeigt, dass die Kombination von Konzeptgraphen, NLP und PSL prinzipiell für die automatisierte Konstruktion von Wissensgraphen geeignet ist.
+Aufbauend auf dieser Grundidee könnte in künftigen Arbeiten ein in der Praxis einsetzbares Verfahren entwickelt werden.

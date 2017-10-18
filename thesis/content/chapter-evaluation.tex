@@ -22,6 +22,8 @@ Es gibt im Wesentlichen drei Gründe für diese Entscheidung:
 	\item Es existieren zudem keine Testdatensets, die für eine empirische Analyse des entwickelten Verfahrens geeignet sind.
 		Es existieren zwar Testdaten für die verwendeten NLP-Tasks (NER, POS-Tagging, Coreference Resolution etc.), da die Ergebnisse hierfür allerdings direkt aus CoreNLP stammen, würde mit den verfügbaren Testdaten lediglich die Performance von CoreNLP gemessen.
 		Benötigt wären Testdaten, die das Evaluieren der Konzept\-graph\-struktur erlauben, d.~h.\ solche, die Informationen über die semantischen Abhängigkeiten und Negation von Konzepten enthalten.
+		Fakten-Benchmarks wie \textit{FactBench}~\cite{FactBench} sind grundsätzlich für die Performance-Bewertung geeignet, hierfür wäre allerdings ein Set von Kommunikationsdaten notwendig, welches Informationen über die im Benchmark geprüften Fakten enthält;
+		ein solches Datenset wurde bei der Recherche im Rahmen dieser Arbeit nicht gefunden.
 \end{enumerate}
 
 \subsection{Bewertungsansatz}%
@@ -143,16 +145,26 @@ Da ein Testdurchlauf knapp 42 Stunden benötigt, wurden aus zeitlichen Gründen 
 			ymajorgrids,
 			ylabel={Inferenzdauer in Sek.}
 		]
-			\addplot+[no markers,style=thick,restrict x to domain=1:24] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
-				node[above,pos=0.3]{\texttt{bin1/300249}};
-			\addplot+[no markers,style=thick,restrict x to domain=25:32] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
-				node[above=5pt,pos=0.5]{\texttt{bin1/363227}};
-			\addplot+[no markers,style=thick,restrict x to domain=33:57] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
-				node[above=10pt,pos=0.5]{\texttt{bin5/350143}};
+			\addplot+[only marks,style=thick,restrict x to domain=1:24] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above=2pt,pos=0.5]{\texttt{bin1/300249}};
+			\addplot+[only marks,style=thick,restrict x to domain=25:32] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above=13pt,pos=0.5]{\texttt{bin1/363227}};
+			\addplot+[only marks,style=thick,restrict x to domain=33:57] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+				node[above=12pt,pos=0.5]{\texttt{bin5/350143}};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Inferenzdauer beim sequentiellen Einfügen der Testnachrichten}\label{fig:evaluation:perf}
+	\caption{Inferenzdauer beim sequentiellen Einfügen der Testnachrichten (Tabelle in~\ref{sec:appendix:perf})}\label{fig:evaluation:perf}
 \end{figure}
 Wie erwartet steigt die Inferenzdauer mit jeder eingefügten Nachricht tendenziell an; es lässt sich jedoch beobachten, dass das Einfügen der ersten Nachricht aus einem Thread eine deutliche Erhöhung der Inferenzdauer verursacht.
-Dies lässt sich dadurch erklären, dass neue Threads i.~d.~R. neue Konzepte einführen, die mit den bereits vorhandenen Konzepten in Relation gebracht werden müssen.
-Nachfolgende Nachrichten desselben Threads führen weniger neue Konzepte ein und bewirken daher keinen deutlichen Anstieg der Inferenzdauer.
+Eine Ursache hierfür findet sich in der Korrelation des Anstiegs der Inferenzdauer $\Delta t_i = t_i - t_{i - 1}$ zwischen zwei Nachrichten $m_{i - 1}, m_i$ und der Anzahl neuer Konzepte $c_i$ in der Nachricht $m_i$.
+Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglich $0.187$, da insbesondere im ersten Thread konstante Faktoren die Laufzeit dominieren.
+Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich $Kor_{25}(\Delta t, c) = 0.616$.
+Dies unterstützt die Annahme, dass Nachrichten, die neue Konzepte und Themen enthalten, einen Anstieg der Inferenzdauer bewirken.
+Die Inferenzdauer-Anstiege zwischen zwei Threads werden dadurch verursacht, dass die erste Nachricht eines neuen Threads i.~d.~R. viele neue Konzepte einführt.
+
+Die gemessene Inferenzdauer liegt anfangs bei ca.\ 4 Sek.\ und steigt auf ca.\ 2 Std.\ an.
+Die momentane Implementation des Verfahrens ist also definitv nicht für den praktischen Einsatz geeignet.
+Es existieren jedoch verschiedene Ansätze, mit denen die absoluten und aymptotischen Laufzeiten deutlich verbessert werden können.
+Eine triviale Optimierung ist es, nicht alle Nachrichten einzeln, sondern mehrere gleichzeitig einzufügen und so, weniger Inferenzen durchzuführen.
+Wenn erst der Konjunktionsgraph aller Nachrichten gebildet und dann eine einzige Inferenz durchgeführt wird, benötigt das Einfügen der Nachrichten $x$, statt 42~Stunden.
+Weitere Ansätze werden in~\ref{sec:conclusion:todo} beschrieben.
