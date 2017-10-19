@@ -70,9 +70,7 @@ die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
 	\quad\Leftrightarrow\quad
 	&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 	\quad\Leftrightarrow\quad
-	&{\color{rot}\forall}\ a\ \exists\ b: P(a, b)
-\end{align*}
-\begin{align*}
+	&{\color{rot}\forall}\ a\ \exists\ b: P(a, b) \\[1ex]
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode4.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
@@ -98,33 +96,45 @@ Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die d
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
 \end{align*}
 
-\subsection{Dominierende Knoten}%
-\label{sec:theory:cg:domnodes}
+\subsection{Definition}%
+\label{sec:theory:cg:definition}
 
+Im vorigen Abschnitt wurde die Konzeptgraphsyntax und deren Semantik beschrieben.
+Bislang ist allerdings unklar, welche Kombinationen dieser Syntaxelemente erlaubt sind.
 So wie die Syntaxelemente prädikatenlogischer Ausdrücke nicht beliebig kombiniert werden können, unterliegen auch Konzeptgraphen gewissen Einschränkungen.
-Die Einschränkung, dass alle Knoten und Kontexte höchstens einen Elternkontext haben dürfen, wurde bereits erwähnt.
-Die zweite wichtige Einschränkung ist das Verbot nicht dominierender Knoten (\textit{dominating nodes}).
-Was genau dies bedeutet, wird im Folgenden erläutert.
-Zuerst müssen Konzeptgraphen jedoch formal spezifiziert werden.
+In diesem Abschnitt werden die Eigenschaften beschrieben, die ein Konzeptgraph erfüllen muss.
+Ein Konzeptgraph $G = (V, E)$ ist ein gerichteter Graph mit den folgenden Eigenschaften:
 \begin{align*}
-	G :=\ &\text{gerichteter Graph } (V, E) \text{, mit globalem Kontext } \top \in V \\
-	V :=\ &concept \mathbin{\dot\cup} relation \mathbin{\dot\cup} context, E := nest \mathbin{\dot\cup} \mathit{coref} \mathbin{\dot\cup} \mathit{arg} \\ % chktex 35
+	V =\ &\{ v: concept(v) \} \mathbin{\dot\cup} \{ v: relation(v) \} \mathbin{\dot\cup} \{ v: context(v) \} \\
+	E =\ &\{ e: \mathit{coref}(e) \} \mathbin{\dot\cup} \{ e: \mathit{arg}(e) \} \mathbin{\dot\cup} \{ e: nest(e) \} \\ % chktex 35
 	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
 	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
 	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
-	neg(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Negationskontext} \displaybreak[0]\\
-	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
+	neg(v) :\Leftrightarrow\ &\text{$v \in context$ ist ein Negationskontext} \displaybreak[0]\\
 	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
 	\mathit{arg}(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
-	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\ c \in V \setminus \{ \top \}: nest(c, v) \} \displaybreak[0]\\
-	a \leq b :\Leftrightarrow\ & (\exists\ x \in V: a \leq x \land x \leq b) \numberthis \\
-	& \lor nest(b, a) \lor (\exists\ c \in V: nest(c, a) \land nest(c, b))
+	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
+	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\, c \in V \setminus \{ \top \}: nest(c, v) \} \label{eq:theory:kgcrit0}\numberthis \\ % chktex 21
+	& \lnot \exists\, c_1, c_2, a:nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit1}\numberthis % chktex 21
 \end{align*}
-Um die nachfolgenden Definitionen einfacher zu machen, wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{Sheet of Assertion} genannt wird.
+Zentral in dieser Definition ist das Kriterium~\eqref{eq:theory:kgcrit1}.
+Es fordert, dass der Teilgraph $T = (V, \{ e: nest(e) \})$ zyklenfrei (i.~e.\ ein Wald) ist.
+Durch~\eqref{eq:theory:kgcrit0} gilt darüber hinaus, dass $T$ ein Baum ist.
+Hierfür wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{Sheet of Assertion} genannt wird.
 $\top$ enthält alle Knoten, die keinen explizit dargestellten Elternkontext haben.
-Die Kontextbox von $\top$ umschließt also den gesamten Konzeptgraphen.
-$\leq$ ist eine Quasiordnung und bildet die \textit{enthalten-in}-Relation zwischen Knoten ab, d.~h.\ $a \leq b$ gdw.\ $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
+Die Wurzel von $T$ ist also $\top$.
+
+Zusätzlich muss jeder Konzeptgraph $G$ die Eigenschaft dominierender Knoten $dom(G)$ erfüllen.
+Um diese Eigenschaft zu beschreiben, wird zuerst die Quasiordnung $\leq$ eingeführt:
+\begin{align*}
+	a \leq b :\Leftrightarrow\ & \quad nest(b, a) \numberthis \\
+	& \lor (\exists\ c \in V: nest(c, a) \land nest(c, b)) \\
+	& \lor (\exists\ x \in V: a \leq x \land x \leq b)
+\end{align*}
+Es gilt $a \leq b$, wenn $b$ ein Kontext ist, der $a$ enthält, oder wenn $a$ und $b$ den selben Elterkontext haben, oder wenn aufgrund der Transitivität $a \leq x \leq b$ gilt.
 Das größte Element gemäß $\leq$ ist also immer $\top$.
+Zusammenfassend beschreibt $a \leq b$, dass $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
+In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.
 \begin{figure}[h]
 	\centering
 	\[\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/contextTreeExample1.pdf}}}
@@ -164,15 +174,14 @@ Das größte Element gemäß $\leq$ ist also immer $\top$.
 		\end{tikzpicture}
 	}}\]
 	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung. Die Existenz eines Pfades von $x$ nach $y$ im obigen baumartigen Graphen, entspricht $x \leq y$.}\label{fig:theory:kgorder}
-\end{figure}
-
-Auf Basis von $\leq$ lässt sich nun das Konzept dominierender Knoten definieren.
+\end{figure}\\
+Auf Basis von $\leq$ lässt sich nun $dom$ definieren:
 \begin{align*}
-	dom(G) :\Leftrightarrow\ & \forall\ r, v \in V: \mathit{arg}(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
+	dom(G) :\Leftrightarrow\ & \quad \forall\ r, v \in V: \mathit{arg}(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
 	& \land \forall\ v_1, v_2 \in V: \mathit{coref}(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
 \end{align*}
-Ein Graph $G$ ist ein Konzeptgraph gdw.\ $(V, nest)$ ein Wald ist und $dom(G)$ gilt.
-Eine Intuition für diese Einschränkung ist, dass es nicht sinnvoll ist die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist.
+Eine Intuition für diese Anforderung an Konzeptgraphen findet sich in der Semantik, die die durch $dom$ verbotenen Kanten hätten.
+Es ist nicht sinnvoll ist die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist.
 Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
 \begin{figure}[h]
 	\begin{align*}
