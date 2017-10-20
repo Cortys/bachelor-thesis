@@ -282,42 +282,41 @@ Konkrekt werden hierfür \textit{Hinge-Loss Markov Random Fields} (HL-MRFs) und 
 MRFs sind, so wie auch bayessche Netze, eine Klasse von \textit{Probabilistischen Graphischen Modellen} (PGM);
 d.~h.\ sie sind Graphen, deren Knoten als Zufallsvariablen und deren Kanten als stochastische Abhängigkeiten interpretiert werden.
 Im Gegensatz zu bayesschen Netzen, sind die Kanten in MRFs allerdings ungerichtet, es sind also zyklische Abhängigkeiten erlaubt.
-Formal beschreibt ein MRF $G$ die multivariate Verteilung $P$ eines Zufallsvektors $X$ gemäß einer Potentialfunktion $\Phi$:
+Formal ist ein MRF ein ungerichteter Graph $G$, in dem die Knoten Zufallsvariablen sind:
 \begin{align*}
-	X :=&\ (X_1, \dots, X_n) = \text{Zufallsvektor} \\
-	\mathcal{X} :=&\ \text{Menge aller möglichen Werte $(x_1, \dots, x_n)$ von $X$} \\
-	G :=&\ (\{ X_1, \dots, X_n \}, E) \\
-	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \displaybreak[0]\\ % chktex 21
+	X :=&\ \text{Zufallsvektor } (X_1, \dots, X_n) \\
+	G :=&\ (\{ X_1, \dots, X_n \}, E)
+\end{align*}
+$G$ ist ein MRF, gdw.\ die Zufallsvariablen $X_1, \dots, X_n$ die folgenden sog.~Markov-Eigenschaften erfüllen:
+\begin{enumerate}
+	\item \textbf{Globale Markov-Eigenschaft:}
+		\[sep_{X_A, X_B}(X_S) \Rightarrow X_A \perp X_B \mid X_S\]
+		Alle Paare $(X_A, X_B)$ von Teilmengen von $X$ sind bedingt unabhängig, sofern die Werte einer separierenden Teilmenge $X_S $ gegeben sind.
+		$X_S$ separiert $(X_A, X_B)$ ($sep_{X_A, X_B}(X_S)$), wenn alle Pfade von $a \in X_A$ nach $b \in X_B$ einen Knoten $s \in X_S$ enthalten.
+	\item \textbf{Lokale Markov-Eigenschaft:}
+		\[X_i \perp (X \setminus \Gamma(X_i) \setminus \{X_i\}) \mid \Gamma(X_i)\]
+		Eine direkte Konsequenz der globalen Markov-Eigenschaft ist die lokale Markov-Eigenschaft.
+		Jede Variable $X_i$ ist bedingt unabhängig von ihren nicht benachbarten Variablen, sofern ihre Nachbarschaft $\Gamma(X_i)$ gegeben ist.
+	\item \textbf{Paarweise Markov-Eigenschaft:}
+		\[\{ X_i, X_j \} \notin E \Rightarrow X_i \perp X_j \mid X \setminus \{ X_i, X_j \}\] % chktex 21
+		Aus der lokalen Markov-Eigenschaft folgt, dass jedes nicht adjazente Variablenpaar $(X_i, X_j)$ bedingt unabhängig voneinander ist, sofern alle anderen Variablen gegeben sind.
+\end{enumerate}
+
+\paragraph{Faktorisierung}
+Eine häufig benutzte Methode, um die Verteilung $P(X = x)$ eines MRFs $G$ zu beschreiben ist die sog.\ Cliquen-Faktorisierung:
+\begin{align*}
+	\mathcal{C} :=&\ \{ c_1, \dots, c_m \} = \text{Menge der maximalen Cliquen in $G$} \\ % chktex 21
 	X_c :=&\ \text{Vektor der Zufallsvariablen in der Clique $c \in \mathcal{C}$} \\
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
 	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisier.konst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
-Für MRFs gelten drei wichtige Eigenschaften bzgl.\ der Unabhängigkeit der Zufallsvariablen in $X$:
-\begin{enumerate}
-	\item \textbf{Globale Markov-Eigenschaft:}
-		\[
-			\forall X_A, X_B, X_S \subseteq X: sep_{X_A, X_B}(X_S) \rightarrow (X_A \perp X_B \mid X_S)
-		\]
-		Alle Paare $(X_A, X_B)$ von Teilmengen von $X$ sind bedingt unabhängig, sofern die Werte einer separierenden Teilmenge $X_S $ gegeben sind.
-		$X_S$ ist separierend ($\Leftrightarrow sep_{X_A, X_B}(X_S)$), wenn alle Pfade von $a \in X_A$ nach $b \in X_B$ einen Knoten $s \in X_S$ enthalten.
-	\item \textbf{Lokale Markov-Eigenschaft:}
-		\[
-			\forall X_i \in X: X_i \perp (X \setminus \Gamma(X_i) \setminus \{X_i\}) \mid \Gamma(X_i)
-		\]
-		Eine direkte Konsequenz der globalen Markov-Eigenschaft ist die lokale Markov-Eigenschaft.
-		Jede Variable $X_i$ ist bedingt unabhängig von ihren nicht benachbarten Variablen, sofern ihre Nachbarschaft $\Gamma(X_i)$ gegeben ist.
-	\item \textbf{Paarweise Markov-Eigenschaft:}
-		\[
-			\forall X_i, X_j \in X: \{X_i, X_j \} \notin E \rightarrow (X_i \perp X_j \mid X \setminus \{ X_i, X_j \})
-		\]
-		Aus der lokalen Markov-Eigenschaft folgt, dass jedes nicht adjazente Variablenpaar $(X_i, X_j)$ bedingt unabhängig voneinander ist, sofern alle anderen Variablen gegeben sind.
-\end{enumerate}
+Es lässt sich zeigen, dass für die Verteilung $P'$ jedes MRFs mit positiver Dichte eine Potentialfunktion $\Phi$ existiert, sodass $P' = P$.
 
 \paragraph{Beispiel}
 Die obigen Definitionen sind bislang noch recht abstrakt.
-Ein exemplarisches praktisches Einsatzgebiet von MRFs ist das Lösen von SAT-Problemen.
+Ein exemplarisches praktisches Einsatzgebiet von MRFs ist das Lösen von SAT-Problemen~\cite{Bach2015a}.
 Gegeben sei die SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$.
-MRFs können benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.\\
+Ein Cliquen-faktorisiertes MRF kann benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.\\
 \begin{tabular}{m{0.25\textwidth} m{0.75\textwidth}}
 	\includegraphics[width=0.23\textwidth]{gfx/theory/mrfExample1.pdf}
 	&
@@ -340,7 +339,7 @@ Falls es also eine Klausel gibt, die alle Variablen der SAT-Instanz enthält, un
 \paragraph{Das MRF-Inferenzproblem}
 Da sich SAT, wie soeben exemplarisch gezeigt, auf MRFs reduzieren lässt, ist das Inferenzproblem, d.~h.\ das Finden einer maximal wahrscheinlichen Belegung der Zufallsvariablen, ein NP-schweres Problem.
 Allgemeine, exakte und effiziente Lösungsalgorithmen existieren daher nicht.
-Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das Erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter finden.
+Durch Einschränken der Struktur von $G$ und $\Phi$, oder durch das Erlauben von Approximationen, lassen sich MRF-Inferenzen jedoch deutlich effizienter durchführen.
 Wenn z.~B. $G$ ein Baum ist, es also nur 2-Cliquen gibt, kann mit dem \textit{Belief Propagation} Algorithmus eine exakte Lösung in polynomieller Zeit gefunden werden (vgl.\ 2-SAT~\cite{2SAT}).
 
 \subsection{Hinge-Loss MRFs}%
@@ -352,18 +351,19 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 \begin{enumerate}
 	\item
 		Die Bedeutung von Zufallsvariablen und Kanten zwischen Zufallsvariablen ist klar definiert, da $\Phi$ nicht mehr frei wählbar ist.
-		Ähnlich zum Beispiel aus~\ref{sec:theory:psl:mrf}, repräsentieren Zufallsvariablen aussagenlogische Variablen und Cliquen Disjunktionsklauseln.
+		Ähnlich zum Beispiel aus~\ref{sec:theory:psl:mrf}, repräsentieren Zufallsvariablen in HL-MRFs aussagenlogische Variablen.
+		Zufallsvariablen sind adjazent, gdw.\ sie in einer gemeinsamen Disjunktionsklausel vorkommen.
 	\item
 		Für den Zufallsvektor $X$ muss $Bild(X) = {[0, 1]}^n$ gelten.
 		Diese Einschränkung besteht, da jede HL-MRF-Zufallsvariable als die Wahrscheinlichkeit, dass eine aussagenlogische Variable wahr ist, interpretiert wird.
 	\item
-		Die Definition der Verteilung $P$ ist etwas anders:
+		Die Verteilung $P$ wird etwas anders faktorisiert:
 		\begin{align*}
-			P(X = x) :=&\ \frac{1}{Z} \prod_{i = 1}^{m} e^{w_i\,\Phi_i(x)} \propto \exp\left(\sum_{i=1}^{m} w_i\,\Phi_i(x)\right) = \exp\left(w\,{\Phi(x)}^\top\right) \numberthis \\
-			w :=&\ (w_1, \dots, w_m) \in {[0, \infty]}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
+			P(X = x) :=&\ \frac{1}{Z} \prod_{i = 1}^{m} e^{w_i\,\Phi_i(x)} \propto \exp\left(\sum_{i=1}^{m} w_i\,\Phi_i(x)\right) = \exp\left(w^\top {\Phi(x)}\right) \numberthis \\
+			w :=&\ (w_1, \dots, w_m) \in {[0, \infty)}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
 		\end{align*}
-		Auf die Cliquenpotentiale $\Phi_i$ wird nun die Exponentialfunktion angewandt, zudem erhalten alle Cliquen bzw.\ Klauseln $c_i$ ein Gewicht $w_i$.
-		Das Inferenzproblem $\arg\max_{x} P(X = x)$ ist somit äquivalent zu $\arg\max_{x} w\,{\Phi(x)}^\top$.
+		Auf die Potentiale $\Phi_i$ wird nun die Exponentialfunktion angewandt, zudem erhalten alle Potentiale ein Gewicht $w_i$.
+		Das Inferenzproblem $\arg\max_{x} P(X = x)$ ist somit äquivalent zu $\arg\max_{x} w^\top {\Phi(x)}$.
 \end{enumerate}
 
 \paragraph{KNF-Formel Interpretation}
@@ -375,7 +375,7 @@ Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge von Variablenindizes 
 \]
 Statt jeder Clique ein Potential zuzuordnen, wird in HL-MRFs jeder Klausel ein Potential zugeordnet;
 dies wird getan, um die Potentiale einfacher zu halten.
-Zwei Klauseln mit denselben Variablen werden also durch zwei Potentiale, statt, wie in MRFs, durch eines, beschrieben.
+Zwei Klauseln mit denselben Variablen werden also durch zwei Potentiale, statt, wie in Cliquen-faktorisierten MRFs, durch eines, beschrieben.
 
 \paragraph{Łukasiewicz Logik}
 Da die Variablen der KNF-Formel, gemäß obiger Definition, Werte~$\in [0, 1]$ annehmen können, ist nun noch unklar, wie die Operatoren $\land$, $\lor$ und $\lnot$ funktionieren sollen.
@@ -439,7 +439,7 @@ Mittels der Łukasiewicz Logik können Disjuktionsklauseln $C_j \in C$ für eine
 Dieser Wahrheitswert wird als Klauselpotential $\Phi_j(x)$ verwendet.
 Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
 \begin{alignat*}{3}
-	\operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j &&\Phi_j(x) \\ % chktex 35
+	\operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j &&\Phi_j(x) \displaybreak[0]\\ % chktex 35
 	= \operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j &&\left(\left(\bigvee_{i \in I^{+}_j} x_i\right) \lor \left(\bigvee_{i \in I^{-}_j} \lnot x_i\right)\right) \displaybreak[0]\\ % chktex 35
 	= \operatorname*{arg\,max}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \min &&\left\{ \left(\sum_{i \in I^{+}_j} x_i\right) + \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 1 \right\} \numberthis % chktex 21, chktex 35
 \end{alignat*}
