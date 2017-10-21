@@ -24,10 +24,10 @@ Im Gegensatz zu den Fakten-Tripel basierten semantischen Netzen, die lediglich b
 Die konstruierten Wissensgraphen haben also eine deutlich höhere Ausdrucksstärke, als z.~B. NELL oder der Google~Knowledge~Graph.
 Diese Ausdrucksstärke ist wichtig, um die Komplexität natürlichsprachlicher Aussagen abbilden zu können.
 
-Damit den konstruierten Konzeptgraphen eine Semantik zugeordnet werden, muss die Semantik der verwendeten Relationen beschrieben werden.
+Damit den konstruierten Konzeptgraphen eine Semantik zugeordnet werden kann, muss die Semantik der verwendeten Relationen beschrieben werden.
 Es wurde daher ein möglichst minimales Set von Relationen definiert~\tref{sec:text2kg:ontology:pred}, welches zur Beschreibung einer Vielzahl natürlichsprachlicher Aussagen geeignet ist.
 
-Eine der in~\ref{sec:intro:goals} beschriebenen Anforderungen an das Konstruktionsverfahren ist die Erweiterbarkeit, d.~h.\ die prinzipielle Möglichkeit nicht natürlichsprachliche Eingaben einzufügen.
+Eine der in~\ref{sec:intro:goals} beschriebenen Anforderungen an das Konstruktionsverfahren ist die Erweiterbarkeit, d.~h.\ die prinzipielle Möglichkeit, nicht natürlichsprachliche Eingaben einzufügen.
 Konkret bedeutet dies, dass z.~B. ein Bild in denselben Wissensgraph eingefügt werden kann, in den auch Textnachrichten eingefügt werden.
 Da die gewählten Konzeptgraph-Relationen nicht speziell für natürliche Sprache ausgelegt sind, ist dies prinzipiell möglich;
 es gibt keine Relationen, die bestimmte grammatikalische Konstrukte oder Wortarten abbilden.
@@ -41,7 +41,7 @@ Das Einfügen des aus einer Nachricht extrahierten Konzeptgraphen in einen beste
 Im Rahmen dieser Arbeit wurde PSL erstmals im Kontext einer Konzeptgraph-basierten Wissensgraph-Konstruktion eingesetzt.
 Es wurde ein Set von PSL-Regeln~\tref{sec:text2kg:psl:inference} vorgestellt, welches den Einsatz in diesem Kontext exemplarisch aufzeigt.
 
-Neben der Erweiterbarkeit war auch die Parallelisierbarkeit eines der in~\ref{sec:intro:goals} beschriebenen Ziele.
+Neben der Erweiterbarkeit, war auch die Parallelisierbarkeit eines der in~\ref{sec:intro:goals} beschriebenen Ziele.
 Durch die Wahl von PSL für die Grapherweiterung wurde diese Anforderung prinzipiell erfüllt.
 Das für die Inferenz verwendete ADMM-Verfahren lässt sich gut verteilt implementieren.
 In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Programmiermodellen, wie z.~B. MapReduce oder Pregel, implementieren lässt.
@@ -59,7 +59,7 @@ Nichts desto trotz gibt es noch zahlreiche Möglichkeiten das vorgestellte Verfa
 Im Folgenden wird ein Überblick über Möglichkeiten der Weiterentwickung und offen gebliebene Fragestellungen gegeben.
 
 \paragraph{Verbessern der Testmethode}
-Ein Problem bei der Konzeption des Verfahrens war der Umstand, dass es keine Kommunikationsdaten mit Referenzergebnissen gibt, anhand derer Änderungen am Verfahren bewertet werden können.
+Ein Problem bei der Konzeption des Verfahrens war der Umstand, dass es keine Kommunikationsdaten mit Referenzergebnissen gibt, anhand derer die Auswirkungen von Änderungen am Verfahren hätten bewertet werden können.
 Die Qualität vieler Entscheidungen, wie z.~B. der Wahl der Regelgewichte, konnte daher nur auf Basis manuell durchgeführter, stichprobenartiger Tests bewertet werden.
 
 Um dieses Problem zu lösen, könnte ein Kommunikationsdaten-Testset entwickelt werden, mit dem sich die Performance eines Wissensgraph-Konstruktionsverfahrens repräsentativ empirisch messen lässt.

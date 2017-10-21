@@ -1,0 +1,553 @@
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:80: Configuration file loaded: file:/home/clemens/Documents/bachelor-thesis-implementation/resources/psl.properties
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:104: Found value ~/text2kg/text2kg for option text2kg.dbpath.
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.rdbmsdatastore.valuecolumn. Returning default of truth.
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.rdbmsdatastore.confidencecolumn. Returning default of confidence.
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.rdbmsdatastore.partitioncolumn. Returning default of partition.
+14:13:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.rdbmsdatastore.usestringids. Returning default of true.
+14:13:36 WARN  org.linqs.psl.database.rdbms.RDBMSDataStoreMetadata:196: Determining max partition, no partitions found null
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:13:41 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:13:41 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  21 iterations. Primal res.: 0.0, Dual res.: 0.0
+14:13:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  41 iterations. Primal res.: 1.4071228268300085E-14, Dual res.: 0.0
+14:13:45 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  135 iterations. Primal res.: 0.007516384171322079, Dual res.: 0.0074383216996658655
+14:13:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  677 iterations. Primal res.: 0.005077970889058671, Dual res.: 0.009835080638997554
+14:13:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  127 iterations. Primal res.: 0.006273264421666267, Dual res.: 0.006517845536682265
+14:13:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.0012516868077506141, Dual res.: 0.0065195208228268145
+"Elapsed time: 12913.702651 msecs"
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:13:49 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:13:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  26 iterations. Primal res.: 0.004368424904851387, Dual res.: 0.0
+14:13:55 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  200 iterations. Primal res.: 0.0025402269940638733, Dual res.: 0.0058114632016832615
+14:13:56 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  664 iterations. Primal res.: 0.0037241938650937187, Dual res.: 0.009726783359514919
+14:13:57 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  194 iterations. Primal res.: 0.006774408165390645, Dual res.: 0.006384608299495416
+14:13:57 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  214 iterations. Primal res.: 0.00939983431178374, Dual res.: 0.005080296089370231
+"Elapsed time: 8693.57053 msecs"
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:13:58 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:14:03 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  116 iterations. Primal res.: 0.010794264277641097, Dual res.: 0.0014847730177142107
+14:14:03 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  188 iterations. Primal res.: 0.005459722982640693, Dual res.: 0.006405530582020254
+14:14:05 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  659 iterations. Primal res.: 0.004358394063411603, Dual res.: 0.011188749080907378
+14:14:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  466 iterations. Primal res.: 0.0065051884033532955, Dual res.: 0.006927522667765121
+14:14:08 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  735 iterations. Primal res.: 0.0054307728177508206, Dual res.: 0.0054285853414606355
+"Elapsed time: 10102.159044 msecs"
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:14:09 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:14:15 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  68 iterations. Primal res.: 0.007954116669609039, Dual res.: 0.004553388313233711
+14:14:17 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  219 iterations. Primal res.: 0.006152046814715092, Dual res.: 0.01096030829512049
+14:14:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  765 iterations. Primal res.: 0.005801990254068055, Dual res.: 0.01674997708446068
+14:14:29 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  689 iterations. Primal res.: 0.006510381600215717, Dual res.: 0.015955945258716533
+14:14:33 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  433 iterations. Primal res.: 0.01261179665060129, Dual res.: 0.014283174792134165
+14:14:34 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  571 iterations. Primal res.: 0.010367228704087567, Dual res.: 0.01313022046104256
+14:14:35 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  562 iterations. Primal res.: 0.009191504400091203, Dual res.: 0.013111679472780882
+"Elapsed time: 27946.697252 msecs"
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:14:36 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:14:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  139 iterations. Primal res.: 0.008724356341989134, Dual res.: 0.006997906144991942
+14:14:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  419 iterations. Primal res.: 0.010192463848309165, Dual res.: 0.011653117345052944
+14:14:57 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  977 iterations. Primal res.: 0.00823374956499182, Dual res.: 0.021561478877681495
+14:15:10 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1193 iterations. Primal res.: 0.00800952754765248, Dual res.: 0.01990934304144616
+14:15:15 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  722 iterations. Primal res.: 0.006961959053553819, Dual res.: 0.014951719221212039
+14:15:17 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  383 iterations. Primal res.: 0.014867714624131771, Dual res.: 0.015635549199985038
+"Elapsed time: 42097.034906 msecs"
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:15:18 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:15:29 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  122 iterations. Primal res.: 0.015567287227723913, Dual res.: 0.008441850321982455
+14:15:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  274 iterations. Primal res.: 0.013067935902890498, Dual res.: 0.01190968202568008
+14:15:42 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1188 iterations. Primal res.: 0.0041625217600281764, Dual res.: 0.022337269118995477
+14:15:53 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  738 iterations. Primal res.: 0.01037460840894099, Dual res.: 0.01878576506037767
+14:15:55 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  494 iterations. Primal res.: 0.012005609088278796, Dual res.: 0.01555427558288674
+14:15:56 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  373 iterations. Primal res.: 0.014333140147649297, Dual res.: 0.015519751580692789
+14:15:57 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  264 iterations. Primal res.: 0.02257570545806371, Dual res.: 0.015544885827176098
+"Elapsed time: 39491.485891 msecs"
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:16:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:16:16 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  128 iterations. Primal res.: 0.01316924741599336, Dual res.: 0.00804998080784546
+14:16:19 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  233 iterations. Primal res.: 0.013263946570882906, Dual res.: 0.014442938054420196
+14:16:34 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  898 iterations. Primal res.: 0.006151402278997137, Dual res.: 0.0252191964275257
+14:16:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  945 iterations. Primal res.: 0.0071544879641199195, Dual res.: 0.020834456772551732
+14:16:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  969 iterations. Primal res.: 0.010463038900699799, Dual res.: 0.01614544576457936
+14:16:55 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  503 iterations. Primal res.: 0.01359847798866796, Dual res.: 0.016024283240410584
+"Elapsed time: 59078.992005 msecs"
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:16:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:17:13 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  139 iterations. Primal res.: 0.010231091876596782, Dual res.: 0.008340707885784478
+14:17:14 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  239 iterations. Primal res.: 0.012796218278718335, Dual res.: 0.012305451272307685
+14:17:29 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  919 iterations. Primal res.: 0.007962716347582076, Dual res.: 0.02440904696440485
+14:17:45 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  968 iterations. Primal res.: 0.010932102194667325, Dual res.: 0.02122591949936292
+14:17:47 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  606 iterations. Primal res.: 0.01242873955967, Dual res.: 0.01621708715705195
+14:17:49 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  504 iterations. Primal res.: 0.013122482244833394, Dual res.: 0.016125413202138453
+"Elapsed time: 53359.076898 msecs"
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:17:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:18:06 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  115 iterations. Primal res.: 0.018512196236876974, Dual res.: 0.009028296619934225
+14:18:08 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  281 iterations. Primal res.: 0.010511475693559069, Dual res.: 0.012661938219990844
+14:18:23 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  966 iterations. Primal res.: 0.007301158954510559, Dual res.: 0.02481335089304685
+14:18:39 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  606 iterations. Primal res.: 0.01733912935091327, Dual res.: 0.02046812632914752
+14:18:43 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1247 iterations. Primal res.: 0.0038293685392435744, Dual res.: 0.0164499288067366
+14:18:45 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  451 iterations. Primal res.: 0.00896209398345826, Dual res.: 0.01577486337913054
+"Elapsed time: 56419.355592 msecs"
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:18:47 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:19:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  135 iterations. Primal res.: 0.009362726142342945, Dual res.: 0.009222336832950954
+14:19:09 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  304 iterations. Primal res.: 0.009496081935746404, Dual res.: 0.01422091813260066
+14:19:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1143 iterations. Primal res.: 0.009088996011374915, Dual res.: 0.027674041797514867
+14:19:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  527 iterations. Primal res.: 0.017692238238169906, Dual res.: 0.022400168412872002
+14:19:53 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  498 iterations. Primal res.: 0.00781375003625325, Dual res.: 0.01736778175893314
+14:19:55 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  343 iterations. Primal res.: 0.014784236468679211, Dual res.: 0.017349254630458416
+14:19:55 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.014858201494549368, Dual res.: 0.017228418419248718
+"Elapsed time: 69591.17165 msecs"
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:19:56 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:20:17 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  106 iterations. Primal res.: 0.018265889286920425, Dual res.: 0.009369036492716098
+14:20:20 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  313 iterations. Primal res.: 0.011627750476572024, Dual res.: 0.013801331314879628
+14:20:42 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1278 iterations. Primal res.: 0.007486834232731781, Dual res.: 0.027269628804395568
+14:21:05 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  543 iterations. Primal res.: 0.01345055777712536, Dual res.: 0.023116897794085534
+14:21:09 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  942 iterations. Primal res.: 0.003910030678665428, Dual res.: 0.017744338789241823
+14:21:12 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  604 iterations. Primal res.: 0.006116563490428145, Dual res.: 0.01785903816791635
+"Elapsed time: 77587.880354 msecs"
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:21:15 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:21:37 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  121 iterations. Primal res.: 0.01482468964335086, Dual res.: 0.010113025223918647
+14:21:38 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  269 iterations. Primal res.: 0.014147355284038259, Dual res.: 0.013179180745243725
+14:22:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1307 iterations. Primal res.: 0.006095588461176585, Dual res.: 0.02825744903773219
+14:22:25 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  574 iterations. Primal res.: 0.010821251878016783, Dual res.: 0.022735602295501024
+14:22:28 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  636 iterations. Primal res.: 0.005177299379709768, Dual res.: 0.018079958729342656
+14:22:31 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  510 iterations. Primal res.: 0.007541790702209438, Dual res.: 0.018034642986289703
+"Elapsed time: 79330.90913 msecs"
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:22:33 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:22:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  119 iterations. Primal res.: 0.011416756654438292, Dual res.: 0.010355779517073529
+14:22:56 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  272 iterations. Primal res.: 0.01738882902832687, Dual res.: 0.013965623206948
+14:23:20 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1198 iterations. Primal res.: 0.0030395325795588924, Dual res.: 0.028860962394752356
+14:23:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  536 iterations. Primal res.: 0.01935689331335425, Dual res.: 0.023486738311235694
+14:23:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  516 iterations. Primal res.: 0.008275151633029436, Dual res.: 0.018194771968248827
+14:23:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  344 iterations. Primal res.: 0.012917033251556333, Dual res.: 0.018316490134041206
+"Elapsed time: 78359.273466 msecs"
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:23:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:24:18 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  118 iterations. Primal res.: 0.013132821285133508, Dual res.: 0.011013101549196493
+14:24:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  301 iterations. Primal res.: 0.015048656659895488, Dual res.: 0.01571380318126908
+14:24:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1170 iterations. Primal res.: 0.013245774313185493, Dual res.: 0.031006323828081297
+14:25:23 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  575 iterations. Primal res.: 0.01317017338463898, Dual res.: 0.025188594859467
+14:25:27 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  472 iterations. Primal res.: 0.00994419051810748, Dual res.: 0.01915039661950036
+14:25:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  393 iterations. Primal res.: 0.012913653929581305, Dual res.: 0.019092371962993994
+14:25:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.012922614539513249, Dual res.: 0.019053738201986085
+"Elapsed time: 99364.426617 msecs"
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:25:32 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:25:58 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  210 iterations. Primal res.: 0.02637522576367361, Dual res.: 0.010732660579590816
+14:26:00 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  646 iterations. Primal res.: 0.00863964751091658, Dual res.: 0.01406001848312915
+14:26:32 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1285 iterations. Primal res.: 0.008791639954892426, Dual res.: 0.029389097120115868
+14:27:05 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  799 iterations. Primal res.: 0.01747009305782357, Dual res.: 0.021819916701038174
+14:27:08 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  444 iterations. Primal res.: 0.009361239039441673, Dual res.: 0.019263365197184638
+14:27:11 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  401 iterations. Primal res.: 0.011583180906657298, Dual res.: 0.01922211154593119
+"Elapsed time: 100405.258882 msecs"
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:27:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:27:38 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  137 iterations. Primal res.: 0.03272962984620334, Dual res.: 0.01040319730657183
+14:27:40 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  298 iterations. Primal res.: 0.017603020378097148, Dual res.: 0.014698236011803086
+14:28:10 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1102 iterations. Primal res.: 0.00442058005012747, Dual res.: 0.031198232142029186
+14:28:43 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  576 iterations. Primal res.: 0.012513521578077617, Dual res.: 0.025566721434450105
+14:28:47 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  547 iterations. Primal res.: 0.008063081336044232, Dual res.: 0.019474553731098933
+14:28:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  264 iterations. Primal res.: 0.019584620702496478, Dual res.: 0.019311624808760953
+"Elapsed time: 97787.745807 msecs"
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:28:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:29:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  233 iterations. Primal res.: 0.024700468257666523, Dual res.: 0.011786444836563933
+14:29:25 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  397 iterations. Primal res.: 0.010560997960629807, Dual res.: 0.016546787204560542
+14:30:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1262 iterations. Primal res.: 0.009506914993947709, Dual res.: 0.032651853688948115
+14:30:41 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  636 iterations. Primal res.: 0.017092535862205566, Dual res.: 0.025157668638344736
+14:30:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  559 iterations. Primal res.: 0.009117444337892655, Dual res.: 0.020295014277302147
+14:30:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  266 iterations. Primal res.: 0.022268011822661037, Dual res.: 0.020192265207591716
+14:30:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.022216456383480448, Dual res.: 0.020149662552854997
+"Elapsed time: 120317.650153 msecs"
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:30:50 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:31:19 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  162 iterations. Primal res.: 0.02985296961973695, Dual res.: 0.01227072654178222
+14:31:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  320 iterations. Primal res.: 0.016229553331805615, Dual res.: 0.01508275973784622
+14:31:58 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1141 iterations. Primal res.: 0.015040289990251652, Dual res.: 0.030532647945364456
+14:32:39 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  635 iterations. Primal res.: 0.02055996505646448, Dual res.: 0.023222869406266184
+14:32:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  602 iterations. Primal res.: 0.007828485705279886, Dual res.: 0.020378902406410594
+14:32:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  265 iterations. Primal res.: 0.021958762900354693, Dual res.: 0.020269002087097705
+"Elapsed time: 117733.379884 msecs"
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:32:48 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:33:19 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  257 iterations. Primal res.: 0.02335490482398796, Dual res.: 0.01122749648588325
+14:33:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  723 iterations. Primal res.: 0.013032849921917724, Dual res.: 0.010233349541501667
+14:34:00 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1217 iterations. Primal res.: 0.01426560920046353, Dual res.: 0.032228352875513906
+14:34:43 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  793 iterations. Primal res.: 0.020735037139342567, Dual res.: 0.024495980543174888
+14:34:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  452 iterations. Primal res.: 0.010926414266196647, Dual res.: 0.020496380793866557
+14:34:49 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  318 iterations. Primal res.: 0.016434398264646082, Dual res.: 0.02041715384622182
+"Elapsed time: 123101.311933 msecs"
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:34:51 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:35:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  163 iterations. Primal res.: 0.029180731052461075, Dual res.: 0.011077038311323707
+14:35:24 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  337 iterations. Primal res.: 0.015143405061514972, Dual res.: 0.015163645267935242
+14:36:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1052 iterations. Primal res.: 0.00708144546681674, Dual res.: 0.03335474352096453
+14:36:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  685 iterations. Primal res.: 0.03054687066338005, Dual res.: 0.022049386037403623
+14:36:51 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  523 iterations. Primal res.: 0.010633106975530304, Dual res.: 0.020749449498007968
+14:36:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  345 iterations. Primal res.: 0.015969356638510564, Dual res.: 0.020732292823576783
+"Elapsed time: 124720.252956 msecs"
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:36:57 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:37:34 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  281 iterations. Primal res.: 0.0217241427605305, Dual res.: 0.011717526364495275
+14:37:37 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  403 iterations. Primal res.: 0.011906714434154093, Dual res.: 0.017263383351653127
+14:38:23 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1214 iterations. Primal res.: 0.008443050071142523, Dual res.: 0.0346051044073449
+14:39:16 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  751 iterations. Primal res.: 0.02375132786036692, Dual res.: 0.02209838961822428
+14:39:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  559 iterations. Primal res.: 0.009915556383507404, Dual res.: 0.021477075251283017
+14:39:25 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  391 iterations. Primal res.: 0.015952741426045015, Dual res.: 0.021344497268026154
+14:39:25 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.01615733853845095, Dual res.: 0.021144563970753018
+"Elapsed time: 151470.248186 msecs"
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:39:27 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:40:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  188 iterations. Primal res.: 0.025715713095776704, Dual res.: 0.01327751562463394
+14:40:04 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  357 iterations. Primal res.: 0.01375588882613224, Dual res.: 0.015572733364332217
+14:40:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1098 iterations. Primal res.: 0.017419634019349612, Dual res.: 0.03233807973377148
+14:41:43 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  773 iterations. Primal res.: 0.03617513794796702, Dual res.: 0.021471058577646432
+14:41:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  476 iterations. Primal res.: 0.012322525915260675, Dual res.: 0.021589611509209378
+14:41:53 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  478 iterations. Primal res.: 0.011939351142574583, Dual res.: 0.021632552822367344
+"Elapsed time: 147660.844741 msecs"
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:41:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:42:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  328 iterations. Primal res.: 0.0183104025309437, Dual res.: 0.013557075027208999
+14:42:33 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  449 iterations. Primal res.: 0.008789893576331238, Dual res.: 0.01641021500622618
+14:43:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1173 iterations. Primal res.: 0.015337075169868285, Dual res.: 0.035082612998215766
+14:44:16 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  804 iterations. Primal res.: 0.024430221215327824, Dual res.: 0.021693176573129556
+14:44:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  474 iterations. Primal res.: 0.012633636449134598, Dual res.: 0.021769469884459644
+14:44:25 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  474 iterations. Primal res.: 0.012729747671859063, Dual res.: 0.021708559866379592
+"Elapsed time: 152687.36635 msecs"
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:44:29 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:45:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  190 iterations. Primal res.: 0.025567051391559202, Dual res.: 0.01266074626365882
+14:45:12 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  378 iterations. Primal res.: 0.014874771828982784, Dual res.: 0.01915658632838525
+14:46:14 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  905 iterations. Primal res.: 0.014455198377084123, Dual res.: 0.04053492950768978
+14:48:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  873 iterations. Primal res.: 0.03409486851331277, Dual res.: 0.0335872423288369
+14:48:52 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  595 iterations. Primal res.: 0.009785144391278382, Dual res.: 0.02790558619075502
+14:48:58 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  387 iterations. Primal res.: 0.016684536404239413, Dual res.: 0.027670018494134033
+14:49:03 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  314 iterations. Primal res.: 0.02354609822040875, Dual res.: 0.027558012721617075
+14:49:03 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1 iterations. Primal res.: 0.02350647410384236, Dual res.: 0.02748870108535868
+"Elapsed time: 279429.961218 msecs"
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+14:49:07 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+14:49:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  398 iterations. Primal res.: 0.01675143324524043, Dual res.: 0.015273014250218047
+14:49:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  419 iterations. Primal res.: 0.01337515545269589, Dual res.: 0.019987585908466013
+14:51:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1336 iterations. Primal res.: 0.006460591514603599, Dual res.: 0.045631877505088035
+15:03:09 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  2238 iterations. Primal res.: 0.014968167471105048, Dual res.: 0.060566562481273546
+15:10:21 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1835 iterations. Primal res.: 0.013932253508703404, Dual res.: 0.03965274154467888
+15:12:27 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  553 iterations. Primal res.: 0.022439011943109245, Dual res.: 0.03988027919713159
+15:13:39 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  348 iterations. Primal res.: 0.033190050231108596, Dual res.: 0.0396548824225899
+"Elapsed time: 1476723.08609 msecs"
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+15:13:44 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+15:14:29 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  201 iterations. Primal res.: 0.02269696344602204, Dual res.: 0.013869732642504816
+15:14:33 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  364 iterations. Primal res.: 0.013511880321418474, Dual res.: 0.02049052701180786
+15:16:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1491 iterations. Primal res.: 0.007197492493736407, Dual res.: 0.04709443050216527
+15:26:00 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1788 iterations. Primal res.: 0.01782826201255831, Dual res.: 0.05997982037271758
+15:28:18 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  967 iterations. Primal res.: 0.017419572310745004, Dual res.: 0.03892408769399668
+15:30:04 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  783 iterations. Primal res.: 0.01820422481040339, Dual res.: 0.03882404302103508
+15:31:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  470 iterations. Primal res.: 0.02476986021948409, Dual res.: 0.038658837701628306
+"Elapsed time: 1048024.149287 msecs"
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+15:31:12 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+15:31:59 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  202 iterations. Primal res.: 0.023560595130261586, Dual res.: 0.014660400570363866
+15:32:04 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  365 iterations. Primal res.: 0.013972901628391644, Dual res.: 0.021663135514197258
+15:34:37 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1482 iterations. Primal res.: 0.00611077057942601, Dual res.: 0.048667876669643124
+15:44:07 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1652 iterations. Primal res.: 0.022003642247146748, Dual res.: 0.06355022727646693
+15:47:56 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1006 iterations. Primal res.: 0.01746121799976889, Dual res.: 0.041238549242108354
+15:49:35 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  577 iterations. Primal res.: 0.025975824771494856, Dual res.: 0.04051399186426265
+15:50:49 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  474 iterations. Primal res.: 0.026548414972367134, Dual res.: 0.04097395279564829
+"Elapsed time: 1183477.156567 msecs"
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+15:50:55 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+15:51:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  202 iterations. Primal res.: 0.0235087407218109, Dual res.: 0.015894719317590594
+15:51:49 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  343 iterations. Primal res.: 0.01595680295800354, Dual res.: 0.0218026023816509
+15:54:34 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1502 iterations. Primal res.: 0.006264025741965692, Dual res.: 0.04910840509675973
+16:05:34 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1618 iterations. Primal res.: 0.02233953705781972, Dual res.: 0.06332689685836417
+16:08:44 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1063 iterations. Primal res.: 0.01547343066397719, Dual res.: 0.04122883662490781
+16:10:40 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  697 iterations. Primal res.: 0.021272830941081018, Dual res.: 0.04105456382507994
+16:11:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  425 iterations. Primal res.: 0.030172336591168414, Dual res.: 0.041014735811888636
+"Elapsed time: 1259203.087506 msecs"
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+16:11:54 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+16:12:45 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  202 iterations. Primal res.: 0.023202486847027, Dual res.: 0.015131787115297802
+16:12:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  362 iterations. Primal res.: 0.01580834110298333, Dual res.: 0.021647889715919567
+16:15:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1510 iterations. Primal res.: 0.0069040334357015586, Dual res.: 0.049720825053376855
+16:24:41 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1606 iterations. Primal res.: 0.02336342071883208, Dual res.: 0.06338992468266852
+16:27:23 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  970 iterations. Primal res.: 0.017901666537325514, Dual res.: 0.04115734251703312
+16:28:50 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  567 iterations. Primal res.: 0.024479415724289987, Dual res.: 0.04093786256159138
+16:29:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  427 iterations. Primal res.: 0.029927555418639028, Dual res.: 0.04078663016460562
+"Elapsed time: 1085330.14842 msecs"
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+16:30:00 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+16:30:52 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  201 iterations. Primal res.: 0.021294333237240316, Dual res.: 0.015982817482566143
+16:30:58 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  338 iterations. Primal res.: 0.015496122227832063, Dual res.: 0.02275564764696674
+16:33:47 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1511 iterations. Primal res.: 0.006716760868385985, Dual res.: 0.0505592844417847
+16:45:49 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1603 iterations. Primal res.: 0.025342800758530633, Dual res.: 0.0681244160035833
+16:51:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1649 iterations. Primal res.: 0.013710117754564835, Dual res.: 0.04811022416315779
+16:56:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1225 iterations. Primal res.: 0.019967409185120074, Dual res.: 0.046152366443214
+17:03:00 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1385 iterations. Primal res.: 0.015678617767855806, Dual res.: 0.04662498137868799
+17:05:43 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  565 iterations. Primal res.: 0.028165717778168117, Dual res.: 0.04607764264250921
+"Elapsed time: 2152124.304695 msecs"
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+17:05:52 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+17:06:48 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  203 iterations. Primal res.: 0.025876257506246697, Dual res.: 0.01353074282592567
+17:06:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  366 iterations. Primal res.: 0.016914691768341927, Dual res.: 0.023121936718037705
+17:10:41 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1555 iterations. Primal res.: 0.011251105198952276, Dual res.: 0.0522225214321151
+17:23:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1625 iterations. Primal res.: 0.027175356844483873, Dual res.: 0.06800222058834826
+17:28:06 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1386 iterations. Primal res.: 0.013827460520422078, Dual res.: 0.04560336069657584
+17:30:35 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  585 iterations. Primal res.: 0.02645452599218953, Dual res.: 0.045037584716009965
+17:32:13 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  447 iterations. Primal res.: 0.0299269889156422, Dual res.: 0.04502652204688814
+"Elapsed time: 1588954.028827 msecs"
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+17:32:21 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+17:33:16 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  201 iterations. Primal res.: 0.020038884845053857, Dual res.: 0.017675325057521316
+17:33:23 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  363 iterations. Primal res.: 0.014125992471729673, Dual res.: 0.024253614740221734
+17:37:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1479 iterations. Primal res.: 0.012389707928434586, Dual res.: 0.05362712871304168
+17:53:41 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1591 iterations. Primal res.: 0.025847636716704453, Dual res.: 0.07272445294870945
+18:01:32 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1713 iterations. Primal res.: 0.015115989877397554, Dual res.: 0.04890322806168753
+18:05:31 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1230 iterations. Primal res.: 0.018102728362609115, Dual res.: 0.04816339325115093
+18:07:24 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  523 iterations. Primal res.: 0.0314854752715463, Dual res.: 0.048020027845758505
+"Elapsed time: 2112316.290097 msecs"
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.maxrounds. Returning default of 100.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.lazympeinference.reasoner. Returning default of org.linqs.psl.reasoner.admm.ADMMReasonerFactory@5abb61ea.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.maxiterations. Returning default of 25000.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stepsize. Returning default of 1.0.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonabs. Returning default of 1.0E-5.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.epsilonrel. Returning default of 0.001.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.stopcheck. Returning default of 1.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.admmreasoner.numthreads. Returning default of 16.
+18:07:34 INFO  org.linqs.psl.config.ConfigManager:107: No value found for option text2kg.atomeventframework.activation. Returning default of 0.01.
+18:08:33 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  396 iterations. Primal res.: 0.013982071378551302, Dual res.: 0.01792040203645447
+18:08:42 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  396 iterations. Primal res.: 0.018099668928191367, Dual res.: 0.025714727374811976
+18:13:02 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1533 iterations. Primal res.: 0.01249481297487689, Dual res.: 0.05707652016528037
+18:42:52 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1927 iterations. Primal res.: 0.022402802408170962, Dual res.: 0.08144856224638708
+19:11:46 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  1964 iterations. Primal res.: 0.05813219966648804, Dual res.: 0.06478011385405714
+19:23:22 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  736 iterations. Primal res.: 0.03436480485543308, Dual res.: 0.07032823478702661
+19:31:54 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  894 iterations. Primal res.: 0.02978265338670486, Dual res.: 0.06595991102427558
+19:40:38 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  809 iterations. Primal res.: 0.030582090419148115, Dual res.: 0.06608287441484012
+19:44:30 INFO  org.linqs.psl.reasoner.admm.ADMMReasoner:610: Optimization completed in  401 iterations. Primal res.: 0.051861481598051276, Dual res.: 0.06610366218946903
+"Elapsed time: 5837046.674569 msecs"

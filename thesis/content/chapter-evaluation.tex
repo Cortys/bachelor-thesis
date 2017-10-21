@@ -12,17 +12,15 @@ Anschließend wird in~\ref{sec:evaluation:time} die Tauglichkeit des Verfahrens 
 
 Das vorgestellte Verfahren macht zahlreiche Annahmen über die Struktur und Komplexität der Eingabedaten, zudem wird lediglich ein kleiner Teil aller potentiell in Annotationsgraphen enthaltenen Informationen genutzt.
 In diesem Kapitel wird betrachtet, wie sich diese Einschränkungen auf die Qualität der resultierenden Wissensgraphen auswirken.
-Ziel ist dabei nicht eine umfassende empirische Auswertung durchzuführen, sondern stattdessen die Stärken und Schwächen des Verfahrens anhand von stichprobenartig ausgewählten, realen Beispieldaten aufzuzeigen.
-Es gibt im Wesentlichen drei Gründe für diese Entscheidung:
+Ziel ist dabei nicht, eine umfassende empirische Auswertung durchzuführen, sondern stattdessen die Stärken und Schwächen des Verfahrens anhand von stichprobenartig ausgewählten, realen Beispieldaten aufzuzeigen.
+Es gibt im Wesentlichen zwei Gründe für diese Entscheidung:
 \begin{enumerate}
 	\item Das entwickelte Verfahren ist primär prototypisch zu verstehen.
-		Das Ziel war nicht ein bestimmtes Maß an Qualität zu erreichen, sondern vielmehr die Praktikabilität des Ansatzes zu demonstrieren.
-	\item Es gibt keine alternativen Ansätze mit dem das entwickelte Verfahren verglichen werden kann.
-		Eine automatisierte Konzeptgraph-basierte Wissensgraph-Konstruktion aus natürlichsprachlichen Nachrichten wurde bislang in keiner anderen Arbeit untersucht.
-	\item Es existieren zudem keine Testdatensets, die für eine empirische Analyse des entwickelten Verfahrens geeignet sind.
+		Das Ziel war nicht, ein bestimmtes Maß an Qualität zu erreichen, sondern vielmehr die Praktikabilität des Ansatzes zu demonstrieren.
+	\item Es existieren keine Testdatensets, die für eine empirische Analyse des entwickelten Verfahrens geeignet sind.
 		Es existieren zwar Testdaten für die verwendeten NLP-Tasks (NER, POS-Tagging, Coreference Resolution etc.), da die Ergebnisse hierfür allerdings direkt aus CoreNLP stammen, würde mit den verfügbaren Testdaten lediglich die Performance von CoreNLP gemessen.
 		Benötigt wären Testdaten, die das Evaluieren der Konzept\-graph\-struktur erlauben, d.~h.\ solche, die Informationen über die semantischen Abhängigkeiten und Negation von Konzepten enthalten.
-		Fakten-Benchmarks wie \textit{FactBench}~\cite{FactBench} sind grundsätzlich für die Performance-Bewertung geeignet, hierfür wäre allerdings ein Set von Kommunikationsdaten notwendig, welches Informationen über die im Benchmark geprüften Fakten enthält;
+		Fakten-Benchmarks wie \textit{FactBench}~\cite{FactBench} wären grundsätzlich für die Performance-Bewertung geeignet, hierfür wäre allerdings ein Set von Kommunikationsdaten notwendig, welches Informationen über die im Benchmark geprüften Fakten enthält;
 		ein solches Datenset wurde bei der Recherche im Rahmen dieser Arbeit nicht gefunden.
 \end{enumerate}
 
@@ -46,7 +44,7 @@ Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da dari
 
 Für die Testnachrichten wurde zufällig ein Testthread aus der Menge aller Threads ausgewählt, der die Schlüsselwörter \textit{``yesterday''} oder \textit{``tomorrow''} enthält.
 Ziel dabei war es, Nachrichten, in denen es um Termine oder Ereignisse geht, zu erhalten, da diese Nachrichten häufig auch ohne umfangreiches domänenspezifisches Wissen verstanden werden können.
-Die Wahl eines beliebigen Threads resultierte meist in Nachrichten, die nur mit domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
+Die Wahl eines zufälligen Threads, ohne diese Einschränkung, resultierte meist in Nachrichten, die nur mit umfangreichem domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
 Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:msgs} zu finden.
 
 \subsection{Ergebnisse}%
@@ -64,7 +62,7 @@ Dabei wird zwischen zwei Arten von Fehlern unterschieden:
 \end{tasks}
 
 \paragraph{Personen}
-Die erste Anfrage~\tref{sec:appendix:queries:people} testet, welche Personen in den Nachrichten erkannt wurden.
+Die erste Anfrage~\tref{sec:appendix:queries:people} testet, welche Personen in den Testnachrichten erkannt wurden.
 Da dieselbe Person in verschiedenen Kontexten verschiedene Namen haben kann, ist die Ausgabe der Anfrage eine Liste von Personen, die jeweils durch eine Liste von Namen beschrieben werden.
 \csvautobooklongtable[separator=semicolon]{data/evaluation/people.csv}
 In den Testnachrichten werden fünf Personen erkannt.
@@ -89,13 +87,13 @@ Unter den übrigen Einträgen, wurden den ersten beiden Einträgen Zeitpunkte zu
 Beide stammen aus der ersten Testnachricht und sind im Wesentlichen korrekt, die relativen Zeitangaben \textit{yesterday} und \textit{today} wurden von SUTime korrekt aufgelöst und die PSL-Regel \ruleref{rule:text2kg:i} hat die Pronomina, die Agens der $relation$-Konzepte sind, korrekt der Person \textit{Duane Seppi} zugeordnet.
 Es wurden allerdings auch verschiedene Fehler gemacht:
 \begin{enumerate}
-	\item In den Einträgen 8 und 9 haben Fehler im Abhängigkeitsgraphen eine semantisch inkorrekte Repräsentation des ersten Satzes von Nachricht~3 verursacht:
+	\item In den Einträgen 8 und 9 spiegelt sich wider, dass Fehler im CoreNLP Abhängigkeitsgraphen eine semantisch inkorrekte Repräsentation des ersten Satzes von Nachricht~3 verursacht haben:
 	 	\textit{``I would be grateful if I could talk with you some time about the typical terms one sees in Swing, take or pay, virtual storage, etc.\ options.''} \errorA\
 	\item Die Einträge 15 und 16 sind fehlerhaft, da bei der CoreNLP Coreference Resolution das Pronomen \textit{I} des zweiten Satzes von Nachricht~6 fälschlicherweise mit \textit{Duane Seppi} verknüpft wurde. \errorA\
 	\item Die Aussage von Satz~2 aus Nachricht~3 wird nicht im Wissensgraphen repräsentiert:
 		\textit{``This is related to some research some colleagues and I are doing applying recent innovations in Monte Carlo valuation of options with early exercise.''} \errorB\
 
-		Der Grund hierfür ist, dass nicht alle Universal Dependencies Abhängigkeitstypen auf ihre semantische Entsprechung in der Wissensgraphontologie abgebildet werden.
+		Der Grund hierfür ist, dass nicht alle Universal Dependencies Abhängigkeits\-typen auf ihre semantische Entsprechung in der Wissensgraphontologie abgebildet werden.
 		Der obige Satz wird z.~B. deshalb nicht korrekt im Graphen repräsentiert, da die Abhängigkeitstypen \texttt{advcl} und \texttt{acl} bislang nicht berücksichtigt werden.
 \end{enumerate}
 
@@ -112,7 +110,7 @@ Um dies zu erkennen, müssten Kommunikationsverläufe berücksichtigt werden, st
 \paragraph{Positive und negative Aussagen}
 In den vorigen Anfragen wurden Kontexte nicht berücksichtigt, da die Testnachrichten größtenteils Tatsachen beschreiben.
 Die vierte Anfrage~\tref{sec:appendix:queries:neg} wird daher benutzt, um die Erkennung von Negationskontexten zu testen.
-Konkret werden hierfür alle Relationen abgefragt, die in von \textit{John Doe} geschriebenen Nachrichten erwähnt werden und für die etwas über deren Wahrheit oder Unwahrheit bekannt ist.
+Konkret werden hierfür alle Relationen abgefragt, die in, von \textit{John Doe} geschriebenen, Nachrichten erwähnt werden und für die etwas über deren Wahrheit oder Unwahrheit bekannt ist.
 \csvautobooklongtable[separator=semicolon]{data/evaluation/personNegationAction.csv}
 Relation~2 wurde dabei semantisch inkorrekt abgebildet \errorA.
 Die Negation von \textit{``I have something''} im Satz \textit{``I'm not writing this message because I have something to say''} wurde nicht erkannt.
@@ -126,7 +124,7 @@ Zu derartige Schlussfolgerungen ist das vorgestellte Verfahren bislang nicht in 
 
 In diesem Abschnitt wird untersucht, inwiefern sich das beschriebene Verfahren im Kontext von Nachrichtenstreams eignet.
 Da in der PSL-Phase für jede eingefügte Nachricht momentan eine vollständige ADMM-basierte Inferenz durchgeführt wird, ist zu erwarten, dass mit jeder eingefügten Nachricht die Inferenzdauer steigt.
-Dies wurde überprüft indem der Reihe nach die Nachrichten aus drei verschiedenen Enron E-Mail Threads eingefügt wurden;
+Dies wurde überprüft, indem der Reihe nach die Nachrichten aus drei verschiedenen Enron E-Mail Threads eingefügt wurden;
 verwendet wurden die zufällig ausgewählten Threads \texttt{bin1/300249}, \texttt{bin1/363227} und \texttt{bin5/350143}.
 Nachrichten ohne Inhalt, From- oder To-Header wurden ignoriert.
 Insgesamt wurden 57 Nachrichten der Reihe nach eingefügt%
@@ -156,11 +154,11 @@ Da ein Testdurchlauf knapp 42 Stunden benötigt, wurden aus zeitlichen Gründen 
 	\caption{Inferenzdauer beim sequentiellen Einfügen der Testnachrichten (Tabelle in~\ref{sec:appendix:perf})}\label{fig:evaluation:perf}
 \end{figure}
 Wie erwartet steigt die Inferenzdauer mit jeder eingefügten Nachricht tendenziell an; es lässt sich jedoch beobachten, dass das Einfügen der ersten Nachricht aus einem Thread eine deutliche Erhöhung der Inferenzdauer verursacht.
-Eine Ursache hierfür findet sich in der Korrelation des Anstiegs der Inferenzdauer $\Delta t_i = t_i - t_{i - 1}$ zwischen zwei Nachrichten $m_{i - 1}, m_i$ und der Anzahl neuer Konzepte $c_i$ in der Nachricht $m_i$.
-Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglich $0.187$, da insbesondere im ersten Thread konstante Faktoren die Laufzeit dominieren.
-Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich $Kor_{25}(\Delta t, c) = 0.616$.
-Dies unterstützt die Annahme, dass Nachrichten, die neue Konzepte und Themen enthalten, einen Anstieg der Inferenzdauer bewirken.
+Eine Erklärung hierfür ist, dass die Stärke des Anstiegs der Inferenzdauer, von der Anzahl neuer Konzepte in einer Nachricht abhängt.
 Die Inferenzdauer-Anstiege zwischen zwei Threads werden dadurch verursacht, dass die erste Nachricht eines neuen Threads i.~d.~R. viele neue Konzepte einführt.
+Diese Erklärung wird durch die Korrelation des Anstiegs der Inferenzdauer $\Delta t_i = t_i - t_{i - 1}$ zwischen zwei Nachrichten $m_{i - 1}, m_i$ und der Anzahl neuer Konzepte $c_i$ in der Nachricht $m_i$ unterstützt.
+Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglich $0.187$, da insbesondere im ersten Thread konstante Faktoren die Laufzeit dominieren.
+Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich jedoch $Kor_{25}(\Delta t, c) = 0.616$.
 
 Die gemessene Inferenzdauer liegt anfangs bei ca.\ 4 Sek.\ und steigt auf ca.\ 2 Std.\ an.
 Die momentane Implementation des Verfahrens ist also definitv nicht für den praktischen Einsatz geeignet.

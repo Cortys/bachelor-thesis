@@ -17,7 +17,7 @@ Abgesehen von dieser Änderung, wurden die Inhalte und Absendezeitpunkte der Mai
 \section{Verwendete Testanfragen}%
 \label{sec:appendix:queries}
 
-Zur Evaluation des aus den Testnachrichten konstruierten Wissensgraphen wurden drei Testanfragen verwendet, die jeweils verschiedene Aspekte des Graphen betrachten.
+Zur Evaluation des aus den Testnachrichten konstruierten Wissensgraphen, wurden drei Testanfragen verwendet, die jeweils verschiedene Aspekte des Graphen betrachten.
 Die Anfragen sind in der Sprache Cypher des Neo4j-Graphdatenbanksystems~\cite{Neo4j} geschrieben.
 Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{GraphAlgo} durchgeführt.
 
@@ -27,7 +27,7 @@ Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{G
 \inputminted{cypher}{data/evaluation/people.cql}
 Diese Anfrage arbeitet im Wesentlichen in zwei Schritten.
 Im ersten Schritt wird der Teilgraph aller Konzepte gebildet, die Instanz von \textit{person} und nicht Instanz von \textit{I} oder \textit{you} sind.
-Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängenden Komponenten des Teilgraphen ermittelt.
+Im zweiten Schritt wird dann die Menge aller über $inst$-Kanten schwach zusammenhängender Komponenten des Teilgraphen ermittelt.
 Die $label$ der Konzepte innerhalb einer Zusammenhangskomponente sind die Namen bzw.\ Bezeichner, die dieselbe Person in verschiedenen Nachrichten hat.
 
 Der Grund für diesen Aufbau ist, dass eine Person als ein Konzept mit gewissen charakterisierenden Eigenschaften verstanden werden kann.
@@ -55,29 +55,29 @@ Um zu bestimmen, um was für eine Art von Nummer es sich dabei jeweils handelt, 
 
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}
 Diese Anfrage ermittelt zuerst alle Relationen, die von einem Kontext umgeben sind, der den Inhalt einer Nachricht beschreibt, die von \textit{John Doe} gesendet wurde.
-Anschließend wird für jede Relation geprüft, ob sie negative Elternkontexte hat.
+Anschließend wird für jede Relation geprüft, ob sie negative umgebende Kontexte hat.
 Da in der NLP-Phase bereits doppelte Verneinungen vereinfacht werden, müssen diese nicht beachtet werden.
 Es sind daher drei Fälle zu beachten:
 \begin{enumerate}
 	\item \textbf{\texttt{POSITIVE}:}
-		Die Relation hat keine negativen Elternkontexte und ist somit selbst positiv.
+		Die Relation hat keine negativen umgebenden Kontexte und ist somit selbst positiv.
 	\item \textbf{\texttt{NEGATIVE}:}
-		Die Relation hat einen negativen Elternkontext, deren einziges Kind sie ist.
+		Die Relation hat einen negativen umgebenden Kontext, deren einziges Kind sie ist.
 		In diesem Fall ist die Relation negiert.
 	\item \textbf{\texttt{CONDITIONAL}:}
-		Die Relation hat mehrere negative Elternkontexte oder ist nicht einziges Kind ihres negativen Elternkontextes.
+		Die Relation hat mehrere negative umgebende Kontexte oder ist nicht einziges Kind ihres negativen umgebenden Kontextes.
 		In diesem Fall ist die Existenz der Relation abhängig von der Existenz anderer Konzepte.
 		Prinzipiell ließen sich diese Abhängigkeiten abfragen, der Einfachheit halber, wird dies hier jedoch nicht getan.
 \end{enumerate}
-Diese Anfrage ist ein gutes Beispiel dafür, dass mit einer Graph-Anfragesprache, in diesem Beispiel Cypher, Kontexte nur recht umständlich berücksichtigt werden können.
+Diese Anfrage ist ein gutes Beispiel dafür, dass mit einer Graph-Anfragesprache, in diesem Fall Cypher, Kontexte nur recht umständlich berücksichtigt werden können.
 Das Entwickeln eines speziell für Konzeptgraphen ausgelegten Anfragesystems ist daher empfehlenswert, um die Syntax komplexerer Anfragen verständlich zu halten.
 
 \section{Laufzeitergebnisse}%
 \label{sec:appendix:perf}
 
-\def\kor{$Kor_i(\Delta t, c)$}
+\def\kor{$Kor(\Delta t_{\hat{\imath}}, c_{\hat{\imath}})$}
 Es folgt eine Tabelle mit den gemessenen Laufzeitergebnissen.
-Für jede Nachricht $m_i$ wird die Einfügedauer $t_i$ in Sekunden, die Anzahl der Grundatome $a_i$, die den Extraktionsgraphen von $m_i$ repräsentieren, die Anzahl neuer Konzepte $c_i$ (d.~h.\ Konzepte mit einem $label$, welches in den vorigen Nachrichten noch nicht vorgekommen ist), $\Delta t_i$ und die Korrelation \kor\ für alle Nachrichten $m_j \in \{ m_i, \dots, m_{57} \}$ angegeben.
+Für jede Nachricht $m_i$ wird die Einfügedauer $t_i$ in Sekunden, die Anzahl der Grundatome $a_i$, die den Extraktionsgraphen von $m_i$ repräsentieren, die Anzahl neuer Konzepte $c_i$ (d.~h.\ Konzepte mit einem $label$, welches in den vorigen Nachrichten noch nicht vorgekommen ist), $\Delta t_i = t_i - t_{i - 1}$ und die Korrelation \kor\ mit $\Delta t_{\hat{\imath}} = (\Delta t_i, \dots, \Delta t_{57})$ und $c_{\hat{\imath}} = (c_i, \dots, c_{57})$ angegeben.
 
 Die Nachrichten $m_1, \dots, m_{24}$ stammen aus \texttt{bin1/300249}, $m_{25}, \dots, m_{32}$ sind die für die Qualitätsuntersuchung verwendeten Nachrichten aus \texttt{bin1/363227}~\tref{sec:appendix:msgs}, $m_{33}, \dots, m_{57}$ stammen aus \texttt{bin5/350143}.
 \csvautobooklongtable[

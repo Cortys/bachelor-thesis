@@ -35,7 +35,7 @@ In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten 
 
 \paragraph{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments})}
 Relationsknoten entsprechen prädikatenlogischen Atomen.
-Das Symbol innerhalb eines Relationsknoten gibt die Relation des Atoms an.
+Das Symbol innerhalb eines Relationsknotens gibt die Relation des Atoms an.
 Für die Repräsentation der Argumente werden sog.~Argumentkanten zwischen Relationsknoten und Konzeptknoten verwendet.
 Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierung der Argumentkanten oder bei zweistelligen Relationen durch gerichtete Argumentkanten abgebildet.
 Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
@@ -110,7 +110,7 @@ Ein Konzeptgraph $G = (V, E)$ ist ein gerichteter Graph mit den folgenden Eigens
 	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
 	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
 	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
-	neg(v) :\Leftrightarrow\ &\text{$v \in context$ ist ein Negationskontext} \displaybreak[0]\\
+	neg(v) :\Leftrightarrow\ &context(v) \land \text{$v$ ist ein Negationskontext} \displaybreak[0]\\
 	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
 	\mathit{arg}(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
 	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
@@ -131,7 +131,7 @@ Um diese Eigenschaft zu beschreiben, wird zuerst die Quasiordnung $\leq$ eingef�
 	& \lor (\exists\ c \in V: nest(c, a) \land nest(c, b)) \\
 	& \lor (\exists\ x \in V: a \leq x \land x \leq b)
 \end{align*}
-Es gilt $a \leq b$, wenn $b$ ein Kontext ist, der $a$ enthält, oder wenn $a$ und $b$ den selben Elterkontext haben, oder wenn aufgrund der Transitivität $a \leq x \leq b$ gilt.
+Es gilt $a \leq b$, wenn $b$ ein Kontext ist, der $a$ enthält, oder wenn $a$ und $b$ den selben Elternkontext haben, oder wenn aufgrund der Transitivität $a \leq x \leq b$ gilt.
 Das größte Element gemäß $\leq$ ist also immer $\top$.
 Zusammenfassend beschreibt $a \leq b$, dass $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
 In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.
@@ -180,9 +180,10 @@ Auf Basis von $\leq$ lässt sich nun $dom$ definieren:
 	dom(G) :\Leftrightarrow\ & \quad \forall\ r, v \in V: \mathit{arg}(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
 	& \land \forall\ v_1, v_2 \in V: \mathit{coref}(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
 \end{align*}
-Eine Intuition für diese Anforderung an Konzeptgraphen findet sich in der Semantik, die die durch $dom$ verbotenen Kanten hätten.
-Es ist nicht sinnvoll ist die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist.
-Eine detaillierte Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
+Eine Intuition für diese Anforderung an Konzeptgraphen findet sich in der Semantik, die die durch $dom$ verbotenen Kanten hätten:
+Sie würden die Existenz eines Atoms auszudrücken, welches durch nicht existente Variablen parametrisiert ist;
+dies ist nicht sinnvoll.
+Eine detailliertere Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
 \begin{figure}[h]
 	\begin{align*}
 		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation1.pdf}}}
@@ -242,7 +243,8 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 \paragraph{Coreference Resolution}
 Ermittelt Äquivalenzklassen von Token, die auf dasselbe Konzept bzw.\ dieselbe Entität verweisen.
 CoreNLP stellt hierfür drei verschiedene Systeme bereit:
-Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen basiert.
+Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen (NN) basiert.
+Das regelbasierte System liefert die schlechtesten Ergebnisse, das NN-System die besten.
 
 \paragraph{Dependency Parsing}
 Dieser Annotator ermittelt die grammatikalischen Beziehungen zwischen Worten.
@@ -279,7 +281,7 @@ Konkrekt werden hierfür \textit{Hinge-Loss Markov Random Fields} (HL-MRFs) und 
 \subsection{Markov Random Fields}%
 \label{sec:theory:psl:mrf}
 
-MRFs sind, so wie auch bayessche Netze, eine Klasse von \textit{Probabilistischen Graphischen Modellen} (PGM);
+MRFs~\cite[Kapitel 19]{Murphy2012} sind, so wie auch bayessche Netze, eine Klasse von \textit{Probabilistischen Graphischen Modellen} (PGM);
 d.~h.\ sie sind Graphen, deren Knoten als Zufallsvariablen und deren Kanten als stochastische Abhängigkeiten interpretiert werden.
 Im Gegensatz zu bayesschen Netzen, sind die Kanten in MRFs allerdings ungerichtet, es sind also zyklische Abhängigkeiten erlaubt.
 Formal ist ein MRF ein ungerichteter Graph $G$, in dem die Knoten Zufallsvariablen sind:
@@ -310,7 +312,7 @@ Eine häufig benutzte Methode, um die Verteilung $P(X = x)$ eines MRFs $G$ zu be
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
 	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisier.konst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
-Es lässt sich zeigen, dass für die Verteilung $P'$ jedes MRFs mit positiver Dichte eine Potentialfunktion $\Phi$ existiert, sodass $P' = P$.
+Es lässt sich zeigen, dass für jedes MRF mit einer Verteilung $P'$ mit positiver Dichte eine Potentialfunktion $\Phi$ existiert, sodass $P' = P$.
 
 \paragraph{Beispiel}
 Die obigen Definitionen sind bislang noch recht abstrakt.
@@ -345,7 +347,7 @@ Wenn z.~B. $G$ ein Baum ist, es also nur 2-Cliquen gibt, kann mit dem \textit{Be
 \subsection{Hinge-Loss MRFs}%
 \label{sec:theory:psl:hlmrf}
 
-Eine Unterart von MRFs, sind die sog.\ Hinge-Loss MRFs.
+Eine Unterart von MRFs, sind die sog.\ Hinge-Loss MRFs~\cite{Bach2013}.
 Sie sind so strukturiert, dass sich das Inferenzproblem effizient und exakt durch konvexe Optimierungsverfahren lösen lässt.
 Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 \begin{enumerate}
@@ -360,7 +362,7 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 		Die Verteilung $P$ wird etwas anders faktorisiert:
 		\begin{align*}
 			P(X = x) :=&\ \frac{1}{Z} \prod_{i = 1}^{m} e^{w_i\,\Phi_i(x)} \propto \exp\left(\sum_{i=1}^{m} w_i\,\Phi_i(x)\right) = \exp\left(w^\top {\Phi(x)}\right) \numberthis \\
-			w :=&\ (w_1, \dots, w_m) \in {[0, \infty)}^m,\ \Phi := (\Phi_1, \dots, \Phi_m)
+			w :=&\ (w_1, \dots, w_m) \in {\mathopen[0, \infty\mathclose)}^m,\ \Phi := (\Phi_1, \dots, \Phi_m) % chktex 9
 		\end{align*}
 		Auf die Potentiale $\Phi_i$ wird nun die Exponentialfunktion angewandt, zudem erhalten alle Potentiale ein Gewicht $w_i$.
 		Das Inferenzproblem $\arg\max_{x} P(X = x)$ ist somit äquivalent zu $\arg\max_{x} w^\top {\Phi(x)}$.
@@ -446,8 +448,8 @@ Das HL-MRF-Inferenzproblem für KNF-Formeln in Łukasiewicz Logik ist demnach
 
 Statt die Summe der Wahrheitswerte $\Phi_j(x)$ zu maximieren, kann alternativ auch die Summe der Distanzen zur Erfüllung $\ell_j(x)$, genannt \textit{Distance to Satisfaction}, minimiert werden;
 es gilt $\ell_j(x) = 1 - \Phi_j(x)$.
-Gemäß dieser Interpretation ist ein HL-MRF somit eine Menge von gewichteten Constraints $\ell_j(x) \leq 0$, für die eine Lösung mit möglichst wenigen Verletzungen gesucht wird.
-Das Inferenzproblem lässt sich also das Finden des folgenden Minimums beschreiben:
+Gemäß dieser Interpretation ist ein HL-MRF somit eine Menge von gewichteten Constraints $\ell_j(x) \leq 0$, für die eine Lösung mit möglichst wenigen Verletzungen dieser Constraints gesucht wird.
+Das Inferenzproblem lässt sich also als das Finden des folgenden Minimums beschreiben:
 \begin{align*}
 	\operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \{ \ell_j(x), 0 \} \displaybreak[0]\\ % chktex 35
 	= \operatorname*{arg\,min}_{x \in {[0, 1]}^n}& \sum_{C_j \in C} w_j \max \left\{ 1 - \left(\sum_{i \in I^{+}_j} x_i\right) - \left(\sum_{i \in I^{-}_j} (1 - x_i)\right), 0 \right\} \numberthis % chktex 21, chktex 35
@@ -504,7 +506,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 \begin{enumerate}
 	\item \textbf{Konstanten:}
 		Repräsentieren konstante Werte, wie z.~B. Strings oder Zahlen.
-		Werden für domänenspezifische Daten, wie z.~B. Namen benutzt.
+		Sie werden für domänenspezifische Daten, wie z.~B. Namen benutzt.
 	\item \textbf{Variablen:}
 		Werden während einer Inferenz mit Konstanten belegt.
 		PSL Variablen sind nicht zu verwechseln mit den Zufallsvariablen in MRFs.
@@ -512,7 +514,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 		Ein Term ist entweder eine Konstante oder eine Variable.
 	\item \textbf{Prädikate:}
 		Entsprechen in etwa den prädikatenlogischen Prädikaten.
-		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Signatur aus Konstantentypen.
+		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Signatur aus Konstanten\-typen.
 		\[Person: \text{UUID},\quad Name: \text{UUID} \times \text{String}\]
 	\item \textbf{Atome:}
 		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
@@ -550,7 +552,7 @@ Ein stark vereinfachtes PSL-Programm hierfür könnte so aussehen:
 	\infty:&\ Friends(A, B) \rightarrow Friends(B, A) & \rulemark{rule:theory:sym} \\
 	\infty:&\ \lnot Friends(A, A) & \rulemark{rule:theory:irref}
 \end{align*}
-In dieser Regelmenge sind fünf Annahmen über das Verhalten der \texttt{Friends}-Relation kodiert:
+In dieser Regelmenge sind fünf Annahmen über das Verhalten der $Friends$-Relation kodiert:
 \begin{enumerate}[label=$(\ruleno{\arabic*})$]
 	\item bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
 		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
@@ -601,14 +603,14 @@ Die Übersetzung erfolgt in zwei Schritten:
 	\item \textbf{Zufallsvariablen:}
 		Die Grundatome aus $\mathbb{C}$ werden zu Zufallsvariablen $X$, deren Belegung $x$ gegeben ist.
 		Die Grundatome aus $\mathbb{O}$ werden zu Zufallsvariablen $Y$, für die die optimale Belegung $y \in \mathcal{Y}$ aus der Menge aller möglichen Belegungen $\mathcal{Y}$ gesucht wird.
-		Der Zufallsvektor des HL-MRFs ist also $X \cup Y$.
+		Der Zufallsvektor des HL-MRFs ist also $X \cup Y$, wobei mit $\cup$ die Konkatenation der Vektoren gemeint ist.
 	\item \textbf{Disjunktionsklauseln:}
 		In der bisherigen HL-MRF Definition wurde stets davon ausgegangen, dass die optimale Belegung \textit{aller} Zufallsvariablen gesucht ist.
 		Im Falle von PSL ist allerdings bereits bekannt, dass $X = x$ gilt.
 		Das Inferenzproblem lautet daher wie folgt:
 		\begin{align*}
 			\operatorname*{arg\,max}_{y \in \mathcal{Y}} P(Y = y \mid X = x) =&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} P(X \cup Y = x \cup y) \numberthis \\ % chktex 35
-			=&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} w\,{\Phi(y, x)}^\top % chktex 35
+			=&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} w^\top \Phi(y, x) % chktex 35
 		\end{align*}
 		Um ein HL-MRF zu erhalten, muss nun $\Phi$ und $w$, d.~h.\ die Menge der Klauseln $C$ und ihre Gewichte, definiert werden.
 		Die PSL-Regeln in $R$ sind zwar Klauseln, können aber nicht direkt als $C$ verwendet werden, da sie potentiell freie PSL-Variablen enthalten, die PSL-Atome also potentiell nicht in $\mathcal{A}$ sind.
@@ -636,7 +638,7 @@ Die Klauselanzahl wiederum wächst gemäß $\mathcal{O}(|\mathcal{A}|^r)$, wobei
 Insgesamt wächst die Inferenzdauer also polynomiell in Abhängigkeit zur Eingabe $\mathcal{A}$.
 
 \paragraph{BOCI}
-Um effiziente Updates eines gegebenen Inferenzergebnises für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren entwickelt.
+Um effiziente Updates eines gegebenen Inferenzergebnisses für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren entwickelt.
 Wenn ein Inferenzergebnis für $\mathcal{A} = \mathbb{C} \mathbin{\dot\cup} \mathbb{O}$ existiert und anschließend die Wahrheitswerte für einen Teil der bislang offenen Atome aus $\mathbb{O}$ bekannt werden, muss mittels BOCI keine weitere vollständige Inferenz durchgeführt werden.
 
 Die Grundidee dabei ist es Metadaten, die während der letzten ADMM-Inferenz angefallen sind, für eine Bewertung jedes Atoms zu benutzen.
@@ -648,3 +650,4 @@ Gegeben sei also eine Bewertung der Atome aus $\mathcal{A}$.
 Werden nun die Wahrheitswerte bislang offener Atome aus $\mathbb{O}$ bekannt, müssen ausschließlich die $m$ höchstbewerteten Atome aus $\mathbb{C}$ neu inferiert werden, die Wahrheitswerte aller anderen Atome werden fixiert.
 Je höher das sog.\ Budget $m$, desto höher ist die Qualität im Vergleich zu einer vollständigen Inferenz.
 Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI gegenüber einer vollständigen Inferenz meist nur unwesentlich schlechter ist, während sich die Inferenzdauer teils um über 60\% verringert~\cite[Kapitel 5]{Pujara2015}.
+% chktex 17

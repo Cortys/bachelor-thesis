@@ -30,19 +30,19 @@ In \treft{sec:text2kg:implementation} wird abschließend kurz die technische Ums
 \section{Wissensgraphontologie}%
 \label{sec:text2kg:ontology}
 
-Bevor Wissensgraphen konstruiert werden können, muss spezifiziert sein, wie genau diese aussehen sollen.
+Bevor Wissensgraphen konstruiert werden können, muss spezifiziert werden, wie diese strukturell aufgebaut sein sollen.
 Um komplexe logische Beziehungen ausdrücken zu können, wird die bereits vorgestellte Konzeptgraph-Struktur verwendet.
 Dabei bleibt allerdings offen, welche Prädikate vorkommen können und welche Bedeutung sie haben.
 Außerdem ist unklar, wie mit Konzeptgraphen modale Aussagen ausgedrückt werden.
 Damit aus einem Konzeptgraphen ein Wissensgraph wird, muss eine Ontologie gegeben sein, welche diese offenen Punkte schließt.
-Im Folgenden wird beschrieben, wie genau die in dieser Arbeit verwendete Ontologie aufgebaut ist.
+Im Folgenden wird beschrieben, wie die in dieser Arbeit verwendete Ontologie aufgebaut ist.
 
 \subsection{Verwendete Prädikate}%
 \label{sec:text2kg:ontology:pred}
 
-Im ersten Schritt wird geklärt, welche Prädikate in den in dieser Arbeit konstruierten Wissensgraphen vorkommen können.
+Im ersten Schritt wird geklärt, welche Prädikate in den konstruierten Wissensgraphen vorkommen können.
 Es ist nicht sinnvoll beliebige Prädikate zuzulassen, da für eine effiziente maschinelle Weiterverarbeitung der Wissensgraphen, eine Semantik für alle vorkommenden Prädikate definiert sein muss.
-Für die Wissensgraphen in dieser Arbeit wird daher eine Menge von sechs Prädikaten verwendet.
+Für die Wissensgraphen in dieser Arbeit wird eine Menge von sechs Prädikaten verwendet.
 
 \paragraph{Syntax}
 Bevor diese Prädikate näher erläutert werden, wird allerdings die Konzeptgraphsyntax leicht modifiziert.
@@ -55,7 +55,7 @@ Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine
 Relationsknoten werden nicht mehr dargestellt.
 Bei unären Relationen werden die Relationsknotenbezeichner stattdessen mit in die Konzeptknoten geschrieben.
 Binäre Relationen werden durch eine bezeichnete Kante zwischen dem ersten und zweiten Argument repräsentiert.
-Der nun nicht mehr explizit dargestellte Relationsknoten befindet sich dabei implizit im Kontext des kleinsten Argumentes gemäß $\leq$-Relation, sodass alle dominierenden Knoten erhalten bleiben.
+Der nun nicht mehr explizit dargestellte Relationsknoten befindet sich dabei implizit im Kontext des kleinsten Arguments gemäß der $\leq$-Ordnung, sodass alle dominierenden Knoten erhalten bleiben.
 
 \paragraph{Wissensmodell}
 Um eine semantisch konsistente Menge von Wissensgraph-Prädikaten zu definieren, ist es sinnvoll zuvor ein Modell zu definieren, welches den abstrakten Begriff des \textit{Konzeptes} formalisiert.
@@ -63,8 +63,8 @@ Konzepte sind das zentrale Syntaxelement in Konzeptgraphen;
 ähnlich wie Variablen in der Prädikatenlogik, haben sie jedoch keine inhärente Bedeutung.
 
 Im Folgenden wird ein Konzept $x$ durch eine Eigenschaftsmenge $prop(x) = \{ p_1, \dots, p_n \}$ spezifiziert.
-Prädikate die für $x$ gelten bzw.\ nicht gelten, beschreiben Eigenschaften von $prop(x)$.
-Es ist unrealistisch $prop(x)$ mittels Prädikaten vollständig zu definieren, da dies gleichbedeutend mit einer exakten formalen Beschreibung jedes beliebigen Konzeptes $x$ wäre.
+Alle Konzeptgraph-Relationen von $x$, beschreiben Eigenschaften von $prop(x)$.
+Es ist unrealistisch $prop(x)$ mittels Relationen vollständig zu definieren, da dies gleichbedeutend mit einer exakten formalen Beschreibung jedes beliebigen Konzeptes $x$ wäre.
 Das Ziel ist daher stattdessen, die Eigenschaftsmengen von Konzepten in Relation zueinander zu beschreiben.
 Der Wissensgraph ist also ein Formalismus zur Beschreibung von Eigenschaften der Eigenschaftsmengen von Konzepten.
 
@@ -124,7 +124,7 @@ Zusammen mit den anderen Prädikaten haben sie sich als hinreichend mächtig erw
 \subsection{Modale Kontexte}%
 \label{sec:text2kg:ontology:modal}
 
-Nachdem nun die verwendeten Prädikate beschrieben wurden, wird im zweiten Schritt geklärt, wie Wissensgraphen Modalität repräsentieren.
+Nachdem nun die verwendeten Prädikate beschrieben wurden, wird im zweiten Schritt geklärt, wie im Wissensgraphen Modalität repräsentiert wird.
 Beispiele für modale Aussagen sind:
 \begin{center}
 	\textit{``I {\color{blau}think} that {\color{rot}the book is good}.''}\\
@@ -214,7 +214,7 @@ Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}thi
 	\land&\ {\color{rot}context(c) \land (actual(c) \leftrightarrow \exists b: label(b, \text{``book''}) \land inst(g, b))}
 \end{align*}
 Durch die Verknüpfung $patient(t, c)$ eines Konzeptes mit einem Kontext, kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
-Wie genau dies ablaufen kann, ist bislang allerdings noch unklar~\tref{sec:conclusion:todo}.
+Wie dies ablaufen kann, ist bislang allerdings noch unklar~\tref{sec:conclusion:todo}.
 
 \paragraph{Negativer Möglichkeitskontext}
 Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der einen negativen Aktualkontext umgibt.
@@ -239,18 +239,18 @@ In der zweiten Stufe werden dann die CoreNLP-Annotationen in eine Konzeptgraphin
 \subsection{Nachrichtenformat}%
 \label{sec:text2kg:nlp:msg}
 
-Vor der Beschreibung der Pipeline-Stufen, muss geklärt werden, wie genau die eingegebenen Nachrichten aufgebaut sind.
+Vor der Beschreibung der Pipeline-Stufen, muss geklärt werden, wie die eingegebenen Nachrichten aufgebaut sind.
 Da diese Arbeit lediglich die grundlegende Architektur eines Wissensgraph-Konstruktionsverfahrens beschreibt, wurde eine vereinfachte Struktur gewählt, die die wesentlichen Eigenschaften von Nachrichten enthält.
 Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponenten verstanden:
 \begin{enumerate}
 	\item \textbf{Sender:}
 		Als Sender wird, der Einfachheit halber, der Name des Absenders verwendet.
-		Im Kontext von E-Mail Nachrichten müsste zwar zwischen dem Absendernamen und der Absenderadresse differenziert werden, diese Unterscheidung macht das Verfahren allerdings lediglich komplizierter, ohne dabei die Kernaspekte zu bereichern.
+		Im Kontext von E-Mail Nachrichten müsste zwar zwischen dem Absendernamen und der Absenderadresse differenziert werden, diese Unterscheidung macht das Verfahren allerdings komplizierter, ohne dabei die Kernaspekte zu bereichern.
 	\item \textbf{Empfänger:}
 		Auch hier wird lediglich der Empfängername benutzt.
 		Nachrichten mit mehreren Empfängern werden in dieser Arbeit nicht betrachtet.
 	\item \textbf{Sendezeit:}
-		Gemeint ist hiermit ein Datum oder Zeitpunkt im TIMEX3-Format (z.~B. \texttt{YYYY-MM-DD}), welches den Absendezeitpunkt der Nachricht beschreibt.
+		Gemeint ist hiermit ein Datum oder Zeitpunkt im TIMEX3-Format~\cite{TIMEX3} (z.~B. \texttt{YYYY-MM-DD}), welches den Absendezeitpunkt der Nachricht beschreibt.
 		TIMEX3 unterstützt höchstens sekundengenaue Angaben und keine Zeitzonen.
 		Für die Zwecke dieser Arbeit sind diese Einschränkungen allerdings nicht problematisch.
 	\item \textbf{Inhalt:}
@@ -270,7 +270,7 @@ Zwei sehr einfache exemplarische Nachrichten sind:
 
 In \treft{sec:theory:nlp} wurden die für diese Arbeit wesentlichen Annotatoren bereits vorgestellt: Tokenization, Lemmatization, POS-Tagging, NER, Coreference Resolution und Dependency Parsing.
 Um mit den Ergebnissen all dieser Annotatoren zu arbeiten, werden jene in einer gemeinsamen Datenstruktur zusammengefasst, dem sog.\ \textit{Annotations\-graphen}.
-Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhanced++ Dependency Parsers}, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
+Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhanced\texttt{++} Dependency Parsers}, in den die Ergebnisse der anderen Annotatoren eingefügt wurden:
 \begin{enumerate}
 	\item \textbf{Lemmata:}
 		Die Vollformen der Token werden durch ihre Lemmata ersetzt.
@@ -282,7 +282,7 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 	\item \textbf{NER-Klassen:}
 		Alle Token-Knoten, die der NER-Annotator klassifizieren konnte, erhalten ihre Klasse.
 		Für alle von SUTime erkannten Zeitangaben, wird zudem ein neuer Knoten eingefügt.
-		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}) werden mittels einer Koreferenzkante mit dem Zeitknoten verknüpft.
+		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}) werden mittels einer Koreferenzkante mit dem hinzugefügten Zeitknoten verknüpft.
 	\item \textbf{Koreferenzklassen:}
 		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotatinsgraphen eingefügt.
 		Als Kantenmenge wird allerdings nicht $C \times C$ verwendet, da diese unnötig groß ist und zudem nicht alle verfügbaren Informationen repräsentiert.
@@ -312,8 +312,8 @@ Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich h
 \label{sec:text2kg:nlp:transform}
 
 Aus dem Annotationsgraphen einer Nachricht muss im nächsten Schritt der sog.\ \textit{Extraktionsgraph} erstellt werden.
-Hierbei handelt es sich um einen Konzeptgraphinstanzen der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie, der den Inhalt der Nachricht beschreibt.
-Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich jede beliebige Aussage im Extraktionsgraph zu repräsentieren.
+Hierbei handelt es sich um einen Konzeptgraphen mit der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie, der den Inhalt der Nachricht beschreibt.
+Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich jede beliebige Aussage im Extraktionsgraphen zu repräsentieren.
 Das Ziel der Extraktionsgraph-Konstruktion ist daher lediglich, einige wesentliche repräsentierbare semantische Strukturen zu identifizieren.
 
 Hierfür wird eine deterministische regelbasierte Transformationspipeline benutzt.
@@ -330,9 +330,9 @@ Die einzelnen Transformationsschritte in jeder Phase sind primär exemplarisch z
 Um die Extraktionsqualität zu verbessern, können und sollten weitere Schritte hinzugefügt werden.
 
 \subsubsection{1. Phase: Vereinfachen der Annotationen}
-In dieser Phase werden im ersten Schritt alle Daten aus dem Annotationsgraphen entfernt, die kein potentieller Bestandteil eines Konzeptes sind (z.~B. Token für Satz- und Sonderzeicher, sowie Interjektionen, wie \textit{``Oh''}).
+In dieser Phase werden im ersten Schritt alle Daten aus dem Annotationsgraphen entfernt, die kein potentieller Bestandteil eines Konzeptes sind (z.~B. Token für Satz- und Sonderzeichen, sowie Interjektionen, wie \textit{``Oh''}).
 Die entfernten Token können zwar die Konnotation anderer Token beeinflussen, da deren Übersetzung in Konzeptgraphkonstrukte allerdings ein nicht triviales Problem ist, werden sie hier der Einfachheit halber ignoriert.
-Anschließend werden Token, die Bestandteile eines Kompositums sind, zu einem Knoten zusammengefasst.
+Anschließend werden Token, die Bestandteile eines Kompositums sind, zu einem Knoten zusammengefasst, dessen Label die Konkatenation der Lemmata der zusammengefassten Token ist.
 Die übrigbleibende Menge von Token-Knoten und Komposita bildet nun die Menge der Konzeptknoten des Wissensgraphen.
 
 \subsubsection{2. Phase: Einfügen der Extraktionen}
@@ -454,7 +454,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 
 	\item \textbf{Negative Aktualkontexte:}
 		Das Formalisieren von Negation in natürlichen Sprachen ist nicht immer eindeutig möglich.
-		Dies liegt daran, dass die Bedeutung einer Negation variieren kann, so ist doppelte Verneinung im Englischen z.~B. manchmal ein umgangssprachliches stilistisches Mittel zur Betonung der Negation (z.~B. \textit{``We don't have no time.''}).
+		Dies liegt daran, dass die Bedeutung einer Negation variieren kann; so ist die doppelte Verneinung im Englischen z.~B. manchmal ein umgangssprachliches stilistisches Mittel zur Betonung der Negation (z.~B. \textit{``We don't have no time.''}).
 		Da eine umfassende Behandlung aller möglichen Interpretationen der Negation den Rahmen dieser Arbeit gesprengt hätte, wird stattdessen ein stark vereinfachtes Modell verwendet, welches für viele, jedoch nicht für alle, Aussagen korrekte Ergebnisse liefert.
 
 		Natürlichsprachliche Negation wird im Folgenden immer als äquivalent zur logischen Negation verstanden.
@@ -488,7 +488,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 							\rightarrow
 							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\end{align*}
-					\item Andernfalls wird der größte Elternkontext von $x$, der nicht gemeinsamer Elternkontext von $x$ und $y$ ist, in den Kontext von $y$ verschoben.
+					\item Andernfalls wird der größte umgebende Kontext von $x$, der nicht $x$ und $y$ umgibt, in den Elternkontext von $y$ verschoben.
 					\begin{align*}
 						\vcenter{\hbox{\hspace{-0.6em}\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\rightarrow
@@ -514,7 +514,7 @@ Dies passiert z.~B. dann, wenn in zwei Nebensätzen von derselben Person gesproc
 Die Existenz einer derartigen Koreferenz impliziert, dass das koreferente Konzept auch im Kontext des Hauptsatzes existent sein muss, obwohl es nicht explizit erwähnt wird.
 
 Um dominierende Knoten zu erhalten, können die koreferenten Konzepte zu einem Konzeptknoten zusammengefasst werden.
-Dieser neue Knoten übernimmt das $label$ der \textit{Representative Mention}~\tref{sec:text2kg:nlp:corenlp} und wird in den kleinsten gemeinsamen Elternkontext aller zusammengefassten Knoten (gemäß der $\leq$-Relation) eingefügt.
+Dieser neue Knoten übernimmt das $label$ der \textit{Representative Mention}~\tref{sec:text2kg:nlp:corenlp} und wird in den kleinsten gemeinsamen umgebenden Kontext aller zusammengefassten Knoten (gemäß der $\leq$-Relation) eingefügt.
 Dabei geht zwar die Information verloren, wo und mit welchen Pronomina das Konzept innerhalb der Nachricht referenziert wurde, dies ist allerdings i.~d.~R. irrelevant für die weitere Verarbeitung.
 Nach diesem Schritt liegt ein Konzeptgraph vor.
 
@@ -550,10 +550,10 @@ Der Konjunktionsgraph ist ein Konzeptgraph, der alle Informationen der einzufüg
 Der Konjunktionsgraph wird in vier Schritten konstruiert.
 \begin{enumerate}
 	\item \textbf{Latente Konzepte:}
-		Da mit PSL keine neuen Konzepte, sondern lediglich Relationen zwischen gegebenen Konzepten inferiert werden können, müssen alle potentiell möglichen Konzepte bereits im Konjunktionsgraph vorhanden sein.
+		Da mit PSL keine neuen Konzepte, sondern lediglich Relationen zwischen gegebenen Konzepten inferiert werden können, müssen alle potentiell möglichen Konzepte bereits im Konjunktionsgraphen vorhanden sein.
 		Alle Konzepte des Extraktionsgraphen, die sich innerhalb des Wurzel-Möglichkeitskontextes befinden, werden daher dupliziert und als globale latente Konzepte in das Sheet of Assertion eingefügt.
 		Zwischen den latenten Konzepten und den zugehörigen Konzepten werden zudem $inst$-Relationen eingefügt.
-		Während der PSL-Inferenz wird dann bestimmt, ob ein latentes Konzept auch außerhalb des Möglichkeitskontextes aus dem es stammt existent ist und somit zu einem Konzept wird.
+		Während der PSL-Inferenz wird dann bestimmt, ob ein latentes Konzept auch außerhalb des Möglichkeitskontextes, aus dem es stammt, existent ist und somit zu einem Konzept wird.
 		Da latente Konzepte das durch ihr $label$ repräsentierte Konzept repräsentieren, erhalten sie das $named$-Attribut.
 		\begin{align*}
 			\includegraphics[scale=\cgScale]{gfx/text2kg/latentGraph.pdf}
@@ -653,7 +653,7 @@ Konkret wird folgende Regelmenge verwendet:
 Die allgemeinen Regeln sind nicht ausreichend, um aus einem gegebenen Konjunktionsgraphen relevante Erkenntnisse zu ziehen.
 Hierfür ist domänenspezifisches Wissen und eine zugehörige Regelmenge notwendig.
 Um das Grundprinzip zu veranschaulichen wird in dieser Arbeit eine sehr einfache domänenspezifische Regelmenge verwendet.
-Abhängig vom betrachteten Datenset, sind die Inferenz mit realen Kommunikationsdaten i.~d.~R. deutlich umfangreichere Regelmengen notwendig.
+Abhängig vom betrachteten Datenset, sind für die Inferenz mit realen Kommunikationsdaten i.~d.~R. deutlich umfangreichere Regelmengen notwendig.
 
 Die verwendeten domänenspezifischen Regeln führen zusätzlich zu den \pslPredCount\ allgemeinen PSL-Prädikaten weitere Prädikate ein, die zur Repräsentation von Zwischenergebnissen benutzt werden.
 Diese zusätzlichen Prädikate sind nicht unbedingt notwendig, sondern vereinfachen lediglich die Regeldefinition.
@@ -698,15 +698,17 @@ Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
 
 \paragraph{Wissensgraph-Konstruktion}
 Die Wissensgraph-Konstruktion lässt sich nun als Inferenz mit dem PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ verstehen.
-Die geschlossenen Grundatome $\mathbb{C}$ der Eingabe sind die Relationen und deren Argumente im Konjuktionsgraph.
-Als offene Grundatommenge $\mathbb{O}$ werden alle übrigen möglichen Relationen von und zwischen Konzeptknoten verwendet.
+Die geschlossenen Grundatome $\mathbb{C}$ der Eingabe sind die Relationen im Konjuktionsgraphen, die keine offenen Grundatome in einer vorherigen PSL-Inferenz waren.
+Wären zuvor inferierte Atome Teil von $\mathbb{C}$, könnten diese während der Inferenz nämlich nicht mehr aktualisiert werden, was z.~B. beim Einfügen von zusätzlicher Evidenz für eine bereits vorhandene Relation wichtig ist.
+Als offen Grundatommenge $\mathbb{O}$ wird die Menge aller möglicher Relationen verwendet, die nicht in $\mathbb{C}$ liegen.
 $\mathbb{O}$ kann und muss dabei nicht vollständig in den Speicher geladen werden.
 Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mathbb{O}$ werden erst dann instanziiert, wenn sie das erste Mal in einer Grundregel auftauchen.
 Als Inferenzverfahren wird das in~\ref{sec:theory:psl:inference} vorgestellte ADMM-Verfahren benutzt.
-BOCI kann nicht benutzt werden, da es in seiner aktuellen Form erfordert, dass keine neuen Grundatome zwischen zwei Inferenzen hinzukommen;
+BOCI konnte nicht benutzt werden, da es in seiner aktuellen Form erfordert, dass keine neuen Grundatome zwischen zwei Inferenzen hinzukommen;
 beim Einfügen einer Nachricht gilt dies offensichtlich nicht.
+Jede eingefügte Nachricht erfordert also eine vollständige ADMM-Inferenz.
 
-Nach dem Ausführen von ADMM wird im letzten Schritt die Menge der inferierten Atome als Menge von Konzeptgraph-Relationen interpretiert und als neuer Wissensgraph verwendet.
+Nach dem Ausführen von ADMM wird im letzten Schritt die Menge der inferierten Atome $\mathbb{O}$ als Menge von Konzeptgraph-Relationen interpretiert und zusammen mit $\mathbb{C}$ als neuer Wissensgraph verwendet.
 Um die Graphgröße zu reduzieren werden dabei alle Atome mit einer Wahrscheinlichkeit $< 0.5$ verworfen.
 
 \section{Implementation}%
@@ -715,7 +717,7 @@ Um die Graphgröße zu reduzieren werden dabei alle Atome mit einer Wahrscheinli
 Das in den vorherigen Abschnitten beschriebene Verfahren wurde im Rahmen dieser Arbeit prototypisch implementiert.
 Bei der Wahl der hierfür verwandten Technologien wurde darauf Wert gelegt, dass eine möglichst nahtlose Integration der Komponenten möglich ist.
 Sowohl CoreNLP~\cite{CoreNLP} als auch die PSL-Referenzimplementation~\cite{PSL} sind JVM-Bibliotheken.
-Diese Arbeit wurde ebenfalls für die JVM implementiert, insbesondere weil es zu der JVM-basierten PSL-Referenzimplementation keine Alternative gibt und eine Reimplementation von PSL den Rahmen dieser Arbeit gesprengt hätte.
+Diese Arbeit wurde ebenfalls für die JVM implementiert, insbesondere weil es zu der JVM-basierten PSL-Referenzimplementation keine geeignete Alternative gibt und eine Reimplementation von PSL den Rahmen dieser Arbeit gesprengt hätte.
 
 Als JVM-Sprache wurde Clojure gewählt, ein moderner Lisp-Dialekt.
 Andere JVM-Sprachen, wie z.~B. Java, Scala oder Groovy, wurden ausgeschlossen, da sie sich während des Entwicklungsprozesses als hinderlich erwiesen haben.
