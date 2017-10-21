@@ -436,7 +436,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 \begin{enumerate}
 	\item \textbf{Möglichkeitskontexte:}
 		Um Möglichkeitskontexte einfügen zu können, muss zuerst definiert werden, was als Möglichkeit verstanden wird.
-		Sowas Ansatz hierfür ist es, Teilsätze (im Englischen \textit{clause} genannt) als solche zu interpretieren, da sie jeweils genau einen Sachverhalt ausdrücken, der möglicherweise wahr ist.
+		Sowas Ansatz hierfür ist es, Teilsätze (im Englischen \textit{clause} genannt) als solche zu interpretieren, da sie jeweils genau einen Sachverhalt ausdrücken, der möglicherweise wahr ist~\cite[Abschnitt 5.4]{Harmelen2007}.
 		Teilsätze können prinzipiell beliebig geschachtelt werden und hängen i.~d.~R. von einem einleitenden Konzept ab;
 		sie lassen sich also gut durch entsprechend geschachtelte Möglichkeitskontexte repräsentieren.
 		\begin{figure}[t]
@@ -464,8 +464,8 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 			\textit{No man helped.}
 			\Rightarrow
 			\begin{cases}
-				{\color{rot}\exists helped \lnot \exists man: agent(helped, man)} & \text{\textit{man} betont}\\
-				{\color{gruen}\lnot \exists man \exists helped: agent(helped, man)} & \text{\textit{helped} betont}\ \checkmark
+				{\color{rot}\exists\, helped\ \lnot \exists\, man: agent(helped, man)} & \text{\textit{man} betont}\\ % chktex 21
+				{\color{gruen}\lnot \exists\, man\ \exists\, helped: agent(helped, man)} & \text{\textit{helped} betont}\ \checkmark % chktex 21
 			\end{cases}
 		\end{align*}\\
 		Wie das obige Beispiel zeigt, ist diese Regel nicht unbedingt korrekt.
