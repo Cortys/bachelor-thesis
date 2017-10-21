@@ -447,7 +447,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 		In dieser Arbeit werden die Möglichkeitskontexte nach dem selben Prinzip eingefügt.
 		Teilsätze lassen sich im Annotationsgraphen über die Abhängigkeiten $csubj, ccomp$ und $xcomp$ leicht identifizieren.
 		Da der Abhängigkeitsgraph ein DAG ist, können Konzepte in mehreren Teilsätzen bzw. Kontexten auftauchen;
-		in diesem Fall muss das Konzept in den kleinsten gemeinsamen Elternkontext (gemäß $\leq$-Relation) eingefügt werden.
+		in diesem Fall muss das Konzept in den kleinsten gemeinsamen umgebenden Kontext (gemäß $\leq$-Relation) eingefügt werden.
 
 		Da die Gesamtheit einer Nachricht $m$ nicht unbedingt wahr sein muss, wird zudem ein Wurzel-Möglichkeitskontext eingefügt, der alle Konzepte, die innerhalb von $m$ erwähnt wurden, enthält.
 		Konzeptknoten, die für NER-Klassen eingefügt wurden, fallen nicht darunter, da die Existenz der NER-Klassen, unabhängig vom Inhalt einer Nachricht, als wahr vorausgesetzt wird.

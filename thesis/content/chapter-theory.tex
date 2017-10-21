@@ -115,26 +115,27 @@ Ein Konzeptgraph $G = (V, E)$ ist ein gerichteter Graph mit den folgenden Eigens
 	\mathit{arg}(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
 	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
 	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\, c \in V \setminus \{ \top \}: nest(c, v) \} \label{eq:theory:kgcrit0}\numberthis \\ % chktex 21
-	& \lnot \exists\, c_1, c_2, a:nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit1}\numberthis % chktex 21
+	& (V, \{ (c, v): nest(c, v) \land v \neq \top \}) \text{ ist zyklenfrei} \label{eq:theory:kgcrit1}\numberthis \\ % chktex 21
+	& \lnot \exists\, c_1, c_2, a:nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit2}\numberthis % chktex 21
 \end{align*}
-Zentral in dieser Definition ist das Kriterium~\eqref{eq:theory:kgcrit1}.
-Es fordert, dass der Teilgraph $T = (V, \{ e: nest(e) \})$ zyklenfrei (i.~e.\ ein Wald) ist.
-Durch~\eqref{eq:theory:kgcrit0} gilt darüber hinaus, dass $T$ ein Baum ist.
-Hierfür wird der globale Kontext $\top$ eingeführt, der, in Anlehnung an Peirce, \textit{Sheet of Assertion} genannt wird.
+Zentral in dieser Definition sind die Kriterien~\eqref{eq:theory:kgcrit0},~\eqref{eq:theory:kgcrit1} und~\eqref{eq:theory:kgcrit2}.
+Sie fordern, dass der Teilgraph $T = (V, \{ (c, v): nest(c, v) \land v \neq \top \})$ ein gerichteter Baum mit Wurzel $\top$ ist.
+Dabei ist $\top$ der sog.\ globale Kontext, der, in Anlehnung an Peirce, auch \textit{Sheet of Assertion} genannt wird.
 $\top$ enthält alle Knoten, die keinen explizit dargestellten Elternkontext haben.
-Die Wurzel von $T$ ist also $\top$.
+Der \textit{Elternkontext} eines Knotens $v$ ist dabei der Kontext $c$, für den $nest(c, v)$ gilt.
+Die sog.\ \textit{umgebenden Kontexte} eines Knotens $v$ sind alle Kontexte $c$, für die ein Pfad $c \rightarrow v$ in $T$ existiert.
 
-Zusätzlich muss jeder Konzeptgraph $G$ die Eigenschaft dominierender Knoten $dom(G)$ erfüllen.
+Zusätzlich zu den obigen Kriterien, muss jeder Konzeptgraph $G$ die Eigenschaft dominierender Knoten $dom(G)$ erfüllen.
 Um diese Eigenschaft zu beschreiben, wird zuerst die Quasiordnung $\leq$ eingeführt:
 \begin{align*}
 	a \leq b :\Leftrightarrow\ & \quad nest(b, a) \numberthis \\
 	& \lor (\exists\ c \in V: nest(c, a) \land nest(c, b)) \\
 	& \lor (\exists\ x \in V: a \leq x \land x \leq b)
 \end{align*}
-Es gilt $a \leq b$, wenn $b$ ein Kontext ist, der $a$ enthält, oder wenn $a$ und $b$ den selben Elternkontext haben, oder wenn aufgrund der Transitivität $a \leq x \leq b$ gilt.
+Es gilt $a \leq b$, wenn $b$ ein Kontext ist, der $a$ enthält, oder wenn $a$ und $b$ denselben Elternkontext haben, oder wenn aufgrund der Ordnungs-Transitivität $a \leq x \leq b$ gilt.
 Das größte Element gemäß $\leq$ ist also immer $\top$.
-Zusammenfassend beschreibt $a \leq b$, dass $a$ innerhalb der Box des Elternkontextes von $b$ liegt.
-In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.
+Zusammenfassend beschreibt $a \leq b$, dass der Elternkontext von $b$ umgebender Kontext von $a$ ist.
+In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.\\[-3em]
 \begin{figure}[h]
 	\centering
 	\[\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/contextTreeExample1.pdf}}}
