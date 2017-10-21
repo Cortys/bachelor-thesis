@@ -143,12 +143,12 @@ Da ein Testdurchlauf knapp 42 Stunden benötigt, wurden aus zeitlichen Gründen 
 			ymajorgrids,
 			ylabel={Inferenzdauer in Sek.}
 		]
-			\addplot+[only marks,style=thick,restrict x to domain=1:24] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
+			\addplot+[only marks,restrict x to domain=1:24] table [x=i, y=time]{\evaluationPerfData}
 				node[above=2pt,pos=0.5]{\texttt{bin1/300249}};
-			\addplot+[only marks,style=thick,restrict x to domain=25:32] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
-				node[above=13pt,pos=0.5]{\texttt{bin1/363227}};
-			\addplot+[only marks,style=thick,restrict x to domain=33:57] table [x expr=\coordindex+1, y=time]{\evaluationPerfData}
-				node[above=12pt,pos=0.5]{\texttt{bin5/350143}};
+			\addplot+[only marks,restrict x to domain=25:32] table [x=i, y=time]{\evaluationPerfData}
+				node[above=16pt,pos=0.5]{\texttt{bin1/363227}};
+			\addplot+[only marks,restrict x to domain=33:57] table [x=i, y=time]{\evaluationPerfData}
+				node[above=15pt,pos=0.5]{\texttt{bin5/350143}};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Inferenzdauer beim sequentiellen Einfügen der Testnachrichten (Tabelle in~\ref{sec:appendix:perf})}\label{fig:evaluation:perf}
@@ -160,7 +160,7 @@ Diese Erklärung wird durch die Korrelation des Anstiegs der Inferenzdauer $\Del
 Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglich $0.187$, da insbesondere im ersten Thread konstante Faktoren die Laufzeit dominieren.
 Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich jedoch $Kor_{25}(\Delta t, c) = 0.616$.
 
-Die gemessene Inferenzdauer liegt anfangs bei ca.\ 4 Sek.\ und steigt auf ca.\ 2 Std.\ an.
+Die gemessene Inferenzdauer pro Nachricht liegt anfangs bei ca.\ 4 Sek.\ und steigt auf ca.\ 2 Std.\ an.
 Die momentane Implementation des Verfahrens ist also definitv nicht für den praktischen Einsatz geeignet.
 Es existieren jedoch verschiedene Ansätze, mit denen die absoluten und aymptotischen Laufzeiten deutlich verbessert werden können.
 Eine triviale Optimierung ist es, nicht alle Nachrichten einzeln, sondern mehrere gleichzeitig einzufügen und so, weniger Inferenzen durchzuführen.
