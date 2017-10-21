@@ -41,7 +41,9 @@ Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierun
 Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
 für die Abbildung von \textit{ODER} wird die Negation verwendet.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode2.pdf}}}
+	\Leftrightarrow
+	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
 	\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
 \end{align*}
@@ -89,7 +91,7 @@ Entspricht der Äquivalenzrelation.
 \end{align}
 Prinzipiell ließe sich die Äquivalenz auch durch Relationsknoten ausdrücken.
 Um syntaktisch zu kennzeichnen, dass es sich nicht um eine beliebige Relation, sondern um eine Äquivalenzrelation handelt, wird dies jedoch i.~d.~R. nicht getan.
-Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
+Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat, die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
 \begin{align*}
 	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
@@ -106,15 +108,15 @@ In diesem Abschnitt werden die Eigenschaften beschrieben, die ein Konzeptgraph e
 Ein Konzeptgraph $G = (V, E)$ ist ein gerichteter Graph mit den folgenden Eigenschaften:
 \begin{align*}
 	V =\ &\{ v: concept(v) \} \mathbin{\dot\cup} \{ v: relation(v) \} \mathbin{\dot\cup} \{ v: context(v) \} \\
-	E =\ &\{ e: \mathit{coref}(e) \} \mathbin{\dot\cup} \{ e: \mathit{arg}(e) \} \mathbin{\dot\cup} \{ e: nest(e) \} \\ % chktex 35
-	concept(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Konzeptknoten} \\
-	relation(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Relationsknoten} \\
-	context(v) :\Leftrightarrow\ &\text{$v \in V$ ist ein Kontext, es gilt $context(\top)$} \\
+	E =\ &\{ e: \mathit{coref}(e) \} \mathbin{\dot\cup} \{ (r, v): \exists\, i: \mathit{arg}(r, v, i) \} \mathbin{\dot\cup} \{ e: nest(e) \} \\ % chktex 21 chktex 35
+	concept(v) :\Leftrightarrow\ &\text{$v$ ist ein Konzeptknoten} \\
+	relation(v) :\Leftrightarrow\ &\text{$v$ ist ein Relationsknoten} \\
+	context(v) :\Leftrightarrow\ &\text{$v$ ist ein Kontext, es gilt $context(\top)$} \\
 	neg(v) :\Leftrightarrow\ &context(v) \land \text{$v$ ist ein Negationskontext} \displaybreak[0]\\
-	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land (v_1, v_2) \in E \\
-	\mathit{arg}(r, v) :\Leftrightarrow\ &relation(r) \land concept(v) \land ((r, v) \in E \lor (v, r) \in E) \\ % chktex 35
-	nest(c, v) :\Leftrightarrow\ &context(c) \land (c, v) \in E \\
-	E \supseteq\ &\{ (\top, v): v \in V \land \lnot\exists\, c \in V \setminus \{ \top \}: nest(c, v) \} \label{eq:theory:kgcrit0}\numberthis \\ % chktex 21
+	\mathit{coref}(v_1, v_2) :\Leftrightarrow\ &concept(v_1) \land concept(v_2) \land \text{$v_1$ und $v_2$ sind koreferent} \\
+	\mathit{arg}(r, v, i) :\Leftrightarrow\ &relation(r) \land concept(v) \land \text{$v$ ist $i$-tes Argument von $r$}  \\ % chktex 35
+	nest(c, v) :\Leftrightarrow\ &context(c) \land \text{$c$ ist Elternkontext von $v$} \\
+	& \forall v \in V: (\exists\, c \in V \setminus \{ \top \}: nest(c, v)) \lor nest(\top, v) \label{eq:theory:kgcrit0}\numberthis \\ % chktex 21
 	& (V, \{ (c, v): nest(c, v) \land v \neq \top \}) \text{ ist zyklenfrei} \label{eq:theory:kgcrit1}\numberthis \\ % chktex 21
 	& \lnot \exists\, c_1, c_2, a:nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit2}\numberthis % chktex 21
 \end{align*}
@@ -178,7 +180,7 @@ In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.\\[-3em
 \end{figure}\\
 Auf Basis von $\leq$ lässt sich nun $dom$ definieren:
 \begin{align*}
-	dom(G) :\Leftrightarrow\ & \quad \forall\ r, v \in V: \mathit{arg}(r, v) \rightarrow r \leq v \numberthis \\ % chktex 35
+	dom(G) :\Leftrightarrow\ & \quad \forall\ r, v \in V, i \in \mathbb{N}: \mathit{arg}(r, v, i) \rightarrow r \leq v \numberthis \\ % chktex 35
 	& \land \forall\ v_1, v_2 \in V: \mathit{coref}(v_1, v_2) \rightarrow (v_1 \leq v_2 \lor v_2 \leq v_1)
 \end{align*}
 Eine Intuition für diese Anforderung an Konzeptgraphen findet sich in der Semantik, die die durch $dom$ verbotenen Kanten hätten:
