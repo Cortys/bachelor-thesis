@@ -5,7 +5,7 @@
 \chapter{Grundlagen und Hilfsmittel}%
 \label{sec:theory}
 
-In Kapitel~\ref{sec:related} wurde ein Überblick über das Problemumfeld der Wissensgraph-Konstruktion gegeben.
+In Kapitel~\ref{sec:related} wurde ein Überblick über das Problemumfeld der Wissensgraph-Konstruk\-tion gegeben.
 Diese Arbeit baut insbesondere auf den bereits kurz vorgestellten Konzeptgraphen, Stanfords~CoreNLP Bibliothek und der PSL auf.
 Für die folgenden Kapitel ist ein Grundverständnis dieser drei Hilfsmittel notwendig.
 Sie werden daher in den folgenden Abschnitten näher beschrieben.
@@ -286,7 +286,7 @@ Konkrekt werden hierfür \textit{Hinge-Loss Markov Random Fields} (HL-MRFs) und 
 
 MRFs~\cite[Kapitel 19]{Murphy2012} sind, so wie auch bayessche Netze, eine Klasse von \textit{Probabilistischen Graphischen Modellen} (PGM);
 d.~h.\ sie sind Graphen, deren Knoten als Zufallsvariablen und deren Kanten als stochastische Abhängigkeiten interpretiert werden.
-Im Gegensatz zu bayesschen Netzen, sind die Kanten in MRFs allerdings ungerichtet, es sind also zyklische Abhängigkeiten erlaubt.
+Im Gegensatz zu bayesschen Netzen sind die Kanten in MRFs allerdings ungerichtet, es sind also zyklische Abhängigkeiten erlaubt.
 Formal ist ein MRF ein ungerichteter Graph $G$, in dem die Knoten Zufallsvariablen sind:
 \begin{align*}
 	X :=&\ \text{Zufallsvektor } (X_1, \dots, X_n) \\
@@ -360,7 +360,7 @@ Es gibt drei wesentliche Unterschiede zu allgemeinen MRFs:
 		Zufallsvariablen sind adjazent, gdw.\ sie in einer gemeinsamen Disjunktionsklausel vorkommen.
 	\item
 		Für den Zufallsvektor $X$ muss $Bild(X) = {[0, 1]}^n$ gelten.
-		Diese Einschränkung besteht, da jede HL-MRF-Zufallsvariable als die Wahrscheinlichkeit, dass eine aussagenlogische Variable wahr ist, interpretiert wird.
+		Diese Einschränkung besteht, da jede HL-MRF-Zufallsvariable als die Wahrscheinlichkeit interpretiert wird, dass eine aussagenlogische Variable wahr ist.
 	\item
 		Die Verteilung $P$ wird etwas anders faktorisiert:
 		\begin{align*}
@@ -380,7 +380,7 @@ Jede Disjunktionsklausel $C_j \in C$ wird durch eine Menge von Variablenindizes 
 \]
 Statt jeder Clique ein Potential zuzuordnen, wird in HL-MRFs jeder Klausel ein Potential zugeordnet;
 dies wird getan, um die Potentiale einfacher zu halten.
-Zwei Klauseln mit denselben Variablen werden also durch zwei Potentiale, statt, wie in Cliquen-faktorisierten MRFs, durch eines, beschrieben.
+Zwei Klauseln mit denselben Variablen werden also durch zwei Potentiale beschrieben, statt, wie in Cliquen-faktorisierten MRFs, durch eines.
 
 \paragraph{Łukasiewicz Logik}
 Da die Variablen der KNF-Formel, gemäß obiger Definition, Werte~$\in [0, 1]$ annehmen können, ist nun noch unklar, wie die Operatoren $\land$, $\lor$ und $\lnot$ funktionieren sollen.
@@ -499,17 +499,17 @@ das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer 
 \subsection{Probabilistic Soft Logic}%
 \label{sec:theory:psl:psl}
 
-Wie soeben beschrieben, sind HL-MRFs ein flexibles Werkzeug, um Probleme, die sich durch MAX-SAT ausdrücken lassen, zu lösen.
+Wie soeben beschrieben, sind HL-MRFs ein flexibles Werkzeug, um Probleme zu lösen, die sich durch MAX-SAT ausdrücken lassen.
 Der Schritt von einem konkreten domänenspezifischen Problem in eine Menge von Klauseln $C$ und einen Gewichtsvektor $w$ ist bislang allerdings noch unklar.
 An dieser Stelle setzt die \textit{Probabilistic Soft Logic} (PSL) an.
-PSL ist eine formale Sprache, um mit einer intuitiven Syntax, Klassen von HL-MRFs zu beschreiben.
+PSL ist eine formale Sprache, um Klassen von HL-MRFs mit einer intuitiven Syntax zu beschreiben.
 
 \subsubsection{PSL Syntax}
 Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben Arten von Elementen:
 \begin{enumerate}
 	\item \textbf{Konstanten:}
 		Repräsentieren konstante Werte, wie z.~B. Strings oder Zahlen.
-		Sie werden für domänenspezifische Daten, wie z.~B. Namen benutzt.
+		Sie werden für domänenspezifische Daten wie z.~B. Namen benutzt.
 	\item \textbf{Variablen:}
 		Werden während einer Inferenz mit Konstanten belegt.
 		PSL Variablen sind nicht zu verwechseln mit den Zufallsvariablen in MRFs.
@@ -606,13 +606,13 @@ Die Übersetzung erfolgt in zwei Schritten:
 	\item \textbf{Zufallsvariablen:}
 		Die Grundatome aus $\mathbb{C}$ werden zu Zufallsvariablen $X$, deren Belegung $x$ gegeben ist.
 		Die Grundatome aus $\mathbb{O}$ werden zu Zufallsvariablen $Y$, für die die optimale Belegung $y \in \mathcal{Y}$ aus der Menge aller möglichen Belegungen $\mathcal{Y}$ gesucht wird.
-		Der Zufallsvektor des HL-MRFs ist also $X \cup Y$, wobei mit $\cup$ die Konkatenation der Vektoren gemeint ist.
+		Der Zufallsvektor des HL-MRFs ist also $X \circ Y$, wobei mit $\circ$ die Konkatenation der Vektoren gemeint ist.
 	\item \textbf{Disjunktionsklauseln:}
 		In der bisherigen HL-MRF Definition wurde stets davon ausgegangen, dass die optimale Belegung \textit{aller} Zufallsvariablen gesucht ist.
 		Im Falle von PSL ist allerdings bereits bekannt, dass $X = x$ gilt.
 		Das Inferenzproblem lautet daher wie folgt:
 		\begin{align*}
-			\operatorname*{arg\,max}_{y \in \mathcal{Y}} P(Y = y \mid X = x) =&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} P(X \cup Y = x \cup y) \numberthis \\ % chktex 35
+			\operatorname*{arg\,max}_{y \in \mathcal{Y}} P(Y = y \mid X = x) =&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} P(X \circ Y = x \circ y) \numberthis \\ % chktex 35
 			=&\ \operatorname*{arg\,max}_{y \in \mathcal{Y}} w^\top \Phi(y, x) % chktex 35
 		\end{align*}
 		Um ein HL-MRF zu erhalten, muss nun $\Phi$ und $w$, d.~h.\ die Menge der Klauseln $C$ und ihre Gewichte, definiert werden.
@@ -629,7 +629,7 @@ Die Übersetzung erfolgt in zwei Schritten:
 
 In \treft{sec:theory:psl:hlmrf} wurde die Konvexität des HL-MRF-Inferenzproblems bereits diskutiert.
 Prinzipiell kann daher jedes konvexe Optimierungsverfahren im Kontext von HL-MRFs verwendet werden.
-In der Praxis hat sich jedoch ein Verfahren, als besonders effizient erwiesen.
+In der Praxis hat sich jedoch ein Verfahren als besonders effizient erwiesen.
 
 \paragraph{ADMM}
 Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM) ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
@@ -644,8 +644,8 @@ Insgesamt wächst die Inferenzdauer also polynomiell in Abhängigkeit zur Eingab
 Um effiziente Updates eines gegebenen Inferenzergebnisses für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren entwickelt.
 Wenn ein Inferenzergebnis für $\mathcal{A} = \mathbb{C} \mathbin{\dot\cup} \mathbb{O}$ existiert und anschließend die Wahrheitswerte für einen Teil der bislang offenen Atome aus $\mathbb{O}$ bekannt werden, muss mittels BOCI keine weitere vollständige Inferenz durchgeführt werden.
 
-Die Grundidee dabei ist es Metadaten, die während der letzten ADMM-Inferenz angefallen sind, für eine Bewertung jedes Atoms zu benutzen.
-Die Bewertungen spiegeln die Volatilität der Wahrheitswerte der Atome, in Abhängigkeit von $\mathbb{C}$, wider.
+Die Grundidee dabei ist es, Metadaten, die während der letzten ADMM-Inferenz angefallen sind, für eine Bewertung jedes Atoms zu benutzen.
+Die Bewertungen spiegeln die Volatilität der Wahrheitswerte der Atome in Abhängigkeit von $\mathbb{C}$ wider.
 Welche Metadaten für die Bewertung verwendet werden sollten, hängt stark von der Semantik der Wahrheitswerte der PSL-Prädikate ab.
 In~\cite[Kapitel 4]{Pujara2015} werden verschiedene mögliche Bewertungsverfahren beschrieben, für diese Arbeit sind jene allerdings nicht näher relevant.
 

@@ -26,7 +26,7 @@ Die Arten von Entitäten bzw.\ Relationen (z.~B. $person$ bzw. $lived~in$) und d
 Die Ontologie beschränkt also die Menge gültiger Wissensgraphen, was eine effiziente maschinelle Verarbeitung der im Graph enthaltenen Informationen ermöglicht.
 
 Da Wissensgraphen in zahlreichen Domänen einsetzbar sind, wird deren automatisierte Konstruktion bereits seit Jahren erforscht.
-Manuelles Konstruieren und vor allem anschließendes Warten und Aktualisieren von Wissensgraphen, ist aufgrund der abzubildenden Datenmengen nicht praktikabel.
+Manuelles Konstruieren und vor allem anschließendes Warten und Aktualisieren von Wissensgraphen ist aufgrund der abzubildenden Datenmengen nicht praktikabel.
 Bei einer maschinellen Konstruktion sind insbesondere zwei Anforderungen problematisch:
 \begin{enumerate}
 	\item Das Verarbeiten von unstrukturierten Eingaben, wie z.~B. natürlichsprachlichen Texten.
@@ -74,7 +74,7 @@ Die Teillösungen können zu einem Konstruktionsverfahren kombiniert werden, wel
 	\caption{Grober Aufbau des Konstruktionsverfahrens}\label{fig:intro:overview}
 \end{figure} \\
 Mittels eines Verfahrens zur Sprachverarbeitung und Grapherweiterung wird ein Wissensgraph konstruiert, der die spezifizierte Ontologie benutzt.
-Der Zweck dieses Wissensgraphen ist, dass er mittels eines Anfragesystems ausgelesen werden kann und so zur Beantwortung von Fragen über den Inhalt der eigegebenen Nachrichten benutzt werden kann.
+Der Zweck dieses Wissensgraphen ist, dass er mittels eines Anfragesystems ausgelesen werden kann und so zur Beantwortung von Fragen über den Inhalt der eingegebenen Nachrichten benutzt werden kann.
 Die Aufgabenstellung dieser Arbeit beschränkt sich allerdings auf die Konstruktion, der Aufbau eines Anfragesystems wird nicht beschrieben.
 
 Das gemäß \figreft{fig:intro:overview} zusammengesetzte Verfahren muss folgende technische Anforderungen erfüllen:
@@ -83,7 +83,7 @@ Das gemäß \figreft{fig:intro:overview} zusammengesetzte Verfahren muss folgend
 		Es soll prinzipiell möglich sein, zusätzlich zur Sprachverarbeitung auch andere Verarbeitungsverfahren, z.~B. für Bilder, hinzufügen zu können.
 		Insbesondere die Graphontologie darf also nicht zu sehr auf die Struktur natürlicher Sprache zugeschnitten sein, damit auch Informationen aus nicht natürlichsprachlichen Datenquellen repräsentierbar sind.
 	\item \textbf{Parallelisierbarkeit:}
-		Das Verfahren soll in der Lage sein die Rechenleistung mehrerer Prozessorkerne bzw.\ Prozessoren zu nutzen.
+		Das Verfahren soll in der Lage sein, die Rechenleistung mehrerer Prozessorkerne bzw.\ Prozessoren zu nutzen.
 		Diese Anforderung betrifft insbesondere das Grapherweiterungsverfahren.
 \end{enumerate}
 
@@ -103,7 +103,7 @@ In den Kapiteln~\ref{sec:related} bis~\ref{sec:text2kg} werden diese Komponenten
 Im ersten Schritt wird ein Überblick über die bisherige Forschung und vorhandenen Technologien gegeben.
 Das Finden einer Graphontologie lässt sich als ein Problem der Wissensrepräsentation verstehen, daher wird zuerst ein Überblick über die bisherige Entwicklung von Wissensrepräsentationsverfahren gegeben.
 Anschließend folgt ein Überblick über verbreitete Werkzeuge zur Sprachverarbeitung.
-Zuletzt wird beschrieben, welche Ansätze es zur Konstruktion von Wissensgraphen mit einer gegeben Ontologie aus gegebenen Eingabedaten gibt.
+Zuletzt wird beschrieben, welche Ansätze es zur Konstruktion von Wissensgraphen mit einer gegebenen Ontologie aus gegebenen Eingabedaten gibt.
 
 \paragraph{Kapitel~\ref{sec:theory}: \nameref{sec:theory}}
 Da diese Arbeit direkt auf manchen der in Kapitel~\ref{sec:related} vorgestellten Arbeiten aufbaut, werden diese Arbeiten hier näher erläutert.

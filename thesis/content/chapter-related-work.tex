@@ -23,7 +23,7 @@ Diese werden im Folgenden kurz vorgestellt.
 \paragraph{Begriffsschrift (1879)}
 Gottlob Freges Buch über die \textit{Begriffsschrift}~\cite{Frege1879} gilt als eines der bedeutsamsten Werke der Logik.
 Sie ist der erste Formalismus mit der Ausdrucksstärke der modernen Prädikatenlogik zweiter Ordnung mit Identität.
-Frege benutzt hierfür eine zweidimensionale Notation, die sich stark von der heute gebräuchlichen, linearen, an die Algebra angelehnte Notation unterscheidet.
+Frege benutzt hierfür eine zweidimensionale Notation, die sich stark von der heute gebräuchlichen linearen, an die Algebra angelehnten Notation unterscheidet.
 \begin{equation*}
 	\vcenter{\hbox{\Fconditional[\Fanqn{a}]{\Fcontent \mathfrak{R(a)}}{\Fncontent \mathfrak{P(a)}}}}
 	\quad\Leftrightarrow\quad
@@ -54,7 +54,7 @@ Die konkrete räumliche Anordnung der Knoten und Kanten hat dabei keine semantis
 Peirce hat Existenzgraphen als ein dreistufiges aufeinander aufbauendes System konzipiert.
 Die erste Stufe, die sog.\ $\alpha$-Graphen, umfasst alle notwendigen syntaktischen Elemente, um ein Kalkül mit der Ausdrucksstärke der Aussagenlogik zu erhalten.
 Die $\beta$-Graphen bilden die zweite Stufe und erweitern die Syntax der $\alpha$-Graphen, sodass die Ausdrucksstärke der Prädikatenlogik erster Ordnung erreicht wird.
-Sowohl für $\alpha$-, als auch für $\beta$-Graphen, ist die Vollständigkeit und Korrektheit bewiesen.
+Sowohl für $\alpha$- als auch für $\beta$-Graphen ist die Vollständigkeit und Korrektheit bewiesen.
 Die dritte Stufe ($\gamma$-Graphen) wurde von Pierce nie vollendet;
 sie deckt in etwa die Ausdrucksstärke der heutigen Prädikatenlogik höherer Ordnung sowie der Modallogik ab.
 \begin{align*}
@@ -81,7 +81,7 @@ So ist z.~B. die Negation $\lnot A$ auf Freges negierten Inhaltsstrich $\Fnconte
 \subsection{Entwicklung maschineller Wissensrepräsentation}%
 \label{sec:related:kr:history}
 
-Die Idee Computer zur Lösung beliebiger Probleme zu benutzen ist nicht neu.
+Die Idee, Computer zur Lösung beliebiger Probleme zu benutzen, ist nicht neu.
 Da ein solches maschinelles Problemlösen die Verfügbarkeit von Hintergrundwissen über die Problemdomäne erfordert,
 wurden Methoden zur Wissensrepräsentation immer im Zusammenhang mit Problemlösern erforscht~\cite{Hayes-Roth1983}.
 So wie effiziente Datenstrukturen die Implementation effizienter Algorithmen ermöglichen, ermöglichen gute Wissensrepräsentationen die Implementation guter Problemlöser.
@@ -97,7 +97,7 @@ GPS war ein universeller Problemlöser, konnte also jedes Problem lösen, das si
 Zwar war es so theoretisch möglich Probleme aus diversen Domänen zu lösen, aufgrund der kombinatorischen Explosion war GPS alledings nicht zur Lösung komplexer praktischer Probleme geeignet.
 
 \paragraph{Expertensysteme}
-Aufgrund der Misserfolge universeller Problemlöser für praktische Probleme, hat die Forschung begonnen sich mehr auf die Entwicklung von Expertensystemen zu fokussieren.
+Aufgrund der Misserfolge universeller Problemlöser für praktische Probleme hat die Forschung begonnen, sich mehr auf die Entwicklung von Expertensystemen zu fokussieren.
 Expertensysteme besitzen für gewöhnlich eine Wissensbasis, in der domänenspezifisches Wissen in Form von Regeln und Fakten kodiert ist.
 Eine sog.~Inferenzmaschine benutzt diese Regeln und Fakten um Probleme zu lösen.
 
@@ -138,9 +138,9 @@ Wissensgraphen und Konzeptgraphen müssen weiterhin streng unterschieden werden,
 
 \paragraph{Semantic Web}
 Das sog.~\textit{Semantic Web} bezeichnet eine Menge von W3C-Standards, die das bestehende Web um eine formale Wissensbeschreibungssyntax erweitern~\cite{SemWeb}.
-Zentral ist dabei das \textit{Resource Description Framework} (RDF), mit dem sich beliebige Konzepte, auch Resourcen genannt, beschreiben und verknüpfen lassen.
-Ziel ist es über die unstrukturierte Netzstruktur des bestehenden Webs, eine strukturierte, leicht maschniell verarbeitbare, Netzstruktur zu legen.
-Durch die Anfragesprache \textit{SPARQL} ist es möglich Wissen aus diesem Netz auszulesen.
+Zentral ist dabei das \textit{Resource Description Framework} (RDF), mit dem sich beliebige Konzepte, auch Ressourcen genannt, beschreiben und verknüpfen lassen.
+Ziel ist es, über die unstrukturierte Netzstruktur des bestehenden Webs, eine strukturierte, leicht maschinell verarbeitbare Netzstruktur zu legen.
+Durch die Anfragesprache \textit{SPARQL} ist es möglich, Wissen aus diesem Netz auszulesen.
 Das Web würde somit zu einem großen denzentralen Wissensgraphen.
 Tim Berners-Lee beschreibt diese Idee als das ``Web 3.0''~\cite{Shannon2006}.
 Obwohl die Technologien hierfür bereits seit Jahren existieren, sind bislang nur wenige Webseiten mit RDF-Tags annotiert.
@@ -152,17 +152,17 @@ Relationen werden dabei z.~B. für Synonyme, Hypernyme (Oberbegriffe) und Merony
 Der Datenbestand des WordNets wird manuell gepflegt und resultiert aus der Kombination der Einträge verschiedener Wörterbücher.
 
 \subsubsection{Automatisierte Ansätze}
-Neben den manuellen Grapherzeugungsansätzen des Semantic Webs und des WordNets, gibt es diverse voll- und semiautomatische Ansätze.
+Neben den manuellen Grapherzeugungsansätzen des Semantic Webs und des WordNets gibt es diverse voll- und semiautomatische Ansätze.
 Diese bauen die Graphstruktur selbstständig aus gegebenen Datenquellen auf.
 
 \paragraph{NELL}
-Das \textit{Never-Ending Language Learning} (NELL) System~\cite{Carlson2010} traviersiert selbstständig das Internet und fügt die gefundenen textuellen Informationen in einen Wissensgraphen ein.
+Das \textit{Never-Ending Language Learning} (NELL) System~\cite{Carlson2010} traversiert selbstständig das Internet und fügt die gefundenen textuellen Informationen in einen Wissensgraphen ein.
 Hierfür wird eine Kombination verschiedener Modelle verwendet, die regelmäßig angepasst wird.
 Menschen können optional Feedback für die extrahierten Fakten geben, um die Inferenzqualität weiter zu verbessern.
 
 \paragraph{Google Knowledge Graph}
 Basierend auf den Ideen der in~\ref{sec:related:kr:history} vorgestellten Wissensgraphen, stellte Google 2012 eine eigene, ebenfalls \textit{Knowledge Graph} genannte, Wissensgraphtechnologie vor~\cite{Singhal2012}.
-Sie wird benutzt, um Suchanfragen semantisch, statt per String-Matching, zu beantworten.
+Sie wird benutzt, um Suchanfragen semantisch statt per String-Matching zu beantworten.
 So können z.~B. zum Suchbegriff verwandte Ergebnisse angezeigt werden, selbst wenn es keine textuelle Ähnlichkeit zu jenem gibt.
 Laut Googles Aussagen stammen die Quelldaten u.~a.\ aus Wikipedia Infoboxen, Wikidata und dem CIA World Factbook.
 Da es sich hierbei, im Gegensatz zu NELL, primär um strukturierte Daten handelt, ist das automatisierte Einpflegen mit hoher Genauigkeit möglich.
@@ -274,7 +274,7 @@ In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cit
 \end{enumerate}
 
 \paragraph{Latent Feature Models}
-Ein Beispiel für ein Latent Feature Modell ist das RESCAL-Verfahren~\cite{Nickel2013}, welches auf Tensorfaktorisierung basiert.
+Ein Beispiel für ein Latent-Feature-Modell ist das RESCAL-Verfahren~\cite{Nickel2013}, welches auf Tensorfaktorisierung basiert.
 Die Grundidee dabei ist es, allen Entitäten $i$ einen Vektor $e_i \in \mathbb{R}^H$, welcher $H$ Eigenschaften bzw.\ Features von $i$ repräsentiert, zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
 Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^\top\ W_k\ e_j$ beschrieben.
 Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
@@ -284,10 +284,10 @@ ein Beispiel hierfür sind symmetrische Relationen.
 \[A \xrightarrow{\text{married to}} B \implies B \xrightarrow{\text{married to}} A\]
 
 \paragraph{Graph Feature Models}
-Komplementär zu den Latent Feature Modellen sind die Graph Feature Modelle.
+Komplementär zu den Latent-Feature-Modellen sind die Graph-Feature-Modelle.
 Statt Entitäten in einen Feature-Raum einzubetten, wird hier die Nachbarschaft der Entitäten betrachtet.
 Ein Beispiel hierfür ist der \textit{Path Ranking Algorithmus} (PRA)~\cite{Lao2011}. PRA ermittelt Relationen durch zufälliges Durchwandern des Graphen.
-Um die Stärken der Latent Feature und Graph Feature Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das \textit{Additive Relational Effects} (ARE) Verfahren~\cite{Nickel2014}, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.
+Um die Stärken der Latent Feature und Graph-Feature-Modelle zu kombinieren, wurden Hybrid-Modelle, wie z.~B. das \textit{Additive Relational Effects} (ARE) Verfahren~\cite{Nickel2014}, entwickelt, welches die Konfidenzen von RESCAL und PRA addiert.
 
 \paragraph{Markov Random Fields}
 Fundamental verschieden von diesen beiden Verfahren sind \textit{Markov Random Fields} (MRFs).
@@ -308,9 +308,9 @@ BOCI nutzt Metadaten, die während der Ausführung von ADMM anfallen, um eine Be
 Die Bewertung eines Atoms beschreibt, wie groß die erwartete Wertveränderung beim Eintreffen neuer Informationen ist.
 Kommen nun neue Informationen an, müssen ausschließlich die $m$ höchstbewerteten Atome betrachtet werden, die Werte aller anderen Atome werden fixiert.
 Je höher das Budget $m$, desto höher ist die Qualität im Vergleich zu einer Neukonstruktion des Graphen.
-Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist, als bei einer kompletten offline Inferenz.
+Es wurde empirisch gezeigt, dass die Inferenzqualität mit BOCI oft nur unwesentlich schlechter ist als bei einer kompletten Offline-Inferenz.
 
-Die Kombination von PSL, ADMM und BOCI ist daher ein guter Ausgangspunkt für den Entwurf eines online Wissensgraph-Konstruktionsverfahrens.
-Der Vorteil dieses Ansatzes gegenüber Latent Feature oder Graph Feature Modellen ist, dass sich domänenspezifische Expertensysteme, z.~B. Geoinformationssysteme, leicht in eine PSL Inferenz integrieren lassen.
+Die Kombination von PSL, ADMM und BOCI ist daher ein guter Ausgangspunkt für den Entwurf eines Online-Wissensgraph-Konstruktionsverfahrens.
+Der Vorteil dieses Ansatzes gegenüber Latent-Feature- oder Graph-Feature-Modellen ist, dass sich domänenspezifische Expertensysteme, z.~B. Geoinformationssysteme, leicht in eine PSL-Inferenz integrieren lassen.
 PSL erlaubt nämlich die Inklusion von benutzerdefinierten Funktionen und Prädikaten.
 Diese können benutzt werden, um z.~B. die Levenshtein-Distanz zweier Zeichenketten oder domänenspezifisches Hintergrundwissen, wie die Distanz zwischen zwei namentlich genannten Orten, mit in die Entity Resolution einfließen zu lassen.

@@ -43,8 +43,8 @@ Hierbei handelt es sich um ein Datenset, welches die E-Mail-Rohdaten in zusammen
 Die Nachrichten innerhalb eines Threads sind gut als Testdaten geeignet, da darin oftmals dieselben Personen und Themen auftauchen und somit die Möglichkeit besteht, Beziehungen zwischen diesen zu finden.
 
 Für die Testnachrichten wurde zufällig ein Testthread aus der Menge aller Threads ausgewählt, der die Schlüsselwörter \textit{``yesterday''} oder \textit{``tomorrow''} enthält.
-Ziel dabei war es, Nachrichten, in denen es um Termine oder Ereignisse geht, zu erhalten, da diese Nachrichten häufig auch ohne umfangreiches domänenspezifisches Wissen verstanden werden können.
-Die Wahl eines zufälligen Threads, ohne diese Einschränkung, resultierte meist in Nachrichten, die nur mit umfangreichem domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
+Ziel dabei war es, Nachrichten zu erhalten, in denen es um Termine oder Ereignisse geht, da diese Nachrichten häufig auch ohne umfangreiches domänenspezifisches Wissen verstanden werden können.
+Die Wahl eines zufälligen Threads, ohne diese Einschränkung, führte meist zu Nachrichten, die nur mit umfangreichem domänenspezifischem Wissen aus der Energie-Branche verständlich sind.
 Die konkret verwendeten Testnachrichten sind in~\ref{sec:appendix:msgs} zu finden.
 
 \subsection{Ergebnisse}%
@@ -83,7 +83,7 @@ Die zweite Anfrage~\tref{sec:appendix:queries:events} testet, wie gut $relation$
 Hierfür wird aufgelistet, was \textit{Duane Seppi} wann getan hat.
 \csvautobooklongtable{data/evaluation/personTimeAction.csv}
 Wie zu erwarten, finden sich im Ergebnis für alle gesendeten und empfangenen Nachrichten entsprechende \textit{send}- bzw. \textit{receive}-Einträge.
-Unter den übrigen Einträgen, wurden den ersten beiden Einträgen Zeitpunkte zugeordnet.
+Unter den übrigen Einträgen wurden den ersten beiden Einträgen Zeitpunkte zugeordnet.
 Beide stammen aus der ersten Testnachricht und sind im Wesentlichen korrekt, die relativen Zeitangaben \textit{yesterday} und \textit{today} wurden von SUTime korrekt aufgelöst und die PSL-Regel \ruleref{rule:text2kg:i} hat die Pronomina, die Agens der $relation$-Konzepte sind, korrekt der Person \textit{Duane Seppi} zugeordnet.
 Es wurden allerdings auch verschiedene Fehler gemacht:
 \begin{enumerate}
@@ -110,7 +110,7 @@ Um dies zu erkennen, müssten Kommunikationsverläufe berücksichtigt werden, st
 \paragraph{Positive und negative Aussagen}
 In den vorigen Anfragen wurden Kontexte nicht berücksichtigt, da die Testnachrichten größtenteils Tatsachen beschreiben.
 Die vierte Anfrage~\tref{sec:appendix:queries:neg} wird daher benutzt, um die Erkennung von Negationskontexten zu testen.
-Konkret werden hierfür alle Relationen abgefragt, die in, von \textit{John Doe} geschriebenen, Nachrichten erwähnt werden und für die etwas über deren Wahrheit oder Unwahrheit bekannt ist.
+Konkret werden hierfür alle Relationen abgefragt, die in von \textit{John Doe} geschriebenen Nachrichten erwähnt werden und für die etwas über deren Wahrheit oder Unwahrheit bekannt ist.
 \csvautobooklongtable[separator=semicolon]{data/evaluation/personNegationAction.csv}
 Relation~2 wurde dabei semantisch inkorrekt abgebildet \errorA.
 Die Negation von \textit{``I have something''} im Satz \textit{``I'm not writing this message because I have something to say''} wurde nicht erkannt.
@@ -161,8 +161,12 @@ Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglic
 Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich jedoch $Kor_{25}(\Delta t, c) = 0.616$.
 
 Die gemessene Inferenzdauer pro Nachricht liegt anfangs bei ca.\ 4 Sek.\ und steigt auf ca.\ 2 Std.\ an.
+Für das Einfügen der 57 Testnachrichten werden insgesamt 42~Stunden benötigt.
 Die momentane Implementation des Verfahrens ist also definitv nicht für den praktischen Einsatz geeignet.
-Es existieren jedoch verschiedene Ansätze, mit denen die absoluten und aymptotischen Laufzeiten deutlich verbessert werden können.
-Eine triviale Optimierung ist es, nicht alle Nachrichten einzeln, sondern mehrere gleichzeitig einzufügen und so, weniger Inferenzen durchzuführen.
-Wenn erst der Konjunktionsgraph aller Nachrichten gebildet und dann eine einzige Inferenz durchgeführt wird, benötigt das Einfügen der Nachrichten ca. 2~Stunden, statt 42~Stunden.
-Weitere Ansätze werden in~\ref{sec:conclusion:todo} beschrieben.
+Es existieren jedoch verschiedene Ansätze, mit denen die absoluten und asymptotischen Laufzeiten deutlich verbessert werden können.
+Eine einfache Optimierung ist es, nicht alle Nachrichten einzeln, sondern mehrere gleichzeitig als Batch einzufügen und so weniger Inferenzen durchzuführen.
+Wenn erst der Konjunktionsgraph aller Nachrichten gebildet und dann eine einzige Inferenz durchgeführt wird, benötigt das Einfügen der 57 Nachrichten ca. 2~Stunden, statt 42~Stunden.
+Die Laufzeit lässt sich so also deutlich reduzieren.
+Im Kontext der Online-Wissensgraph-Konstruktion können offensichtlich nicht alle Nachrichten gleichzeitig eingefügt werden.
+Der Batching-Ansatz allein ist also nicht ausreichend, um das Laufzeitproblem zu lösen.
+Weitere Ansätze werden daher in~\ref{sec:conclusion:todo} beschrieben.

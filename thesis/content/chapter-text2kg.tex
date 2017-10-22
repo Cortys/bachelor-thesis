@@ -19,12 +19,12 @@ Das im Folgenden vorgestellte Verfahren folgt einem dreistufigen Pipeline-Modell
 	\item Der resultierende Abhängigkeitsgraph wird in einen sog.\ Extraktionsgraphen umgewandelt.
 		Hierbei handelt es sich um einen Konzeptgraphen, der den Inhalt der Nachricht formal repräsentiert.
 	\item Der Extraktionsgraph wird mit dem bestehenden Wissensgraphen verschmolzen.
-		Dies entspricht der Konjuktion der durch die beiden Graphen repräsentierten logischen Ausdrücke.
+		Dies entspricht der Konjunktion der durch die beiden Graphen repräsentierten logischen Ausdrücke.
 		Der resultierende Konjunktionsgraph wird als Eingabe für ein PSL-Programm verwendet, welches auf Basis des hinzugekommenen Wissens neue Beziehungen im Wissensgraphen inferiert.
 \end{enumerate}
 Die Beschreibung dieser Pipeline erfolgt in vier Abschnitten.
 \treft{sec:text2kg:ontology} beschreibt die Ontologie der konstruierten Wissensgraphen.
-Nachdem beschrieben ist, wie die zu konstruierenden Wissensgraphen strukturell aufgebaut sein sollen, wird schließlich in \treft{sec:text2kg:nlp} und \treft{sec:text2kg:psl} die Transformation von Text zu Extraktionsgraph, bzw.\ von Extraktionsgraph zu Wissensgraph beschrieben.
+Nachdem beschrieben ist, wie die zu konstruierenden Wissensgraphen strukturell aufgebaut sein sollen, wird schließlich in \treft{sec:text2kg:nlp} und \treft{sec:text2kg:psl} die Transformation von einem Text in einen Extraktionsgraph, bzw.\ von einem Extraktionsgraph in einen Wissensgraph beschrieben.
 In \treft{sec:text2kg:implementation} wird abschließend kurz die technische Umsetzung des zuvor beschriebenen Verfahrens erläutert.
 
 \section{Wissensgraphontologie}%
@@ -41,7 +41,7 @@ Im Folgenden wird beschrieben, wie die in dieser Arbeit verwendete Ontologie auf
 \label{sec:text2kg:ontology:pred}
 
 Im ersten Schritt wird geklärt, welche Prädikate in den konstruierten Wissensgraphen vorkommen können.
-Es ist nicht sinnvoll beliebige Prädikate zuzulassen, da für eine effiziente maschinelle Weiterverarbeitung der Wissensgraphen, eine Semantik für alle vorkommenden Prädikate definiert sein muss.
+Es ist nicht sinnvoll, beliebige Prädikate zuzulassen, da für eine effiziente maschinelle Weiterverarbeitung der Wissensgraphen eine Semantik für alle vorkommenden Prädikate definiert sein muss.
 Für die Wissensgraphen in dieser Arbeit wird eine Menge von sechs Prädikaten verwendet.
 
 \paragraph{Syntax}
@@ -83,7 +83,7 @@ Gemäß dieser Prämisse wurden sechs Wissensgraph-Prädikate definiert.
 		\begin{align}
 			\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/label.pdf}}}
 			\Leftrightarrow
-			\exists x: {\color{rot}label(x, \text{``book''})}
+			\exists\, x: {\color{rot}label(x, \text{``book''})} % chktex 21
 		\end{align}
 	\item \textbf{$named \subseteq \text{concept}$:}
 		Die Bedeutung des durch $label$ beschriebenen Bezeichners kann stark variieren.
@@ -196,13 +196,13 @@ Statt von Welten, wird in modalen Konzeptgraphen allerdings von Kontexten gespro
 	&\Leftrightarrow
 	\exists c: context(c) \land (actual(c) \leftrightarrow \exists x: label(x, \text{``X''}))
 \end{align*}
-Anders als Aktualkontexte, tauchen Möglichkeitskontexte explizit in der prädikatenlogischen Repräsentation auf, sie lassen sich also nicht nur als Kontext sondern zugleich auch als Konzept auffassen.
+Anders als Aktualkontexte tauchen Möglichkeitskontexte explizit in der prädikatenlogischen Repräsentation auf, sie lassen sich also nicht nur als Kontext, sondern zugleich auch als Konzept auffassen.
 Der in einem Möglichkeitskontext $c$ enthaltene Teilgraph $G$ ist dabei genau dann wahr, wenn der Kontext die aktuale Welt beschreibt~($\Leftrightarrow actual(c)$).
 Solange $actual(c)$ unbekannt ist, kann also keine Aussage über die Wahrheit von $G$ gemacht werden.
 Wenn $actual(c)$ jedoch wahr bzw.\ falsch ist, ist $c$ äquivalent zu einem positiven bzw.\ negativen Aktualkontext.
 
 Zur Bestimmung von des Wahrheitswertes von $actual(c)$ ist i.~d.~R. domänenspezifisches Wissen notwendig.
-Dieses domänenspezifische Wissen, kann durch sog.\ Kontextrelationen eingebracht werden.
+Dieses domänenspezifische Wissen kann durch sog.\ Kontextrelationen eingebracht werden.
 Da Möglichkeitskontexte zugleich Konzepte sind, lassen sie sich zu anderen Konzepten in Relation setzen.
 Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}think} that {\color{rot}the book is good}.''} repräsentieren möchte.
 
@@ -213,8 +213,8 @@ Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}thi
 	\land&\ {\color{blau}label(t, \text{``think''}) \land relation(t) \land agent(t, i) \land patient(t, c)} \\
 	\land&\ {\color{rot}context(c) \land (actual(c) \leftrightarrow \exists b: label(b, \text{``book''}) \land inst(g, b))}
 \end{align*}
-Durch die Verknüpfung $patient(t, c)$ eines Konzeptes mit einem Kontext, kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
-Wie dies ablaufen kann, ist bislang allerdings noch unklar~\tref{sec:conclusion:todo}.
+Durch die Verknüpfung $patient(t, c)$ eines Konzeptes mit einem Kontext kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
+Wie dies ablaufen kann, wird im Rahmen dieser Arbeit nicht beschrieben~\tref{sec:conclusion:todo}.
 
 \paragraph{Negativer Möglichkeitskontext}
 Lediglich eine Kurzschreibweise für einen positiven Möglichkeitskontext der einen negativen Aktualkontext umgibt.
@@ -239,7 +239,7 @@ In der zweiten Stufe werden dann die CoreNLP-Annotationen in eine Konzeptgraphin
 \subsection{Nachrichtenformat}%
 \label{sec:text2kg:nlp:msg}
 
-Vor der Beschreibung der Pipeline-Stufen, muss geklärt werden, wie die eingegebenen Nachrichten aufgebaut sind.
+Vor der Beschreibung der Pipeline-Stufen muss geklärt werden, wie die eingegebenen Nachrichten aufgebaut sind.
 Da diese Arbeit lediglich die grundlegende Architektur eines Wissensgraph-Konstruktionsverfahrens beschreibt, wurde eine vereinfachte Struktur gewählt, die die wesentlichen Eigenschaften von Nachrichten enthält.
 Eine Nachricht wird daher im Folgenden als ein Tupel mit den folgenden Komponenten verstanden:
 \begin{enumerate}
@@ -281,8 +281,8 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 		Daher wird jedem Token-Knoten sein POS-Tag hinzugefügt, welcher die Wortart und Beugung jedes lemmatisierten Tokens einheitlich repräsentiert.
 	\item \textbf{NER-Klassen:}
 		Alle Token-Knoten, die der NER-Annotator klassifizieren konnte, erhalten ihre Klasse.
-		Für alle von SUTime erkannten Zeitangaben, wird zudem ein neuer Knoten eingefügt.
-		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}) werden mittels einer Koreferenzkante mit dem hinzugefügten Zeitknoten verknüpft.
+		Für alle von SUTime erkannten Zeitangaben wird zudem ein neuer Knoten eingefügt.
+		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}), werden mittels einer Koreferenzkante mit dem hinzugefügten Zeitknoten verknüpft.
 	\item \textbf{Koreferenzklassen:}
 		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotatinsgraphen eingefügt.
 		Als Kantenmenge wird allerdings nicht $C \times C$ verwendet, da diese unnötig groß ist und zudem nicht alle verfügbaren Informationen repräsentiert.
@@ -301,7 +301,7 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 
 \figreft{fig:text2kg:annotationGraph1} zeigt den Annotationsgraphen der Beispielnachricht $m_2$.
 In den Knoten sind die Token-Lemmata, die NER-Klasse und der POS-Tag dargestellt.
-Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich hervorgehoben.
+Informationen, die nicht aus dem Abhängigkeitsgraphen stammen, wurden farblich hervorgehoben.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{gfx/text2kg/annotationGraph1.pdf}
@@ -313,7 +313,7 @@ Informationen, die nicht aus dem Abhängigkeitsgraphen stammen wurden farblich h
 
 Aus dem Annotationsgraphen einer Nachricht muss im nächsten Schritt der sog.\ \textit{Extraktionsgraph} erstellt werden.
 Hierbei handelt es sich um einen Konzeptgraphen mit der in~\ref{sec:text2kg:ontology} beschriebenen Ontologie, der den Inhalt der Nachricht beschreibt.
-Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich jede beliebige Aussage im Extraktionsgraphen zu repräsentieren.
+Da natürliche Sprachen eine höhere Ausdrucksstärke als die Prädikatenlogik erster Ordnung und somit auch als Konzeptgraphen haben, ist es generell unmöglich, jede beliebige Aussage im Extraktionsgraphen zu repräsentieren.
 Das Ziel der Extraktionsgraph-Konstruktion ist daher lediglich, einige wesentliche repräsentierbare semantische Strukturen zu identifizieren.
 
 Hierfür wird eine deterministische regelbasierte Transformationspipeline benutzt.
@@ -455,7 +455,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 	\item \textbf{Negative Aktualkontexte:}
 		Das Formalisieren von Negation in natürlichen Sprachen ist nicht immer eindeutig möglich.
 		Dies liegt daran, dass die Bedeutung einer Negation variieren kann; so ist die doppelte Verneinung im Englischen z.~B. manchmal ein umgangssprachliches stilistisches Mittel zur Betonung der Negation (z.~B. \textit{``We don't have no time.''}).
-		Da eine umfassende Behandlung aller möglichen Interpretationen der Negation den Rahmen dieser Arbeit gesprengt hätte, wird stattdessen ein stark vereinfachtes Modell verwendet, welches für viele, jedoch nicht für alle, Aussagen korrekte Ergebnisse liefert.
+		Da eine umfassende Behandlung aller möglichen Interpretationen der Negation den Rahmen dieser Arbeit gesprengt hätte, wird stattdessen ein stark vereinfachtes Modell verwendet, welches für viele, jedoch nicht für alle Aussagen korrekte Ergebnisse liefert.
 
 		Natürlichsprachliche Negation wird im Folgenden immer als äquivalent zur logischen Negation verstanden.
 		Um diese Negationen durch Kontexte zu repräsentieren, muss definiert werden, welche Konzepte durch das Vorkommen einer natürlichsprachlichen Negation betroffen sind.
@@ -545,7 +545,7 @@ Nachdem nun geklärt ist, wie die Konstruktion des Extraktionsgraphen einer Nach
 \subsection{Konstruktion des Konjunktionsgraphen}%
 \label{sec:text2kg:psl:conj}
 
-Der erste Schritt der Wissensgraph-Konstruktion ist das Bilden des sog.\ Konjuktionsgraphen.
+Der erste Schritt der Wissensgraph-Konstruktion ist das Bilden des sog.\ Konjunktionsgraphen.
 Der Konjunktionsgraph ist ein Konzeptgraph, der alle Informationen der einzufügenden Nachricht und des bestehenden Wissensgraphen enthält, allerdings noch keine Schlussfolgerungen aus den hinzugekommenen Informationen beinhaltet.
 Der Konjunktionsgraph wird in vier Schritten konstruiert.
 \begin{enumerate}
@@ -606,7 +606,7 @@ Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kon
 \edef\pslPredCount{\theenumi}
 
 Bei $similar$ handelt es sich um ein sog.\ funktionales Prädikat.
-Funktionale Prädikate werden intensional durch eine Funktion beschrieben und dürfen weder in der offenen Atommenge $\mathbb{O}$, noch in der geschlossenen Atommenge $\mathbb{C}$ vorkommen, da weder das Definieren, noch das Inferieren, von Grundatomen eines solchen Prädikates sinnvoll ist.
+Funktionale Prädikate werden intensional durch eine Funktion beschrieben und dürfen weder in der offenen Atommenge $\mathbb{O}$, noch in der geschlossenen Atommenge $\mathbb{C}$ vorkommen, da weder das Definieren noch das Inferieren von Grundatomen eines solchen Prädikates sinnvoll ist.
 $similar$ wird verwendet, um die $label$-Ähnlichkeit von $named$-Konzepten bei der Inferenz berücksichtigen zu können.
 Es wurde das Jaro-Ähnlichkeitsmaß gewählt, da es für Namen gute Ergebnisse liefert und sich zudem effizient berechnen lässt~\cite{Christen2006}, was aufgrund der zahlreichen Vergleiche, die im Rahmen einer Inferenz durchgeführt werden, wichtig ist.
 Ähnlichkeitswerte~$< 0.75$ werden auf $0$ abgerundet, damit unähnliche $label$ bei der Inferenz gar nicht erst betrachtet werden.
@@ -698,9 +698,9 @@ Die Eigenschaften $prop(p_1), prop(p_2)$ sind also nicht frei kombinierbar.
 
 \paragraph{Wissensgraph-Konstruktion}
 Die Wissensgraph-Konstruktion lässt sich nun als Inferenz mit dem PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ verstehen.
-Die geschlossenen Grundatome $\mathbb{C}$ der Eingabe sind die Relationen im Konjuktionsgraphen, die keine offenen Grundatome in einer vorherigen PSL-Inferenz waren.
+Die geschlossenen Grund\-atome $\mathbb{C}$ der Eingabe sind die Relationen im Konjunktionsgraphen, die keine offenen Grundatome in einer vorherigen PSL-Inferenz waren.
 Wären zuvor inferierte Atome Teil von $\mathbb{C}$, könnten diese während der Inferenz nämlich nicht mehr aktualisiert werden, was z.~B. beim Einfügen von zusätzlicher Evidenz für eine bereits vorhandene Relation wichtig ist.
-Als offen Grundatommenge $\mathbb{O}$ wird die Menge aller möglicher Relationen verwendet, die nicht in $\mathbb{C}$ liegen.
+Als offene Grundatommenge $\mathbb{O}$ wird die Menge aller möglicher Relationen verwendet, die nicht in $\mathbb{C}$ liegen.
 $\mathbb{O}$ kann und muss dabei nicht vollständig in den Speicher geladen werden.
 Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mathbb{O}$ werden erst dann instanziiert, wenn sie das erste Mal in einer Grundregel auftauchen.
 Als Inferenzverfahren wird das in~\ref{sec:theory:psl:inference} vorgestellte ADMM-Verfahren benutzt.
