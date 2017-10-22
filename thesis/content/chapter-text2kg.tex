@@ -168,7 +168,7 @@ sie werden hier lediglich der Vollständigkeit halber erwähnt.
 	\Leftrightarrow
 	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/x.pdf}}}
 	\Leftrightarrow
-	\exists x: label(x, \text{``X''})
+	\exists\, x: label(x, \text{``X''}) % chktex 21
 \end{align}
 
 \paragraph{Negativer Aktualkontext}
@@ -176,7 +176,7 @@ Entspricht dem bisherigen Negationskontext.
 \begin{align}
 	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negativeActual.pdf}}}
 	\Leftrightarrow
-	\lnot \exists x: label(x, \text{``X''})
+	\lnot \exists\, x: label(x, \text{``X''}) % chktex 21
 \end{align}
 
 \paragraph{Positiver Möglichkeitskontext}
@@ -185,7 +185,7 @@ Um die Übersetzbarkeit in die Prädikatenlogik beizubehalten, wird hierfür kei
 Es wird stattdessen die Tatsache ausgenutzt, dass sich die modalen Operatoren gemäß der Mögliche-Welten-Interpretation analog zu den prädikatenlogischen Quantoren verhalten.\\
 \begin{align*}
 	{\color{rot}\square} P(x)\ &\Leftrightarrow \lnot {\color{blau}\lozenge} \lnot P(x) \\
-	{\color{rot}\forall} w: world(w) \rightarrow P_w(x)\ &\Leftrightarrow \lnot {\color{blau}\exists} w: world(w) \land \lnot P_w(x) \numberthis
+	{\color{rot}\forall} w: world(w) \rightarrow P_w(x)\ &\Leftrightarrow \lnot {\color{blau}\exists}\, w: world(w) \land \lnot P_w(x) \numberthis
 \end{align*}
 Die Aussage \textit{``$P(x)$ gilt notwendigerweise''}, wird also als \textit{``Es gibt keine Welt $w$ in der $P_w(x)$ nicht gilt''} aufgefasst.
 Statt von Welten, wird in modalen Konzeptgraphen allerdings von Kontexten gesprochen.
@@ -194,7 +194,7 @@ Statt von Welten, wird in modalen Konzeptgraphen allerdings von Kontexten gespro
 	&\Leftrightarrow
 	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibExpansion.pdf}}} \numberthis \\
 	&\Leftrightarrow
-	\exists c: context(c) \land (actual(c) \leftrightarrow \exists x: label(x, \text{``X''}))
+	\exists\, c: context(c) \land (actual(c) \leftrightarrow \exists\, x: label(x, \text{``X''})) % chktex 21
 \end{align*}
 Anders als Aktualkontexte tauchen Möglichkeitskontexte explizit in der prädikatenlogischen Repräsentation auf, sie lassen sich also nicht nur als Kontext, sondern zugleich auch als Konzept auffassen.
 Der in einem Möglichkeitskontext $c$ enthaltene Teilgraph $G$ ist dabei genau dann wahr, wenn der Kontext die aktuale Welt beschreibt~($\Leftrightarrow actual(c)$).
@@ -209,9 +209,9 @@ Dies ist z.~B. dann nützlich, wenn man die Aussage \textit{``I {\color{blau}thi
 \begin{align*}
 	&\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/possibCtxRelationExample.pdf}}} \numberthis \displaybreak[0]\\
 	\Leftrightarrow
-	\exists i, g, t, c:&\ label(i, \text{``I''}) \land label(g, \text{``good''}) \\
+	\exists\, i, g, t, c:&\ label(i, \text{``I''}) \land label(g, \text{``good''}) \\ % chktex 21
 	\land&\ {\color{blau}label(t, \text{``think''}) \land relation(t) \land agent(t, i) \land patient(t, c)} \\
-	\land&\ {\color{rot}context(c) \land (actual(c) \leftrightarrow \exists b: label(b, \text{``book''}) \land inst(g, b))}
+	\land&\ {\color{rot}context(c) \land (actual(c) \leftrightarrow \exists\, b: label(b, \text{``book''}) \land inst(g, b))} % chktex 21
 \end{align*}
 Durch die Verknüpfung $patient(t, c)$ eines Konzeptes mit einem Kontext kann Wissen über das Konzept benutzt werden, um Schlüsse über die Aktualität des Kontextes zu ziehen.
 Wie dies ablaufen kann, wird im Rahmen dieser Arbeit nicht beschrieben~\tref{sec:conclusion:todo}.
