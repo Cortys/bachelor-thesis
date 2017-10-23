@@ -48,7 +48,7 @@ Für die Wissensgraphen in dieser Arbeit wird eine Menge von sechs Prädikaten v
 Bevor diese Prädikate näher erläutert werden, wird allerdings die Konzeptgraphsyntax leicht modifiziert.
 Da alle verwendeten Prädikate entweder unär oder binär sein werden, kann eine kompaktere Notation benutzt werden:
 \begin{align}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/text2kg/relationNodeAlternativeSyntax1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/text2kg/relationNodeAlternativeSyntax1.pdf}}}
 	\Leftrightarrow
 	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/relationNodeAlternativeSyntax2.pdf}}}
 \end{align}
@@ -324,7 +324,7 @@ Die Transformationspipeline, die im Rahmen dieser Arbeit entwickelt wurde, läss
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.84\textwidth]{gfx/text2kg/transformationPipeline.pdf}
-	\caption{Annotationsgraph $\rightarrow$ Extraktionsgraph Transformationspipeline}\label{fig:text2kg:transformationPipeline}
+	\caption{``Annotationsgraph $\rightarrow$ Extraktionsgraph'' Transformationspipeline}\label{fig:text2kg:transformationPipeline}
 \end{figure}
 Die einzelnen Transformationsschritte in jeder Phase sind primär exemplarisch zu verstehen.
 Um die Extraktionsqualität zu verbessern, können und sollten weitere Schritte hinzugefügt werden.
@@ -442,7 +442,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 		\begin{figure}[t]
 			\centering
 			\includegraphics[scale=\cgScale]{gfx/text2kg/contextExtractionGraph1.pdf}
-			\caption{\textit{Clause}-basierte Kontextschachtelung der Aussage \textit{``Tom thinks that Mary wants to marry a sailor.''}}\label{fig:text2kg:contextExtractionGraph1} % chktex 8
+			\caption{Teilsatz-basierte Kontextschachtelung der Aussage \textit{``Tom thinks that Mary wants to marry a sailor.''}}\label{fig:text2kg:contextExtractionGraph1} % chktex 8
 		\end{figure}
 		In dieser Arbeit werden die Möglichkeitskontexte nach dem selben Prinzip eingefügt.
 		Teilsätze lassen sich im Annotationsgraphen über die Abhängigkeiten $csubj, ccomp$ und $xcomp$ leicht identifizieren.
@@ -488,7 +488,7 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 							\rightarrow
 							\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\end{align*}
-					\item Andernfalls wird der größte umgebende Kontext von $x$, der nicht $x$ und $y$ umgibt, in den Elternkontext von $y$ verschoben.
+					\item Andernfalls wird der größte umgebende Kontext von $x$, der nicht auch $y$ umgibt, in den Elternkontext von $y$ verschoben.
 					\begin{align*}
 						\vcenter{\hbox{\hspace{-0.6em}\includegraphics[scale=\cgScale]{gfx/text2kg/negContext2.pdf}}}
 						\rightarrow

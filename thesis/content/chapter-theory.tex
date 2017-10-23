@@ -2,6 +2,8 @@
 % chktex-file 26
 % chktex-file 36
 % chktex-file 46
+\def\cgCutScale{0.23}
+
 \chapter{Grundlagen und Hilfsmittel}%
 \label{sec:theory}
 
@@ -16,7 +18,7 @@ Sie werden daher in den folgenden Abschnitten näher beschrieben.
 John F. Sowas Konzeptgraphen~\cite{Harmelen2007} bilden die Basis der Graphontologie dieser Arbeit.
 Wie in~\ref{sec:related:kr:history} beschrieben, sind sie ein auf Existenzgraphen basierendes logisches Kalkül.
 Die vollständige Konzeptgraphsyntax geht allerdings weit über die Prädikatenlogik hinaus, da auch Modallogik und natürlichsprachliche Konzepte, wie z.~B. Fragen und Betonungen, unterstützt werden.
-Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
+Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im Folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
 Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, die ein Kalkül bildet, dessen Vollständigkeit und Korrektheit bewiesen ist.
 
 \subsection{Syntax}%
@@ -25,13 +27,13 @@ Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizi
 In ihrer einfachsten Form lassen sich Konzeptgraphen als Graphen mit drei Arten von Knoten und zwei Arten von Kanten beschreiben.
 
 \paragraph{Konzeptknoten (\textit{concepts})}
-	Entsprechen in etwa existenzquantisiert gebundenen Variablen.
-	Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
-	\begin{align*}
-		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/conceptNode.pdf}}}
-		\quad\Leftrightarrow\quad
-		{\color{rot}\exists\ a, b} \numberthis
-	\end{align*}
+Entsprechen in etwa existenzquantisiert gebundenen Variablen.
+Wie auch in der Prädikatenlogik, haben die Bezeichner von Konzeptknoten keine semantische Relevanz und können frei gewählt werden.
+\begin{align*}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/conceptNode.pdf}}}
+	\quad\Leftrightarrow\quad
+	{\color{rot}\exists\ a, b} \numberthis
+\end{align*}
 
 \paragraph{Relationsknoten (\textit{conceptual relations}) und Argumentkanten (\textit{arguments})}
 Relationsknoten entsprechen prädikatenlogischen Atomen.
@@ -41,9 +43,9 @@ Die Position der Argumente bei mehrstelligen Relationen werden durch Nummerierun
 Wenn in einem Graphen mehrere Relationsknoten bzw.\ Atome auftauchen, werden diese als \textit{UND}-verknüpft interpretiert;
 für die Abbildung von \textit{ODER} wird die Negation verwendet.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode2.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/relationNode2.pdf}}}
 	\Leftrightarrow
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/relationNode1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/relationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
 	\exists\ a, b:\ {\color{rot}P(a, b) \land R(b, a)} \numberthis
 \end{align*}
@@ -52,7 +54,7 @@ für die Abbildung von \textit{ODER} wird die Negation verwendet.
 Für die Negation von Aussagen werden in Konzeptgraphen sog.~Kontexte verwendet.
 Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge nutzen, diese werden hier allerdings ausgelassen, um den Vergleich mit der Prädikatenlogik zu ermöglichen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/negationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 	\quad\Leftrightarrow\quad
@@ -60,20 +62,20 @@ Sie lassen sich neben der Negation auch zur Modellierung anderer Zusammenhänge 
 \end{align*}
 Die Darstellung von Kontexten mit Knoten und Kanten wird schnell unübersichtlich, daher werden stattdessen Boxen verwendet, die die Kindknoten umschließen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode1.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/negationNode1.pdf}}}
 	\quad\Leftrightarrow\quad
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode2.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/negationNode2.pdf}}}
 \end{align*}
 Kontexte können nicht nur Konzeptknoten und Relationsknoten enthalten, sondern auch andere Kontexte.
 Hierbei ist zu beachten, dass alle Knoten und Kontexte höchstens einen Elternkontext haben können;
 die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode3.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/negationNode3.pdf}}}
 	\quad\Leftrightarrow\quad
 	&{\color{rot}\lnot\exists}\ a\ {\color{rot}\lnot\exists}\ b: P(a, b) \numberthis \\
 	\quad\Leftrightarrow\quad
 	&{\color{rot}\forall}\ a\ \exists\ b: P(a, b) \\[1ex]
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/negationNode4.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/negationNode4.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: {\color{rot}\lnot}({\color{rot}\lnot} P(a, b) \land {\color{rot}\lnot} R(b, a)) \numberthis \\
 	\quad\Leftrightarrow\quad
@@ -83,7 +85,7 @@ die Linien zweier Kontextboxen dürfen sich also nicht schneiden.
 \paragraph{Koreferenzkanten (\textit{coreference links})}
 Entspricht der Äquivalenzrelation.
 \begin{align}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
 	&\exists\ a, b: P(a, b) \land \lnot\exists\ x: {\color{rot}a = x \land x = b} \displaybreak[0]\\
 	\quad\Leftrightarrow\quad
@@ -93,9 +95,9 @@ Prinzipiell ließe sich die Äquivalenz auch durch Relationsknoten ausdrücken.
 Um syntaktisch zu kennzeichnen, dass es sich nicht um eine beliebige Relation, sondern um eine Äquivalenzrelation handelt, wird dies jedoch i.~d.~R. nicht getan.
 Koreferenzkanten können also als eine Kurzschreibweise verstanden werden, die den Zweck hat, die für die Inferenz relevanten Symmetrie-, Transitivitäts- und Reflexivitätseigenschaften zu kennzeichnen.
 \begin{align*}
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdge.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/coreferenceEdge.pdf}}}
 	\quad\Leftrightarrow\quad
-	\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
+	\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/coreferenceEdgeAlternative.pdf}}}
 \end{align*}
 
 \subsection{Definition}%
@@ -140,7 +142,7 @@ Zusammenfassend beschreibt $a \leq b$, dass der Elternkontext von $b$ umgebender
 In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.\\[-3em]
 \begin{figure}[h]
 	\centering
-	\[\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/contextTreeExample1.pdf}}}
+	\[\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/contextTreeExample1.pdf}}}
 	\qquad
 	\vcenter{\hbox{
 		\begin{tikzpicture}[
@@ -176,7 +178,7 @@ In \figreft{fig:theory:kgorder} wird dieser Zusammenhang veranschaulicht.\\[-3em
 				\draw[latex-latex] (c2) -- (c3);
 		\end{tikzpicture}
 	}}\]
-	\caption{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung. Die Existenz eines Pfades von $x$ nach $y$ im obigen baumartigen Graphen, entspricht $x \leq y$.}\label{fig:theory:kgorder}
+	\caption[Zusammenhang zwischen Kontexten und der $\leq$-Ordnung]{Zusammenhang zwischen Kontexten und der $\leq$-Ordnung. Die Existenz eines Pfades von $x$ nach $y$ im obigen baumartigen Graphen, entspricht $x \leq y$.}\label{fig:theory:kgorder}
 \end{figure}\\
 Auf Basis von $\leq$ lässt sich nun $dom$ definieren:
 \begin{align*}
@@ -189,14 +191,14 @@ dies ist nicht sinnvoll.
 Eine detailliertere Untersuchung des Zwecks dominierender Knoten und eine Beschreibung der entstehenden Probleme, wenn auf die Notwendigkeit dominierender Knoten verzichtet wird, findet sich in~\cite[Abschnitt~14.3]{Dau2003}.
 \begin{figure}[h]
 	\begin{align*}
-		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation1.pdf}}}
+		\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/dominatingNodeViolation1.pdf}}}
 		\quad
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $\mathit{arg}(P, b) \land \lnot (P \leq b)$.} \\ % chktex 35
-		\vcenter{\hbox{\includegraphics[scale=0.23]{gfx/theory/dominatingNodeViolation2.pdf}}}
+		\vcenter{\hbox{\includegraphics[scale=\cgCutScale]{gfx/theory/dominatingNodeViolation2.pdf}}}
 		\quad
 		&\text{\color{rot}$\lightning\ \lnot dom(G)$, da $\mathit{coref}(a, b) \land \lnot (a \leq b \lor b \leq a)$.}
 	\end{align*}
-	\caption{Beispiele für fehlerhafte Konzeptgraphen ohne dominierende Knoten.}\label{fig:theory:invalidkg}
+	\caption{Beispiele für fehlerhafte Konzeptgraphen ohne dominierende Knoten}\label{fig:theory:invalidkg}
 \end{figure}
 
 \section{Stanford CoreNLP}%
@@ -438,7 +440,7 @@ sie ist eine Erweiterung der booleschen Logik, d.~h.\ die Łukasiewicz Operatore
 			]{1 - x};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Visualisierung der Łukasiewicz Operatoren $\land$, $\lor$ und $\lnot$.}\label{fig:theory:luklogic}
+	\caption{Visualisierung der Łukasiewicz Operatoren $\land$, $\lor$ und $\lnot$}\label{fig:theory:luklogic}
 \end{figure} \\
 Mittels der Łukasiewicz Logik können Disjuktionsklauseln $C_j \in C$ für eine gegebene Variablenbelegung $x$ nun Wahrheitswerte~$\in [0, 1]$ zugeordnet werden.
 Dieser Wahrheitswert wird als Klauselpotential $\Phi_j(x)$ verwendet.
@@ -491,7 +493,8 @@ Diese KNF-Formel hat folgendes Inferenzproblem, wenn sie als HL-MRF repräsentie
 	\operatorname*{arg\,min}_{(a, b, c, d) \in {[0, 1]}^4} {\color{rot}w_1 \max\{a - b - c, 0\}} + {\color{blau}w_2 \max\{c + d - 1, 0\}} % chktex 21, chktex 35
 \]
 Da in der Verteilung $P$ von HL-MRFs die Exponentialfunktion auf die Potentiale angewandt wird, bewirkt eine unerfüllte Klausel mit $\Phi_j(x) = 0$ nicht, dass $P(X = x) = 0$.
-Stattdessen ist $P(X = x)$ proportional zu der Summe der Wahrheitswerte der Klauseln.
+Stattdessen wächst $P(X = x)$ mit der Summe der Wahrheitswerte der Klauseln.
+Je mehr Klauseln erfüllt sind, desto größer ist $P(X = x)$.
 Die HL-MRF-Inferenz beschreibt also nicht SAT, sondern eine Fuzzy-Logik-Entsprechung von MAX-SAT.\@
 Ein wichtiger Unterschied zum booleschen MAX-SAT ist, dass Klauseln gewichtet sind;
 das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer anderer Klauseln mit niedrigem Gewicht ausgleichen.
@@ -518,15 +521,15 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 	\item \textbf{Prädikate:}
 		Entsprechen in etwa den prädikatenlogischen Prädikaten.
 		Jedes PSL Prädikat hat einen eindeutigen Bezeichner und eine Signatur aus Konstanten\-typen.
-		\[Person: \text{UUID},\quad Name: \text{UUID} \times \text{String}\]
+		\[\mathit{Person}: \text{UUID},\quad \mathit{Name}: \text{UUID} \times \text{String}\]
 	\item \textbf{Atome:}
 		Ein Atom ist ein Prädikat der Arität $n$, kombiniert mit einem $n$-Tupel von Termen.
 		Das Term-Tupel enthält die Argumente des Prädikates.
 		Wenn alle Argumente Konstanten sind, spricht man von einem Grundatom (\textit{ground atom}). \\
-		\[Person(x),\quad Name(x, \text{``Alice''})\] % chktex 32
+		\[\mathit{Person}(x),\quad \mathit{Name}(x, \text{``Alice''})\] % chktex 32
 	\item \textbf{Literale:}
 		Ein Literal ist entweder ein Atom oder ein negiertes Atom. \\
-		\[Name(x, \text{``Alice''}),\quad \lnot Name(x, \text{``Bob''})\] % chktex 32
+		\[\mathit{Name}(x, \text{``Alice''}),\quad \lnot \mathit{Name}(x, \text{``Bob''})\] % chktex 32
 	\item \textbf{Regeln:}
 		Eine Regel ist eine gewichtete Disjunktionsklausel von Literalen.
 		Die negativen Atome der Klausel bilden dabei den sog.\ Körper $B$ (\textit{body}), die positiven Atome den sog.\ Kopf $H$ (\textit{head}) der Regel.
@@ -535,7 +538,7 @@ Die Syntax von PSL ist an die Prädikatenlogik angelehnt und besteht aus sieben 
 			\left(\bigvee_{b \in B} \lnot b\right) \lor \left(\bigvee_{h \in H} h\right) \Leftrightarrow \left(\bigwedge_{b \in B}  b\right) \rightarrow \left(\bigvee_{h \in H} h\right)
 		\]
 		Mit Implikationen lassen sich nun intuitiv Zusammenhänge zwischen Prädikaten modellieren.\\
-		\[0.65: Person(x) \land Name(x, \text{``Alice''}) \rightarrow Female(x)\] % chktex 32, chktex 1
+		\[0.65: \mathit{Person}(x) \land \mathit{Name}(x, \text{``Alice''}) \rightarrow Female(x)\] % chktex 32, chktex 1
 \end{enumerate}
 
 Eine Menge von PSL-Regeln wird PSL-Programm genannt.
@@ -549,52 +552,52 @@ Ein Anwendungsgebiet von PSL ist z.~B. die Modellierung sozialer Beziehungen.
 Angenommen, es sollen Freundschaftsbeziehungen zwischen Personen inferiert werden.
 Ein stark vereinfachtes PSL-Programm hierfür könnte so aussehen:
 \begin{align*}
-	0.4:&\ \lnot Friends(A, B) & \rulemark{rule:theory:prior} \\
-	0.5:&\ Friends(A, B) \land Friends(B, C) \land A \neq C \rightarrow Friends(A, C) & \rulemark{rule:theory:trans} \\
-	1:&\ Interest(A, X) \land Interest(B, X) \rightarrow Friends(A, B) & \rulemark{rule:theory:sim} \\
-	\infty:&\ Friends(A, B) \rightarrow Friends(B, A) & \rulemark{rule:theory:sym} \\
-	\infty:&\ \lnot Friends(A, A) & \rulemark{rule:theory:irref}
+	0.4:&\ \lnot \mathit{Friends}(A, B) & \rulemark{rule:theory:prior} \\
+	0.5:&\ \mathit{Friends}(A, B) \land \mathit{Friends}(B, C) \land A \neq C \rightarrow \mathit{Friends}(A, C) & \rulemark{rule:theory:trans} \\
+	1:&\ \mathit{Interest}(A, X) \land \mathit{Interest}(B, X) \rightarrow \mathit{Friends}(A, B) & \rulemark{rule:theory:sim} \\
+	\infty:&\ \mathit{Friends}(A, B) \rightarrow \mathit{Friends}(B, A) & \rulemark{rule:theory:sym} \\
+	\infty:&\ \lnot \mathit{Friends}(A, A) & \rulemark{rule:theory:irref}
 \end{align*}
-In dieser Regelmenge sind fünf Annahmen über das Verhalten der $Friends$-Relation kodiert:
+In dieser Regelmenge sind fünf Annahmen über das Verhalten der $\mathit{Friends}$-Relation kodiert:
 \begin{enumerate}[label=$(\ruleno{\arabic*})$]
 	\item bildet ab, dass zwei Personen a~priori nicht miteinander befreundet sind.
 		Eine solche PSL-Regel, die, in Ermanglung weiteren Wissens, das Nichtvorhanden\-sein einer Relation postuliert, wird \textit{Prior} genannt.
-	\item bildet die Transitivität der $Friends$-Relation ab.
+	\item bildet die Transitivität der $\mathit{Friends}$-Relation ab.
 		Zwei Personen mit einem gemeinsamen Freund, sind evtl.\ befreundet.
 		Das Infix-Prädikat $\neq$ ist üblicherweise vordefiniert.
 	\item bildet ab, dass Personen mit einem gemeinsamen Interesse eine höhere Wahrscheinlichkeit haben befreundet zu sein.
-	\item bildet die Symmetrie der $Friends$-Relation ab.
+	\item bildet die Symmetrie der $\mathit{Friends}$-Relation ab.
 		Im Gegensatz zu den anderen Regeln, ist \ruleref{rule:theory:sym} ein sog.\ \textit{Constraint}, d.~h.\ sie hat ein Gewicht $w_4 = \infty$.
 		Das Nichterfüllen von \ruleref{rule:theory:sym} hat somit zur Folge, dass die gewichtete Distance to Satisfaction ebenfalls den Wert $\infty$ annimmt und durch die Erfüllung anderer Regeln nicht ausgeglichen werden kann.
 		Es ist also garantiert, dass jede MAX-SAT Lösung \ruleref{rule:theory:sym} einhält;
-		d.~h. $Friends(A, B) = Friends(B, A)$.
-	\item ist ein weiterer Constraint, der die Irreflexivität von $Friends$ erzwingt.
+		d.~h. $\mathit{Friends}(A, B) = \mathit{Friends}(B, A)$.
+	\item ist ein weiterer Constraint, der die Irreflexivität von $\mathit{Friends}$ erzwingt.
 \end{enumerate}
 
 Für das PSL-Programm $R = \{ \ruleno{1}, \dots, \rulecurrent \}$ sei nun folgender Input $\mathcal{A}$ gegeben:
 \begin{align*}
 	\mathbb{C} &= \left\{ % chktex 21
 		\begin{aligned}
-			{\color{rot}Interest}(\text{``Alice''}, \text{``Reading''}) &= 0.5,\ &{\color{rot}Interest}(\text{``Dave''}, \text{``Reading''}) &= 1, \\
-			{\color{rot}Interest}(\text{``Alice''}, \text{``Skiing''}) &= 0.5,\ &{\color{rot}Interest}(\text{``Charlie''}, \text{``Skiing''}) &= 1, \\
-			{\color{rot}Interest}(\text{``Bob''}, \text{``Tennis''}) &= 1,\ &{\color{rot}Interest}(\text{``Charlie''}, \text{``Tennis''}) &= 1, \\
-			{\color{gruen}Friends}(\text{``Alice''}, \text{``Bob''}) &= 1
+			\mathit{\color{rot}Interest}(\text{``Alice''}, \text{``Reading''}) &= 0.5,\ &\mathit{\color{rot}Interest}(\text{``Dave''}, \text{``Reading''}) &= 1, \\
+			\mathit{\color{rot}Interest}(\text{``Alice''}, \text{``Skiing''}) &= 0.5,\ &\mathit{\color{rot}Interest}(\text{``Charlie''}, \text{``Skiing''}) &= 1, \\
+			\mathit{\color{rot}Interest}(\text{``Bob''}, \text{``Tennis''}) &= 1,\ &\mathit{\color{rot}Interest}(\text{``Charlie''}, \text{``Tennis''}) &= 1, \\
+			\mathit{\color{gruen}Friends}(\text{``Alice''}, \text{``Bob''}) &= 1
 		\end{aligned}
 	\right\} \\ % chktex 21
-	\mathbb{O} &= \{{\color{blau}Friends}(x, y) =\ \textbf{?} : x, y \in \{\text{``Alice''}, \text{``Bob''}, \text{``Charlie''}, \text{``Dave''}\}\} \setminus \mathbb{C} % chktex 21
+	\mathbb{O} &= \{\mathit{\color{blau}Friends}(x, y) =\ \textbf{?} : x, y \in \{\text{``Alice''}, \text{``Bob''}, \text{``Charlie''}, \text{``Dave''}\}\} \setminus \mathbb{C} % chktex 21
 \end{align*}
 Die Interessen der Personen und die Freundschaft zwischen Bob und Alice aus $\mathbb{C}$ werden als bekannt angenommen.
 Die gesuchten Freundschaftsrelationen aus $\mathbb{O}$ sollen inferiert werden.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{gfx/theory/pslExample1.pdf}
-	\caption{Graph der inferierten {\color{blau}$Friends$-Relation} und der gegebenen {\color{rot}$Interest$-Relation}.}\label{fig:theory:pslExample1}
+	\caption[Graph der inferierten $\mathit{Friends}$-Relation und der gegebenen $\mathit{Interest}$-Relation]{Graph der inferierten {\color{blau}$\mathit{Friends}$-Relation} und der gegebenen {\color{rot}$\mathit{Interest}$-Relation}}\label{fig:theory:pslExample1}
 \end{figure}
 \figreft{fig:theory:pslExample1} zeigt ein mögliches MAX-SAT Ergebnis der Inferenz.
 Wegen des Priors $r_1$ werden Personen generell als nicht befreundet eingeordnet.
 Personen mit gemeinsamen Interessen werden hingegen, aufgrund von $r_3$, als Freunde erkannt.
 Die durch $r_2$ modellierte Transitivitäteigenschaft ist ein weiterer verstärkender Faktor.
-Dies lässt sich in der Clique \textit{Alice-Bob-Charlie} beobachten, die $Friends$-Beziehungen haben sich dort gegenseitig verstärkt.
+Dies lässt sich in der Clique \textit{Alice-Bob-Charlie} beobachten, die $\mathit{Friends}$-Beziehungen haben sich dort gegenseitig verstärkt.
 
 \subsubsection{PSL~$\rightarrow$~HL-MRF Übersetzung}
 
@@ -632,8 +635,8 @@ Prinzipiell kann daher jedes konvexe Optimierungsverfahren im Kontext von HL-MRF
 In der Praxis hat sich jedoch ein Verfahren als besonders effizient erwiesen.
 
 \paragraph{ADMM}
-Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM) ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
-Durch diese Variation lässt sich ADMM gut parallelisieren und ist somit geeignet für große Datenmengen und den Einsatz in Cluster-Umgebungen.
+Das sog.\ \textit{Alternating Direction Method of Multipliers} Verfahren (ADMM)~\cite{Boyd2011} ist eine Variante des \textit{Method of Multipliers} Verfahrens, in der die dualen Variablen partiell aktualisiert werden.
+Durch diese Variation lässt sich ADMM gut parallelisieren und ist somit für große Datenmengen und den Einsatz in Cluster-Umgebungen geeignet.
 In~\cite[Kapitel 10]{Boyd2011} wird beschrieben, wie sich ADMM mit verteilten Datensets und verteilten Programmiermodellen wie z.~B. \textit{MapReduce}~\cite{Dean2008} oder \textit{Pregel}~\cite{Malewicz2010} implementieren lässt.
 
 Die ADMM-Laufzeit ist proportional zur Klauselanzahl $|C|$.
@@ -641,7 +644,7 @@ Die Klauselanzahl wiederum wächst gemäß $\mathcal{O}(|\mathcal{A}|^r)$, wobei
 Insgesamt wächst die Inferenzdauer also polynomiell in Abhängigkeit zur Eingabe $\mathcal{A}$.
 
 \paragraph{BOCI}
-Um effiziente Updates eines gegebenen Inferenzergebnisses für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} (BOCI) Verfahren entwickelt.
+Um effiziente Updates eines gegebenen Inferenzergebnisses für eine veränderte Eingabe $\mathcal{A'}$ zu ermöglichen, wurde das \textit{Budgeted Online Collective Inference} Verfahren (BOCI)~\cite{Pujara2015} entwickelt.
 Wenn ein Inferenzergebnis für $\mathcal{A} = \mathbb{C} \mathbin{\dot\cup} \mathbb{O}$ existiert und anschließend die Wahrheitswerte für einen Teil der bislang offenen Atome aus $\mathbb{O}$ bekannt werden, muss mittels BOCI keine weitere vollständige Inferenz durchgeführt werden.
 
 Die Grundidee dabei ist es, Metadaten, die während der letzten ADMM-Inferenz angefallen sind, für eine Bewertung jedes Atoms zu benutzen.
