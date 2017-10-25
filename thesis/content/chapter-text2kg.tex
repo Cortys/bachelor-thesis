@@ -136,7 +136,7 @@ Dies ist je nach Person stark verschieden; manche tendieren dazu die allgemein a
 
 Um derartige Möglichkeiten und Notwendigkeiten direkt zu repräsentieren, reichen die vorgestellten Konzeptgraphen mit Negationskontexten nicht aus.
 Sowa hat dieses Problem ebenfalls erkannt und daher weitere Kontexttypen eingeführt.
-Die Beschreibung dieser zusätzlichen Kontexttypen ist allerdings oftmals zu unpräzise für eine eindeutige Übersetzung in die Prädikatenlogik.
+Die Beschreibung dieser zusätzlichen Kontexttypen ist allerdings oftmals zu unpräzise für eine eindeutige Übersetzung in die Prädikatenlogik~\cite{Wermelinger1995}.
 Aufbauend auf Sowas Ideen wird in dieser Arbeit daher eine Variante modaler Kontexte eingeführt, die die Übersetzbarkeit in die Prädikatenlogik erster Ordnung bewahrt.
 Da die zuvor vorgestellten Konzeptgraphen bereits vollständig und korrekt sind, handelt es sich bei diesen modalen Kontexten also lediglich um eine Kurzschreibweise.
 Insgesamt gibt es durch die Erweiterung um modale Kontexe nun vier Kontexttypen:
@@ -161,7 +161,7 @@ Da es nun vier Kontexttypen gibt, muss die Konzeptgraphsyntax leicht angepasst w
 \paragraph{Positiver Aktualkontext}
 Dieser Kontexttyp hat keinen Einfluss auf die Bedeutung der enthaltenen Knoten.
 Er entspricht in etwa der Klammerung in der Prädikatenlogik.
-Das \textit{Sheet of Assertion}~$\top$ ist ein solcher Kontext, abgesehen davon tauchen positive Aktualkontexte allerdings nicht auf;
+Das Sheet of Assertion~$\top$ ist ein solcher Kontext, abgesehen davon tauchen positive Aktualkontexte allerdings nicht auf;
 sie werden hier lediglich der Vollständigkeit halber erwähnt.
 \begin{align}
 	\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/positiveActual.pdf}}}
@@ -284,7 +284,7 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 		Für alle von SUTime erkannten Zeitangaben wird zudem ein neuer Knoten eingefügt.
 		Alle Token, die an der Spezifikation einer Zeitangabe beteiligt sind (z.~B. \textit{yesterday} und \textit{morning}), werden mittels einer Koreferenzkante mit dem hinzugefügten Zeitknoten verknüpft.
 	\item \textbf{Koreferenzklassen:}
-		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotatinsgraphen eingefügt.
+		Jede gefundene Token-Koreferenzklasse $C = \{t_1, \dots, t_n\}$ wird als eine Menge von Koreferenzkanten in den Annotationsgraphen eingefügt.
 		Als Kantenmenge wird allerdings nicht $C \times C$ verwendet, da diese unnötig groß ist und zudem nicht alle verfügbaren Informationen repräsentiert.
 		Die CoreNLP Coreference Resolution ordnet jeder Klasse nämlich eine sog.\ \textit{Representative Mention} $rep(C) \in C$ zu.
 		$rep(C)$ ist das Token einer Klasse, welches diese am besten repräsentiert.
@@ -299,7 +299,7 @@ Hierbei handelt es sich um den Abhängigkeitsgraphen des CoreNLP \textit{Enhance
 		Um die $rep$-Information zu erhalten, werden nur Koreferenzkanten von den anderen Klassentoken $C \setminus \{rep(C)\}$ zu $rep(C)$ hinzugefügt.
 \end{enumerate}
 
-\figreft{fig:text2kg:annotationGraph1} zeigt den Annotationsgraphen der Beispielnachricht $m_2$.
+\figreft{fig:text2kg:annotationGraph1} zeigt den Annotationsgraphen der Beispielnachricht $m_1$.
 In den Knoten sind die Token-Lemmata, die NER-Klasse und der POS-Tag dargestellt.
 Informationen, die nicht aus dem Abhängigkeitsgraphen stammen, wurden farblich hervorgehoben.
 \begin{figure}[h]
@@ -374,7 +374,7 @@ Sie werden auf drei Wegen aus den Annotationen extrahiert.
 		Der Umgang mit Kopulae wird im Kontext der $inst$-Relation betrachtet.
 
 		Konkret werden also folgende Transformationen durchgeführt:
-		$nsubj(x, y) \rightarrow agent(x, y)$, $nsubjpass(x, y) \lor dobj(x, y) \rightarrow patient(x, y)$ und $tag(x, \text{VB*}) \rightarrow relation(x)$.
+		$nsubj(x, y) \rightarrow agent(x, y)$, $nsubjpass(x, y) \lor dobj(x, y) \rightarrow patient(x, y)$ und $tag(x, \texttt{VB*}) \rightarrow relation(x)$.
 		Dabei darf $x$ keine Kopula sein.
 	\item \textbf{Präpositionen:}
 		Neben Prädikaten werden Präpositionen häufig zum Verknüpfen von Konzepten benutzt.
@@ -472,13 +472,13 @@ Im zweiten Schritt werden dann die negativen Aktualkontexte hinzugefügt.
 		Die Interpretation gemäß der Regel ist allerdings meist zutreffend, da alternative Interpretationen im Englischen i.~d.~R. nur durch Betonung bestimmter Wörter ausgedrückt werden können.
 		Das Einfügen negativer Kontexte läuft gemäß der vorigen Überlegungen wie folgt ab:
 		\begin{enumerate}[label*={\arabic*}]
-			\item Konzepte, die eine ungerade Anzahl von $neg$-Beziehungen zu Negations-Token haben, werden von einem negativen Aktualkontext umschlossen.
+			\item Konzepte, die eine ungerade Anzahl von $neg$-Beziehungen zu Negations-Token im Annotationsgraphen haben, werden von einem negativen Aktual\-kontext umschlossen.
 				\begin{align*}
 					\textit{No man drinks no beer.}
 					\rightarrow
 					\vcenter{\hbox{\includegraphics[scale=\cgScale]{gfx/text2kg/negContext1.pdf}}}
 				\end{align*}
-			\item Es kann nun $agent$- oder $patient$-Kanten geben, die in einen der hinzugefügten Negationskontexe hineinlaufen, was gemäß der vorigen Überlegungen {\color{rot}unzulässig} ist.
+			\item Es kann nun $agent$- oder $patient$-Kanten geben, die in einen der hinzugefügten negativen Kontexte hineinlaufen, was gemäß der vorigen Überlegungen {\color{rot}unzulässig} ist.
 				Für jede dieser Kanten von $x$ nach $y$ werden nun Korrekturen vorgenommen, sodass hinterher $x \leq y$ gilt und somit keine Regel-Verletzungen mehr vorliegen.
 				Es werden dabei zuerst $patient$-Kanten, dann $agent$-Kanten, korrigiert.
 				\begin{enumerate}[label*={.\arabic*}]
@@ -601,7 +601,7 @@ Darüber hinaus müssen allerdings noch Prädikate für die Modellierung der Kon
 	\item $possibility: \textbf{UUID}$: Markiert Möglichkeitskontexte.
 	\item $negative: \textbf{UUID}$: Markiert negative Kontexte.
 	\item $nest: \textbf{UUID} \times \textbf{UUID}$: Ordnet Kontexten ihre direkten Kindknoten zu.
-	\item $nest_{indirect}: \textbf{UUID} \times \textbf{UUID}$: Ordnet jedem Kontext alle Knoten zu, die von seiner Kontextbox umschlossen sind.
+	\item $nest_{indirect}: \textbf{UUID} \times \textbf{UUID}$: Ordnet jedem Kontext alle Knoten zu, deren umgebender Kontext er ist.
 \end{enumerate}
 \edef\pslPredCount{\theenumi}
 
@@ -702,7 +702,7 @@ Die geschlossenen Grund\-atome $\mathbb{C}$ der Eingabe sind die Relationen im K
 Wären zuvor inferierte Atome Teil von $\mathbb{C}$, könnten diese während der Inferenz nämlich nicht mehr aktualisiert werden, was z.~B. beim Einfügen von zusätzlicher Evidenz für eine bereits vorhandene Relation wichtig ist.
 Als offene Grundatommenge $\mathbb{O}$ wird die Menge aller möglicher Relationen verwendet, die nicht in $\mathbb{C}$ liegen.
 $\mathbb{O}$ kann und muss dabei nicht vollständig in den Speicher geladen werden.
-Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mathbb{O}$ werden erst dann instanziiert, wenn sie das erste Mal in einer Grundregel auftauchen.
+Stattdessen wird eine sog.\ Lazy-Inference verwendet, d.~h.\ alle Atome in $\mathbb{O}$ werden erst dann instanziiert, wenn es gemäß einer PSL-Regel Evidenz für sie gibt.
 Als Inferenzverfahren wird das in~\ref{sec:theory:psl:inference} vorgestellte ADMM-Verfahren benutzt.
 BOCI konnte nicht benutzt werden, da es in seiner aktuellen Form erfordert, dass keine neuen Grundatome zwischen zwei Inferenzen hinzukommen;
 beim Einfügen einer Nachricht gilt dies offensichtlich nicht.

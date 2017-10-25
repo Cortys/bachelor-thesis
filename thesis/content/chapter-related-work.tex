@@ -29,7 +29,7 @@ Frege benutzt hierfür eine zweidimensionale Notation, die sich stark von der he
 	\quad\Leftrightarrow\quad
 	\exists\ a: P(a) \lor R(a)
 \end{equation*}
-Im Gegensatz zur Prädikatenlogik gibt es keine eigene Syntax für \textit{UND} und \textit{ODER};
+Im Gegensatz zur modernen Prädikatenlogik gibt es keine eigene Syntax für \textit{UND} und \textit{ODER};
 diese Operatoren müssen durch die Kombination von Negation und Implikation abgebildet werden.
 Zudem gibt es ausschließlich den Allquantor;
 eine existenzquantisierte Aussage muss durch Negation der negierten allquantisierten Aussage ausgedrückt werden.
@@ -275,7 +275,7 @@ In der Literatur finden sich im Wesentlichen drei Klassen von SRL-Verfahren~\cit
 
 \paragraph{Latent Feature Models}
 Ein Beispiel für ein Latent-Feature-Modell ist das RESCAL-Verfahren~\cite{Nickel2013}, welches auf Tensorfaktorisierung basiert.
-Die Grundidee dabei ist es, allen Entitäten $i$ einen Vektor $e_i \in \mathbb{R}^H$, welcher $H$ Eigenschaften bzw.\ Features von $i$ repräsentiert, zuzuordnen und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
+Die Grundidee dabei ist es, allen Entitäten $i$ einen sog.\ Feature-Vektor $e_i \in \mathbb{R}^H$ zuzuordnen, welcher $H$ Eigenschaften bzw.\ Features von $i$ repräsentiert, und für alle Relationen $k$ eine Gewichtsmatrix $W_k \in \mathbb{R}^{H \times H}$ zu finden.
 Die Konfidenz in die Existenz einer Relation $i \xrightarrow{k} j$ wird durch $e_i^\top\ W_k\ e_j$ beschrieben.
 Diese Definition ermöglicht eine sehr schnelle Link Prediction, da lediglich ein Vektor-Matrix-Vektor-Produkt berechnet werden muss.
 RESCAL liefert gute Ergebnisse, wenn die vorherzusagenden Relationen globale Abhängigkeiten aufweisen.

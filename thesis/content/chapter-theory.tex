@@ -18,7 +18,7 @@ Sie werden daher in den folgenden Abschnitten näher beschrieben.
 John F. Sowas Konzeptgraphen~\cite{Harmelen2007} bilden die Basis der Graphontologie dieser Arbeit.
 Wie in~\ref{sec:related:kr:history} beschrieben, sind sie ein auf Existenzgraphen basierendes logisches Kalkül.
 Die vollständige Konzeptgraphsyntax geht allerdings weit über die Prädikatenlogik hinaus, da auch Modallogik und natürlichsprachliche Konzepte, wie z.~B. Fragen und Betonungen, unterstützt werden.
-Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind, werden im Folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
+Da Sowas eigene Beschreibungen diesbezüglich teils etwas unklar sind~\cite{Wermelinger1995}, werden im Folgenden lediglich die sog.~\textit{Conceptual Graphs with Cuts}~\cite{Dau2003} vorgestellt.
 Sie sind eine zur Prädikatenlogik erster Ordnung äquivalente, formal spezifizierte Teilmenge der Konzeptgraphen, die ein Kalkül bildet, dessen Vollständigkeit und Korrektheit bewiesen ist.
 
 \subsection{Syntax}%
@@ -120,7 +120,7 @@ Ein Konzeptgraph $G = (V, E)$ ist ein gerichteter Graph mit den folgenden Eigens
 	nest(c, v) :\Leftrightarrow\ &context(c) \land \text{$c$ ist Elternkontext von $v$} \\
 	& \forall v \in V: (\exists\, c \in V \setminus \{ \top \}: nest(c, v)) \lor nest(\top, v) \label{eq:theory:kgcrit0}\numberthis \\ % chktex 21
 	& (V, \{ (c, v): nest(c, v) \land v \neq \top \}) \text{ ist zyklenfrei} \label{eq:theory:kgcrit1}\numberthis \\ % chktex 21
-	& \lnot \exists\, c_1, c_2, a:nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit2}\numberthis % chktex 21
+	& \lnot \exists\, c_1, c_2, a: c_1 \neq c_2 \land nest(c_1, a) \land nest(c_2, a) \label{eq:theory:kgcrit2}\numberthis % chktex 21
 \end{align*}
 Zentral in dieser Definition sind die Kriterien~\eqref{eq:theory:kgcrit0},~\eqref{eq:theory:kgcrit1} und~\eqref{eq:theory:kgcrit2}.
 Sie fordern, dass der Teilgraph $T = (V, \{ (c, v): nest(c, v) \land v \neq \top \})$ ein gerichteter Baum mit Wurzel $\top$ ist.
@@ -249,7 +249,7 @@ CoreNLP benutzt hierfür eine Menge von Entitätsklassen, die sich in drei Kateg
 Ermittelt Äquivalenzklassen von Token, die auf dasselbe Konzept bzw.\ dieselbe Entität verweisen.
 CoreNLP stellt hierfür drei verschiedene Systeme bereit:
 Ein schnelles, regelbasiertes, deterministisches System, ein etwas langsameres statistisches System und zuletzt ein langsames System, das auf neuronalen Netzen (NN) basiert.
-Das regelbasierte System liefert die schlechtesten Ergebnisse, das NN-System die besten.
+Das regelbasierte System liefert im Schnitt die schlechtesten Ergebnisse, das NN-System die besten~\cite{CoreNLPCoref}.
 
 \paragraph{Dependency Parsing}
 Dieser Annotator ermittelt die grammatikalischen Beziehungen zwischen Worten.
@@ -317,10 +317,10 @@ Eine häufig benutzte Methode, um die Verteilung $P(X = x)$ eines MRFs $G$ zu be
 	\Phi_c(x_c) :=&\ \text{Cliquenpotential $\in \mathbb{R}^{+}_0$ der Werte $x_c$ von $X_c$} \\
 	P(X = x) =&\ \frac{1}{Z} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \text{, mit Normalisier.konst. } Z := \sum_{x \in \mathcal{X}} \prod_{i = 1}^{m} \Phi_{c_i}(x_{c_i}) \numberthis
 \end{align*}
-Es lässt sich zeigen, dass für jedes MRF mit einer Verteilung $P'$ mit positiver Dichte eine Potentialfunktion $\Phi$ existiert, sodass $P' = P$.
+Es lässt sich zeigen, dass für jedes MRF mit einer Verteilung $P'$ mit positiver Dichte eine Potentialfunktion $\Phi$ existiert, sodass $P' = P$ gemäß der obigen Definition~\cite{Bilmes2006}.
 
 \paragraph{Beispiel}
-Die obigen Definitionen sind bislang noch recht abstrakt.
+Die Beschreibungen von MRFs und deren Faktorisierung sind bislang noch recht abstrakt.
 Ein exemplarisches praktisches Einsatzgebiet von MRFs ist das Lösen von SAT-Problemen~\cite{Bach2015a}.
 Gegeben sei die SAT-Instanz ${\color{rot}(\lnot A \lor B \lor C)} \land {\color{blau}(\lnot C \lor \lnot D)}$.
 Ein Cliquen-faktorisiertes MRF kann benutzt werden, um dieses Problem zu modellieren und eine erfüllende Belegung zu finden.\\
@@ -504,7 +504,7 @@ das Erfüllen einer Klausel mit hohem Gewicht kann das Nicht-Erfüllen mehrerer 
 
 Wie soeben beschrieben, sind HL-MRFs ein flexibles Werkzeug, um Probleme zu lösen, die sich durch MAX-SAT ausdrücken lassen.
 Der Schritt von einem konkreten domänenspezifischen Problem in eine Menge von Klauseln $C$ und einen Gewichtsvektor $w$ ist bislang allerdings noch unklar.
-An dieser Stelle setzt die \textit{Probabilistic Soft Logic} (PSL) an.
+An dieser Stelle setzt die \textit{Probabilistic Soft Logic}~(PSL)~\cite{Broecheler2010}\cite{Bach2015} an.
 PSL ist eine formale Sprache, um Klassen von HL-MRFs mit einer intuitiven Syntax zu beschreiben.
 
 \subsubsection{PSL Syntax}

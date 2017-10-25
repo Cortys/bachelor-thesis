@@ -11,13 +11,13 @@ Die Testnachrichten 1--7 stammen aus dem Thread \texttt{bin1/363227} des Enron T
 Die Testnachricht 8 wurde nachträglich hinzugefügt, da in den vorherigen Nachrichten keine Negation vorkam.
 Da das implementierte Wissensgraph-Konstruktionsverfahren nicht speziell für E-Mails ausgelegt ist, wird nicht zwischen Absender und Absender-Adresse unterschieden.
 Die Absender- und Empfänger-Adressen in den Rohdaten wurden daher durch die Namen der Absender bzw. Empfänger ersetzt.
-Abgesehen von dieser Änderung, wurden die Inhalte und Absendezeitpunkte der Mails unverändert übernommen.
+Abgesehen von dieser Änderung wurden die Inhalte und Absendezeitpunkte der Mails unverändert übernommen.
 \inputminted{clojure}{data/evaluation/testdata.clj}
 
 \section{Verwendete Testanfragen}%
 \label{sec:appendix:queries}
 
-Zur Evaluation des aus den Testnachrichten konstruierten Wissensgraphen, wurden drei Testanfragen verwendet, die jeweils verschiedene Aspekte des Graphen betrachten.
+Zur Evaluation des aus den Testnachrichten konstruierten Wissensgraphen wurden drei Testanfragen verwendet, die jeweils verschiedene Aspekte des Graphen betrachten.
 Die Anfragen sind in der Sprache Cypher des Neo4j-Graphdatenbanksystems~\cite{Neo4j} geschrieben.
 Die Tests wurden mit Neo4j~3.2.6 und dem Graph Algorithms Plugin~3.2.2.1~\cite{GraphAlgo} durchgeführt.
 
@@ -56,8 +56,8 @@ Um zu bestimmen, um was für eine Art von Nummer es sich dabei jeweils handelt, 
 \inputminted{cypher}{data/evaluation/personNegationAction.cql}
 Diese Anfrage ermittelt zuerst alle Relationen, die von einem Kontext umgeben sind, der den Inhalt einer Nachricht beschreibt, die von \textit{John Doe} gesendet wurde.
 Anschließend wird für jede Relation geprüft, ob sie negative umgebende Kontexte hat.
-Da in der NLP-Phase bereits doppelte Verneinungen vereinfacht werden, müssen diese nicht beachtet werden.
-Es sind daher drei Fälle zu beachten:
+Da bereits in der NLP-Phase doppelte Verneinungen vereinfacht werden, müssen diese nicht beachtet werden.
+Es ist daher zwischen drei Fällen zu unterscheiden:
 \begin{enumerate}
 	\item \textbf{\texttt{POSITIVE}:}
 		Die Relation hat keine negativen umgebenden Kontexte und ist somit selbst positiv.
@@ -85,11 +85,12 @@ Für jede Nachricht $m_i$ werden die folgenden Daten angegeben:
 	\item Der Korrelationskoeffizient $Kor_i(t, \mathbb{C}) = Kor({(t_j)}_{j = i, \dots, 57}, {(|\mathbb{C}_j|)}_{j = i, \dots, 57})$.
 	\item Der Korrelationskoeffizient $Kor_i(\Delta t, c) = Kor({(\Delta t_j)}_{j = i, \dots, 57}, {(c_j)}_{j = i, \dots, 57})$.
 \end{enumerate}
-\def\ikor{$Kor_i(t, \mathbb{C})$}
-\def\ckor{$Kor_i(\Delta t, c)$}
 
 Die Nachrichten $m_1, \dots, m_{24}$ stammen aus \texttt{bin1/300249}, $m_{25}, \dots, m_{32}$ sind die für die Qualitätsuntersuchung verwendeten Nachrichten aus \texttt{bin1/363227}~\tref{sec:appendix:msgs}, $m_{33}, \dots, m_{57}$ stammen aus \texttt{bin5/350143}.
-\csvautobooklongtable[
+\csvreader[
+	longtable={rrrrrS[group-digits=false]S[group-digits=false]},
 	separator=comma,
-	table head=\toprule$i$ & $t_i$ & $\Delta t_i$ & $|\mathbb{C}_i|$ & $c_i$ & \ikor\ & \ckor\\\midrule, % chktex 21
-]{data/evaluation/perfBig.csv}
+	table head={\toprule$i$ & $t_i$ & $\Delta t_i$ & $|\mathbb{C}_i|$ & $c_i$ & {$Kor_{i}(t, \mathbb{C})$} & {$Kor_{i}(\Delta t, c)$}\\\midrule\endhead\bottomrule\endfoot}, % chktex 21
+	late after line=\\,
+	head to column names
+]{data/evaluation/perfBig.csv}{}{\i& $\time$& $\dtime$& $\input$& $\concepts$& \icorrel& \ccorrel}

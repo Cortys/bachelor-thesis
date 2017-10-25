@@ -64,7 +64,14 @@ Dabei wird zwischen zwei Arten von Fehlern unterschieden:
 \paragraph{Personen}
 Die erste Anfrage~\tref{sec:appendix:queries:people} testet, welche Personen in den Testnachrichten erkannt wurden.
 Da dieselbe Person in verschiedenen Kontexten verschiedene Namen haben kann, ist die Ausgabe der Anfrage eine Liste von Personen, die jeweils durch eine Liste von Namen beschrieben werden.
-\csvautobooklongtable[separator=semicolon]{data/evaluation/people.csv}
+\csvreader[
+	longtable={rl},
+	separator=semicolon,
+	table head=\toprule& people\\\midrule\endhead, % chktex 21
+	late after line=\\,
+	late after last line=\\\bottomrule\endfoot,
+	head to column names
+]{data/evaluation/people.csv}{}{\i&\people}
 In den Testnachrichten werden fünf Personen erkannt.
 Dabei lassen sich zwei Fehler beobachten:
 \begin{enumerate}
@@ -81,7 +88,14 @@ Dabei lassen sich zwei Fehler beobachten:
 \paragraph{Ereignisse und Termine}
 Die zweite Anfrage~\tref{sec:appendix:queries:events} testet, wie gut $relation$-Konzepte erkannt werden.
 Hierfür wird aufgelistet, was \textit{Duane Seppi} wann getan hat.
-\csvautobooklongtable{data/evaluation/personTimeAction.csv}
+\csvreader[
+	longtable={rlll},
+	separator=comma,
+	table head=\toprule& relation & patient & time\\\midrule\endhead, % chktex 21
+	late after line=\\,
+	late after last line=\\\bottomrule\endfoot,
+	head to column names
+]{data/evaluation/personTimeAction.csv}{}{\i&\relation&\patient&\time}
 Wie zu erwarten, finden sich im Ergebnis für alle gesendeten und empfangenen Nachrichten entsprechende \textit{send}- bzw. \textit{receive}-Einträge.
 Unter den übrigen Einträgen wurden den ersten beiden Einträgen Zeitpunkte zugeordnet.
 Beide stammen aus der ersten Testnachricht und sind im Wesentlichen korrekt, die relativen Zeitangaben \textit{yesterday} und \textit{today} wurden von SUTime korrekt aufgelöst und die PSL-Regel \ruleref{rule:text2kg:i} hat die Pronomina, die Agens der $relation$-Konzepte sind, korrekt der Person \textit{Duane Seppi} zugeordnet.
@@ -155,8 +169,8 @@ Da ein Testdurchlauf knapp 42 Stunden benötigt, wurden aus zeitlichen Gründen 
 \end{figure}
 Wie erwartet steigt die Inferenzdauer mit jeder eingefügten Nachricht tendenziell an; es lässt sich jedoch beobachten, dass das Einfügen der ersten Nachricht aus einem Thread eine deutliche Erhöhung der Inferenzdauer verursacht.
 Eine Erklärung hierfür ist, dass die Stärke des Anstiegs der Inferenzdauer, von der Anzahl neuer Konzepte in einer Nachricht abhängt.
-Die Inferenzdauer-Anstiege zwischen zwei Threads werden dadurch verursacht, dass die erste Nachricht eines neuen Threads i.~d.~R. viele neue Konzepte einführt.
-Diese Erklärung wird durch die Korrelation des Anstiegs der Inferenzdauer $\Delta t_i = t_i - t_{i - 1}$ zwischen zwei Nachrichten $m_{i - 1}, m_i$ und der Anzahl neuer Konzepte $c_i$ in der Nachricht $m_i$ unterstützt.
+Die Inferenzdauer-Anstiege zwischen zwei Threads werden gemäß dieser Erklärung dadurch verursacht, dass die erste Nachricht eines neuen Threads i.~d.~R. viele neue Konzepte einführt.
+Dies wird durch die Korrelation des Anstiegs der Inferenzdauer $\Delta t_i = t_i - t_{i - 1}$ zwischen zwei Nachrichten $m_{i - 1}, m_i$ und der Anzahl neuer Konzepte $c_i$ in $m_i$ unterstützt.
 Die Korrelation $Kor(\Delta t, c)$ über die gesamte Messreihe beträgt lediglich $0.187$, da insbesondere im ersten Thread konstante Faktoren die Laufzeit dominieren.
 Betrachtet man daher nur die Nachrichten des zweiten und dritten Threads $m_{25}, \dots, m_{57}$ ergibt sich jedoch $Kor_{25}(\Delta t, c) = 0.616$.
 
